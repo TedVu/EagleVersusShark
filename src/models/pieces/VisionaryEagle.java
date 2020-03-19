@@ -24,6 +24,11 @@ public class VisionaryEagle extends AbstractEagle{
 		return getPosition();
 	}
 
+	@Override
+	public String getType() {
+		return "VISIONARY EAGLE";
+	}
+
 
 
 }

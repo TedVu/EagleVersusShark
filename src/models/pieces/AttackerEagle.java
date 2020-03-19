@@ -21,6 +21,11 @@ public class AttackerEagle extends AbstractEagle{
 		return getPosition();
 	}
 
+	@Override
+	public String getType() {
+		return "ATTACKER EAGLE";
+	}
+
 
 
 }
