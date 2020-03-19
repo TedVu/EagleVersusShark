@@ -12,4 +12,5 @@ public interface Piece {
 	public boolean isActive();
 	public UUID getId();
 
+	
 }
