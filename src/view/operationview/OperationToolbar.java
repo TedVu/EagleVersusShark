@@ -30,11 +30,10 @@ public class OperationToolbar extends JMenuBar {
 		helpMenu.setMnemonic(KeyEvent.VK_H);
 		helpMenuBar = new JMenuBar();
 		helpMenuBar.add(helpMenu);
-		setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
+		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		this.add(fileMenuBar);
 		this.add(editMenuBar);
 		this.add(helpMenuBar);
-
 
 	}
 

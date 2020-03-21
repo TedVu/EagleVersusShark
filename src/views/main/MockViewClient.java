@@ -13,7 +13,7 @@ public class MockViewClient {
 			public void run() {
 				new MainAppFrame();
 			}
-			
+
 		});
 	}
 }
