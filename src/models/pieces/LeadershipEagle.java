@@ -9,21 +9,34 @@ public class LeadershipEagle extends AbstractPiece{
 	}
 	
 	/*
+	 * validate the new position and set it if it's valid
 	 * 
+	 * @param int newX - new x position
+	 * 
+	 * @param int newY - new y position
+	 * 
+	 * @return position valid based on rule ? true : false
 	 */
 	@Override
-	public Map<String, Integer> move(int x, int y) {
-		//board
-		int row=5;
-		int col=5;
+	public boolean movePiece(int newX, int newY) {
 		
+		Map<String, Integer> currentPosition= this.getPosition();
 		
+		int currX = currentPosition.get("x");
+		int currY = currentPosition.get("y");
 		
-//		insert code to check if the coordinate is valid for this piece type
-		System.out.println("moving attacker eagle from LeadershipEagle class");
-		
-		setPosition(x, y);
-		return getPosition();
+		if(newX > currentPosition.get("x") + 2 || newY > currentPosition.get("y") + 2 || 
+				newX < currentPosition.get("x") - 2 || newY < currentPosition.get("y") - 2) {
+			return false;
+		}
+		else if((newX == currX +1 || newX == currX +2 || newX == currX - 1 || newX == currX - 2) &&
+				newY != currY) {
+			return false;
+		}
+		else {
+			setPosition(newX, newY);
+			return true;
+		}
 	}
 	
 	

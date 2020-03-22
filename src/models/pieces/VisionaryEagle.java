@@ -1,3 +1,4 @@
+
 package models.pieces;
 
 
@@ -12,33 +13,41 @@ public class VisionaryEagle extends AbstractPiece{
 		super(x, y);
 	}
 	
-	public boolean isCanSwapPosition() {
-		return canSwapPosition;
-	}
-
-	public void setCanSwapPosition(boolean canSwapPosition) {
-		this.canSwapPosition = canSwapPosition;
-	}
 	
+	//not  finish yet
+//	public boolean isCanSwapPosition() {
+//		return canSwapPosition;
+//	}
+//
+//	public void setCanSwapPosition(boolean canSwapPosition) {
+//		this.canSwapPosition = canSwapPosition;
+//	}
+	
+
 	/*
+	 * validate the new position and set it if it's valid
 	 * 
+	 * @param int newX - new x position
+	 * 
+	 * @param int newY - new y position
+	 * 
+	 * @return position valid based on rule ? true : false
 	 */
 	@Override
-	public Map<String, Integer> move(int x, int y) {
-
-//		insert code to check if the coordinate is valid for this piece type
+	public boolean movePiece(int newX, int newY) {
 		
-		System.out.println("moving visionary eagle from VisionaryEagle class");
+		Map<String, Integer> currentPosition= this.getPosition();
 		
-		int row=5;
-		int col=5;
-//		
-//		if(x > row + 2 || y > col + 2 || x < row - 2 || y < col - 2) {
-//			throw new IllegalArgumentException("visionary eagle can only move 2 blocks all around");
-//		}
+		if(newX > currentPosition.get("x") + 2 || newY > currentPosition.get("y") + 2 || 
+				newX < currentPosition.get("x") - 2 || newY < currentPosition.get("y") - 2) {
+			return false;
+		}
+		else {
+			setPosition(newX, newY);
+			return true;
+		}
 		
-		setPosition(x, y);
-		return getPosition();
+		
 	}
 	
 	

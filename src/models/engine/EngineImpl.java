@@ -1,34 +1,47 @@
 package models.engine;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
-
+import models.board.Board;
 import models.pieces.AbstractPiece;
 import models.pieces.Piece;
 import models.pieces.PieceFactory;
 import models.player.Player;
 import models.player.PlayerImpl;
-import java.util.Random; 
+import java.util.Random;
+import java.util.Timer; 
 
-public class EngineImpl implements Engine{
-	
+/**
+ * @originalauthor Sefira
+ * 
+ * @author Ted
+ *
+ */
+public class EngineImpl implements Engine {
+
 	private static Engine engine = null;
-	private Map<UUID, Piece> pieces= new HashMap<UUID, Piece>();
+//	private Map<UUID, Piece> pieces = new HashMap<UUID, Piece>();
+	private List<Piece> pieces = new ArrayList<Piece>();
+	private Map<String, Piece> piecesTest = new HashMap<String, Piece>();
 	private PieceFactory pieceFactory = new PieceFactory();
-	private Map<UUID, Piece> activeEagles = new HashMap<UUID, Piece>();
+
+	private List<Piece> activeEagles = new ArrayList<Piece>();
 	private Player eaglePlayer = new PlayerImpl("eaglePlayer");
 	private Player sharkPlayer = new PlayerImpl("sharkPlayer");
+
+	private Board board;
+
 
 	/*
 	 * default constructor
 	 */
 	public EngineImpl() {
-	}  
+		board = new Board();
+	} 
 	
 	/*
 	 * 
@@ -45,48 +58,92 @@ public class EngineImpl implements Engine{
     /*
      * 
      */
-	@Override
-	public Map<UUID, Piece> getAllPieces() {
-		
-		Piece piece = pieceFactory.generatePiece("attackerEagle", 0, 0);
-		Piece piece2 = pieceFactory.generatePiece("visionaryEagle", 0, 0);
-		
-		pieces.put(piece.getId(), piece);
-		pieces.put(piece2.getId(), piece2);
-		
-		
-		
-		return this.pieces;
+
+	/*
+	 * seed data for testing purpose
+	 */
+	public void seedData() {
+		Piece eaglePiece1 = pieceFactory.generatePiece("AttackingEagle", 0, 3);
+		Piece eaglePiece2 = pieceFactory.generatePiece("LeadershipEagle", 1, 4);
+		Piece eaglePiece3 = pieceFactory.generatePiece("VisionaryEagle", 0, 5);
+
+		board.addPiece(0, 3);
+		board.addPiece(1, 4);
+		board.addPiece(0, 5);
+
+		pieces.add(eaglePiece1);
+		pieces.add(eaglePiece2);
+		pieces.add(eaglePiece3);
+
 	}
 
 	@Override
-	public Map<UUID, Piece> getActiveEagles() {
+	public boolean movePiece(Piece piece, int newX, int newY) {
+		// Doing validation for each piece in each piece object to allow polymorphic
+		// behaviour
+		// If pass validation => updateBoard and set position for piece here
+		if (piece.movePiece(newX, newY)){
+
+			board.removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+			board.addPiece(newX, newY);
+			return true;
+		}
+		return false;
+	}
+
+	/*
+	 * @return List<Piece> - all pieces
+	 */
+	@Override
+	public List<Piece> getAllPieces() {
+
+		return this.pieces;
+	}
+	
+	/*
+	 * @return List<Piece> all active eagles
+	 */
+	@Override
+	public List<Piece> getActiveEagles() {
 		System.out.println(pieces);
-		for(Piece piece : pieces.values()) {
+		for(Piece piece : pieces) {
 			if(piece != null && piece instanceof AbstractPiece && piece.isActive()) {
-				activeEagles.put(piece.getId(), piece);
+				activeEagles.add(piece);
 			}
 		}
 		return activeEagles;
 	}
-
+	
+	/*
+	 * @return List<Piece> - all active sharks
+	 */
 	@Override
-	public Map<UUID, Piece> getActiveSharks() {
+	public List<Piece> getActiveSharks() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/*
+	 * contructor for initial eagle creation
+	 * 
+	 * @param Piece piece - the piece that the active status will change
+	 * 
+	 * @param bool isActive - want to set to active ? true : false
+	 */
 	@Override
-	public boolean setPieceActiveStatus(UUID pieceId, boolean isActive) {
+	public boolean setPieceActiveStatus(Piece piece, boolean isActive) {
 		try {
-			pieces.get(pieceId).setActive(isActive);
+			piece.setActive(isActive);
 		} 
 		catch (Exception e) {
 			return false;
 		}
 		return true;
 	}
-
+	
+	/*
+	 * @return the current active player (eaglePlayer || sharkPlayer)
+	 */
 	@Override
 	public Player getCurrentActivePlayer() {
 		
@@ -98,8 +155,29 @@ public class EngineImpl implements Engine{
 
 	}
 	
-	
 
+	public Board getBoard() {
+		return board;
+	}
+
+	@Override
+	public Map<String, Piece> getAllPiecesTed() {
+		return piecesTest;
+	}
+
+	@Override
+	public boolean checkSelectPiece(String occupiedPiece) {
+		if (!piecesTest.containsKey(occupiedPiece)) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/*
+	 * return the initial active player, call this at the beggining of the program 
+	 * @return (eaglePlayer || sharkPlayer)
+	 */
 	@Override
 	public Player getInitialPlayerActivePlayer() {
 		
@@ -119,24 +197,58 @@ public class EngineImpl implements Engine{
     	}
     	return activePlayer;
 	}
-
+	
+	/*
+	 * set active player
+	 * 
+	 * @param String playerType - must be "eagle" or "shark"
+	 * 
+	 * @param bool turnOnTimer - set interval to change player every n seconds or not
+	 */
 	@Override
-	public void setActivePlayer(String playerType) {
-		if(playerType == "eagle") {
+	public void setActivePlayer(String playerType, boolean turnOnTimer) {
+		System.out.println("current active player: "+ getCurrentActivePlayer().getPlayerType());
+		String nextPlayer;
+		if(playerType.equals("eagle")) {
 			this.eaglePlayer.setActive(true);
     		this.sharkPlayer.setActive(false);
+    		nextPlayer = "shark";
 		}
-		if(playerType == "shark") {
+		else if(playerType.equals("shark")) {
 			this.eaglePlayer.setActive(false);
     		this.sharkPlayer.setActive(true);
+    		nextPlayer = "eagle";
 		}
 		else {
 			throw new IllegalArgumentException("invalid player type, must be eagle or shark");
 		}
 		
+		if(turnOnTimer) {
+			setActivePlayerTimer(nextPlayer);
+		}
 	}
 	
-	//make move method
+	/*
+	 * schedule timer to call setActivePlayer(String playerType, boolean turnOnTimer)
+	 * 
+	 * @param - String playerType - must be "eagle" or "shark"
+	 */
+	@Override
+	public void setActivePlayerTimer(String playerType) {
+		
+		Timer t = new java.util.Timer();
+		t.schedule( 
+		        new java.util.TimerTask() {
+		            @Override
+		            public void run() {
+		                setActivePlayer(playerType, true);
+		            }
+		        }, 
+		        7000 
+		);
+		
+	}
+	
 
 	
 }
