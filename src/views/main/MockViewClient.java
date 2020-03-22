@@ -1,19 +1,27 @@
 package views.main;
 
-import javax.swing.SwingUtilities;
+import java.awt.EventQueue;
+
+import javax.swing.UIManager;
 
 import view.mainframe.MainAppFrame;
 
 public class MockViewClient {
-
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-
-			@Override
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new MainAppFrame();
+				try {
+					MainAppFrame window = new MainAppFrame();
+					window.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-			
 		});
 	}
 }

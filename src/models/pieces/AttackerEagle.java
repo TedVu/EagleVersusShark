@@ -27,5 +27,4 @@ public class AttackerEagle extends AbstractEagle {
 
 		return true;
 	}
-
 }
