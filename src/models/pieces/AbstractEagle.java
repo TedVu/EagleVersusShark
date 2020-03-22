@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import models.engine.EngineImpl;
+
 public abstract class AbstractEagle implements Piece {
 
 	private UUID id;
@@ -21,6 +23,7 @@ public abstract class AbstractEagle implements Piece {
 		this.id = UUID.randomUUID();
 		position.put("x", x);
 		position.put("y", y);
+		EngineImpl.getSingletonInstance().getBoard().addPiece(x, y);
 	}
 
 	/*

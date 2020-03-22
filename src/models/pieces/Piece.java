@@ -17,4 +17,6 @@ public interface Piece {
 
 	public UUID getId();
 
+	public boolean movePieceTed(int newX, int newY);
+
 }
