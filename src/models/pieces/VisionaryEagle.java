@@ -1,4 +1,5 @@
 
+
 package models.pieces;
 
 
@@ -7,12 +8,14 @@ import java.util.Map;
 
 public class VisionaryEagle extends AbstractPiece{
 	
-	private boolean canSwapPosition = true;
-
 	public VisionaryEagle(int x, int y) {
 		super(x, y);
+		// TODO Auto-generated constructor stub
 	}
-	
+
+
+	private boolean canSwapPosition = true;
+
 	
 	//not  finish yet
 //	public boolean isCanSwapPosition() {
@@ -50,8 +53,6 @@ public class VisionaryEagle extends AbstractPiece{
 		
 	}
 	
-	
-
 
 
 }

@@ -13,7 +13,8 @@ import models.pieces.PieceFactory;
 import models.player.Player;
 import models.player.PlayerImpl;
 import java.util.Random;
-import java.util.Timer; 
+import java.util.Timer;
+import java.util.UUID; 
 
 /**
  * @originalauthor Sefira
@@ -99,6 +100,7 @@ public class EngineImpl implements Engine {
 
 		return this.pieces;
 	}
+
 	
 	/*
 	 * @return List<Piece> all active eagles
@@ -144,6 +146,31 @@ public class EngineImpl implements Engine {
 	/*
 	 * @return the current active player (eaglePlayer || sharkPlayer)
 	 */
+
+
+	/*
+     * Add new set of piece
+     * Should allow to add two pieces at a time in later implementation
+     */
+	@Override
+	public void addNewPiece(List<Piece>newPiece, Piece type) {
+		
+		
+		if(type.equals("ATTACKER EAGLE")) {
+			
+			Piece piece = pieceFactory.generatePiece("AttackingEagle", 0, 0);
+			pieces.add(piece);
+			System.out.println("Added A New Attacker Eagle Piece");
+			
+		} else if (type.equals("VISIONARY EAGLE")){
+			
+			Piece piece = pieceFactory.generatePiece("VisionaryEagle", 0, 0);
+			pieces.add(piece);
+			System.out.println("Added A New Visionary Eagle");
+		}
+		
+	}
+
 	@Override
 	public Player getCurrentActivePlayer() {
 		
@@ -170,7 +197,6 @@ public class EngineImpl implements Engine {
 		if (!piecesTest.containsKey(occupiedPiece)) {
 			return false;
 		}
-
 		return true;
 	}
 
@@ -248,6 +274,8 @@ public class EngineImpl implements Engine {
 		);
 		
 	}
+
+	
 	
 
 	

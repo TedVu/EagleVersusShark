@@ -1,3 +1,4 @@
+
 package models.pieces;
 
 import java.util.Map;
@@ -38,9 +39,13 @@ public class LeadershipEagle extends AbstractPiece{
 			return true;
 		}
 	}
-	
-	
+
+
+
+
 
 
 
 }
+
+

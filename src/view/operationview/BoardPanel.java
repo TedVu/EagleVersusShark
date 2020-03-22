@@ -2,7 +2,6 @@ package view.operationview;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-
 import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;

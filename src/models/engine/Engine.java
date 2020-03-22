@@ -24,6 +24,9 @@ public interface Engine {
 	
 	public void setActivePlayer(String playerType,  boolean turnOnTimer);
 	
+
+  public void addNewPiece(List<Piece>newPiece, Piece type);
+  
 	public Board getBoard();
 
 	public boolean movePiece(Piece piece, int newX, int newY);
@@ -38,3 +41,4 @@ public interface Engine {
 	public void setActivePlayerTimer(String playerType);
 	
 }
+

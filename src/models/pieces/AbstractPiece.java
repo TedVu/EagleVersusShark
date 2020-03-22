@@ -65,4 +65,5 @@ public abstract class AbstractPiece  implements Piece{
 		return this.isActive;
 	}
 
+
 }

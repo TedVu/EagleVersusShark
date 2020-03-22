@@ -32,4 +32,6 @@ public class AttackerEagle extends AbstractPiece{
 			return true;
 		}
 	}
+
+
 }
