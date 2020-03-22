@@ -18,9 +18,6 @@ public interface Piece {
 	public UUID getId();
 
 	public boolean movePieceTed(int newX, int newY);
-  
-  public Map<String, Integer> getPosition();
-	public Map<String, Integer> move(int x, int y);
 	
 	public String getType();
 }

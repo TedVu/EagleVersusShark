@@ -2,15 +2,16 @@ package view.operationview;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-
 import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
@@ -30,7 +31,7 @@ public class BoardPanel extends JPanel {
 	 * know exactly the beginning position of each piece
 	 */
 	public BoardPanel() {
-		buttons = new AbstractButton[81];
+//		buttons = new AbstractButton[81];
 		ButtonGroup group = new ButtonGroup();
 
 		setLayout(new GridLayout(9, 9));
