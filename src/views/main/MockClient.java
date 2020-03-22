@@ -16,6 +16,7 @@ public class MockClient {
 		Map<UUID, Piece> pieces= new HashMap<UUID, Piece>();
 		
 		pieces = engine.getAllPieces();
+		System.out.println(engine.getInitialPlayerActivePlayer().getPlayerType());
 		
 		for(Piece piece : pieces.values()) {
 
@@ -23,8 +24,10 @@ public class MockClient {
 			System.out.println("position : " + piece.getPosition());
 			System.out.println("after move : " + piece.move(1,2));
 			
-			System.out.println();
+			System.out.println(engine.setPieceActiveStatus(piece.getId(), false));
 		}
+		System.out.println();
+		System.out.println(engine.getActiveEagles());
 		
 
 	}

@@ -2,9 +2,9 @@ package models.pieces;
 
 import java.util.Map;
 
-public class AttackerEagle extends AbstractPiece{
+public class LeadershipEagle extends AbstractPiece{
 
-	public AttackerEagle(int x, int y) {
+	public LeadershipEagle(int x, int y) {
 		super(x, y);
 	}
 	
@@ -20,7 +20,7 @@ public class AttackerEagle extends AbstractPiece{
 		
 		
 //		insert code to check if the coordinate is valid for this piece type
-		System.out.println("moving attacker eagle from AtatckerEagle class");
+		System.out.println("moving attacker eagle from LeadershipEagle class");
 		
 		setPosition(x, y);
 		return getPosition();

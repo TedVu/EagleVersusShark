@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public abstract class AbstractEagle  implements Piece{
+public abstract class AbstractPiece  implements Piece{
 	
 	private UUID id;
 	private Map<String, Integer> position= new HashMap<String, Integer>();
@@ -16,7 +16,7 @@ public abstract class AbstractEagle  implements Piece{
 	 * @param int x - x coordinate
 	 * @param int y - y coordinate
 	 */
-	public AbstractEagle( int x, int y) {
+	public AbstractPiece( int x, int y) {
 		this.id = UUID.randomUUID();
 		position.put("x", x);
 		position.put("y", y);
