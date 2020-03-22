@@ -1,30 +1,51 @@
+
 package models.pieces;
 
 import java.util.Map;
 
-public class LeadershipEagle extends AbstractEagle {
+public class LeadershipEagle extends AbstractPiece{
 
 	public LeadershipEagle(int x, int y) {
 		super(x, y);
-		// TODO Auto-generated constructor stub
+	}
+	
+	/*
+	 * validate the new position and set it if it's valid
+	 * 
+	 * @param int newX - new x position
+	 * 
+	 * @param int newY - new y position
+	 * 
+	 * @return position valid based on rule ? true : false
+	 */
+	@Override
+	public boolean movePiece(int newX, int newY) {
+		
+		Map<String, Integer> currentPosition= this.getPosition();
+		
+		int currX = currentPosition.get("x");
+		int currY = currentPosition.get("y");
+		
+		if(newX > currentPosition.get("x") + 2 || newY > currentPosition.get("y") + 2 || 
+				newX < currentPosition.get("x") - 2 || newY < currentPosition.get("y") - 2) {
+			return false;
+		}
+		else if((newX == currX +1 || newX == currX +2 || newX == currX - 1 || newX == currX - 2) &&
+				newY != currY) {
+			return false;
+		}
+		else {
+			setPosition(newX, newY);
+			return true;
+		}
 	}
 
-	@Override
-	public Map<String, Integer> move(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public boolean movePieceTed(int newX, int newY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	public String getType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
+
 
 }
+
+
