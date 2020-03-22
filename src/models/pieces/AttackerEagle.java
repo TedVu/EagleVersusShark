@@ -21,10 +21,14 @@ public class AttackerEagle extends AbstractEagle {
 		return getPosition();
 	}
 
+	@Override
+	public String getType() {
+		return "ATTACKER EAGLE";
+	}
+
 	// Get the Board and doing some Validation here
 	@Override
 	public boolean movePieceTed(int newX, int newY) {
-
 		return true;
 	}
 }

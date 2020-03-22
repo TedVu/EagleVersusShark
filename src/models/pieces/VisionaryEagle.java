@@ -27,5 +27,10 @@ public class VisionaryEagle extends AbstractEagle {
 		// TODO Auto-generated method stub
 		return true;
 	}
+  
+  @Override
+	public String getType() {
+		return "VISIONARY EAGLE";
+	}
 
 }

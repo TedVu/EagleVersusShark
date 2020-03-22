@@ -88,6 +88,29 @@ public class EngineImpl implements Engine {
 		return this.pieces;
 	}
 
+	/*
+     * Add new set of piece
+     * Should allow to add two pieces at a time in later implementation
+     */
+	@Override
+	public void addNewPiece(Map<UUID, Piece> newPiece, Piece type) {
+		String newPieceType = type.getType().toUpperCase();
+		
+		if(newPieceType.equals("ATTACKER EAGLE")) {
+			
+			Piece piece = pieceFactory.generatePiece("attackerEagle", 0, 0);
+			pieces.put(piece.getId(), piece);
+			System.out.println("Added A New Attacker Eagle Piece");
+			
+		} else if (newPieceType.equals("VISIONARY EAGLE")){
+			
+			Piece piece = pieceFactory.generatePiece("visionaryEagle", 0, 0);
+			pieces.put(piece.getId(), piece);
+			System.out.println("Added A New Visionary Eagle");
+		}
+		
+	}
+
 	@Override
 	public Board getBoard() {
 		return board;
@@ -103,7 +126,6 @@ public class EngineImpl implements Engine {
 		if (!piecesTest.containsKey(occupiedPiece)) {
 			return false;
 		}
-
 		return true;
 	}
 
