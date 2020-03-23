@@ -1,10 +1,9 @@
 
 package models.pieces;
 
+import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-
-
+import java.util.Set;
 
 public interface Piece {
 
@@ -16,7 +15,9 @@ public interface Piece {
 
 	public boolean isActive();
 
-	
-	
 	public boolean movePiece(int newX, int newY);
+
+	// Ted
+	// the order matters for coordinate (hence use a list), convention is (x,y)
+	public Set<List<Integer>> getValidMove();
 }

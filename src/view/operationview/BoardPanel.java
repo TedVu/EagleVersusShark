@@ -31,12 +31,12 @@ public class BoardPanel extends JPanel {
 	 * know exactly the beginning position of each piece
 	 */
 	public BoardPanel() {
-//		buttons = new AbstractButton[81];
 		ButtonGroup group = new ButtonGroup();
 
 		setLayout(new GridLayout(9, 9));
 
 		buttonList = new ArrayList<>();
+		
 		for (int i = 0; i < EngineImpl.getSingletonInstance().getBoard().getRow(); ++i) {
 			buttonList.add(new ArrayList<AbstractButton>());
 			for (int j = 0; j < EngineImpl.getSingletonInstance().getBoard().getCol(); ++j) {

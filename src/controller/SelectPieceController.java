@@ -23,7 +23,6 @@ public class SelectPieceController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// In case just a normal cell get selected, hence the boolean check
 		if (EngineImpl.getSingletonInstance().checkSelectPiece(button.getActionCommand())) {
 			// old value is selected piece new value is about to select cell
 			pcs.firePropertyChange("MovePiece", button.getActionCommand(), boardView);

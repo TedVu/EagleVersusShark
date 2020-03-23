@@ -1,7 +1,9 @@
 
 package models.pieces;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class LeadershipEagle extends AbstractPiece{
 
@@ -38,6 +40,12 @@ public class LeadershipEagle extends AbstractPiece{
 			setPosition(newX, newY);
 			return true;
 		}
+	}
+
+	@Override
+	public Set<List<Integer>> getValidMove() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
