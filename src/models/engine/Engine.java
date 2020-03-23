@@ -2,7 +2,6 @@ package models.engine;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import models.board.Board;
 import models.pieces.Piece;

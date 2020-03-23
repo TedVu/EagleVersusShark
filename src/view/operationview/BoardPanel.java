@@ -20,23 +20,20 @@ import models.engine.EngineImpl;
 
 //Board Panel is an observer of model
 public class BoardPanel extends JPanel {
-	// private AbstractButton[] buttons = new AbstractButton[81];
 
 	List<List<AbstractButton>> buttonList;
-
-	private ButtonGroup group = new ButtonGroup();
+	private ButtonGroup group;
 
 	/**
 	 * Constructing the board panel initially is a hard-coded construction since we
 	 * know exactly the beginning position of each piece
 	 */
 	public BoardPanel() {
-		ButtonGroup group = new ButtonGroup();
-
-		setLayout(new GridLayout(9, 9));
-
+		group = new ButtonGroup();
+		setLayout(new GridLayout(EngineImpl.getSingletonInstance().getBoard().getRow(),
+				EngineImpl.getSingletonInstance().getBoard().getCol()));
 		buttonList = new ArrayList<>();
-		
+
 		for (int i = 0; i < EngineImpl.getSingletonInstance().getBoard().getRow(); ++i) {
 			buttonList.add(new ArrayList<AbstractButton>());
 			for (int j = 0; j < EngineImpl.getSingletonInstance().getBoard().getCol(); ++j) {
@@ -65,30 +62,9 @@ public class BoardPanel extends JPanel {
 			buttonList.get(0).get(4).setBackground(Color.BLACK);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		EngineImpl.getSingletonInstance().seedData();
-
-		// THIS IS ORGINAL APPROACH WITH PRIMITIVE ARRAY
-		// setLayout(new GridLayout((int) Math.sqrt(81), (int) Math.sqrt(81)));
-		// Image img = null;
-		// try {
-		// img = ImageIO.read(getClass().getResource("/asset/AttackingEagle.png"));
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
-		// // constructing a board here, read from model to construct
-		// for (int i = 0; i < 81; i++) {
-		// buttons[i] = new JToggleButton();
-		// buttons[i].setBackground(Color.WHITE);
-		// buttons[i].setBorder(BorderFactory.createRaisedBevelBorder());
-		// add(buttons[i]);
-		// group.add(buttons[i]);
-		// }
-		//
-		// buttons[0].setIcon(new ImageIcon(img));
 	}
 
 	public List<List<AbstractButton>> getButtonList() {
