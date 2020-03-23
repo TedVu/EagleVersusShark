@@ -53,7 +53,6 @@ public class VisionaryEagle extends AbstractPiece {
 	@Override
 	public Set<List<Integer>> getValidMove() {
 		// TODO Auto-generated method stub
-		Board board = EngineImpl.getSingletonInstance().getBoard();
 		return null;
 	}
 
