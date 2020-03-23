@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class AttackerEagle extends AbstractPiece{
-
+public class AttackerEagle extends AbstractPiece {
 
 	public AttackerEagle(int x, int y) {
 		super(x, y);
@@ -23,13 +22,12 @@ public class AttackerEagle extends AbstractPiece{
 	@Override
 	public boolean movePiece(int newX, int newY) {
 
-		Map<String, Integer> currentPosition= this.getPosition();
-		
-		if(newX > currentPosition.get("x") + 1 || newY > currentPosition.get("y") + 1 || 
-				newX < currentPosition.get("x") - 1 || newY < currentPosition.get("y") - 1) {
+		Map<String, Integer> currentPosition = this.getPosition();
+
+		if (newX > currentPosition.get("x") + 1 || newY > currentPosition.get("y") + 1
+				|| newX < currentPosition.get("x") - 1 || newY < currentPosition.get("y") - 1) {
 			return false;
-		}
-		else {
+		} else {
 			setPosition(newX, newY);
 			return true;
 		}
@@ -40,6 +38,5 @@ public class AttackerEagle extends AbstractPiece{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }

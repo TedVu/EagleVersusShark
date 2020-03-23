@@ -36,7 +36,7 @@ public class BoardPanel extends JPanel {
 		setLayout(new GridLayout(9, 9));
 
 		buttonList = new ArrayList<>();
-		
+
 		for (int i = 0; i < EngineImpl.getSingletonInstance().getBoard().getRow(); ++i) {
 			buttonList.add(new ArrayList<AbstractButton>());
 			for (int j = 0; j < EngineImpl.getSingletonInstance().getBoard().getCol(); ++j) {

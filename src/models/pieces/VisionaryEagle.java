@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import models.board.Board;
-import models.engine.EngineImpl;
-
 public class VisionaryEagle extends AbstractPiece {
 
 	public VisionaryEagle(int x, int y) {

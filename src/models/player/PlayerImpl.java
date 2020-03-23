@@ -1,10 +1,10 @@
 package models.player;
 
-public class PlayerImpl implements Player{
-	
+public class PlayerImpl implements Player {
+
 	private boolean isActive;
 	private String playerType;
-	
+
 	public PlayerImpl(String playerType) {
 		this.playerType = playerType;
 	}
@@ -13,7 +13,7 @@ public class PlayerImpl implements Player{
 	public boolean getActive() {
 		return isActive;
 	}
-	
+
 	@Override
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
@@ -27,8 +27,7 @@ public class PlayerImpl implements Player{
 	@Override
 	public void setPlayerType(String playerType) {
 		this.playerType = playerType;
-		
+
 	}
-	
-	
+
 }
