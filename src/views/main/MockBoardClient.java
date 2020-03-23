@@ -9,10 +9,10 @@ public class MockBoardClient {
 		ge.seedData();
 		System.out.println(ge.getBoard());
 
-		ge.movePiece(ge.getAllPiecesTed().get(1), 0, 2);
+		ge.movePiece(ge.getAllPiecesTed().get("AttackingEagle"), 0, 2);
 		System.out.println("\n");
 		System.out.println(ge.getBoard());
-		ge.movePiece(ge.getAllPiecesTed().get(1), 8, 7);
+		ge.movePiece(ge.getAllPiecesTed().get("AttackingEagle"), 8, 7);
 		System.out.println("\n");
 		System.out.println(ge.getBoard());
 	}
