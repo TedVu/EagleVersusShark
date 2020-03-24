@@ -31,11 +31,6 @@ public class Board {
 		cells.get(oldX).get(oldY).setUnoccupied();
 	}
 
-	// comprise of remove old position and add piece to new position
-	public void move(int x, int y) {
-
-	}
-
 	public int getBoardSize() {
 		return boardSize;
 	}

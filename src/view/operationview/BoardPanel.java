@@ -12,8 +12,8 @@ import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JToggleButton;
 
 import controller.SelectPieceController;
 import models.engine.EngineImpl;
@@ -37,9 +37,10 @@ public class BoardPanel extends JPanel {
 		for (int i = 0; i < EngineImpl.getSingletonInstance().getBoard().getRow(); ++i) {
 			buttonList.add(new ArrayList<AbstractButton>());
 			for (int j = 0; j < EngineImpl.getSingletonInstance().getBoard().getCol(); ++j) {
-				buttonList.get(i).add(new JToggleButton());
+				buttonList.get(i).add(new JButton());
 				buttonList.get(i).get(j).setBackground(Color.WHITE);
 				buttonList.get(i).get(j).setBorder(BorderFactory.createRaisedBevelBorder());
+				buttonList.get(i).get(j).setActionCommand("NormalButton");
 				buttonList.get(i).get(j).addActionListener(new SelectPieceController(buttonList.get(i).get(j), this));
 				add(buttonList.get(i).get(j));
 				group.add(buttonList.get(i).get(j));

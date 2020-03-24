@@ -73,16 +73,13 @@ public class EngineImpl implements Engine {
 
 	@Override
 	public boolean movePiece(Piece piece, int newX, int newY) {
-		// Doing validation for each piece in each piece object to allow polymorphic
-		// behaviour
-		// If pass validation => updateBoard and set position for piece here
-		if (piece.movePiece(newX, newY)) {
+		// board need not know about specific piece type it only control the occupation
+		// configuration on the board
+		board.removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+		board.addPiece(newX, newY);
 
-			board.removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
-			board.addPiece(newX, newY);
-			return true;
-		}
-		return false;
+		piece.movePiece(newX, newY);
+		return true;
 	}
 
 	/*

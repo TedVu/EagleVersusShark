@@ -26,15 +26,8 @@ public class AttackerEagle extends AbstractPiece {
 	@Override
 	public boolean movePiece(int newX, int newY) {
 
-		Map<String, Integer> currentPosition = this.getPosition();
-
-		if (newX > currentPosition.get("x") + 1 || newY > currentPosition.get("y") + 1
-				|| newX < currentPosition.get("x") - 1 || newY < currentPosition.get("y") - 1) {
-			return false;
-		} else {
-			setPosition(newX, newY);
-			return true;
-		}
+		setPosition(newX, newY);
+		return true;
 	}
 
 	@Override

@@ -39,15 +39,8 @@ public class VisionaryEagle extends AbstractPiece {
 	@Override
 	public boolean movePiece(int newX, int newY) {
 
-		Map<String, Integer> currentPosition = this.getPosition();
-
-		if (newX > currentPosition.get("x") + 2 || newY > currentPosition.get("y") + 2
-				|| newX < currentPosition.get("x") - 2 || newY < currentPosition.get("y") - 2) {
-			return false;
-		} else {
-			setPosition(newX, newY);
-			return true;
-		}
+		setPosition(newX, newY);
+		return true;
 
 	}
 
