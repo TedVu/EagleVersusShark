@@ -3,9 +3,7 @@ package models.pieces;
 import java.util.HashMap;
 import java.util.Map;
 
-
-public abstract class AbstractPiece  implements Piece{
-	
+public abstract class AbstractPiece implements Piece {
 
 	private Map<String, Integer> position = new HashMap<String, Integer>();
 	private boolean isActive = true;
@@ -17,12 +15,11 @@ public abstract class AbstractPiece  implements Piece{
 	 * 
 	 * @param int y - y coordinate
 	 */
-	public AbstractPiece( int x, int y) {
+	public AbstractPiece(int x, int y) {
 		position.put("x", x);
 		position.put("y", y);
 //		EngineImpl.getSingletonInstance().getBoard().addPiece(x, y);
 	}
-
 
 	/*
 	 * modify the position of the piece
@@ -64,6 +61,5 @@ public abstract class AbstractPiece  implements Piece{
 	public boolean isActive() {
 		return this.isActive;
 	}
-
 
 }

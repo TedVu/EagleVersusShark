@@ -8,5 +8,4 @@ public class ImageIconFactory {
 	private static final String[] FILE_STRINGS = new String[] { "AgrressiveShark.png", "DefensiveShark.png",
 			"Healing.png", "AttackingEagle.png", "LeadershipEagle.png", "VisionaryEagle.png" };
 
-
 }

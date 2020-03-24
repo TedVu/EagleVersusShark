@@ -1,9 +1,14 @@
 package models.pieces;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-public class AttackerEagle extends AbstractPiece{
+import models.engine.EngineImpl;
 
+public class AttackerEagle extends AbstractPiece {
 
 	public AttackerEagle(int x, int y) {
 		super(x, y);
@@ -21,17 +26,145 @@ public class AttackerEagle extends AbstractPiece{
 	@Override
 	public boolean movePiece(int newX, int newY) {
 
-		Map<String, Integer> currentPosition= this.getPosition();
-		
-		if(newX > currentPosition.get("x") + 1 || newY > currentPosition.get("y") + 1 || 
-				newX < currentPosition.get("x") - 1 || newY < currentPosition.get("y") - 1) {
-			return false;
-		}
-		else {
-			setPosition(newX, newY);
-			return true;
-		}
+		setPosition(newX, newY);
+		return true;
 	}
 
+	@Override
+	public Set<List<Integer>> getValidMove() {
+		Map<String, Integer> currentPosition = this.getPosition();
+		int currentX = currentPosition.get("x");
+		int currentY = currentPosition.get("y");
+		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
+		validMoves.addAll(validMovesUp(currentX, currentY, 1));
+		validMoves.addAll(validMovesDown(currentX, currentY, 1));
+		validMoves.addAll(validMovesRight(currentX, currentY, 1));
+		validMoves.addAll(validMovesLeft(currentX, currentY, 1));
+		validMoves.addAll(validDiaRightDown(currentX, currentY, 1));
+		validMoves.addAll(validDiaLeftUp(currentX, currentY, 1));
+		validMoves.addAll(validDiaRightUp(currentX, currentY, 1));
+		validMoves.addAll(validDiaLeftDown(currentX, currentY, 1));
+		return validMoves;
+	}
 
+	public Set<List<Integer>> validMovesUp(int x, int y, int cells) {
+		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
+		for (int i = 1; i <= cells; i++) {
+			List<Integer> validMove = new LinkedList<Integer>();
+			if (y + i <= EngineImpl.getSingletonInstance().getBoard().getRow()) {
+				validMove.add(x);
+				validMove.add(y + i);
+				validMoves.add(validMove);
+			} else {
+				break;
+			}
+		}
+		return validMoves;
+	}
+
+	public Set<List<Integer>> validMovesDown(int x, int y, int cells) {
+		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
+		for (int i = 1; i <= cells; i++) {
+			List<Integer> validMove = new LinkedList<Integer>();
+			if (y - i >= 0) {
+				validMove.add(x);
+				validMove.add(y - i);
+				validMoves.add(validMove);
+			} else {
+				break;
+			}
+		}
+		return validMoves;
+	}
+
+	public Set<List<Integer>> validMovesRight(int x, int y, int cells) {
+		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
+		for (int i = 1; i <= cells; i++) {
+			List<Integer> validMove = new LinkedList<Integer>();
+			if (x + i <= EngineImpl.getSingletonInstance().getBoard().getCol()) {
+				validMove.add(x + i);
+				validMove.add(y);
+				validMoves.add(validMove);
+			} else {
+				break;
+			}
+		}
+		return validMoves;
+	}
+
+	public Set<List<Integer>> validMovesLeft(int x, int y, int cells) {
+		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
+		for (int i = 1; i <= cells; i++) {
+			List<Integer> validMove = new LinkedList<Integer>();
+			if (x - i >= 0) {
+				validMove.add(x - i);
+				validMove.add(y);
+				validMoves.add(validMove);
+			} else {
+				break;
+			}
+		}
+		return validMoves;
+	}
+
+	public Set<List<Integer>> validDiaRightDown(int x, int y, int cells) {
+		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
+		for (int i = 1; i <= cells; i++) {
+			List<Integer> validMove = new LinkedList<Integer>();
+			if (x + i <= EngineImpl.getSingletonInstance().getBoard().getCol() && y - i >= 0) {
+				validMove.add(x + i);
+				validMove.add(y - i);
+				validMoves.add(validMove);
+			} else {
+				break;
+			}
+		}
+		return validMoves;
+	}
+
+	public Set<List<Integer>> validDiaLeftUp(int x, int y, int cells) {
+		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
+		for (int i = 1; i <= cells; i++) {
+			List<Integer> validMove = new LinkedList<Integer>();
+			if (y + i <= EngineImpl.getSingletonInstance().getBoard().getRow() && x - i >= 0) {
+				validMove.add(x - i);
+				validMove.add(y + i);
+				validMoves.add(validMove);
+			} else {
+				break;
+			}
+		}
+		return validMoves;
+	}
+
+	public Set<List<Integer>> validDiaRightUp(int x, int y, int cells) {
+		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
+		for (int i = 1; i <= cells; i++) {
+			List<Integer> validMove = new LinkedList<Integer>();
+			if (x + i <= EngineImpl.getSingletonInstance().getBoard().getCol()
+					&& y + i <= EngineImpl.getSingletonInstance().getBoard().getRow()) {
+				validMove.add(x + i);
+				validMove.add(y + i);
+				validMoves.add(validMove);
+			} else {
+				break;
+			}
+		}
+		return validMoves;
+	}
+
+	public Set<List<Integer>> validDiaLeftDown(int x, int y, int cells) {
+		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
+		for (int i = 1; i <= cells; i++) {
+			List<Integer> validMove = new LinkedList<Integer>();
+			if (x - i >= 0 && y - i >= 0) {
+				validMove.add(x - i);
+				validMove.add(y - i);
+				validMoves.add(validMove);
+			} else {
+				break;
+			}
+		}
+		return validMoves;
+	}
 }
