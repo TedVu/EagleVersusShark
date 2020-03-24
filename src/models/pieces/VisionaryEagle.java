@@ -1,36 +1,58 @@
+
+
 package models.pieces;
+
 
 import java.util.Map;
 
-public class VisionaryEagle extends AbstractEagle {
 
+public class VisionaryEagle extends AbstractPiece{
+	
 	public VisionaryEagle(int x, int y) {
 		super(x, y);
+		// TODO Auto-generated constructor stub
 	}
+
+
+	private boolean canSwapPosition = true;
+
+	
+	//not  finish yet
+//	public boolean isCanSwapPosition() {
+//		return canSwapPosition;
+//	}
+//
+//	public void setCanSwapPosition(boolean canSwapPosition) {
+//		this.canSwapPosition = canSwapPosition;
+//	}
+	
 
 	/*
+	 * validate the new position and set it if it's valid
 	 * 
+	 * @param int newX - new x position
+	 * 
+	 * @param int newY - new y position
+	 * 
+	 * @return position valid based on rule ? true : false
 	 */
 	@Override
-	public Map<String, Integer> move(int x, int y) {
-
-		// insert code to check if the coordinate is valid for this piece type
-		System.out.println("moving visionary eagle from VisionaryEagle class");
-
-		setPosition(x, y);
-		return getPosition();
+	public boolean movePiece(int newX, int newY) {
+		
+		Map<String, Integer> currentPosition= this.getPosition();
+		
+		if(newX > currentPosition.get("x") + 2 || newY > currentPosition.get("y") + 2 || 
+				newX < currentPosition.get("x") - 2 || newY < currentPosition.get("y") - 2) {
+			return false;
+		}
+		else {
+			setPosition(newX, newY);
+			return true;
+		}
+		
+		
 	}
+	
 
-	// Get the Board and doing some Validation here
-	@Override
-	public boolean movePieceTed(int newX, int newY) {
-		// TODO Auto-generated method stub
-		return true;
-	}
-  
-  @Override
-	public String getType() {
-		return "VISIONARY EAGLE";
-	}
 
 }

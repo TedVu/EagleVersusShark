@@ -1,7 +1,10 @@
+
 package models.pieces;
 
 import java.util.Map;
 import java.util.UUID;
+
+
 
 public interface Piece {
 
@@ -11,16 +14,9 @@ public interface Piece {
 
 	public void setActive(boolean isActive);
 
-	public Map<String, Integer> move(int x, int y);
-
 	public boolean isActive();
 
-	public UUID getId();
-
-	public boolean movePieceTed(int newX, int newY);
-  
-  public Map<String, Integer> getPosition();
-	public Map<String, Integer> move(int x, int y);
 	
-	public String getType();
+	
+	public boolean movePiece(int newX, int newY);
 }

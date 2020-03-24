@@ -2,13 +2,11 @@ package models.pieces;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-import models.engine.EngineImpl;
 
-public abstract class AbstractEagle implements Piece {
+public abstract class AbstractPiece  implements Piece{
+	
 
-	private UUID id;
 	private Map<String, Integer> position = new HashMap<String, Integer>();
 	private boolean isActive = true;
 
@@ -19,20 +17,12 @@ public abstract class AbstractEagle implements Piece {
 	 * 
 	 * @param int y - y coordinate
 	 */
-	public AbstractEagle(int x, int y) {
-		this.id = UUID.randomUUID();
+	public AbstractPiece( int x, int y) {
 		position.put("x", x);
 		position.put("y", y);
-		EngineImpl.getSingletonInstance().getBoard().addPiece(x, y);
+//		EngineImpl.getSingletonInstance().getBoard().addPiece(x, y);
 	}
 
-	/*
-	 * get uuid of the piece
-	 */
-	@Override
-	public UUID getId() {
-		return this.id;
-	}
 
 	/*
 	 * modify the position of the piece
@@ -74,5 +64,6 @@ public abstract class AbstractEagle implements Piece {
 	public boolean isActive() {
 		return this.isActive;
 	}
+
 
 }
