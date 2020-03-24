@@ -7,6 +7,9 @@
 # Another idea file
 *.iml
 
+# Another idea file
+out/
+
 # Log file
 *.log
 
