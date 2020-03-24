@@ -28,6 +28,9 @@ public interface Engine {
 	public Board getBoard();
 
 	public boolean movePiece(Piece piece, int newX, int newY);
+	
+	
+	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
 
 	// Ted
 	public Map<String, Piece> getAllPiecesTed();
@@ -37,5 +40,8 @@ public interface Engine {
 	public void seedData();
 
 	public void setActivePlayerTimer(String playerType);
+	
+	
+	
 
 }
