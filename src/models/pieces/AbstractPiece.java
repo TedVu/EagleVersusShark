@@ -7,6 +7,7 @@ public abstract class AbstractPiece implements Piece {
 
 	private Map<String, Integer> position = new HashMap<String, Integer>();
 	private boolean isActive = true;
+	private boolean isImmune = false;
 
 	/*
 	 * contructor for initial eagle creation
@@ -54,12 +55,23 @@ public abstract class AbstractPiece implements Piece {
 
 	}
 
-	/*
-	 * 
-	 */
+
 	@Override
 	public boolean isActive() {
 		return this.isActive;
 	}
+
+	@Override
+	public boolean isImmune() {
+		return this.isImmune;
+	}
+
+	@Override
+	public void setImmune(boolean isImmune) {
+		this.isImmune = isImmune;
+		
+	}
+
+	
 
 }

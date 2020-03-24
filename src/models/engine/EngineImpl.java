@@ -262,4 +262,12 @@ public class EngineImpl implements Engine {
 
 	}
 
+	@Override
+	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece) {
+		return piece.useAbility(abilityName, piece, affectedPiece);
+	}
+	
+	
+	
+
 }

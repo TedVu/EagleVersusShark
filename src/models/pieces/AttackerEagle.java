@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.sun.org.apache.bcel.internal.generic.SWAP;
+
 import models.engine.EngineImpl;
 
 public class AttackerEagle extends AbstractPiece {
@@ -166,5 +168,38 @@ public class AttackerEagle extends AbstractPiece {
 			}
 		}
 		return validMoves;
+	}
+	
+	
+	// usage: piece.useAbility("capture", piece, affectedPiece)
+	@Override
+	public boolean useAbility(String abilityName,Piece piece, Piece affectedPiece) {
+		if(abilityName.equals("capture"))
+			return capture(piece, affectedPiece);
+		
+		return false;
+	}
+
+	private boolean capture(Piece capturingPiece, Piece capturedPiece) {
+		try {
+			
+			int capturingPieceX =  capturingPiece.getPosition().get("x");
+			int capturingPieceY =  capturingPiece.getPosition().get("y");
+			
+			int capturedPieceX =  capturedPiece.getPosition().get("x");
+			int capturedPieceY =  capturedPiece.getPosition().get("y");
+			
+			if(capturedPieceX > capturingPieceX + 1 || capturedPieceY > capturingPieceY + 1 || 
+				capturedPieceX < capturingPieceX - 1 || capturedPieceY < capturingPieceY - 1) {
+				return false;
+			}
+			
+			capturedPiece.setActive(false);
+			
+			return true;
+			
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }

@@ -20,4 +20,13 @@ public interface Piece {
 	// Ted
 	// the order matters for coordinate (hence use a list), convention is (x,y)
 	public Set<List<Integer>> getValidMove();
+	
+	
+	public boolean isImmune();
+	
+	public void setImmune(boolean isImmune);
+	
+	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
+	
+	
 }
