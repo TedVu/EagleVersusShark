@@ -14,21 +14,21 @@ public class Board {
 
 	public Board() {
 		cells = new ArrayList<>();
-		for (int i = 0; i < boardRow; ++i) {
+		for (int row = 0; row < boardRow; ++row) {
 			cells.add(new ArrayList<Cell>());
-			for (int j = 0; j < boardCol; ++j) {
-				cells.get(i).add(new Cell(i, j));
+			for (int col = 0; col < boardCol; ++col) {
+				cells.get(row).add(new Cell(col, row));
 			}
 		}
 	}
 
 	public void addPiece(int x, int y) {
-		cells.get(x).get(y).setOccupied();
+		cells.get(y).get(x).setOccupied();
 	}
 
 	// Either from being captured or have made a new move
 	public void removePiece(int oldX, int oldY) {
-		cells.get(oldX).get(oldY).setUnoccupied();
+		cells.get(oldY).get(oldX).setUnoccupied();
 	}
 
 	public int getBoardSize() {
@@ -47,9 +47,9 @@ public class Board {
 	public String toString() {
 		StringBuffer boardString = new StringBuffer("");
 
-		for (int i = 0; i < boardRow; ++i) {
-			for (int j = 0; j < boardCol; ++j) {
-				boardString.append(cells.get(i).get(j));
+		for (int row = 0; row < boardRow; ++row) {
+			for (int col = 0; col < boardCol; ++col) {
+				boardString.append(cells.get(row).get(col));
 			}
 			boardString.append("\n");
 		}

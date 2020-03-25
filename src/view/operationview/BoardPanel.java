@@ -34,16 +34,17 @@ public class BoardPanel extends JPanel {
 				EngineImpl.getSingletonInstance().getBoard().getCol()));
 		buttonList = new ArrayList<>();
 
-		for (int i = 0; i < EngineImpl.getSingletonInstance().getBoard().getRow(); ++i) {
+		for (int row = 0; row < EngineImpl.getSingletonInstance().getBoard().getRow(); ++row) {
 			buttonList.add(new ArrayList<AbstractButton>());
-			for (int j = 0; j < EngineImpl.getSingletonInstance().getBoard().getCol(); ++j) {
-				buttonList.get(i).add(new JButton());
-				buttonList.get(i).get(j).setBackground(Color.WHITE);
-				buttonList.get(i).get(j).setBorder(BorderFactory.createRaisedBevelBorder());
-				buttonList.get(i).get(j).setActionCommand("NormalButton");
-				buttonList.get(i).get(j).addActionListener(new SelectPieceController(buttonList.get(i).get(j), this));
-				add(buttonList.get(i).get(j));
-				group.add(buttonList.get(i).get(j));
+			for (int col = 0; col < EngineImpl.getSingletonInstance().getBoard().getCol(); ++col) {
+				buttonList.get(row).add(new JButton());
+				buttonList.get(row).get(col).setBackground(Color.WHITE);
+				buttonList.get(row).get(col).setBorder(BorderFactory.createRaisedBevelBorder());
+				buttonList.get(row).get(col).setActionCommand("NormalButton");
+				buttonList.get(row).get(col)
+						.addActionListener(new SelectPieceController(buttonList.get(row).get(col), this));
+				add(buttonList.get(row).get(col));
+				group.add(buttonList.get(row).get(col));
 			}
 		}
 

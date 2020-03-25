@@ -57,9 +57,9 @@ public class EngineImpl implements Engine {
 	 * seed data for testing purpose
 	 */
 	public void seedData() {
-		Piece eaglePiece1 = pieceFactory.generatePiece("AttackingEagle", 0, 3);
-		Piece eaglePiece2 = pieceFactory.generatePiece("LeadershipEagle", 1, 4);
-		Piece eaglePiece3 = pieceFactory.generatePiece("VisionaryEagle", 0, 5);
+		Piece eaglePiece1 = pieceFactory.generatePiece("AttackingEagle", 3, 0);
+		Piece eaglePiece2 = pieceFactory.generatePiece("LeadershipEagle", 4, 1);
+		Piece eaglePiece3 = pieceFactory.generatePiece("VisionaryEagle", 5, 0);
 
 		board.addPiece(0, 3);
 		board.addPiece(1, 4);

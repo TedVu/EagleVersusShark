@@ -55,14 +55,15 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 
 		// enable available move
 		for (List<Integer> l : validMoves) {
-			buttons.get(l.get(0)).get(l.get(1)).setBackground(Color.yellow);
+
+			buttons.get(l.get(1)).get(l.get(0)).setBackground(Color.yellow);
 
 			// remove old listener
-			ActionListener[] selectPieceListener = buttons.get(l.get(0)).get(l.get(1)).getActionListeners();
-			buttons.get(l.get(0)).get(l.get(1)).removeActionListener(selectPieceListener[0]);
+			ActionListener[] selectPieceListener = buttons.get(l.get(1)).get(l.get(0)).getActionListeners();
+			buttons.get(l.get(1)).get(l.get(0)).removeActionListener(selectPieceListener[0]);
 
 			// add new listener
-			buttons.get(l.get(0)).get(l.get(1)).addActionListener(this);
+			buttons.get(l.get(1)).get(l.get(0)).addActionListener(this);
 		}
 
 	}
@@ -74,10 +75,10 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 		List<List<AbstractButton>> buttons = boardPanel.getButtonList();
 
 		Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPiecesTed().get(pieceType).getPosition();
-		boardPanel.getButtonList().get(oldPos.get("x")).get(oldPos.get("y")).setIcon(null);
+		boardPanel.getButtonList().get(oldPos.get("y")).get(oldPos.get("x")).setIcon(null);
 
 		// default action command of button is NormalButton
-		boardPanel.getButtonList().get(oldPos.get("x")).get(oldPos.get("y")).setActionCommand("NormalButton");
+		boardPanel.getButtonList().get(oldPos.get("y")).get(oldPos.get("x")).setActionCommand("NormalButton");
 
 		// Identify button being clicked
 		AbstractButton buttonClicked = (AbstractButton) e.getSource();
@@ -89,8 +90,8 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 		for (int i = 0; i < buttons.size(); ++i) {
 			for (int j = 0; j < buttons.get(0).size(); ++j) {
 				if (buttons.get(i).get(j).equals(buttonClicked)) {
-					newPos.put("x", i);
-					newPos.put("y", j);
+					newPos.put("y", i);
+					newPos.put("x", j);
 					break;
 				}
 			}
@@ -117,11 +118,11 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 		// Remove MovePieceController and Reregister SelectPieceController for valid
 		// buttons
 		for (List<Integer> l : validMoves) {
-			ActionListener[] movePieceController = buttons.get(l.get(0)).get(l.get(1)).getActionListeners();
-			buttons.get(l.get(0)).get(l.get(1)).removeActionListener(movePieceController[0]);
+			ActionListener[] movePieceController = buttons.get(l.get(1)).get(l.get(0)).getActionListeners();
+			buttons.get(l.get(1)).get(l.get(0)).removeActionListener(movePieceController[0]);
 
-			buttons.get(l.get(0)).get(l.get(1))
-					.addActionListener(new SelectPieceController(buttons.get(l.get(0)).get(l.get(1)), boardPanel));
+			buttons.get(l.get(1)).get(l.get(0))
+					.addActionListener(new SelectPieceController(buttons.get(l.get(1)).get(l.get(0)), boardPanel));
 
 		}
 
