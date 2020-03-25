@@ -23,7 +23,6 @@ import models.player.PlayerImpl;
 public class EngineImpl implements Engine {
 
 	private static Engine engine = null;
-	// private Map<UUID, Piece> pieces = new HashMap<UUID, Piece>();
 	private List<Piece> pieces = new ArrayList<Piece>();
 	private Map<String, Piece> piecesTest = new HashMap<String, Piece>();
 	private PieceFactory pieceFactory = new PieceFactory();
@@ -71,6 +70,11 @@ public class EngineImpl implements Engine {
 
 	}
 
+	/**
+	 * since validation has all been conducted in getValidMove, should only return
+	 * void
+	 *
+	 */
 	@Override
 	public boolean movePiece(Piece piece, int newX, int newY) {
 		// board need not know about specific piece type it only control the occupation
@@ -130,32 +134,6 @@ public class EngineImpl implements Engine {
 		}
 		return true;
 	}
-
-	/*
-	 * @return the current active player (eaglePlayer || sharkPlayer)
-	 */
-
-	/*
-	 * Add new set of piece Should allow to add two pieces at a time in later
-	 * implementation
-	 */
-	// @Override
-	// public void addNewPiece(List<Piece> newPiece, Piece type) {
-	//
-	// if (type.equals("ATTACKER EAGLE")) {
-	//
-	// Piece piece = pieceFactory.generatePiece("AttackingEagle", 0, 0);
-	// pieces.add(piece);
-	// System.out.println("Added A New Attacker Eagle Piece");
-	//
-	// } else if (type.equals("VISIONARY EAGLE")) {
-	//
-	// Piece piece = pieceFactory.generatePiece("VisionaryEagle", 0, 0);
-	// pieces.add(piece);
-	// System.out.println("Added A New Visionary Eagle");
-	// }
-	//
-	// }
 
 	@Override
 	public Player getCurrentActivePlayer() {
