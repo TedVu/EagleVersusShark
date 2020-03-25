@@ -11,4 +11,3 @@ public class MockBoardClient {
 		System.out.println(ge.getAllPiecesTed().get("LeadershipEagle").getValidMove());
 	}
 }
-  

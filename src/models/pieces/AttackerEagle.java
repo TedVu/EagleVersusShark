@@ -27,7 +27,6 @@ public class AttackerEagle extends AbstractPiece {
 	 */
 	@Override
 	public boolean movePiece(int newX, int newY) {
-
 		setPosition(newX, newY);
 		return true;
 	}
@@ -38,22 +37,22 @@ public class AttackerEagle extends AbstractPiece {
 		int currentX = currentPosition.get("x");
 		int currentY = currentPosition.get("y");
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		validMoves.addAll(validMovesUp(currentX, currentY, 1));
-		validMoves.addAll(validMovesDown(currentX, currentY, 1));
-		validMoves.addAll(validMovesRight(currentX, currentY, 1));
-		validMoves.addAll(validMovesLeft(currentX, currentY, 1));
-		validMoves.addAll(validDiaRightDown(currentX, currentY, 1));
-		validMoves.addAll(validDiaLeftUp(currentX, currentY, 1));
-		validMoves.addAll(validDiaRightUp(currentX, currentY, 1));
-		validMoves.addAll(validDiaLeftDown(currentX, currentY, 1));
+		validMoves.addAll(validMovesSouth(currentX, currentY, 1));
+		validMoves.addAll(validMovesNorth(currentX, currentY, 1));
+		validMoves.addAll(validMovesEast(currentX, currentY, 1));
+		validMoves.addAll(validMovesWest(currentX, currentY, 1));
+		validMoves.addAll(validDiaNorthEast(currentX, currentY, 1));
+		validMoves.addAll(validDiaSouthWest(currentX, currentY, 1));
+		validMoves.addAll(validDiaSouthEast(currentX, currentY, 1));
+		validMoves.addAll(validDiaNorthWest(currentX, currentY, 1));
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesUp(int x, int y, int cells) {
+	public Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (y + i <= EngineImpl.getSingletonInstance().getBoard().getRow()) {
+			if (y + i < EngineImpl.getSingletonInstance().getBoard().getRow()) {
 				validMove.add(x);
 				validMove.add(y + i);
 				validMoves.add(validMove);
@@ -64,7 +63,7 @@ public class AttackerEagle extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesDown(int x, int y, int cells) {
+	public Set<List<Integer>> validMovesNorth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -76,14 +75,15 @@ public class AttackerEagle extends AbstractPiece {
 				break;
 			}
 		}
+
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesRight(int x, int y, int cells) {
+	public Set<List<Integer>> validMovesEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (x + i <= EngineImpl.getSingletonInstance().getBoard().getCol()) {
+			if (x + i < EngineImpl.getSingletonInstance().getBoard().getCol()) {
 				validMove.add(x + i);
 				validMove.add(y);
 				validMoves.add(validMove);
@@ -91,10 +91,11 @@ public class AttackerEagle extends AbstractPiece {
 				break;
 			}
 		}
+
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesLeft(int x, int y, int cells) {
+	public Set<List<Integer>> validMovesWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -106,14 +107,15 @@ public class AttackerEagle extends AbstractPiece {
 				break;
 			}
 		}
+
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaRightDown(int x, int y, int cells) {
+	public Set<List<Integer>> validDiaNorthEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (x + i <= EngineImpl.getSingletonInstance().getBoard().getCol() && y - i >= 0) {
+			if (x + i < EngineImpl.getSingletonInstance().getBoard().getCol() && y - i >= 0) {
 				validMove.add(x + i);
 				validMove.add(y - i);
 				validMoves.add(validMove);
@@ -121,14 +123,15 @@ public class AttackerEagle extends AbstractPiece {
 				break;
 			}
 		}
+
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaLeftUp(int x, int y, int cells) {
+	public Set<List<Integer>> validDiaSouthWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (y + i <= EngineImpl.getSingletonInstance().getBoard().getRow() && x - i >= 0) {
+			if (y + i < EngineImpl.getSingletonInstance().getBoard().getRow() && x - i >= 0) {
 				validMove.add(x - i);
 				validMove.add(y + i);
 				validMoves.add(validMove);
@@ -136,15 +139,16 @@ public class AttackerEagle extends AbstractPiece {
 				break;
 			}
 		}
+
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaRightUp(int x, int y, int cells) {
+	public Set<List<Integer>> validDiaSouthEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (x + i <= EngineImpl.getSingletonInstance().getBoard().getCol()
-					&& y + i <= EngineImpl.getSingletonInstance().getBoard().getRow()) {
+			if (x + i < EngineImpl.getSingletonInstance().getBoard().getCol()
+					&& y + i < EngineImpl.getSingletonInstance().getBoard().getRow()) {
 				validMove.add(x + i);
 				validMove.add(y + i);
 				validMoves.add(validMove);
@@ -152,10 +156,11 @@ public class AttackerEagle extends AbstractPiece {
 				break;
 			}
 		}
+
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaLeftDown(int x, int y, int cells) {
+	public Set<List<Integer>> validDiaNorthWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -167,6 +172,7 @@ public class AttackerEagle extends AbstractPiece {
 				break;
 			}
 		}
+
 		return validMoves;
 	}
 	
