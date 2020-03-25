@@ -68,9 +68,9 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 	/**
 	 * @param buttons
 	 * 
-	 *            This method does the colouring for available move cell, also
-	 *            deregister the original selectPieceListener which is registered at
-	 *            the start when creating board
+	 *                This method does the colouring for available move cell, also
+	 *                deregister the original selectPieceListener which is
+	 *                registered at the start when creating board
 	 * 
 	 * @see BoardPanel.java
 	 */
@@ -87,8 +87,7 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 	}
 
 	/**
-	 * @param the
-	 *            selected button when moving piece
+	 * @param the selected button when moving piece
 	 * 
 	 *            This method is a little bit heavyweight, may need decouple,
 	 *            extraction in later stage
