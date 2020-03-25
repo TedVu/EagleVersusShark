@@ -95,9 +95,9 @@ public class EngineImpl implements Engine {
 	 * @return List<Piece> all active eagles
 	 */
 	@Override
-	public List<Piece> getActiveEagles() {
-		System.out.println(pieces);
-		for (Piece piece : pieces) {
+	public  List<Piece> getActiveEagles() {
+
+		for (Piece piece : piecesTest.values()) {
 			if (piece != null && piece instanceof AbstractPiece && piece.isActive()) {
 				activeEagles.add(piece);
 			}

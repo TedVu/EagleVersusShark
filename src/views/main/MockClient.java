@@ -36,11 +36,11 @@ public class MockClient {
 //			System.out.println(engine.setPieceActiveStatus(piece.getId(), false));
 
 			if (piece instanceof VisionaryEagle) {
-				System.out.println("after move vision : " + engine.movePiece(piece, 4, 5));
+				System.out.println("after move vision : " + engine.movePiece(piece, 2, 2));
 				visionPiece = piece;
 			}
 			if (piece instanceof LeadershipEagle) {
-				System.out.println("after move leader: " + engine.movePiece(piece, 1, 2));
+				System.out.println("after move leader: " + engine.movePiece(piece, 2, 5));
 				leaderPiece = piece;
 			}
 			if (piece instanceof AttackerEagle) {
@@ -56,9 +56,11 @@ public class MockClient {
 //		System.out.println(visionPiece.getPosition());
 //		System.out.println(attackerPiece.getPosition());
 		
-		System.out.println(engine.useAbility("protect", leaderPiece, attackerPiece));
+//		System.out.println(engine.useAbility("protect", leaderPiece, attackerPiece));
+//		
+//		System.out.println(attackerPiece.isImmune());
 		
-		System.out.println(attackerPiece.isImmune());
+		System.out.println(engine.useAbility("capture", attackerPiece, visionPiece));
 
 	}
 
