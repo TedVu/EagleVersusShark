@@ -25,7 +25,6 @@ public class AttackerEagle extends AbstractPiece {
 	 */
 	@Override
 	public boolean movePiece(int newX, int newY) {
-
 		setPosition(newX, newY);
 		return true;
 	}

@@ -13,12 +13,10 @@ import view.operationview.BoardPanel;
 
 /**
  * @author Ted
+ * @implNote Invoked when user choose a piece before making a move.<br>
+ *           NOTE: we separate into two actions Select a Piece and Make a Move
  * 
- *         Invoked when user choose a piece before making a move.<br>
- *         NOTE: we separate into two actions Select a Piece and Make a Move
- * 
- * @see documents on ggDrive for flow of events
- *
+ * @see documents on ggDrive for flow of events 
  */
 public class SelectPieceController implements ActionListener {
 
@@ -74,13 +72,11 @@ public class SelectPieceController implements ActionListener {
 				// piece to make a move
 				if (buttons.get(row).get(col).getBackground().equals(Color.YELLOW)) {
 					buttons.get(row).get(col).setBackground(Color.WHITE);
-
 					// currently acttach MovePieceController from previous select piece
 					// these line remove that controllers
 					// Question : is there any other more "clean" way to remove controller ?
 					ActionListener[] movePieceListener = buttons.get(row).get(col).getActionListeners();
 					buttons.get(row).get(col).removeActionListener(movePieceListener[0]);
-
 					// add a brand new selectPieceController
 					buttons.get(row).get(col)
 							.addActionListener(new SelectPieceController(buttons.get(row).get(col), boardView));

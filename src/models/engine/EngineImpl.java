@@ -41,9 +41,6 @@ public class EngineImpl implements Engine {
 		seedData();
 	}
 
-	/*
-	 * 
-	 */
 	public static Engine getSingletonInstance() {
 		if (engine == null) {
 			engine = new EngineImpl();

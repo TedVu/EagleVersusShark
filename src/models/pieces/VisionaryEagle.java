@@ -13,19 +13,19 @@ public class VisionaryEagle extends AbstractPiece {
 
 	public VisionaryEagle(int x, int y) {
 		super(x, y);
-		// TODO Auto-generated constructor stub
 	}
 
 	private boolean canSwapPosition = true;
 
-	// not finish yet
-	// public boolean isCanSwapPosition() {
-	// return canSwapPosition;
-	// }
-	//
-	// public void setCanSwapPosition(boolean canSwapPosition) {
-	// this.canSwapPosition = canSwapPosition;
-	// }
+	public boolean isCanSwapPosition() {
+		// TODO Auto-generated constructor stub
+		return canSwapPosition;
+	}
+
+	public void setCanSwapPosition(boolean canSwapPosition) {
+		// TODO Auto-generated constructor stub
+		this.canSwapPosition = canSwapPosition;
+	}
 
 	/*
 	 * validate the new position and set it if it's valid
