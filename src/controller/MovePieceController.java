@@ -21,9 +21,8 @@ import view.operationview.BoardPanel;
 
 /**
  * @author Ted
- *
- *         This controller handles event when user makes a move AFTER select a
- *         piece
+ * @implNote This controller handles event when user makes a move AFTER select a
+ *           piece
  * @see documents on ggDrive for flow of events
  * 
  */
@@ -58,39 +57,29 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 		pieceType = (String) evt.getOldValue();
 		validMoves = EngineImpl.getSingletonInstance().getAllPiecesTed().get(pieceType).getValidMove();
 
-		// System.out.println(validMoves);
-
 		// enable available move, focusing on the VIEW-CONTROLLER
 		enableViewAvailableMove(buttons);
-
 	}
 
 	/**
 	 * @param buttons
-	 * 
-	 *            This method does the colouring for available move cell, also
-	 *            deregister the original selectPieceListener which is registered at
-	 *            the start when creating board
-	 * 
+	 * @implNote This method does the colouring for available move cell, also
+	 *           deregister the original selectPieceListener which is registered at
+	 *           the start when creating board
 	 * @see BoardPanel.java
 	 */
 	private void enableViewAvailableMove(List<List<AbstractButton>> buttons) {
 		for (List<Integer> l : validMoves) {
-
 			buttons.get(l.get(1)).get(l.get(0)).setBackground(Color.yellow);
-
 			ActionListener[] selectPieceListener = buttons.get(l.get(1)).get(l.get(0)).getActionListeners();
 			buttons.get(l.get(1)).get(l.get(0)).removeActionListener(selectPieceListener[0]);
-
 			buttons.get(l.get(1)).get(l.get(0)).addActionListener(this);
 		}
 	}
 
 	/**
-	 * @param the
-	 *            selected button when moving piece
-	 * 
-	 *            This method is a little bit heavyweight, may need decouple,
+	 * @param the selected button when moving piece
+	 * @implNote This method is a little bit heavy weight, may need decouple,
 	 *            extraction in later stage
 	 */
 	@Override
@@ -158,7 +147,5 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 					.addActionListener(new SelectPieceController(buttons.get(l.get(1)).get(l.get(0)), boardPanel));
 
 		}
-
 	}
-
 }

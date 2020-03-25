@@ -5,9 +5,7 @@ import java.util.Map;
 
 /**
  * @author Ted
- * 
- *         Pure Fabrication class decouples files with internal system
- * 
+ * @implNote Pure Fabrication class decouples files with internal system
  * @see MovePieceController.java
  */
 public class Asset {

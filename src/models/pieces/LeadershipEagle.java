@@ -26,7 +26,6 @@ public class LeadershipEagle extends AbstractPiece {
 	 */
 	@Override
 	public boolean movePiece(int newX, int newY) {
-
 		setPosition(newX, newY);
 		return true;
 	}
@@ -37,14 +36,14 @@ public class LeadershipEagle extends AbstractPiece {
 		int currentX = currentPosition.get("x");
 		int currentY = currentPosition.get("y");
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		validMoves.addAll(validMovesUp(currentX, currentY, 2));
-		validMoves.addAll(validMovesDown(currentX, currentY, 2));
-		validMoves.addAll(validMovesRight(currentX, currentY, 2));
-		validMoves.addAll(validMovesLeft(currentX, currentY, 2));
+		validMoves.addAll(validMovesSouth(currentX, currentY, 2));
+		validMoves.addAll(validMovesNorth(currentX, currentY, 2));
+		validMoves.addAll(validMovesEast(currentX, currentY, 2));
+		validMoves.addAll(validMovesWest(currentX, currentY, 2));
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesUp(int x, int y, int cells) {
+	public Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -59,7 +58,7 @@ public class LeadershipEagle extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesDown(int x, int y, int cells) {
+	public Set<List<Integer>> validMovesNorth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -71,10 +70,11 @@ public class LeadershipEagle extends AbstractPiece {
 				break;
 			}
 		}
+
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesRight(int x, int y, int cells) {
+	public Set<List<Integer>> validMovesEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -86,10 +86,11 @@ public class LeadershipEagle extends AbstractPiece {
 				break;
 			}
 		}
+
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesLeft(int x, int y, int cells) {
+	public Set<List<Integer>> validMovesWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -101,6 +102,7 @@ public class LeadershipEagle extends AbstractPiece {
 				break;
 			}
 		}
+
 		return validMoves;
 	}
 }
