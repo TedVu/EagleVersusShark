@@ -68,7 +68,4 @@ public abstract class AbstractPiece implements Piece {
 		this.isImmune = isImmune;
 		
 	}
-
-	
-
 }
