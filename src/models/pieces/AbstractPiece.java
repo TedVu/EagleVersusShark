@@ -2,15 +2,12 @@ package models.pieces;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-import models.engine.EngineImpl;
+public abstract class AbstractPiece implements Piece {
 
-public abstract class AbstractEagle implements Piece {
-
-	private UUID id;
 	private Map<String, Integer> position = new HashMap<String, Integer>();
 	private boolean isActive = true;
+	private boolean isImmune = false;
 
 	/*
 	 * contructor for initial eagle creation
@@ -19,19 +16,10 @@ public abstract class AbstractEagle implements Piece {
 	 * 
 	 * @param int y - y coordinate
 	 */
-	public AbstractEagle(int x, int y) {
-		this.id = UUID.randomUUID();
+	public AbstractPiece(int x, int y) {
 		position.put("x", x);
 		position.put("y", y);
-		EngineImpl.getSingletonInstance().getBoard().addPiece(x, y);
-	}
-
-	/*
-	 * get uuid of the piece
-	 */
-	@Override
-	public UUID getId() {
-		return this.id;
+//		EngineImpl.getSingletonInstance().getBoard().addPiece(x, y);
 	}
 
 	/*
@@ -67,12 +55,23 @@ public abstract class AbstractEagle implements Piece {
 
 	}
 
-	/*
-	 * 
-	 */
+
 	@Override
 	public boolean isActive() {
 		return this.isActive;
 	}
+
+	@Override
+	public boolean isImmune() {
+		return this.isImmune;
+	}
+
+	@Override
+	public void setImmune(boolean isImmune) {
+		this.isImmune = isImmune;
+		
+	}
+
+	
 
 }

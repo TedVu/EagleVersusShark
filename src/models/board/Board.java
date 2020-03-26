@@ -1,4 +1,4 @@
-package model.board;
+package models.board;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +29,6 @@ public class Board {
 	// Either from being captured or have made a new move
 	public void removePiece(int oldX, int oldY) {
 		cells.get(oldX).get(oldY).setUnoccupied();
-	}
-
-	// comprise of remove old position and add piece to new position
-	public void move(int x, int y) {
-
 	}
 
 	public int getBoardSize() {

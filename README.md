@@ -18,3 +18,10 @@ Eagles Versus Shark is a two dimensional, turn based board game that is subject 
 
 Draft Board Design image found in this repo 
 
+# TODO 
+1. Refactoring Code
+2. Test thoroughly (including edge cases such as not moving into occupied cell, edge board) moving piece functionality
+3. Implementing timer
+4. Documents for A1 
+
+

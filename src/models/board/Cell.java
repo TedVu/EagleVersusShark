@@ -1,4 +1,4 @@
-package model.board;
+package models.board;
 
 public class Cell {
 

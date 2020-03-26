@@ -1,7 +1,9 @@
+
 package models.pieces;
 
+import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Set;
 
 public interface Piece {
 
@@ -11,13 +13,16 @@ public interface Piece {
 
 	public void setActive(boolean isActive);
 
-	public Map<String, Integer> move(int x, int y);
-
 	public boolean isActive();
 
-	public UUID getId();
+	public boolean movePiece(int newX, int newY);
 
-	public boolean movePieceTed(int newX, int newY);
+	// Ted
+	// the order matters for coordinate (hence use a list), convention is (x,y)
+	public Set<List<Integer>> getValidMove();
 
-	public String getType();
+	public boolean isImmune();
+	public void setImmune(boolean isImmune);
+	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
+	
 }

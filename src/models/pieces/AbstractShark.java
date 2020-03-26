@@ -15,10 +15,9 @@ public abstract class AbstractShark implements Piece {
 
     /*
      *  TO BE implemented by concrete classes
-     *  BECAUSE each concrete class exhibits their own type and movement behaviour
+     *  BECAUSE each concrete class exhibits their own movement behaviour
      */
-    public abstract Map<String, Integer> move(int x, int y);
-    public abstract String getType();
+//    public abstract Map<String, Integer> move(int x, int y);
 
     public AbstractShark(int x, int y){
         this.id = UUID.randomUUID();
@@ -49,17 +48,10 @@ public abstract class AbstractShark implements Piece {
         return this.isActive;
     }
 
-    @Override
-    public UUID getId() {
-        return this.id;
-    }
-
-    // Get the Board and doing some Validation here
-    // @TED to check on this code!!
-    @Override
-    public boolean movePieceTed(int newX, int newY) {
-        return true;
-    }
+//    @Override
+//    public UUID getId() {
+//        return this.id;
+//    }
 
     @Override
     public Map<String, Integer> getPosition() {
