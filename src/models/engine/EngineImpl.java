@@ -65,6 +65,14 @@ public class EngineImpl implements Engine {
 		piecesTest.put("LeadershipEagle", eaglePiece2);
 		piecesTest.put("VisionaryEagle", eaglePiece3);
 
+		Piece sharkPiece1 = pieceFactory.generatePiece("AGGRESSIVESHARK", 3, 8);
+		Piece sharkPiece2 = pieceFactory.generatePiece("HEALINGSHARK", 4, 7);
+		Piece sharkPiece3 = pieceFactory.generatePiece("DEFENSIVESHARK", 5, 8);
+
+		piecesTest.put("AggressiveShark", sharkPiece1);
+		piecesTest.put("HealingShark", sharkPiece2);
+		piecesTest.put("DefensiveShark", sharkPiece3);
+
 	}
 
 	/**

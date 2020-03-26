@@ -7,10 +7,7 @@ import java.util.Map;
 
 import models.engine.Engine;
 import models.engine.EngineImpl;
-import models.pieces.AttackerEagle;
-import models.pieces.LeadershipEagle;
-import models.pieces.Piece;
-import models.pieces.VisionaryEagle;
+import models.pieces.*;
 
 public class MockClient {
 
@@ -26,6 +23,11 @@ public class MockClient {
 		Piece attackerPiece = null;
 		Piece visionPiece = null;
 		Piece leaderPiece = null;
+
+		//TESTING SHARKs
+		Piece attackShark = null;
+		Piece healShark = null;
+		Piece defenseShark = null;
 
 		for (Piece piece : pieces.values()) {
 
@@ -47,6 +49,20 @@ public class MockClient {
 				System.out.println("after move attacker: " + engine.movePiece(piece, 2, 3));
 				attackerPiece = piece;
 			}
+
+
+			if (piece instanceof AggressiveShark) {
+				System.out.println("after move aggressive shark: " + engine.movePiece(piece, 3, 2));
+				attackShark = piece;
+			}
+			if (piece instanceof HealingShark) {
+//				System.out.println("after move healing shark: " + engine.movePiece(piece, 3, 3));
+				healShark = piece;
+			}
+			if (piece instanceof DefensiveShark) {
+//				System.out.println("after move defense shark: " + engine.movePiece(piece, 5, 2));
+				defenseShark = piece;
+			}
 		}
 //		engine.setActivePlayer("eagle", true);
 //		System.out.println(engine.getActiveEagles());
@@ -61,6 +77,11 @@ public class MockClient {
 //		System.out.println(attackerPiece.isImmune());
 		
 		System.out.println(engine.useAbility("capture", attackerPiece, visionPiece));
+
+		//TEST: IF you uncomment line 59 & 63, line below should return false
+		//		BECAUSE the healShark is too far away from the defenseShark
+		//		AND the positions of the two sharks don't qualify for the healing ability to work
+		System.out.println(engine.useAbility("HEAL SHARK",healShark,defenseShark));
 
 	}
 
