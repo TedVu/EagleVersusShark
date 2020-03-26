@@ -15,10 +15,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.Asset;
 import controller.SelectPieceController;
 import models.engine.EngineImpl;
 
-//Board Panel is an observer of model
+/**
+ * @author Ted
+ * 
+ *         NOTE: for 1-1 correspondence with model I use a list of list (this is
+ *         a little bit model-ish)
+ *
+ */
 public class BoardPanel extends JPanel {
 
 	List<List<AbstractButton>> buttonList;
@@ -34,23 +41,29 @@ public class BoardPanel extends JPanel {
 				EngineImpl.getSingletonInstance().getBoard().getCol()));
 		buttonList = new ArrayList<>();
 
-		for (int i = 0; i < EngineImpl.getSingletonInstance().getBoard().getRow(); ++i) {
+		// populate buttons here including register listener
+		for (int row = 0; row < EngineImpl.getSingletonInstance().getBoard().getRow(); ++row) {
 			buttonList.add(new ArrayList<AbstractButton>());
-			for (int j = 0; j < EngineImpl.getSingletonInstance().getBoard().getCol(); ++j) {
-				buttonList.get(i).add(new JButton());
-				buttonList.get(i).get(j).setBackground(Color.WHITE);
-				buttonList.get(i).get(j).setBorder(BorderFactory.createRaisedBevelBorder());
-				buttonList.get(i).get(j).setActionCommand("NormalButton");
-				buttonList.get(i).get(j).addActionListener(new SelectPieceController(buttonList.get(i).get(j), this));
-				add(buttonList.get(i).get(j));
-				group.add(buttonList.get(i).get(j));
+			for (int col = 0; col < EngineImpl.getSingletonInstance().getBoard().getCol(); ++col) {
+				buttonList.get(row).add(new JButton());
+				buttonList.get(row).get(col).setBackground(Color.WHITE);
+				buttonList.get(row).get(col).setBorder(BorderFactory.createRaisedBevelBorder());
+				buttonList.get(row).get(col).setActionCommand("NormalButton");
+				buttonList.get(row).get(col)
+						.addActionListener(new SelectPieceController(buttonList.get(row).get(col), this));
+				add(buttonList.get(row).get(col));
+				group.add(buttonList.get(row).get(col));
 			}
 		}
 
+		populateEagleIcon();
+	}
+
+	private void populateEagleIcon() {
 		try {
-			Image attackingEagle = ImageIO.read(getClass().getResource("/asset/AttackingEagle.png"));
-			Image visionaryEagle = ImageIO.read(getClass().getResource("/asset/VisionaryEagle.png"));
-			Image leadershipEagle = ImageIO.read(getClass().getResource("/asset/LeadershipEagle.png"));
+			Image attackingEagle = ImageIO.read(getClass().getResource(Asset.fileName.get("AttackingEagle")));
+			Image visionaryEagle = ImageIO.read(getClass().getResource(Asset.fileName.get("VisionaryEagle")));
+			Image leadershipEagle = ImageIO.read(getClass().getResource(Asset.fileName.get("LeadershipEagle")));
 
 			// Hard code initial position
 			buttonList.get(0).get(3).setIcon(new ImageIcon(attackingEagle));
@@ -60,12 +73,12 @@ public class BoardPanel extends JPanel {
 			buttonList.get(0).get(5).setIcon(new ImageIcon(visionaryEagle));
 			buttonList.get(0).get(5).setActionCommand("VisionaryEagle");
 
+			// set black background for master cell
 			buttonList.get(0).get(4).setBackground(Color.BLACK);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		EngineImpl.getSingletonInstance().seedData();
 	}
 
 	public List<List<AbstractButton>> getButtonList() {

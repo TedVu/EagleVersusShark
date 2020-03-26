@@ -19,7 +19,6 @@ public abstract class AbstractPiece implements Piece {
 	public AbstractPiece(int x, int y) {
 		position.put("x", x);
 		position.put("y", y);
-//		EngineImpl.getSingletonInstance().getBoard().addPiece(x, y);
 	}
 
 	/*

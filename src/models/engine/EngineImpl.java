@@ -23,7 +23,6 @@ import models.player.PlayerImpl;
 public class EngineImpl implements Engine {
 
 	private static Engine engine = null;
-	// private Map<UUID, Piece> pieces = new HashMap<UUID, Piece>();
 	private List<Piece> pieces = new ArrayList<Piece>();
 	private Map<String, Piece> piecesTest = new HashMap<String, Piece>();
 	private PieceFactory pieceFactory = new PieceFactory();
@@ -42,9 +41,6 @@ public class EngineImpl implements Engine {
 		seedData();
 	}
 
-	/*
-	 * 
-	 */
 	public static Engine getSingletonInstance() {
 		if (engine == null) {
 			engine = new EngineImpl();
@@ -57,9 +53,9 @@ public class EngineImpl implements Engine {
 	 * seed data for testing purpose
 	 */
 	public void seedData() {
-		Piece eaglePiece1 = pieceFactory.generatePiece("AttackingEagle", 0, 3);
-		Piece eaglePiece2 = pieceFactory.generatePiece("LeadershipEagle", 1, 4);
-		Piece eaglePiece3 = pieceFactory.generatePiece("VisionaryEagle", 0, 5);
+		Piece eaglePiece1 = pieceFactory.generatePiece("AttackingEagle", 3, 0);
+		Piece eaglePiece2 = pieceFactory.generatePiece("LeadershipEagle", 4, 1);
+		Piece eaglePiece3 = pieceFactory.generatePiece("VisionaryEagle", 5, 0);
 
 		board.addPiece(0, 3);
 		board.addPiece(1, 4);
@@ -71,6 +67,11 @@ public class EngineImpl implements Engine {
 
 	}
 
+	/**
+	 * since validation has all been conducted in getValidMove, should only return
+	 * void
+	 *
+	 */
 	@Override
 	public boolean movePiece(Piece piece, int newX, int newY) {
 		// board need not know about specific piece type it only control the occupation
@@ -130,32 +131,6 @@ public class EngineImpl implements Engine {
 		}
 		return true;
 	}
-
-	/*
-	 * @return the current active player (eaglePlayer || sharkPlayer)
-	 */
-
-	/*
-	 * Add new set of piece Should allow to add two pieces at a time in later
-	 * implementation
-	 */
-	// @Override
-	// public void addNewPiece(List<Piece> newPiece, Piece type) {
-	//
-	// if (type.equals("ATTACKER EAGLE")) {
-	//
-	// Piece piece = pieceFactory.generatePiece("AttackingEagle", 0, 0);
-	// pieces.add(piece);
-	// System.out.println("Added A New Attacker Eagle Piece");
-	//
-	// } else if (type.equals("VISIONARY EAGLE")) {
-	//
-	// Piece piece = pieceFactory.generatePiece("VisionaryEagle", 0, 0);
-	// pieces.add(piece);
-	// System.out.println("Added A New Visionary Eagle");
-	// }
-	//
-	// }
 
 	@Override
 	public Player getCurrentActivePlayer() {

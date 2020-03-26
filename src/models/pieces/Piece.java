@@ -19,6 +19,8 @@ public interface Piece {
 
 	// Ted
 	// the order matters for coordinate (hence use a list), convention is (x,y)
+	// NOTE: this is a little bit confused when plugging into the board which is
+	// [row][col]=[y][x]
 	public Set<List<Integer>> getValidMove();
 
 	public boolean isImmune();
