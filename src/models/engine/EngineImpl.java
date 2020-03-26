@@ -113,14 +113,14 @@ public class EngineImpl implements Engine {
 	 */
 	@Override
 	public List<Piece> getActiveSharks() {
-//		for (Piece piece : piecesTest.values()) {
-//			if (piece != null && piece.isActive() && (
-//				piece instanceof HealingShark ||
-//				piece instanceof AggressiveShark ||
-//				piece instanceof DefensiveShark)) {
-//				activeEagles.add(piece);
-//			}
-//		}
+		for (Piece piece : piecesTest.values()) {
+			if (piece != null && piece.isActive() && (
+				piece instanceof HealingShark ||
+				piece instanceof AggressiveShark ||
+				piece instanceof DefensiveShark)) {
+				activeEagles.add(piece);
+			}
+		}
 		return activeSharks;
 	}
 
