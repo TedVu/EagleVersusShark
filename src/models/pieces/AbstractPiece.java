@@ -6,8 +6,8 @@ import java.util.Map;
 public abstract class AbstractPiece implements Piece {
 
 	private Map<String, Integer> position = new HashMap<String, Integer>();
-	private boolean isActive = true;
-	private boolean isImmune = false;
+	private boolean isActive;
+	private boolean isImmune;
 
 	/*
 	 * contructor for initial eagle creation
@@ -19,6 +19,8 @@ public abstract class AbstractPiece implements Piece {
 	public AbstractPiece(int x, int y) {
 		position.put("x", x);
 		position.put("y", y);
+		isActive = true;
+		isImmune = false;
 	}
 
 	/*
@@ -45,15 +47,11 @@ public abstract class AbstractPiece implements Piece {
 
 	}
 
-	/*
-	 * 
-	 */
 	@Override
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 
 	}
-
 
 	@Override
 	public boolean isActive() {

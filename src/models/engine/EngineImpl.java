@@ -8,9 +8,7 @@ import java.util.Random;
 import java.util.Timer;
 
 import models.board.Board;
-import models.pieces.AbstractPiece;
-import models.pieces.Piece;
-import models.pieces.PieceFactory;
+import models.pieces.*;
 import models.player.Player;
 import models.player.PlayerImpl;
 
@@ -18,6 +16,7 @@ import models.player.PlayerImpl;
  * @originalauthor Sefira
  * 
  * @author Ted
+ * @SharkImplementation Chanboth
  *
  */
 public class EngineImpl implements Engine {
@@ -28,6 +27,7 @@ public class EngineImpl implements Engine {
 	private PieceFactory pieceFactory = new PieceFactory();
 
 	private List<Piece> activeEagles = new ArrayList<Piece>();
+	private List<Piece> activeSharks = new ArrayList<Piece>();
 	private Player eaglePlayer = new PlayerImpl("eaglePlayer");
 	private Player sharkPlayer = new PlayerImpl("sharkPlayer");
 
@@ -97,9 +97,11 @@ public class EngineImpl implements Engine {
 	 */
 	@Override
 	public  List<Piece> getActiveEagles() {
-
 		for (Piece piece : piecesTest.values()) {
-			if (piece != null && piece instanceof AbstractPiece && piece.isActive()) {
+			if (piece != null && piece.isActive() && (
+				piece instanceof AttackerEagle ||
+				piece instanceof LeadershipEagle ||
+				piece instanceof VisionaryEagle)) {
 				activeEagles.add(piece);
 			}
 		}
@@ -111,8 +113,15 @@ public class EngineImpl implements Engine {
 	 */
 	@Override
 	public List<Piece> getActiveSharks() {
-		// TODO Auto-generated method stub
-		return null;
+//		for (Piece piece : piecesTest.values()) {
+//			if (piece != null && piece.isActive() && (
+//				piece instanceof HealingShark ||
+//				piece instanceof AggressiveShark ||
+//				piece instanceof DefensiveShark)) {
+//				activeEagles.add(piece);
+//			}
+//		}
+		return activeSharks;
 	}
 
 	/*
