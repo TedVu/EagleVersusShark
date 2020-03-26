@@ -6,18 +6,18 @@ public class PieceFactory {
 	}
 
 	public Piece generatePiece(String type, int x, int y) {
-		switch (type.toLowerCase()){
-			case "AttackingEagle":
+		switch (type.toUpperCase()){
+			case "ATTACKINGEAGLE":
 				return new AttackerEagle(x, y);
-			case "VisionaryEagle":
+			case "VISIONARYEAGLE":
 				return new VisionaryEagle(x, y);
-			case "LeadershipEagle":
+			case "LEADERSHIPEAGLE":
 				return new LeadershipEagle(x, y);
-			case "HealingShark":
+			case "HEALINGSHARK":
 				return new HealingShark(x, y);
-			case "DefensiveShark":
+			case "DEFENSIVESHARK":
 				return new DefensiveShark(x, y);
-			case "AggressiveShark":
+			case "AGGRESSIVESHARK":
 				return new AggressiveShark(x, y);
 			default:
 				System.out.println("Unable to generate a new piece");
