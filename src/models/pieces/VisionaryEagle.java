@@ -12,11 +12,23 @@ import models.engine.EngineImpl;
 
 public class VisionaryEagle extends AbstractPiece {
 
+	private boolean nextToLeadershipEagle;
+	private boolean canSwapPosition;
+
+
 	public VisionaryEagle(int x, int y) {
 		super(x, y);
+		nextToLeadershipEagle = false;
+		canSwapPosition = true;
 	}
 
-	private boolean canSwapPosition = true;
+	public boolean getNextToLeadershipEagle(){
+		return this.nextToLeadershipEagle;
+	}
+
+	public void setNextToLeadershipEagle(boolean status){
+		this.nextToLeadershipEagle = status;
+	}
 
 	public boolean isCanSwapPosition() {
 		// TODO Auto-generated constructor stub

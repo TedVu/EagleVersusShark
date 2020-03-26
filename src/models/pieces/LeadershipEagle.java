@@ -11,8 +11,11 @@ import models.engine.EngineImpl;
 
 public class LeadershipEagle extends AbstractPiece {
 
+	private boolean nextToLeadershipEagle;
+
 	public LeadershipEagle(int x, int y) {
 		super(x, y);
+		nextToLeadershipEagle = false;
 	}
 
 	/*
@@ -28,6 +31,14 @@ public class LeadershipEagle extends AbstractPiece {
 	public boolean movePiece(int newX, int newY) {
 		setPosition(newX, newY);
 		return true;
+	}
+
+	public boolean getNextToLeadershipEagle(){
+		return this.nextToLeadershipEagle;
+	}
+
+	public void setNextToLeadershipEagle(boolean status){
+		this.nextToLeadershipEagle = status;
 	}
 
 	@Override

@@ -10,8 +10,11 @@ import models.engine.EngineImpl;
 
 public class AttackerEagle extends AbstractPiece {
 
+	private boolean nextToLeadershipEagle;
+
 	public AttackerEagle(int x, int y) {
 		super(x, y);
+		nextToLeadershipEagle = false;
 	}
 
 	/*
@@ -27,6 +30,14 @@ public class AttackerEagle extends AbstractPiece {
 	public boolean movePiece(int newX, int newY) {
 		setPosition(newX, newY);
 		return true;
+	}
+
+	public boolean getNextToLeadershipEagle(){
+		return this.nextToLeadershipEagle;
+	}
+
+	public void setNextToLeadershipEagle(boolean status){
+		this.nextToLeadershipEagle = status;
 	}
 
 	@Override

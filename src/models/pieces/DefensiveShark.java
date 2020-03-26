@@ -175,7 +175,11 @@ public class DefensiveShark extends AbstractPiece {
             if(!isSurrounding(piece, affectedPiece))
                 return false;
 
-            affectedPiece.setImmune(true);
+            if(!affectedPiece.isImmune()) {
+                affectedPiece.setImmune(true);
+            } else{
+                System.out.println("Piece is already protected!");
+            }
             //TODO: implement inactive ability for one turn after using
 
             //TODO: implement "can quickly move to neighbouring cell of any sharks"
