@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 
+import javax.swing.ImageIcon;
+
 import models.board.Board;
 import models.pieces.*;
 import models.player.Player;
@@ -20,7 +22,7 @@ import models.player.PlayerImpl;
  *
  */
 public class EngineImpl implements Engine {
-
+	private boolean startGame = false;
 	private static Engine engine = null;
 	private List<Piece> pieces = new ArrayList<Piece>();
 	private Map<String, Piece> piecesTest = new HashMap<String, Piece>();
@@ -57,13 +59,25 @@ public class EngineImpl implements Engine {
 		Piece eaglePiece2 = pieceFactory.generatePiece("LeadershipEagle", 4, 1);
 		Piece eaglePiece3 = pieceFactory.generatePiece("VisionaryEagle", 5, 0);
 
+		Piece sharkPiece1 = pieceFactory.generatePiece("AggressiveShark", 3, 8);
+		Piece sharkPiece2 = pieceFactory.generatePiece("DefensiveShark", 4, 7);
+		Piece sharkPiece3 = pieceFactory.generatePiece("HealingShark", 5, 8);
+
 		board.addPiece(0, 3);
 		board.addPiece(1, 4);
 		board.addPiece(0, 5);
 
+		board.addPiece(8, 3);
+		board.addPiece(7, 4);
+		board.addPiece(8, 5);
+
 		piecesTest.put("AttackingEagle", eaglePiece1);
 		piecesTest.put("LeadershipEagle", eaglePiece2);
 		piecesTest.put("VisionaryEagle", eaglePiece3);
+
+		piecesTest.put("AggressiveShark", sharkPiece1);
+		piecesTest.put("DefensiveShark", sharkPiece2);
+		piecesTest.put("HealingShark", sharkPiece3);
 
 	}
 
@@ -96,12 +110,10 @@ public class EngineImpl implements Engine {
 	 * @return List<Piece> all active eagles
 	 */
 	@Override
-	public  List<Piece> getActiveEagles() {
+	public List<Piece> getActiveEagles() {
 		for (Piece piece : piecesTest.values()) {
-			if (piece != null && piece.isActive() && (
-				piece instanceof AttackerEagle ||
-				piece instanceof LeadershipEagle ||
-				piece instanceof VisionaryEagle)) {
+			if (piece != null && piece.isActive() && (piece instanceof AttackerEagle || piece instanceof LeadershipEagle
+					|| piece instanceof VisionaryEagle)) {
 				activeEagles.add(piece);
 			}
 		}
@@ -113,14 +125,14 @@ public class EngineImpl implements Engine {
 	 */
 	@Override
 	public List<Piece> getActiveSharks() {
-//		for (Piece piece : piecesTest.values()) {
-//			if (piece != null && piece.isActive() && (
-//				piece instanceof HealingShark ||
-//				piece instanceof AggressiveShark ||
-//				piece instanceof DefensiveShark)) {
-//				activeEagles.add(piece);
-//			}
-//		}
+		// for (Piece piece : piecesTest.values()) {
+		// if (piece != null && piece.isActive() && (
+		// piece instanceof HealingShark ||
+		// piece instanceof AggressiveShark ||
+		// piece instanceof DefensiveShark)) {
+		// activeEagles.add(piece);
+		// }
+		// }
 		return activeSharks;
 	}
 
@@ -175,10 +187,15 @@ public class EngineImpl implements Engine {
 	 */
 	@Override
 	public Player getInitialPlayerActivePlayer() {
+		startGame = true;
 
 		Player activePlayer;
 		Random rand = new Random();
 		int randomValue = rand.nextInt() % 2;
+		
+		
+		
+		randomValue = 1;// for testing purpose on shark side
 
 		if (randomValue == 0) {
 			this.eaglePlayer.setActive(true);
@@ -202,7 +219,6 @@ public class EngineImpl implements Engine {
 	 */
 	@Override
 	public void setActivePlayer(String playerType, boolean turnOnTimer) {
-		System.out.println("current active player: " + getCurrentActivePlayer().getPlayerType());
 		String nextPlayer;
 		if (playerType.equals("eagle")) {
 			this.eaglePlayer.setActive(true);
@@ -250,8 +266,11 @@ public class EngineImpl implements Engine {
 	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece) {
 		return piece.useAbility(abilityName, piece, affectedPiece);
 	}
-	
-	
-	
+
+	@Override
+	public boolean getStartGame() {
+		// TODO Auto-generated method stub
+		return startGame;
+	}
 
 }

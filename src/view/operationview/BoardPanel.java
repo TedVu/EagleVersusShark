@@ -22,8 +22,8 @@ import models.engine.EngineImpl;
 /**
  * @author Ted
  * 
- *         NOTE: for 1-1 correspondence with model I use a list of list (this is
- *         a little bit model-ish)
+ *         NOTE: for 1-1 correspondence with model I use a list of list for
+ *         button (this is a little bit model-ish)
  *
  */
 public class BoardPanel extends JPanel {
@@ -57,6 +57,7 @@ public class BoardPanel extends JPanel {
 		}
 
 		populateEagleIcon();
+		populateSharkIcon();
 	}
 
 	private void populateEagleIcon() {
@@ -75,6 +76,31 @@ public class BoardPanel extends JPanel {
 
 			// set black background for master cell
 			buttonList.get(0).get(4).setBackground(Color.BLACK);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Code Duplication REFACTORING
+	 */
+	private void populateSharkIcon() {
+		try {
+			Image aggressiveShark = ImageIO.read(getClass().getResource(Asset.fileName.get("AggressiveShark")));
+			Image healingShark = ImageIO.read(getClass().getResource(Asset.fileName.get("HealingShark")));
+			Image defensiveShark = ImageIO.read(getClass().getResource(Asset.fileName.get("DefensiveShark")));
+
+			// Hard code initial position
+			buttonList.get(8).get(3).setIcon(new ImageIcon(aggressiveShark));
+			buttonList.get(8).get(3).setActionCommand("AggressiveShark");
+			buttonList.get(7).get(4).setIcon(new ImageIcon(defensiveShark));
+			buttonList.get(7).get(4).setActionCommand("DefensiveShark");
+			buttonList.get(8).get(5).setIcon(new ImageIcon(healingShark));
+			buttonList.get(8).get(5).setActionCommand("HealingShark");
+
+			// set black background for master cell
+			buttonList.get(8).get(4).setBackground(Color.BLACK);
 
 		} catch (IOException e) {
 			e.printStackTrace();

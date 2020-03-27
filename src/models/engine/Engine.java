@@ -40,6 +40,11 @@ public interface Engine {
 	public void seedData();
 
 	public void setActivePlayerTimer(String playerType);
+
+	
+	public boolean getStartGame();
+	
+
 	
 	
 	

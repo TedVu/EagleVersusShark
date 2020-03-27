@@ -12,7 +12,6 @@ public class HealingShark extends AbstractPiece {
 
     @Override
     public boolean movePiece(int newX, int newY) {
-        System.out.println("Moving the healing shark piece");
         setPosition(newX,newY);
         return true;
     }

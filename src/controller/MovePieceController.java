@@ -8,6 +8,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,12 +32,23 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 	private BoardPanel boardPanel;
 	private String pieceType;
 	private Set<List<Integer>> validMoves;
+	private Set<String> eagleNames = new HashSet<String>();
+	private Set<String> sharkNames = new HashSet<>();
 
 	/**
 	 * REFACTORING - Change to relative path
 	 */
 	public MovePieceController() {
 		Asset.populate();
+
+		eagleNames.add("attackingeagle");
+		eagleNames.add("visionaryeagle");
+		eagleNames.add("leadershipeagle");
+
+		sharkNames.add("aggressiveshark");
+		sharkNames.add("defensiveshark");
+		sharkNames.add("healingshark");
+
 	}
 
 	@Override
@@ -55,8 +67,8 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 
 		List<List<AbstractButton>> buttons = boardPanel.getButtonList();
 		pieceType = (String) evt.getOldValue();
-		validMoves = EngineImpl.getSingletonInstance().getAllPiecesTed().get(pieceType).getValidMove();
 
+		validMoves = EngineImpl.getSingletonInstance().getAllPiecesTed().get(pieceType).getValidMove();
 		// enable available move, focusing on the VIEW-CONTROLLER
 		enableViewAvailableMove(buttons);
 	}
@@ -70,81 +82,164 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 	 */
 	private void enableViewAvailableMove(List<List<AbstractButton>> buttons) {
 		for (List<Integer> l : validMoves) {
-			buttons.get(l.get(1)).get(l.get(0)).setBackground(Color.yellow);
+			if (eagleNames.contains(pieceType.toLowerCase())) {
+				buttons.get(l.get(1)).get(l.get(0)).setBackground(Color.yellow);
+			} else if (sharkNames.contains(pieceType.toLowerCase())) {
+				buttons.get(l.get(1)).get(l.get(0)).setBackground(Color.blue);
+			}
 			ActionListener[] selectPieceListener = buttons.get(l.get(1)).get(l.get(0)).getActionListeners();
 			buttons.get(l.get(1)).get(l.get(0)).removeActionListener(selectPieceListener[0]);
+
 			buttons.get(l.get(1)).get(l.get(0)).addActionListener(this);
 		}
 	}
 
 	/**
-	 * @param the selected button when moving piece
+	 * @param the
+	 *            selected button when moving piece
 	 * @implNote This method is a little bit heavy weight, may need decouple,
-	 *            extraction in later stage
+	 *           extraction in later stage
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// Call method on view to update model
-		List<List<AbstractButton>> buttons = boardPanel.getButtonList();
+		boolean notEnterAlly = true;
+		if (pieceType.equalsIgnoreCase("attackingeagle") || pieceType.equalsIgnoreCase("leadershipeagle")
+				|| pieceType.equalsIgnoreCase("visionaryeagle")) {
+			AbstractButton buttonClicked = (AbstractButton) e.getSource();
+			if (buttonClicked.getActionCommand().equalsIgnoreCase("attackingeagle")
+					|| buttonClicked.getActionCommand().equalsIgnoreCase("leadershipeagle")
+					|| buttonClicked.getActionCommand().equalsIgnoreCase("visionaryeagle")) {
+				notEnterAlly = false;
+			}
+		} else {
+			AbstractButton buttonClicked = (AbstractButton) e.getSource();
+			if (buttonClicked.getActionCommand().equalsIgnoreCase("aggressiveshark")
+					|| buttonClicked.getActionCommand().equalsIgnoreCase("defensiveshark")
+					|| buttonClicked.getActionCommand().equalsIgnoreCase("healingshark")) {
+				notEnterAlly = false;
+			}
+		}
 
-		// before setting a new position for piece in model store the old position for
-		// view update
-		Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPiecesTed().get(pieceType).getPosition();
+		if (notEnterAlly) {
+			// Call method on view to update model
+			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
 
-		// update view here basically remove the icon
-		boardPanel.getButtonList().get(oldPos.get("y")).get(oldPos.get("x")).setIcon(null);
+			// before setting a new position for piece in model store the old position for
+			// view update
+			Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPiecesTed().get(pieceType)
+					.getPosition();
 
-		// default action command of button is NormalButton, so reset the old postition
-		// into the normal button to avoid any unwanted triggering of events
-		boardPanel.getButtonList().get(oldPos.get("y")).get(oldPos.get("x")).setActionCommand("NormalButton");
+			// update view here basically remove the icon
+			boardPanel.getButtonList().get(oldPos.get("y")).get(oldPos.get("x")).setIcon(null);
 
-		// Identify button being clicked
-		AbstractButton buttonClicked = (AbstractButton) e.getSource();
+			// default action command of button is NormalButton, so reset the old postition
+			// into the normal button to avoid any unwanted triggering of events
+			boardPanel.getButtonList().get(oldPos.get("y")).get(oldPos.get("x")).setActionCommand("NormalButton");
 
-		// The piece has been moved, remember to setActionCommand() for next turn
-		buttonClicked.setActionCommand(pieceType);
+			// Identify button being clicked
+			AbstractButton buttonClicked = (AbstractButton) e.getSource();
 
-		Map<String, Integer> newPos = new HashMap<String, Integer>();
+			// The piece has been moved, remember to setActionCommand() for next turn
+			buttonClicked.setActionCommand(pieceType);
 
-		// get coordinate to update model
-		for (int i = 0; i < buttons.size(); ++i) {
-			for (int j = 0; j < buttons.get(0).size(); ++j) {
-				if (buttons.get(i).get(j).equals(buttonClicked)) {
-					newPos.put("y", i);
-					newPos.put("x", j);
-					break;
+			Map<String, Integer> newPos = new HashMap<String, Integer>();
+
+			// get coordinate to update model
+			for (int i = 0; i < buttons.size(); ++i) {
+				for (int j = 0; j < buttons.get(0).size(); ++j) {
+					if (buttons.get(i).get(j).equals(buttonClicked)) {
+						newPos.put("y", i);
+						newPos.put("x", j);
+						break;
+					}
 				}
 			}
-		}
 
-		// call movePiece to update model - including board + piece position
-		// @see EngineImpl
-		EngineImpl.getSingletonInstance().getAllPiecesTed().get(pieceType).movePiece(newPos.get("x"), newPos.get("y"));
+			// call movePiece to update model - including board + piece position
+			// @see EngineImpl
+			EngineImpl.getSingletonInstance().getAllPiecesTed().get(pieceType).movePiece(newPos.get("x"),
+					newPos.get("y"));
 
-		// Update icon on view here
-		Image animal = null;
-		try {
-			animal = ImageIO.read(getClass().getResource(Asset.fileName.get(pieceType)));
-		} catch (IOException e1) {
-			System.err.println("IMAGE NOT FOUND");
-		}
-		buttonClicked.setIcon(new ImageIcon(animal));
-
-		// Allow button to be clicked again
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				buttons.get(row).get(col).setBackground(Color.WHITE);
+			// Update icon on view here
+			Image animal = null;
+			try {
+				animal = ImageIO.read(getClass().getResource(Asset.fileName.get(pieceType)));
+			} catch (IOException e1) {
+				System.err.println("IMAGE NOT FOUND");
 			}
-		}
+			buttonClicked.setIcon(new ImageIcon(animal));
 
-		// Remove MovePieceController and Reregister SelectPieceController for valid
-		// buttons
-		for (List<Integer> l : validMoves) {
-			ActionListener[] movePieceController = buttons.get(l.get(1)).get(l.get(0)).getActionListeners();
-			buttons.get(l.get(1)).get(l.get(0)).removeActionListener(movePieceController[0]);
+			// Allow button to be clicked again
+			for (int row = 0; row < buttons.size(); ++row) {
+				for (int col = 0; col < buttons.get(0).size(); ++col) {
+					buttons.get(row).get(col).setBackground(Color.WHITE);
+				}
+			}
 
-			buttons.get(l.get(1)).get(l.get(0))
-					.addActionListener(new SelectPieceController(buttons.get(l.get(1)).get(l.get(0)), boardPanel));
+			// Remove MovePieceController and Reregister SelectPieceController for valid
+			// buttons
+			for (List<Integer> l : validMoves) {
+				ActionListener[] movePieceController = buttons.get(l.get(1)).get(l.get(0)).getActionListeners();
+				buttons.get(l.get(1)).get(l.get(0)).removeActionListener(movePieceController[0]);
+
+				buttons.get(l.get(1)).get(l.get(0))
+						.addActionListener(new SelectPieceController(buttons.get(l.get(1)).get(l.get(0)), boardPanel));
+
+			}
+
+			// turn based occur here
+			if (pieceType.equalsIgnoreCase("attackingeagle") || pieceType.equalsIgnoreCase("leadershipeagle")
+					|| pieceType.equalsIgnoreCase("visionaryeagle")) {
+
+				for (int i = 0; i < buttons.size(); ++i) {
+					for (int j = 0; j < buttons.get(0).size(); ++j) {
+						if (sharkNames.contains(buttons.get(i).get(j).getActionCommand())) {
+							AbstractButton button = buttons.get(i).get(j);
+							for (ActionListener l : button.getActionListeners()) {
+								button.removeActionListener(l);
+							}
+							button.addActionListener(new SelectPieceController(button, boardPanel));
+						}
+					}
+				}
+				EngineImpl.getSingletonInstance().setActivePlayer("shark", false);
+
+
+			} else {
+				System.out.println("MOVE");
+				
+				for (int i = 0; i < buttons.size(); ++i) {
+					for (int j = 0; j < buttons.get(0).size(); ++j) {
+						if (eagleNames.contains(buttons.get(i).get(j).getActionCommand())) {
+							AbstractButton button = buttons.get(i).get(j);
+							for (ActionListener l : button.getActionListeners()) {
+								button.removeActionListener(l);
+							}
+							button.addActionListener(new SelectPieceController(button, boardPanel));
+						}
+					}
+				}
+				EngineImpl.getSingletonInstance().setActivePlayer("eagle", false);
+
+			}
+		} else {
+			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
+
+			AbstractButton buttonClicked = (AbstractButton) e.getSource();
+
+			pieceType = buttonClicked.getActionCommand();
+			validMoves = EngineImpl.getSingletonInstance().getAllPiecesTed().get(buttonClicked.getActionCommand())
+					.getValidMove();
+
+			for (int row = 0; row < buttons.size(); ++row) {
+				for (int col = 0; col < buttons.get(0).size(); ++col) {
+					if (buttons.get(row).get(col).getBackground().equals(Color.YELLOW)
+							|| buttons.get(row).get(col).getBackground().equals(Color.BLUE)) {
+						buttons.get(row).get(col).setBackground(Color.WHITE);
+					}
+				}
+			}
+			enableViewAvailableMove(buttons);
 
 		}
 	}

@@ -15,6 +15,16 @@ public class PieceFactory {
 		if (type.equalsIgnoreCase("LeadershipEagle")) {
 			return new LeadershipEagle(x, y);
 		}
+		if (type.equalsIgnoreCase("AggressiveShark")) {
+			return new AggressiveShark(x, y);
+		}
+		if (type.equalsIgnoreCase("DefensiveShark")) {
+			return new DefensiveShark(x, y);
+		}
+		if (type.equalsIgnoreCase("HealingShark")) {
+			return new HealingShark(x, y);
+		}
+
 		return null;
 	}
 }
