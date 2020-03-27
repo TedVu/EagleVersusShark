@@ -19,9 +19,9 @@ public interface Engine {
 
 	public Player getCurrentActivePlayer();
 
-	public Player getInitialPlayerActivePlayer();
+	public Player getInitiaActivePlayer();
 
-	public void setActivePlayer(String playerType, boolean turnOnTimer);
+	public void setActivePlayer(String playerType);
 
 	public void addNewPiece(List<Piece> newPiece, Piece type);
 
@@ -29,6 +29,7 @@ public interface Engine {
 
 	public boolean movePiece(Piece piece, int newX, int newY);
 	
+	public void setTimerStatus(boolean timerIsOn);
 	
 	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
 
@@ -40,7 +41,7 @@ public interface Engine {
 	public void seedData();
 
 	public void setActivePlayerTimer(String playerType);
-	
+
 	
 	
 

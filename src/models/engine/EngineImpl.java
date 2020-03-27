@@ -30,8 +30,10 @@ public class EngineImpl implements Engine {
 	private List<Piece> activeSharks = new ArrayList<Piece>();
 	private Player eaglePlayer = new PlayerImpl("eaglePlayer");
 	private Player sharkPlayer = new PlayerImpl("sharkPlayer");
-
+	private boolean timerIsOn = false;
+	private int round = 0;
 	private Board board;
+	
 
 	/*
 	 * default constructor
@@ -175,6 +177,12 @@ public class EngineImpl implements Engine {
 		}
 		return true;
 	}
+	
+
+	@Override
+	public void setTimerStatus(boolean timerIsOn) {
+		this.timerIsOn = timerIsOn;
+	}
 
 	/*
 	 * return the initial active player, call this at the beginning of the program
@@ -182,7 +190,7 @@ public class EngineImpl implements Engine {
 	 * @return (eaglePlayer || sharkPlayer)
 	 */
 	@Override
-	public Player getInitialPlayerActivePlayer() {
+	public Player getInitiaActivePlayer() {
 
 		Player activePlayer;
 		Random rand = new Random();
@@ -205,13 +213,14 @@ public class EngineImpl implements Engine {
 	 * 
 	 * @param String playerType - must be "eagle" or "shark"
 	 * 
-	 * @param bool turnOnTimer - set interval to change player every n seconds or
-	 * not
 	 */
 	@Override
-	public void setActivePlayer(String playerType, boolean turnOnTimer) {
+	public void setActivePlayer(String playerType) {
 		System.out.println("current active player: " + getCurrentActivePlayer().getPlayerType());
+		
 		String nextPlayer;
+		round++;
+		
 		if (playerType.equals("eagle")) {
 			this.eaglePlayer.setActive(true);
 			this.sharkPlayer.setActive(false);
@@ -224,7 +233,7 @@ public class EngineImpl implements Engine {
 			throw new IllegalArgumentException("invalid player type, must be eagle or shark");
 		}
 
-		if (turnOnTimer) {
+		if (timerIsOn) {
 			setActivePlayerTimer(nextPlayer);
 		}
 	}
@@ -237,14 +246,18 @@ public class EngineImpl implements Engine {
 	 */
 	@Override
 	public void setActivePlayerTimer(String playerType) {
-
+		
+			
 		Timer t = new java.util.Timer();
 		t.schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
-				setActivePlayer(playerType, true);
+				setActivePlayer(playerType);
 			}
 		}, 7000);
+			
+		
+
 
 	}
 
