@@ -18,7 +18,7 @@ public class MockClient {
 		engine.seedData();
 
 		pieces = engine.getAllPiecesTed();
-//		System.out.println(engine.getInitialPlayerActivePlayer().getPlayerType());
+//		System.out.println(engine.getInitialActivePlayer().getPlayerType());
 		
 		Piece attackerPiece = null;
 		Piece visionPiece = null;
@@ -64,7 +64,21 @@ public class MockClient {
 				defenseShark = piece;
 			}
 		}
-//		engine.setActivePlayer("eagle", true);
+		engine.getInitiaActivePlayer();
+		engine.setTimerStatus(true);
+		engine.setActivePlayer("eagle");
+		
+		
+		new java.util.Timer().schedule( 
+		        new java.util.TimerTask() {
+		            @Override
+		            public void run() {
+		            	System.out.println("stop timer");
+		            	engine.setTimerStatus(false);
+		            }
+		        }, 
+		        20000 
+		);
 //		System.out.println(engine.getActiveEagles());
 //		
 //		System.out.println(engine.useAbility("swap", visionPiece, attackerPiece));
