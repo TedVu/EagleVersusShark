@@ -13,13 +13,11 @@ import models.engine.EngineImpl;
 public class VisionaryEagle extends AbstractPiece {
 
 	private boolean nextToLeadershipEagle;
-	private boolean canSwapPosition;
 
 
 	public VisionaryEagle(int x, int y) {
 		super(x, y);
 		nextToLeadershipEagle = false;
-		canSwapPosition = true;
 	}
 
 	public boolean getNextToLeadershipEagle(){
@@ -30,15 +28,6 @@ public class VisionaryEagle extends AbstractPiece {
 		this.nextToLeadershipEagle = status;
 	}
 
-	public boolean isCanSwapPosition() {
-		// TODO Auto-generated constructor stub
-		return canSwapPosition;
-	}
-
-	public void setCanSwapPosition(boolean canSwapPosition) {
-		// TODO Auto-generated constructor stub
-		this.canSwapPosition = canSwapPosition;
-	}
 
 	/*
 	 * validate the new position and set it if it's valid
@@ -211,7 +200,7 @@ public class VisionaryEagle extends AbstractPiece {
 		return false;
 	}
 	
-	public boolean swap(Piece piece, Piece affectedPiece) {
+	private boolean swap(Piece piece, Piece affectedPiece) {
 		
 		
 		try {
@@ -232,11 +221,7 @@ public class VisionaryEagle extends AbstractPiece {
 		}
 	}
 
-	
-	public boolean capture(Piece capturingPiece, Piece capturedPiece) {
-		throw new IllegalArgumentException("this piece can't capture opponent!");
-	}
-	
+
 	
 
 }
