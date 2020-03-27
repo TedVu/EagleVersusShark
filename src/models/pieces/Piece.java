@@ -1,10 +1,9 @@
 
 package models.pieces;
 
+import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-
-
+import java.util.Set;
 
 public interface Piece {
 
@@ -16,7 +15,16 @@ public interface Piece {
 
 	public boolean isActive();
 
-	
-	
 	public boolean movePiece(int newX, int newY);
+
+	// Ted
+	// the order matters for coordinate (hence use a list), convention is (x,y)
+	// NOTE: this is a little bit confused when plugging into the board which is
+	// [row][col]=[y][x]
+	public Set<List<Integer>> getValidMove();
+
+	public boolean isImmune();
+	public void setImmune(boolean isImmune);
+	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
+	
 }

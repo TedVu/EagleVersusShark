@@ -3,12 +3,11 @@ package models.pieces;
 import java.util.HashMap;
 import java.util.Map;
 
-
-public abstract class AbstractPiece  implements Piece{
-	
+public abstract class AbstractPiece implements Piece {
 
 	private Map<String, Integer> position = new HashMap<String, Integer>();
-	private boolean isActive = true;
+	private boolean isActive;
+	private boolean isImmune;
 
 	/*
 	 * contructor for initial eagle creation
@@ -17,12 +16,12 @@ public abstract class AbstractPiece  implements Piece{
 	 * 
 	 * @param int y - y coordinate
 	 */
-	public AbstractPiece( int x, int y) {
+	public AbstractPiece(int x, int y) {
 		position.put("x", x);
 		position.put("y", y);
-//		EngineImpl.getSingletonInstance().getBoard().addPiece(x, y);
+		isActive = true;
+		isImmune = false;
 	}
-
 
 	/*
 	 * modify the position of the piece
@@ -48,22 +47,25 @@ public abstract class AbstractPiece  implements Piece{
 
 	}
 
-	/*
-	 * 
-	 */
 	@Override
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 
 	}
 
-	/*
-	 * 
-	 */
 	@Override
 	public boolean isActive() {
 		return this.isActive;
 	}
 
+	@Override
+	public boolean isImmune() {
+		return this.isImmune;
+	}
 
+	@Override
+	public void setImmune(boolean isImmune) {
+		this.isImmune = isImmune;
+		
+	}
 }
