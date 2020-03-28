@@ -1,5 +1,7 @@
 package models.engine;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,10 +9,13 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 
-import javax.swing.ImageIcon;
-
+import controller.TimerPropertyChangeListener;
 import models.board.Board;
-import models.pieces.*;
+import models.pieces.AttackerEagle;
+import models.pieces.LeadershipEagle;
+import models.pieces.Piece;
+import models.pieces.PieceFactory;
+import models.pieces.VisionaryEagle;
 import models.player.Player;
 import models.player.PlayerImpl;
 
@@ -33,6 +38,8 @@ public class EngineImpl implements Engine {
 	private Player eaglePlayer = new PlayerImpl("eaglePlayer");
 	private Player sharkPlayer = new PlayerImpl("sharkPlayer");
 
+	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
 	private Board board;
 
 	/*
@@ -41,6 +48,8 @@ public class EngineImpl implements Engine {
 	public EngineImpl() {
 		board = new Board();
 		seedData();
+		pcs.addPropertyChangeListener(new TimerPropertyChangeListener());
+
 	}
 
 	public static Engine getSingletonInstance() {
@@ -192,11 +201,7 @@ public class EngineImpl implements Engine {
 		Player activePlayer;
 		Random rand = new Random();
 		int randomValue = rand.nextInt() % 2;
-		
-		
-		
-		randomValue = 1;// for testing purpose on shark side
-
+		randomValue = 1;
 		if (randomValue == 0) {
 			this.eaglePlayer.setActive(true);
 			this.sharkPlayer.setActive(false);
@@ -212,7 +217,8 @@ public class EngineImpl implements Engine {
 	/*
 	 * set active player
 	 * 
-	 * @param String playerType - must be "eagle" or "shark"
+	 * @param String playerType - must be "eagle" or "shark" what is playerType anw
+	 * ? currentPlayer ?
 	 * 
 	 * @param bool turnOnTimer - set interval to change player every n seconds or
 	 * not
@@ -220,19 +226,22 @@ public class EngineImpl implements Engine {
 	@Override
 	public void setActivePlayer(String playerType, boolean turnOnTimer) {
 		String nextPlayer;
+		String currentPlayer;
 		if (playerType.equals("eagle")) {
 			this.eaglePlayer.setActive(true);
 			this.sharkPlayer.setActive(false);
 			nextPlayer = "shark";
+			currentPlayer = "eagle";
 		} else if (playerType.equals("shark")) {
 			this.eaglePlayer.setActive(false);
 			this.sharkPlayer.setActive(true);
 			nextPlayer = "eagle";
+			currentPlayer = "shark";
 		} else {
 			throw new IllegalArgumentException("invalid player type, must be eagle or shark");
 		}
-
 		if (turnOnTimer) {
+			System.out.println(currentPlayer);
 			setActivePlayerTimer(nextPlayer);
 		}
 	}
@@ -243,17 +252,24 @@ public class EngineImpl implements Engine {
 	 * 
 	 * @param - String playerType - must be "eagle" or "shark"
 	 */
+	private Timer t;
 	@Override
 	public void setActivePlayerTimer(String playerType) {
 
-		Timer t = new java.util.Timer();
+		t = new java.util.Timer();
 		t.schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
 				setActivePlayer(playerType, true);
+				pcs.firePropertyChange("SwitchTurn", playerType, null);
 			}
-		}, 7000);
+		}, 5000);
 
+	}
+	
+	@Override
+	public void cancelTimer() {
+		t.cancel();
 	}
 
 	@Override
@@ -271,6 +287,13 @@ public class EngineImpl implements Engine {
 	public boolean getStartGame() {
 		// TODO Auto-generated method stub
 		return startGame;
+	}
+
+	@Override
+	public PropertyChangeListener[] getPropertyChangeListener() {
+		// TODO Auto-generated method stub
+
+		return pcs.getPropertyChangeListeners();
 	}
 
 }

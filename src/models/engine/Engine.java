@@ -1,5 +1,6 @@
 package models.engine;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Map;
 
@@ -28,8 +29,7 @@ public interface Engine {
 	public Board getBoard();
 
 	public boolean movePiece(Piece piece, int newX, int newY);
-	
-	
+
 	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
 
 	// Ted
@@ -41,12 +41,10 @@ public interface Engine {
 
 	public void setActivePlayerTimer(String playerType);
 
-	
 	public boolean getStartGame();
-	
 
-	
-	
-	
+	public PropertyChangeListener[] getPropertyChangeListener();
+
+	public void cancelTimer();
 
 }

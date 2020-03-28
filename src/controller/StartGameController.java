@@ -11,10 +11,10 @@ public class StartGameController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		EngineImpl.getSingletonInstance().getInitialPlayerActivePlayer();
-		Button button = (Button)e.getSource();
-		button.setEnabled(false);	
-		System.out.println(EngineImpl.getSingletonInstance().getCurrentActivePlayer().getPlayerType());
+		EngineImpl.getSingletonInstance().setActivePlayerTimer("eagle");
 
+		Button button = (Button) e.getSource();
+		button.setEnabled(false);
 	}
 
 }

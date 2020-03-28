@@ -3,9 +3,11 @@ package view.operationview;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
@@ -17,6 +19,7 @@ import javax.swing.JPanel;
 
 import controller.Asset;
 import controller.SelectPieceController;
+import controller.TimerPropertyChangeListener;
 import models.engine.EngineImpl;
 
 /**
@@ -32,19 +35,20 @@ public class BoardPanel extends JPanel {
 	private ButtonGroup group;
 
 	/**
-	 * Constructing the board panel initially is a hard-coded construction since we
-	 * know exactly the beginning position of each piece
+	 * Constructing the board panel,at the beginning the board is a hard-coded
+	 * construction since we know exactly the beginning position of each piece
 	 */
 	public BoardPanel() {
 		group = new ButtonGroup();
-		setLayout(new GridLayout(EngineImpl.getSingletonInstance().getBoard().getRow(),
-				EngineImpl.getSingletonInstance().getBoard().getCol()));
+		int nRow = EngineImpl.getSingletonInstance().getBoard().getRow();
+		int nCol = EngineImpl.getSingletonInstance().getBoard().getCol();
+		setLayout(new GridLayout(nRow, nCol));
 		buttonList = new ArrayList<>();
 
 		// populate buttons here including register listener
-		for (int row = 0; row < EngineImpl.getSingletonInstance().getBoard().getRow(); ++row) {
+		for (int row = 0; row < nRow; ++row) {
 			buttonList.add(new ArrayList<AbstractButton>());
-			for (int col = 0; col < EngineImpl.getSingletonInstance().getBoard().getCol(); ++col) {
+			for (int col = 0; col < nCol; ++col) {
 				buttonList.get(row).add(new JButton());
 				buttonList.get(row).get(col).setBackground(Color.WHITE);
 				buttonList.get(row).get(col).setBorder(BorderFactory.createRaisedBevelBorder());
@@ -56,26 +60,30 @@ public class BoardPanel extends JPanel {
 			}
 		}
 
-		populateEagleIcon();
-		populateSharkIcon();
+		populate(Asset.attackingEagle, Asset.visionaryEagle, Asset.leadershipEagle);
+		populate(Asset.aggressiveShark, Asset.defensiveShark, Asset.healingShark);
+
+		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getPropertyChangeListener();
+		((TimerPropertyChangeListener)listeners[0]).injectBoard(this);
 	}
 
-	private void populateEagleIcon() {
+	private void populate(String pieceName1, String pieceName2, String pieceName3) {
+
+		Map<String, Integer> posPiece1 = EngineImpl.getSingletonInstance().getAllPiecesTed().get(pieceName1)
+				.getPosition();
+
+		Map<String, Integer> posPiece2 = EngineImpl.getSingletonInstance().getAllPiecesTed().get(pieceName2)
+				.getPosition();
+
+		Map<String, Integer> posPiece3 = EngineImpl.getSingletonInstance().getAllPiecesTed().get(pieceName3)
+				.getPosition();
 		try {
-			Image attackingEagle = ImageIO.read(getClass().getResource(Asset.fileName.get("AttackingEagle")));
-			Image visionaryEagle = ImageIO.read(getClass().getResource(Asset.fileName.get("VisionaryEagle")));
-			Image leadershipEagle = ImageIO.read(getClass().getResource(Asset.fileName.get("LeadershipEagle")));
+			Image pieceImage1 = ImageIO.read(getClass().getResource(Asset.fileName.get(pieceName1)));
+			Image pieceImage2 = ImageIO.read(getClass().getResource(Asset.fileName.get(pieceName2)));
+			Image pieceImage3 = ImageIO.read(getClass().getResource(Asset.fileName.get(pieceName3)));
 
-			// Hard code initial position
-			buttonList.get(0).get(3).setIcon(new ImageIcon(attackingEagle));
-			buttonList.get(0).get(3).setActionCommand("AttackingEagle");
-			buttonList.get(1).get(4).setIcon(new ImageIcon(leadershipEagle));
-			buttonList.get(1).get(4).setActionCommand("LeadershipEagle");
-			buttonList.get(0).get(5).setIcon(new ImageIcon(visionaryEagle));
-			buttonList.get(0).get(5).setActionCommand("VisionaryEagle");
-
-			// set black background for master cell
-			buttonList.get(0).get(4).setBackground(Color.BLACK);
+			placePieceOnBoardWhenStart(pieceName1, pieceName2, pieceName3, posPiece1, posPiece2, posPiece3, pieceImage1,
+					pieceImage2, pieceImage3);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -83,28 +91,26 @@ public class BoardPanel extends JPanel {
 	}
 
 	/**
-	 * Code Duplication REFACTORING
+	 * @param pieceNamek
+	 *            - name of piece k
+	 * @param posPiecek
+	 *            - initial position of piece k
+	 * 
+	 * @implNote This method will place piece on board in View
+	 * @see EngineModelImpl for placing piece on board for Model
+	 *
 	 */
-	private void populateSharkIcon() {
-		try {
-			Image aggressiveShark = ImageIO.read(getClass().getResource(Asset.fileName.get("AggressiveShark")));
-			Image healingShark = ImageIO.read(getClass().getResource(Asset.fileName.get("HealingShark")));
-			Image defensiveShark = ImageIO.read(getClass().getResource(Asset.fileName.get("DefensiveShark")));
+	private void placePieceOnBoardWhenStart(String pieceName1, String pieceName2, String pieceName3,
+			Map<String, Integer> posPiece1, Map<String, Integer> posPiece2, Map<String, Integer> posPiece3,
+			Image pieceImage1, Image pieceImage2, Image pieceImage3) {
+		buttonList.get(posPiece1.get("y")).get(posPiece1.get("x")).setIcon(new ImageIcon(pieceImage1));
+		buttonList.get(posPiece1.get("y")).get(posPiece1.get("x")).setActionCommand(pieceName1);
 
-			// Hard code initial position
-			buttonList.get(8).get(3).setIcon(new ImageIcon(aggressiveShark));
-			buttonList.get(8).get(3).setActionCommand("AggressiveShark");
-			buttonList.get(7).get(4).setIcon(new ImageIcon(defensiveShark));
-			buttonList.get(7).get(4).setActionCommand("DefensiveShark");
-			buttonList.get(8).get(5).setIcon(new ImageIcon(healingShark));
-			buttonList.get(8).get(5).setActionCommand("HealingShark");
+		buttonList.get(posPiece2.get("y")).get(posPiece2.get("x")).setIcon(new ImageIcon(pieceImage2));
+		buttonList.get(posPiece2.get("y")).get(posPiece2.get("x")).setActionCommand(pieceName2);
 
-			// set black background for master cell
-			buttonList.get(8).get(4).setBackground(Color.BLACK);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		buttonList.get(posPiece3.get("y")).get(posPiece3.get("x")).setIcon(new ImageIcon(pieceImage3));
+		buttonList.get(posPiece3.get("y")).get(posPiece3.get("x")).setActionCommand(pieceName3);
 	}
 
 	public List<List<AbstractButton>> getButtonList() {

@@ -10,6 +10,16 @@ import java.util.Map;
  */
 public class Asset {
 	public static Map<String, String> fileName = new HashMap<String, String>();
+	public static final String sharkTeamName = "sharkplayer";
+	public static final String eagleTeamName = "eagleplayer";
+	
+	public static final String attackingEagle = "AttackingEagle";
+	public static final String leadershipEagle = "LeadershipEagle";
+	public static final String visionaryEagle = "VisionaryEagle";
+	
+	public static final String aggressiveShark = "AggressiveShark";
+	public static final String healingShark = "HealingShark";
+	public static final String defensiveShark = "DefensiveShark";
 
 	public static void populate() {
 		fileName.put("AttackingEagle", "/asset/AttackingEagle.png");

@@ -10,6 +10,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 
 import models.engine.EngineImpl;
+import view.messagedialog.MessageDialog;
 import view.operationview.BoardPanel;
 
 /**
@@ -27,56 +28,54 @@ public class SelectPieceController implements ActionListener {
 
 	public SelectPieceController(AbstractButton button, BoardPanel boardView) {
 		this.button = button;
-		// register a propertyChangeListener
 		pcs.addPropertyChangeListener("MovePiece", new MovePieceController());
 		this.boardView = boardView;
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent src) {
 		// only allow button clicked after start game
 		if (EngineImpl.getSingletonInstance().getStartGame()) {
 			List<List<AbstractButton>> buttons = boardView.getButtonList();
 
-			// To check the case when user already select a piece then choose another piece,
-			// to identify if already selected piece or not, based on color of cell (this
-			// may
-			// get changed)
-			// in later release when taking shark into account
-			for (int row = 0; row < buttons.size(); ++row) {
-				for (int col = 0; col < buttons.get(0).size(); ++col) {
-					if (EngineImpl.getSingletonInstance().checkSelectPiece(button.getActionCommand())
-							&& (buttons.get(row).get(col).getBackground().equals(Color.YELLOW)
-									|| buttons.get(row).get(col).getBackground().equals(Color.BLUE))) {
-						rollbackSelectedPieceStatus();
-					}
-				}
-			}
+			// when user already selects a piece and change his/her mind
+			// allow user pick another piece by roll back action
+			findColoredCellsForRollback(buttons);
+
 			if (EngineImpl.getSingletonInstance().checkSelectPiece(button.getActionCommand())) {
-				// old value = button clicked but on gettting the action command
-				// new value = board
-//				System.out.println(EngineImpl.getSingletonInstance().getCurrentActivePlayer().getPlayerType());
+
 				if (EngineImpl.getSingletonInstance().getCurrentActivePlayer().getPlayerType()
-						.equalsIgnoreCase("sharkplayer")) {
-					if (button.getActionCommand().equalsIgnoreCase("aggressiveshark")
-							|| button.getActionCommand().equalsIgnoreCase("healingshark")
-							|| button.getActionCommand().equalsIgnoreCase("defensiveshark")) {
-						pcs.firePropertyChange("MovePiece", button.getActionCommand(), boardView);
-					} else {
-						JOptionPane.showMessageDialog(boardView, "You are selecting the wrong team");
-					}
+						.equalsIgnoreCase(Asset.sharkTeamName)) {
+					checkAllowTransitToMovePieceAction(Asset.aggressiveShark, Asset.defensiveShark, Asset.healingShark);
 				} else {
-					if (button.getActionCommand().equalsIgnoreCase("attackingeagle")
-							|| button.getActionCommand().equalsIgnoreCase("leadershipeagle")
-							|| button.getActionCommand().equalsIgnoreCase("visionaryeagle")) {
-						pcs.firePropertyChange("MovePiece", button.getActionCommand(), boardView);
-					} else {
-						JOptionPane.showMessageDialog(boardView, "You are selecting the wrong team");
-					}
+					checkAllowTransitToMovePieceAction(Asset.attackingEagle, Asset.leadershipEagle,
+							Asset.visionaryEagle);
 				}
 			}
 		} else {
-			JOptionPane.showMessageDialog(boardView, "You have not start the game yet");
+			MessageDialog.notifyStartGame(boardView);
+		}
+	}
+
+	private void checkAllowTransitToMovePieceAction(String pieceName1, String pieceName2, String pieceName3) {
+		if (button.getActionCommand().equalsIgnoreCase(pieceName1)
+				|| button.getActionCommand().equalsIgnoreCase(pieceName2)
+				|| button.getActionCommand().equalsIgnoreCase(pieceName3)) {
+			pcs.firePropertyChange("MovePiece", button.getActionCommand(), boardView);
+		} else {
+			MessageDialog.notifySelectingWrongPiece(boardView);
+		}
+	}
+
+	private void findColoredCellsForRollback(List<List<AbstractButton>> buttons) {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				if (EngineImpl.getSingletonInstance().checkSelectPiece(button.getActionCommand())
+						&& (buttons.get(row).get(col).getBackground().equals(Color.YELLOW)
+								|| buttons.get(row).get(col).getBackground().equals(Color.BLUE))) {
+					rollbackSelectedPieceStatus();
+				}
+			}
 		}
 	}
 
