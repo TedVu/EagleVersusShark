@@ -64,7 +64,11 @@ public class BoardPanel extends JPanel {
 		populate(Asset.aggressiveShark, Asset.defensiveShark, Asset.healingShark);
 
 		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getPropertyChangeListener();
-		((TimerPropertyChangeListener)listeners[0]).injectBoard(this);
+		for (PropertyChangeListener l : listeners) {
+			if (l instanceof TimerPropertyChangeListener) {
+				((TimerPropertyChangeListener) l).injectBoard(this);
+			}
+		}
 	}
 
 	private void populate(String pieceName1, String pieceName2, String pieceName3) {

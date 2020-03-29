@@ -171,6 +171,7 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 		if (eagleNames.contains(pieceType.toLowerCase())) {
 
 			restoreButtonStateForNextTurn(buttons, eagleNames);
+			
 			EngineImpl.getSingletonInstance().cancelTimer();
 			EngineImpl.getSingletonInstance().setActivePlayer("shark", true);
 

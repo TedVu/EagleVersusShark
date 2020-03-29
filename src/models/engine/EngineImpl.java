@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 
+import controller.MakingMovePropertyChangeListener;
 import controller.TimerPropertyChangeListener;
 import models.board.Board;
 import models.pieces.AttackerEagle;
@@ -49,6 +50,7 @@ public class EngineImpl implements Engine {
 		board = new Board();
 		seedData();
 		pcs.addPropertyChangeListener(new TimerPropertyChangeListener());
+		pcs.addPropertyChangeListener(new MakingMovePropertyChangeListener());
 
 	}
 
@@ -201,7 +203,6 @@ public class EngineImpl implements Engine {
 		Player activePlayer;
 		Random rand = new Random();
 		int randomValue = rand.nextInt() % 2;
-		randomValue = 1;
 		if (randomValue == 0) {
 			this.eaglePlayer.setActive(true);
 			this.sharkPlayer.setActive(false);
@@ -252,24 +253,28 @@ public class EngineImpl implements Engine {
 	 * 
 	 * @param - String playerType - must be "eagle" or "shark"
 	 */
-	private Timer t;
+	private Timer gameTimer;
+
 	@Override
 	public void setActivePlayerTimer(String playerType) {
 
-		t = new java.util.Timer();
-		t.schedule(new java.util.TimerTask() {
+		gameTimer = new java.util.Timer();
+		gameTimer.schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
 				setActivePlayer(playerType, true);
-				pcs.firePropertyChange("SwitchTurn", playerType, null);
+				String currentPlayerTurn = eaglePlayer.getActive() ? "Eagle" : "Shark";
+				pcs.firePropertyChange("SwitchTurn", playerType, currentPlayerTurn);
 			}
 		}, 5000);
 
 	}
-	
+
 	@Override
 	public void cancelTimer() {
-		t.cancel();
+		String currentPlayerTurn = eaglePlayer.getActive() ? "Shark" : "Eagle";
+		pcs.firePropertyChange("MakingMove", null, currentPlayerTurn);
+		gameTimer.cancel();
 	}
 
 	@Override
