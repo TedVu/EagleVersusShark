@@ -20,8 +20,8 @@ Draft Board Design image found in this repo
 
 # TODO 
 1. Test thoroughly for timer
-2. Refactor code especially focus on the MovePieceController
-3. Discuss timer
-4. More on View Status Panel (status of current team, piece selected, name of piece) 
+2. Refactor code
+3. Implementing name of piece 
+4. Drawing diagrams and prepare documents for A1
 
 
