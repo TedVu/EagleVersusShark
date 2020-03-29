@@ -21,7 +21,7 @@ Draft Board Design image found in this repo
 # TODO 
 1. Test thoroughly for timer
 2. Refactor code
-3. Implementing name of piece 
+3. Craft the view (statuspanel)  
 4. Drawing diagrams and prepare documents for A1
 
 
