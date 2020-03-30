@@ -45,11 +45,11 @@ public class StatusPanel extends JPanel {
 		turnLabel.setText("Turn: " + currentPlayerType);
 	}
 
-	List<SwingWorker<Void,Void>> threadPool= new ArrayList<SwingWorker<Void,Void>>();
+	List<SwingWorker<Void, Void>> threadPool = new ArrayList<SwingWorker<Void, Void>>();
 
 	public void startCountDown() {
-		
-		for(SwingWorker<Void,Void> preWorker : threadPool) {
+
+		for (SwingWorker<Void, Void> preWorker : threadPool) {
 			preWorker.cancel(true);
 		}
 		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {

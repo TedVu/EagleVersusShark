@@ -105,41 +105,38 @@ public class LeadershipEagle extends AbstractPiece {
 
 		return validMoves;
 	}
-	
-	
+
 	// usage: piece.useAbility("protect", piece, affectedPiece)
 	@Override
-	public boolean useAbility(String abilityName,Piece piece, Piece affectedPiece) {
-		if(abilityName.equals("protect"))
+	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece) {
+		if (abilityName.equals("protect"))
 			return giveProtection(piece, affectedPiece);
-		
+
 		return false;
 	}
-	
-	
+
 	public boolean giveProtection(Piece piece, Piece affectedPiece) {
-		
+
 		try {
-			
-			int pieceX =  piece.getPosition().get("x");
-			int pieceY =  piece.getPosition().get("y");
-			
-			int affectedPieceX =  affectedPiece.getPosition().get("x");
-			int affectedPieceY =  affectedPiece.getPosition().get("y");
-			
-			if(affectedPieceX > pieceX + 1 || affectedPieceY > pieceY + 1 || 
-				affectedPieceX < pieceX - 1 || affectedPieceY < pieceY - 1) {
+
+			int pieceX = piece.getPosition().get("x");
+			int pieceY = piece.getPosition().get("y");
+
+			int affectedPieceX = affectedPiece.getPosition().get("x");
+			int affectedPieceY = affectedPiece.getPosition().get("y");
+
+			if (affectedPieceX > pieceX + 1 || affectedPieceY > pieceY + 1 || affectedPieceX < pieceX - 1
+					|| affectedPieceY < pieceY - 1) {
 				return false;
 			}
-			
+
 			affectedPiece.setImmune(true);
-			
+
 			return true;
-			
+
 		} catch (Exception e) {
 			return false;
 		}
 	}
-	
-	
+
 }

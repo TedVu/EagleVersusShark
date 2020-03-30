@@ -95,10 +95,8 @@ public class BoardPanel extends JPanel {
 	}
 
 	/**
-	 * @param pieceNamek
-	 *            - name of piece k
-	 * @param posPiecek
-	 *            - initial position of piece k
+	 * @param pieceNamek - name of piece k
+	 * @param posPiecek  - initial position of piece k
 	 * 
 	 * @implNote This method will place piece on board in View
 	 * @see EngineModelImpl for placing piece on board for Model

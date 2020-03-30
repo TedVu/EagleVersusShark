@@ -22,12 +22,12 @@ public class StartGameController implements ActionListener {
 		Player initialPlayer = EngineImpl.getSingletonInstance().getInitialPlayerActivePlayer();
 		if (initialPlayer.getPlayerType().equalsIgnoreCase("sharkplayer")) {
 			statusPanel.updateTurnLabel("Shark");
-			 statusPanel.startCountDown();
+			statusPanel.startCountDown();
 			EngineImpl.getSingletonInstance().setActivePlayerTimer("eagle");
 
 		} else if (initialPlayer.getPlayerType().equalsIgnoreCase("eagleplayer")) {
 			statusPanel.updateTurnLabel("Eagle");
-			 statusPanel.startCountDown();
+			statusPanel.startCountDown();
 			EngineImpl.getSingletonInstance().setActivePlayerTimer("eagle");
 
 		}

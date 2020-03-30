@@ -24,7 +24,9 @@ public interface Piece {
 	public Set<List<Integer>> getValidMove();
 
 	public boolean isImmune();
+
 	public void setImmune(boolean isImmune);
+
 	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
-	
+
 }

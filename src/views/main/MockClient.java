@@ -1,8 +1,6 @@
 package views.main;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import models.engine.Engine;
@@ -22,7 +20,7 @@ public class MockClient {
 
 		pieces = engine.getAllPiecesTed();
 //		System.out.println(engine.getInitialPlayerActivePlayer().getPlayerType());
-		
+
 		Piece attackerPiece = null;
 		Piece visionPiece = null;
 		Piece leaderPiece = null;
@@ -55,11 +53,11 @@ public class MockClient {
 //		
 //		System.out.println(visionPiece.getPosition());
 //		System.out.println(attackerPiece.getPosition());
-		
+
 //		System.out.println(engine.useAbility("protect", leaderPiece, attackerPiece));
 //		
 //		System.out.println(attackerPiece.isImmune());
-		
+
 		System.out.println(engine.useAbility("capture", attackerPiece, visionPiece));
 
 	}

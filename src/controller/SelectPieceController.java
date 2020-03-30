@@ -7,7 +7,6 @@ import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 import javax.swing.AbstractButton;
-import javax.swing.JOptionPane;
 
 import models.engine.EngineImpl;
 import view.messagedialog.MessageDialog;
