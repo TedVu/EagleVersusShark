@@ -48,7 +48,6 @@ public class StatusPanel extends JPanel {
 	List<SwingWorker<Void, Void>> threadPool = new ArrayList<SwingWorker<Void, Void>>();
 
 	public void startCountDown() {
-
 		for (SwingWorker<Void, Void> preWorker : threadPool) {
 			preWorker.cancel(true);
 		}
@@ -56,7 +55,7 @@ public class StatusPanel extends JPanel {
 			@Override
 			protected Void doInBackground() throws Exception {
 				// Simulate doing something useful.
-				for (int i = 5; i >= 0; --i) {
+				for (int i = 10; i >= 0; --i) {
 					timerLabel.setText("Time making move left: " + i);
 
 					Thread.sleep(1000);
@@ -66,7 +65,6 @@ public class StatusPanel extends JPanel {
 		};
 		threadPool.add(worker);
 		worker.execute();
-
 	}
 
 }

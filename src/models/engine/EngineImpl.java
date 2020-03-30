@@ -266,7 +266,7 @@ public class EngineImpl implements Engine {
 				String currentPlayerTurn = eaglePlayer.getActive() ? "Eagle" : "Shark";
 				pcs.firePropertyChange("SwitchTurn", playerType, currentPlayerTurn);
 			}
-		}, 5000);
+		}, 10000);
 
 	}
 
