@@ -15,7 +15,6 @@ public class LeadershipEagle extends AbstractPiece {
 
 	public LeadershipEagle(int x, int y) {
 		super(x, y);
-		nextToLeadershipEagle = false;
 	}
 
 	/*
@@ -33,13 +32,6 @@ public class LeadershipEagle extends AbstractPiece {
 		return true;
 	}
 
-	public boolean getNextToLeadershipEagle(){
-		return this.nextToLeadershipEagle;
-	}
-
-	public void setNextToLeadershipEagle(boolean status){
-		this.nextToLeadershipEagle = status;
-	}
 
 	@Override
 	public Set<List<Integer>> getValidMove() {
@@ -128,7 +120,7 @@ public class LeadershipEagle extends AbstractPiece {
 	}
 	
 	
-	public boolean giveProtection(Piece piece, Piece affectedPiece) {
+	private boolean giveProtection(Piece piece, Piece affectedPiece) {
 		
 		try {
 			
