@@ -24,4 +24,6 @@ Draft Board Design image found in this repo
 3. Craft the view (statuspanel)  
 4. Drawing diagrams and prepare documents for A1
 
+# Refactor Log 
+1. Make selectpiececontroller more cohesive by adding rollbackcontroller (forward two methods of selectpiececontroller to rollbackcontroller) 
 
