@@ -16,12 +16,15 @@ import controller.MakingMovePropertyChangeListener;
 import controller.StartGameController;
 import models.engine.EngineImpl;
 
+@SuppressWarnings("serial")
 public class StatusPanel extends JPanel {
+
 	private static final int WIDTH_OF_PANEL = 230;
 	private static final int HEIGHT_OF_PANEL = 0;
 	private JButton startButton = new JButton("START");
 	private JLabel turnLabel = new JLabel("Turn:");
 	private JLabel timerLabel = new JLabel("Time making move left:");
+	private List<SwingWorker<Void, Void>> workerThreads = new ArrayList<SwingWorker<Void, Void>>();
 
 	public StatusPanel() {
 		setBorder(BorderFactory.createTitledBorder("Status Panel"));
@@ -32,10 +35,12 @@ public class StatusPanel extends JPanel {
 		this.add(timerLabel, BorderLayout.CENTER);
 
 		this.add(startButton, BorderLayout.SOUTH);
-		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getPropertyChangeListener();
-		for (PropertyChangeListener l : listeners) {
-			if (l instanceof MakingMovePropertyChangeListener) {
-				((MakingMovePropertyChangeListener) l).injectStatusPanel(this);
+
+		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getGameEngineCallback()
+				.getPropertyChangeListener();
+		for (PropertyChangeListener listener : listeners) {
+			if (listener instanceof MakingMovePropertyChangeListener) {
+				((MakingMovePropertyChangeListener) listener).injectStatusPanel(this);
 			}
 		}
 
@@ -45,16 +50,13 @@ public class StatusPanel extends JPanel {
 		turnLabel.setText("Turn: " + currentPlayerType);
 	}
 
-	List<SwingWorker<Void, Void>> threadPool = new ArrayList<SwingWorker<Void, Void>>();
-
 	public void startCountDown() {
-		for (SwingWorker<Void, Void> preWorker : threadPool) {
+		for (SwingWorker<Void, Void> preWorker : workerThreads) {
 			preWorker.cancel(true);
 		}
 		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
 			@Override
 			protected Void doInBackground() throws Exception {
-				// Simulate doing something useful.
 				for (int i = 10; i >= 0; --i) {
 					timerLabel.setText("Time making move left: " + i);
 
@@ -63,7 +65,7 @@ public class StatusPanel extends JPanel {
 				return null;
 			}
 		};
-		threadPool.add(worker);
+		workerThreads.add(worker);
 		worker.execute();
 	}
 
