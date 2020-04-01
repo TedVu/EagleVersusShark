@@ -6,10 +6,9 @@ import java.util.Map;
 import models.board.Board;
 import models.pieces.Piece;
 import models.player.Player;
+import view.interfaces.GameEngineCallback;
 
 public interface Engine {
-
-	public List<Piece> getAllPieces();
 
 	public List<Piece> getActiveEagles();
 
@@ -23,26 +22,25 @@ public interface Engine {
 
 	public void setActivePlayer(String playerType);
 
-	public void addNewPiece(List<Piece> newPiece, Piece type);
-
 	public Board getBoard();
 
-	public boolean movePiece(Piece piece, int newX, int newY);
-	
-	public void setTimerStatus(boolean timerIsOn);
-	
+	public void movePiece(Piece piece, int newX, int newY);
+
 	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
 
-	// Ted
-	public Map<String, Piece> getAllPiecesTed();
+	public Map<String, Piece> getAllPieces();
 
 	public boolean checkSelectPiece(String occupiedPiece);
 
-	public void seedData();
+	public void initializePiece();
 
 	public void setActivePlayerTimer(String playerType);
 
-	
-	
+	public boolean getStartGame();
+
+	public void cancelTimer();
+
+	public GameEngineCallback getGameEngineCallback();
+
 
 }

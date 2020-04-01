@@ -190,38 +190,38 @@ public class VisionaryEagle extends AbstractPiece {
 
 		return validMoves;
 	}
-	
+
 	// usage: piece.useAbility("swap", piece, affectedPiece)
 	@Override
-	public boolean useAbility(String abilityName,Piece piece, Piece affectedPiece) {
-		if(abilityName.equals("swap"))
+	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece) {
+		if (abilityName.equals("swap"))
 			return swap(piece, affectedPiece);
-		
+
 		return false;
 	}
-	
-	private boolean swap(Piece piece, Piece affectedPiece) {
-		
-		
+
+	public boolean swap(Piece piece, Piece affectedPiece) {
+
 		try {
 			Map<String, Integer> position1 = new HashMap<String, Integer>();
 			Map<String, Integer> position2 = new HashMap<String, Integer>();
-			
+
 			position1.putAll(piece.getPosition());
 			position2.putAll(affectedPiece.getPosition());
-			
-			
+
 			piece.setPosition(position2.get("x"), position2.get("y"));
 			affectedPiece.setPosition(position1.get("x"), position1.get("y"));
-			
+
 			return true;
-			
+
 		} catch (Exception e) {
 			return false;
 		}
 	}
 
+	public boolean capture(Piece capturingPiece, Piece capturedPiece) {
+		throw new IllegalArgumentException("this piece can't capture opponent!");
+	}
 
-	
 
 }

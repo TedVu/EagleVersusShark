@@ -7,40 +7,50 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 
+import controller.Asset;
+import controller.MakingMovePropertyChangeListener;
+import controller.TimerPropertyChangeListener;
 import models.board.Board;
-import models.pieces.*;
+import models.pieces.AttackerEagle;
+import models.pieces.LeadershipEagle;
+import models.pieces.Piece;
+import models.pieces.PieceFactory;
+import models.pieces.VisionaryEagle;
 import models.player.Player;
 import models.player.PlayerImpl;
+import view.callbacks.GameEngineCallbackImpl;
+import view.interfaces.GameEngineCallback;
 
 /**
- * @originalauthor Sefira
+ * @author Sefira
  * 
- * @author Ted
- * @SharkImplementation Chanboth
  *
  */
 public class EngineImpl implements Engine {
-
+	private boolean startGame = false;
 	private static Engine engine = null;
-	private List<Piece> pieces = new ArrayList<Piece>();
-	private Map<String, Piece> piecesTest = new HashMap<String, Piece>();
+	private Map<String, Piece> pieces = new HashMap<String, Piece>();
 	private PieceFactory pieceFactory = new PieceFactory();
 
 	private List<Piece> activeEagles = new ArrayList<Piece>();
 	private List<Piece> activeSharks = new ArrayList<Piece>();
 	private Player eaglePlayer = new PlayerImpl("eaglePlayer");
 	private Player sharkPlayer = new PlayerImpl("sharkPlayer");
+	private Timer gameTimer;
+
+	private GameEngineCallback geCallback = new GameEngineCallbackImpl();
+
 	private boolean timerIsOn = false;
 	private int round = 0;
 	private Board board;
 	
 
-	/*
-	 * default constructor
-	 */
 	public EngineImpl() {
 		board = new Board();
-		seedData();
+		initializePiece();
+		geCallback.addProperytChangeListener(new TimerPropertyChangeListener());
+		geCallback.addProperytChangeListener(new MakingMovePropertyChangeListener());
+
 	}
 
 	public static Engine getSingletonInstance() {
@@ -51,21 +61,37 @@ public class EngineImpl implements Engine {
 		return engine;
 	}
 
-	/*
-	 * seed data for testing purpose
-	 */
-	public void seedData() {
-		Piece eaglePiece1 = pieceFactory.generatePiece("AttackingEagle", 3, 0);
-		Piece eaglePiece2 = pieceFactory.generatePiece("LeadershipEagle", 4, 1);
-		Piece eaglePiece3 = pieceFactory.generatePiece("VisionaryEagle", 5, 0);
+	public void initializePiece() {
+		Asset.populate();
+		Piece eaglePiece1 = pieceFactory.generatePiece("AttackingEagle", Asset.initialPosAttackingEagle.get("x"),
+				Asset.initialPosAttackingEagle.get("y"));
+		Piece eaglePiece2 = pieceFactory.generatePiece("LeadershipEagle", Asset.initialPosLeadershipEagle.get("x"),
+				Asset.initialPosLeadershipEagle.get("y"));
+		Piece eaglePiece3 = pieceFactory.generatePiece("VisionaryEagle", Asset.initialPosVisionaryEagle.get("x"),
+				Asset.initialPosVisionaryEagle.get("y"));
+
+		Piece sharkPiece1 = pieceFactory.generatePiece("AggressiveShark", Asset.initialPosAggressiveShark.get("x"),
+				Asset.initialPosAggressiveShark.get("y"));
+		Piece sharkPiece2 = pieceFactory.generatePiece("DefensiveShark", Asset.initialPosDefensiveShark.get("x"),
+				Asset.initialPosDefensiveShark.get("y"));
+		Piece sharkPiece3 = pieceFactory.generatePiece("HealingShark", Asset.initialPosHealingShark.get("x"),
+				Asset.initialPosHealingShark.get("y"));
 
 		board.addPiece(0, 3);
 		board.addPiece(1, 4);
 		board.addPiece(0, 5);
 
-		piecesTest.put("AttackingEagle", eaglePiece1);
-		piecesTest.put("LeadershipEagle", eaglePiece2);
-		piecesTest.put("VisionaryEagle", eaglePiece3);
+		board.addPiece(8, 3);
+		board.addPiece(7, 4);
+		board.addPiece(8, 5);
+
+		pieces.put("AttackingEagle", eaglePiece1);
+		pieces.put("LeadershipEagle", eaglePiece2);
+		pieces.put("VisionaryEagle", eaglePiece3);
+
+		pieces.put("AggressiveShark", sharkPiece1);
+		pieces.put("DefensiveShark", sharkPiece2);
+		pieces.put("HealingShark", sharkPiece3);
 
 		Piece sharkPiece1 = pieceFactory.generatePiece("AGGRESSIVESHARK", 3, 8);
 		Piece sharkPiece2 = pieceFactory.generatePiece("HEALINGSHARK", 4, 7);
@@ -77,41 +103,23 @@ public class EngineImpl implements Engine {
 
 	}
 
-	/**
-	 * since validation has all been conducted in getValidMove, should only return
-	 * void
-	 *
-	 */
 	@Override
-	public boolean movePiece(Piece piece, int newX, int newY) {
-		// board need not know about specific piece type it only control the occupation
-		// configuration on the board
+	public void movePiece(Piece piece, int newX, int newY) {
+
 		board.removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 		board.addPiece(newX, newY);
 
 		piece.movePiece(newX, newY);
-		return true;
-	}
-
-	/*
-	 * @return List<Piece> - all pieces
-	 */
-	@Override
-	public List<Piece> getAllPieces() {
-
-		return this.pieces;
 	}
 
 	/*
 	 * @return List<Piece> all active eagles
 	 */
 	@Override
-	public  List<Piece> getActiveEagles() {
-		for (Piece piece : piecesTest.values()) {
-			if (piece != null && piece.isActive() && (
-				piece instanceof AttackerEagle ||
-				piece instanceof LeadershipEagle ||
-				piece instanceof VisionaryEagle)) {
+	public List<Piece> getActiveEagles() {
+		for (Piece piece : pieces.values()) {
+			if (piece != null && piece.isActive() && (piece instanceof AttackerEagle || piece instanceof LeadershipEagle
+					|| piece instanceof VisionaryEagle)) {
 				activeEagles.add(piece);
 			}
 		}
@@ -123,6 +131,7 @@ public class EngineImpl implements Engine {
 	 */
 	@Override
 	public List<Piece> getActiveSharks() {
+
 		for (Piece piece : piecesTest.values()) {
 			if (piece != null && piece.isActive() && (
 				piece instanceof HealingShark ||
@@ -166,13 +175,13 @@ public class EngineImpl implements Engine {
 	}
 
 	@Override
-	public Map<String, Piece> getAllPiecesTed() {
-		return piecesTest;
+	public Map<String, Piece> getAllPieces() {
+		return pieces;
 	}
 
 	@Override
 	public boolean checkSelectPiece(String occupiedPiece) {
-		if (!piecesTest.containsKey(occupiedPiece)) {
+		if (!pieces.containsKey(occupiedPiece)) {
 			return false;
 		}
 		return true;
@@ -190,12 +199,12 @@ public class EngineImpl implements Engine {
 	 * @return (eaglePlayer || sharkPlayer)
 	 */
 	@Override
-	public Player getInitiaActivePlayer() {
+	public Player getInitialPlayerActivePlayer() {
+		startGame = true;
 
 		Player activePlayer;
 		Random rand = new Random();
 		int randomValue = rand.nextInt() % 2;
-
 		if (randomValue == 0) {
 			this.eaglePlayer.setActive(true);
 			this.sharkPlayer.setActive(false);
@@ -211,13 +220,12 @@ public class EngineImpl implements Engine {
 	/*
 	 * set active player
 	 * 
-	 * @param String playerType - must be "eagle" or "shark"
+	 * @param String playerType
 	 * 
 	 */
 	@Override
-	public void setActivePlayer(String playerType) {
-		System.out.println("current active player: " + getCurrentActivePlayer().getPlayerType());
-		
+	public void setActivePlayer(String playerType, boolean turnOnTimer) {
+
 		String nextPlayer;
 		round++;
 		
@@ -232,8 +240,7 @@ public class EngineImpl implements Engine {
 		} else {
 			throw new IllegalArgumentException("invalid player type, must be eagle or shark");
 		}
-
-		if (timerIsOn) {
+		if (turnOnTimer) {
 			setActivePlayerTimer(nextPlayer);
 		}
 	}
@@ -244,35 +251,41 @@ public class EngineImpl implements Engine {
 	 * 
 	 * @param - String playerType - must be "eagle" or "shark"
 	 */
+
 	@Override
 	public void setActivePlayerTimer(String playerType) {
-		
-			
-		Timer t = new java.util.Timer();
-		t.schedule(new java.util.TimerTask() {
+		gameTimer = new java.util.Timer();
+		gameTimer.schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
-				setActivePlayer(playerType);
+				setActivePlayer(playerType, true);
+				String currentPlayerTurn = eaglePlayer.getActive() ? "Eagle" : "Shark";
+				geCallback.timerNextMove(playerType, currentPlayerTurn);
 			}
-		}, 7000);
-			
-		
-
+		}, 10000);
 
 	}
 
 	@Override
-	public void addNewPiece(List<Piece> newPiece, Piece type) {
-		// TODO Auto-generated method stub
-
+	public void cancelTimer() {
+		String currentPlayerTurn = eaglePlayer.getActive() ? "Shark" : "Eagle";
+		geCallback.nextMove(currentPlayerTurn);
+		gameTimer.cancel();
 	}
 
 	@Override
 	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece) {
 		return piece.useAbility(abilityName, piece, affectedPiece);
 	}
-	
-	
-	
+
+	@Override
+	public boolean getStartGame() {
+		return startGame;
+	}
+
+	@Override
+	public GameEngineCallback getGameEngineCallback() {
+		return geCallback;
+	}
 
 }

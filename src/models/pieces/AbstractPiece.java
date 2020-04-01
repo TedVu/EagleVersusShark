@@ -66,6 +66,8 @@ public abstract class AbstractPiece implements Piece {
 	@Override
 	public void setImmune(boolean isImmune) {
 		this.isImmune = isImmune;
-		
+
 	}
+
+
 }

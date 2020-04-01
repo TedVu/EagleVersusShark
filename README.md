@@ -20,9 +20,11 @@ Eagles Versus Shark is a two dimensional, turn based board game that is subject 
 
 
 # TODO 
-1. Test thoroughly (including edge cases such as not moving into occupied cell, edge board) moving piece functionality
-2. Implementing timer
-3. Incorporating shark
-4. Documents and finalize A1 (separate branch) 
+1. Test thoroughly for timer
+2. Refactor code
+3. Craft the view (statuspanel)  
+4. Drawing diagrams and prepare documents for A1
 
+# Refactor Log 
+1. Make selectpiececontroller more cohesive by adding rollbackcontroller (forward two methods of selectpiececontroller to rollbackcontroller) 
 
