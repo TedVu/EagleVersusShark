@@ -12,18 +12,10 @@ RMIT - OOSD Semester 1 2020
 
 ## Project Brief
 Eagles Versus Shark is a two dimensional, turn based board game that is subject to the functional and non-functional requirements, and design constraints listed below.
-### 1. Game rules
+### Next step on this branch
+1. Test thoroughly moving ability
+2. Refactor code (especially move =>extracting into interfaces)
+3. Config Cofoja or use assertions for DBC
+4. Fix diagrams when you make any change 
 
-# Draft Board Design 
-
-Draft Board Design image found in this repo 
-
-# TODO 
-1. Test thoroughly for timer
-2. Refactor code
-3. Craft the view (statuspanel)  
-4. Drawing diagrams and prepare documents for A1
-
-# Refactor Log 
-1. Make selectpiececontroller more cohesive by adding rollbackcontroller (forward two methods of selectpiececontroller to rollbackcontroller) 
 
