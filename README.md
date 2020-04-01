@@ -17,5 +17,6 @@ Eagles Versus Shark is a two dimensional, turn based board game that is subject 
 2. Refactor code (especially move =>extracting into interfaces)
 3. Config Cofoja or use assertions for DBC
 4. Fix diagrams when you make any change 
+5. Start revising/checking off each Assignment criteria
 
 
