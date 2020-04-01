@@ -40,7 +40,10 @@ public class EngineImpl implements Engine {
 
 	private GameEngineCallback geCallback = new GameEngineCallbackImpl();
 
+	private boolean timerIsOn = false;
+	private int round = 0;
 	private Board board;
+	
 
 	public EngineImpl() {
 		board = new Board();
@@ -90,6 +93,14 @@ public class EngineImpl implements Engine {
 		pieces.put("DefensiveShark", sharkPiece2);
 		pieces.put("HealingShark", sharkPiece3);
 
+		Piece sharkPiece1 = pieceFactory.generatePiece("AGGRESSIVESHARK", 3, 8);
+		Piece sharkPiece2 = pieceFactory.generatePiece("HEALINGSHARK", 4, 7);
+		Piece sharkPiece3 = pieceFactory.generatePiece("DEFENSIVESHARK", 5, 8);
+
+		piecesTest.put("AggressiveShark", sharkPiece1);
+		piecesTest.put("HealingShark", sharkPiece2);
+		piecesTest.put("DefensiveShark", sharkPiece3);
+
 	}
 
 	@Override
@@ -121,6 +132,14 @@ public class EngineImpl implements Engine {
 	@Override
 	public List<Piece> getActiveSharks() {
 
+		for (Piece piece : piecesTest.values()) {
+			if (piece != null && piece.isActive() && (
+				piece instanceof HealingShark ||
+				piece instanceof AggressiveShark ||
+				piece instanceof DefensiveShark)) {
+				activeEagles.add(piece);
+			}
+		}
 		return activeSharks;
 	}
 
@@ -167,6 +186,12 @@ public class EngineImpl implements Engine {
 		}
 		return true;
 	}
+	
+
+	@Override
+	public void setTimerStatus(boolean timerIsOn) {
+		this.timerIsOn = timerIsOn;
+	}
 
 	/*
 	 * return the initial active player, call this at the beginning of the program
@@ -197,12 +222,13 @@ public class EngineImpl implements Engine {
 	 * 
 	 * @param String playerType
 	 * 
-	 * @param bool turnOnTimer - set interval to change player every n seconds or
-	 * not
 	 */
 	@Override
 	public void setActivePlayer(String playerType, boolean turnOnTimer) {
+
 		String nextPlayer;
+		round++;
+		
 		if (playerType.equals("eagle")) {
 			this.eaglePlayer.setActive(true);
 			this.sharkPlayer.setActive(false);
@@ -228,7 +254,6 @@ public class EngineImpl implements Engine {
 
 	@Override
 	public void setActivePlayerTimer(String playerType) {
-
 		gameTimer = new java.util.Timer();
 		gameTimer.schedule(new java.util.TimerTask() {
 			@Override

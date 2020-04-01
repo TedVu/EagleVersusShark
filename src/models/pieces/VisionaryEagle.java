@@ -12,21 +12,22 @@ import models.engine.EngineImpl;
 
 public class VisionaryEagle extends AbstractPiece {
 
+	private boolean nextToLeadershipEagle;
+
+
 	public VisionaryEagle(int x, int y) {
 		super(x, y);
+		nextToLeadershipEagle = false;
 	}
 
-	private boolean canSwapPosition = true;
-
-	public boolean isCanSwapPosition() {
-		// TODO Auto-generated constructor stub
-		return canSwapPosition;
+	public boolean getNextToLeadershipEagle(){
+		return this.nextToLeadershipEagle;
 	}
 
-	public void setCanSwapPosition(boolean canSwapPosition) {
-		// TODO Auto-generated constructor stub
-		this.canSwapPosition = canSwapPosition;
+	public void setNextToLeadershipEagle(boolean status){
+		this.nextToLeadershipEagle = status;
 	}
+
 
 	/*
 	 * validate the new position and set it if it's valid
@@ -221,5 +222,6 @@ public class VisionaryEagle extends AbstractPiece {
 	public boolean capture(Piece capturingPiece, Piece capturedPiece) {
 		throw new IllegalArgumentException("this piece can't capture opponent!");
 	}
+
 
 }
