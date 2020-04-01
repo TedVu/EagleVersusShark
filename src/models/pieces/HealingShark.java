@@ -68,7 +68,6 @@ public class HealingShark extends AbstractPiece {
                 break;
             }
         }
-
         return validMoves;
     }
 

@@ -66,21 +66,6 @@ public class DefensiveShark extends AbstractPiece {
         return validMoves;
     }
 
-    public Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
-        Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-        for (int i = 1; i <= cells; i++) {
-            List<Integer> validMove = new LinkedList<Integer>();
-            if (y + i < EngineImpl.getSingletonInstance().getBoard().getRow()) {
-                validMove.add(x);
-                validMove.add(y + i);
-                validMoves.add(validMove);
-            } else {
-                break;
-            }
-        }
-        return validMoves;
-    }
-
     public Set<List<Integer>> validMovesWest(int x, int y, int cells) {
         Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
         for (int i = 1; i <= cells; i++) {
