@@ -47,11 +47,11 @@ public class SelectPieceController implements ActionListener {
 		if (EngineImpl.getSingletonInstance().checkSelectPiece(button.getActionCommand())) {
 
 			if (EngineImpl.getSingletonInstance().getCurrentActivePlayer().getPlayerType()
-					.equalsIgnoreCase(Asset.sharkTeamName)) {
-				checkAllowTransitToMovePieceAction(Asset.aggressiveShark, Asset.defensiveShark, Asset.healingShark);
+					.equalsIgnoreCase(AssetHelper.sharkTeamName)) {
+				checkAllowTransitToMovePieceAction(AssetHelper.aggressiveShark, AssetHelper.defensiveShark, AssetHelper.healingShark);
 			} else {
-				checkAllowTransitToMovePieceAction(Asset.attackingEagle, Asset.leadershipEagle,
-						Asset.visionaryEagle);
+				checkAllowTransitToMovePieceAction(AssetHelper.attackingEagle, AssetHelper.leadershipEagle,
+						AssetHelper.visionaryEagle);
 			}
 		}
 	}

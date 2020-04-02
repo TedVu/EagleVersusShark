@@ -11,7 +11,7 @@ import java.util.Set;
  *           internal system
  * @see MovePieceController.java
  */
-public class Asset {
+public class AssetHelper {
 	public static Map<String, String> fileName = new HashMap<String, String>();
 	public static final String sharkTeamName = "sharkplayer";
 	public static final String eagleTeamName = "eagleplayer";
@@ -70,7 +70,7 @@ public class Asset {
 		sharkNames.add("healingshark");
 	}
 
-	private Asset() {
+	private AssetHelper() {
 
 	}
 }

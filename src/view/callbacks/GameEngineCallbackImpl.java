@@ -7,12 +7,11 @@ import view.interfaces.GameEngineCallback;
 
 public class GameEngineCallbackImpl implements GameEngineCallback {
 
-	PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
 	@Override
 	public void timerNextMove(String playerType, String currentPlayerTurn) {
 		pcs.firePropertyChange("SwitchTurn", playerType, currentPlayerTurn);
-
 	}
 
 	@Override

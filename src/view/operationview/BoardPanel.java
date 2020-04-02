@@ -19,7 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import controller.Asset;
+import controller.AssetHelper;
 import controller.SelectPieceController;
 import controller.TimerPropertyChangeListener;
 import models.engine.EngineImpl;
@@ -33,7 +33,7 @@ import models.engine.EngineImpl;
  */
 public class BoardPanel extends JPanel {
 
-	List<List<AbstractButton>> buttons;
+	private List<List<AbstractButton>> buttons;
 	private ButtonGroup group;
 
 	/**
@@ -60,8 +60,17 @@ public class BoardPanel extends JPanel {
 			}
 		}
 
-		populate(Asset.attackingEagle, Asset.visionaryEagle, Asset.leadershipEagle);
-		populate(Asset.aggressiveShark, Asset.defensiveShark, Asset.healingShark);
+		buttons.get(0).get(4).setBackground(new Color(185,19,114));
+		buttons.get(8).get(4).setBackground(new Color(185,19,114));
+
+		for (int row = 3; row <= 5; ++row) {
+			for(int col=0;col<=8;++col) {
+				buttons.get(row).get(col).setBackground(new Color(2,169,234));
+			}
+		}
+
+		populate(AssetHelper.attackingEagle, AssetHelper.visionaryEagle, AssetHelper.leadershipEagle);
+		populate(AssetHelper.aggressiveShark, AssetHelper.defensiveShark, AssetHelper.healingShark);
 
 		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getGameEngineCallback()
 				.getPropertyChangeListener();
@@ -74,18 +83,15 @@ public class BoardPanel extends JPanel {
 
 	private void populate(String pieceName1, String pieceName2, String pieceName3) {
 
-		Map<String, Integer> posPiece1 = EngineImpl.getSingletonInstance().getAllPieces().get(pieceName1)
-				.getPosition();
+		Map<String, Integer> posPiece1 = EngineImpl.getSingletonInstance().getAllPieces().get(pieceName1).getPosition();
 
-		Map<String, Integer> posPiece2 = EngineImpl.getSingletonInstance().getAllPieces().get(pieceName2)
-				.getPosition();
+		Map<String, Integer> posPiece2 = EngineImpl.getSingletonInstance().getAllPieces().get(pieceName2).getPosition();
 
-		Map<String, Integer> posPiece3 = EngineImpl.getSingletonInstance().getAllPieces().get(pieceName3)
-				.getPosition();
+		Map<String, Integer> posPiece3 = EngineImpl.getSingletonInstance().getAllPieces().get(pieceName3).getPosition();
 		try {
-			Image pieceImage1 = ImageIO.read(getClass().getResource(Asset.fileName.get(pieceName1)));
-			Image pieceImage2 = ImageIO.read(getClass().getResource(Asset.fileName.get(pieceName2)));
-			Image pieceImage3 = ImageIO.read(getClass().getResource(Asset.fileName.get(pieceName3)));
+			Image pieceImage1 = ImageIO.read(getClass().getResource(AssetHelper.fileName.get(pieceName1)));
+			Image pieceImage2 = ImageIO.read(getClass().getResource(AssetHelper.fileName.get(pieceName2)));
+			Image pieceImage3 = ImageIO.read(getClass().getResource(AssetHelper.fileName.get(pieceName3)));
 
 			placePieceOnBoardWhenStart(pieceName1, pieceName2, pieceName3, posPiece1, posPiece2, posPiece3, pieceImage1,
 					pieceImage2, pieceImage3);
@@ -144,9 +150,9 @@ public class BoardPanel extends JPanel {
 
 	public void updateBoardAfterChoosingPiece(Set<List<Integer>> validMoves, String pieceType) {
 		for (List<Integer> moves : validMoves) {
-			if (Asset.eagleNames.contains(pieceType.toLowerCase())) {
+			if (AssetHelper.eagleNames.contains(pieceType.toLowerCase())) {
 				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.yellow);
-			} else if (Asset.sharkNames.contains(pieceType.toLowerCase())) {
+			} else if (AssetHelper.sharkNames.contains(pieceType.toLowerCase())) {
 				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.blue);
 			}
 
@@ -184,7 +190,7 @@ public class BoardPanel extends JPanel {
 	public void updateIcon(AbstractButton buttonClicked, String pieceType) {
 		Image animal = null;
 		try {
-			animal = ImageIO.read(getClass().getResource(Asset.fileName.get(pieceType)));
+			animal = ImageIO.read(getClass().getResource(AssetHelper.fileName.get(pieceType)));
 		} catch (IOException e1) {
 			System.err.println("IMAGE NOT FOUND");
 		}
@@ -228,7 +234,6 @@ public class BoardPanel extends JPanel {
 		updateIcon(buttonClicked, pieceType);
 		repaintWhiteCell();
 		restoreStateForPossibleValidMove(validMoves);
-
 	}
 
 	public void updateBoardRollback() {

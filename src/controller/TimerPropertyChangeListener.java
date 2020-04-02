@@ -11,7 +11,6 @@ public class TimerPropertyChangeListener implements PropertyChangeListener {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
 		if (evt.getPropertyName().equalsIgnoreCase("switchturn")) {
 			boardView.updateBoardEndOfTimer();
 		}

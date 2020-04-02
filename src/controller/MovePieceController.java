@@ -116,16 +116,16 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 	}
 
 	private void updateModelStateForNextTurn(List<List<AbstractButton>> buttons) {
-		if (Asset.eagleNames.contains(pieceType.toLowerCase())) {
+		if (AssetHelper.eagleNames.contains(pieceType.toLowerCase())) {
 
-			boardPanel.restoreButtonStateForNextTurn(Asset.eagleNames);
+			boardPanel.restoreButtonStateForNextTurn(AssetHelper.eagleNames);
 
 			EngineImpl.getSingletonInstance().cancelTimer();
 			EngineImpl.getSingletonInstance().setActivePlayer("shark", true);
 
-		} else if (Asset.sharkNames.contains(pieceType.toLowerCase())) {
+		} else if (AssetHelper.sharkNames.contains(pieceType.toLowerCase())) {
 			// refresh state ready for next turn
-			boardPanel.restoreButtonStateForNextTurn(Asset.sharkNames);
+			boardPanel.restoreButtonStateForNextTurn(AssetHelper.sharkNames);
 			EngineImpl.getSingletonInstance().cancelTimer();
 			EngineImpl.getSingletonInstance().setActivePlayer("eagle", true);
 
@@ -133,14 +133,14 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 	}
 
 	private boolean checkIfMoveOnAlly(ActionEvent e, boolean notEnterAlly) {
-		if (Asset.eagleNames.contains(pieceType.toLowerCase())) {
+		if (AssetHelper.eagleNames.contains(pieceType.toLowerCase())) {
 			AbstractButton buttonClicked = (AbstractButton) e.getSource();
-			if (Asset.eagleNames.contains(buttonClicked.getActionCommand().toLowerCase())) {
+			if (AssetHelper.eagleNames.contains(buttonClicked.getActionCommand().toLowerCase())) {
 				notEnterAlly = false;
 			}
-		} else if (Asset.sharkNames.contains(pieceType.toLowerCase())) {
+		} else if (AssetHelper.sharkNames.contains(pieceType.toLowerCase())) {
 			AbstractButton buttonClicked = (AbstractButton) e.getSource();
-			if (Asset.sharkNames.contains(buttonClicked.getActionCommand().toLowerCase())) {
+			if (AssetHelper.sharkNames.contains(buttonClicked.getActionCommand().toLowerCase())) {
 				notEnterAlly = false;
 
 			}

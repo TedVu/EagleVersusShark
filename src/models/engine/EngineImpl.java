@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 
-import controller.Asset;
+import controller.AssetHelper;
 import controller.MakingMovePropertyChangeListener;
 import controller.TimerPropertyChangeListener;
 import models.board.Board;
@@ -40,10 +40,7 @@ public class EngineImpl implements Engine {
 
 	private GameEngineCallback geCallback = new GameEngineCallbackImpl();
 
-	private boolean timerIsOn = false;
-	private int round = 0;
 	private Board board;
-	
 
 	public EngineImpl() {
 		board = new Board();
@@ -62,20 +59,20 @@ public class EngineImpl implements Engine {
 	}
 
 	public void initializePiece() {
-		Asset.populate();
-		Piece eaglePiece1 = pieceFactory.generatePiece("AttackingEagle", Asset.initialPosAttackingEagle.get("x"),
-				Asset.initialPosAttackingEagle.get("y"));
-		Piece eaglePiece2 = pieceFactory.generatePiece("LeadershipEagle", Asset.initialPosLeadershipEagle.get("x"),
-				Asset.initialPosLeadershipEagle.get("y"));
-		Piece eaglePiece3 = pieceFactory.generatePiece("VisionaryEagle", Asset.initialPosVisionaryEagle.get("x"),
-				Asset.initialPosVisionaryEagle.get("y"));
+		AssetHelper.populate();
+		Piece eaglePiece1 = pieceFactory.generatePiece("AttackingEagle", AssetHelper.initialPosAttackingEagle.get("x"),
+				AssetHelper.initialPosAttackingEagle.get("y"));
+		Piece eaglePiece2 = pieceFactory.generatePiece("LeadershipEagle", AssetHelper.initialPosLeadershipEagle.get("x"),
+				AssetHelper.initialPosLeadershipEagle.get("y"));
+		Piece eaglePiece3 = pieceFactory.generatePiece("VisionaryEagle", AssetHelper.initialPosVisionaryEagle.get("x"),
+				AssetHelper.initialPosVisionaryEagle.get("y"));
 
-		Piece sharkPiece1 = pieceFactory.generatePiece("AggressiveShark", Asset.initialPosAggressiveShark.get("x"),
-				Asset.initialPosAggressiveShark.get("y"));
-		Piece sharkPiece2 = pieceFactory.generatePiece("DefensiveShark", Asset.initialPosDefensiveShark.get("x"),
-				Asset.initialPosDefensiveShark.get("y"));
-		Piece sharkPiece3 = pieceFactory.generatePiece("HealingShark", Asset.initialPosHealingShark.get("x"),
-				Asset.initialPosHealingShark.get("y"));
+		Piece sharkPiece1 = pieceFactory.generatePiece("AggressiveShark", AssetHelper.initialPosAggressiveShark.get("x"),
+				AssetHelper.initialPosAggressiveShark.get("y"));
+		Piece sharkPiece2 = pieceFactory.generatePiece("DefensiveShark", AssetHelper.initialPosDefensiveShark.get("x"),
+				AssetHelper.initialPosDefensiveShark.get("y"));
+		Piece sharkPiece3 = pieceFactory.generatePiece("HealingShark", AssetHelper.initialPosHealingShark.get("x"),
+				AssetHelper.initialPosHealingShark.get("y"));
 
 		board.addPiece(0, 3);
 		board.addPiece(1, 4);
@@ -92,14 +89,6 @@ public class EngineImpl implements Engine {
 		pieces.put("AggressiveShark", sharkPiece1);
 		pieces.put("DefensiveShark", sharkPiece2);
 		pieces.put("HealingShark", sharkPiece3);
-
-		Piece sharkPiece1 = pieceFactory.generatePiece("AGGRESSIVESHARK", 3, 8);
-		Piece sharkPiece2 = pieceFactory.generatePiece("HEALINGSHARK", 4, 7);
-		Piece sharkPiece3 = pieceFactory.generatePiece("DEFENSIVESHARK", 5, 8);
-
-		piecesTest.put("AggressiveShark", sharkPiece1);
-		piecesTest.put("HealingShark", sharkPiece2);
-		piecesTest.put("DefensiveShark", sharkPiece3);
 
 	}
 
@@ -132,14 +121,6 @@ public class EngineImpl implements Engine {
 	@Override
 	public List<Piece> getActiveSharks() {
 
-		for (Piece piece : piecesTest.values()) {
-			if (piece != null && piece.isActive() && (
-				piece instanceof HealingShark ||
-				piece instanceof AggressiveShark ||
-				piece instanceof DefensiveShark)) {
-				activeEagles.add(piece);
-			}
-		}
 		return activeSharks;
 	}
 
@@ -186,12 +167,6 @@ public class EngineImpl implements Engine {
 		}
 		return true;
 	}
-	
-
-	@Override
-	public void setTimerStatus(boolean timerIsOn) {
-		this.timerIsOn = timerIsOn;
-	}
 
 	/*
 	 * return the initial active player, call this at the beginning of the program
@@ -222,13 +197,12 @@ public class EngineImpl implements Engine {
 	 * 
 	 * @param String playerType
 	 * 
+	 * @param bool turnOnTimer - set interval to change player every n seconds or
+	 * not
 	 */
 	@Override
 	public void setActivePlayer(String playerType, boolean turnOnTimer) {
-
 		String nextPlayer;
-		round++;
-		
 		if (playerType.equals("eagle")) {
 			this.eaglePlayer.setActive(true);
 			this.sharkPlayer.setActive(false);
@@ -254,6 +228,7 @@ public class EngineImpl implements Engine {
 
 	@Override
 	public void setActivePlayerTimer(String playerType) {
+
 		gameTimer = new java.util.Timer();
 		gameTimer.schedule(new java.util.TimerTask() {
 			@Override
