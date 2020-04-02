@@ -20,12 +20,12 @@ public class StartGameController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Player initialPlayer = EngineImpl.getSingletonInstance().getInitialPlayerActivePlayer();
-		if (initialPlayer.getPlayerType().equalsIgnoreCase(Asset.sharkTeamName)) {
+		if (initialPlayer.getPlayerType().equalsIgnoreCase(AssetHelper.sharkTeamName)) {
 			statusPanel.updateTurnLabel("Shark");
 			statusPanel.startCountDown();
 			EngineImpl.getSingletonInstance().setActivePlayerTimer("eagle");
 
-		} else if (initialPlayer.getPlayerType().equalsIgnoreCase(Asset.eagleTeamName)) {
+		} else if (initialPlayer.getPlayerType().equalsIgnoreCase(AssetHelper.eagleTeamName)) {
 			statusPanel.updateTurnLabel("Eagle");
 			statusPanel.startCountDown();
 			EngineImpl.getSingletonInstance().setActivePlayerTimer("eagle");
