@@ -10,7 +10,6 @@ import models.engine.EngineImpl;
 
 public class AttackerEagle extends AbstractPiece {
 
-
 	public AttackerEagle(int x, int y) {
 		super(x, y);
 	}

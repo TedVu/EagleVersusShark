@@ -213,4 +213,3 @@ public class DefensiveShark extends AbstractPiece {
 	}
 
 }
-

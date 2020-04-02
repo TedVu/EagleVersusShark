@@ -60,14 +60,7 @@ public class BoardPanel extends JPanel {
 			}
 		}
 
-		buttons.get(0).get(4).setBackground(new Color(185,19,114));
-		buttons.get(8).get(4).setBackground(new Color(185,19,114));
-
-		for (int row = 3; row <= 5; ++row) {
-			for(int col=0;col<=8;++col) {
-				buttons.get(row).get(col).setBackground(new Color(2,169,234));
-			}
-		}
+	
 
 		populate(AssetHelper.attackingEagle, AssetHelper.visionaryEagle, AssetHelper.leadershipEagle);
 		populate(AssetHelper.aggressiveShark, AssetHelper.defensiveShark, AssetHelper.healingShark);
