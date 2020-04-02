@@ -212,4 +212,5 @@ public class HealingShark extends AbstractPiece {
 		}
 		return false;
 	}
+
 }

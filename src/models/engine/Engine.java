@@ -18,9 +18,9 @@ public interface Engine {
 
 	public Player getCurrentActivePlayer();
 
-	public Player getInitialPlayerActivePlayer();
+	public Player getInitiaActivePlayer();
 
-	public void setActivePlayer(String playerType, boolean turnOnTimer);
+	public void setActivePlayer(String playerType);
 
 	public Board getBoard();
 
@@ -41,5 +41,6 @@ public interface Engine {
 	public void cancelTimer();
 
 	public GameEngineCallback getGameEngineCallback();
+
 
 }

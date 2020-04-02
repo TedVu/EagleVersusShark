@@ -5,10 +5,7 @@ import java.util.Map;
 
 import models.engine.Engine;
 import models.engine.EngineImpl;
-import models.pieces.AttackerEagle;
-import models.pieces.LeadershipEagle;
-import models.pieces.Piece;
-import models.pieces.VisionaryEagle;
+import models.pieces.*;
 
 public class MockClient {
 
@@ -21,9 +18,15 @@ public class MockClient {
 		pieces = engine.getAllPieces();
 		// System.out.println(engine.getInitialPlayerActivePlayer().getPlayerType());
 
+
 		Piece attackerPiece = null;
 		Piece visionPiece = null;
 		Piece leaderPiece = null;
+
+		//TESTING SHARKs
+		Piece attackShark = null;
+		Piece healShark = null;
+		Piece defenseShark = null;
 
 		for (Piece piece : pieces.values()) {
 
@@ -46,7 +49,13 @@ public class MockClient {
 		//
 		// System.out.println(attackerPiece.isImmune());
 
+
 		System.out.println(engine.useAbility("capture", attackerPiece, visionPiece));
+
+		//TEST: IF you uncomment line 59 & 63, line below should return false
+		//		BECAUSE the healShark is too far away from the defenseShark
+		//		AND the positions of the two sharks don't qualify for the healing ability to work
+		System.out.println(engine.useAbility("HEAL SHARK",healShark,defenseShark));
 
 	}
 

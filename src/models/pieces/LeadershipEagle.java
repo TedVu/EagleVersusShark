@@ -11,6 +11,8 @@ import models.engine.EngineImpl;
 
 public class LeadershipEagle extends AbstractPiece {
 
+	private boolean nextToLeadershipEagle;
+
 	public LeadershipEagle(int x, int y) {
 		super(x, y);
 	}
@@ -29,6 +31,7 @@ public class LeadershipEagle extends AbstractPiece {
 		setPosition(newX, newY);
 		return true;
 	}
+
 
 	@Override
 	public Set<List<Integer>> getValidMove() {
@@ -116,6 +119,7 @@ public class LeadershipEagle extends AbstractPiece {
 	}
 
 	public boolean giveProtection(Piece piece, Piece affectedPiece) {
+
 
 		try {
 
