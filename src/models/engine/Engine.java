@@ -5,7 +5,7 @@ import java.util.Map;
 
 import models.board.Board;
 import models.pieces.Piece;
-import models.player.Player;
+import models.enumeration.Player;
 import view.interfaces.GameEngineCallback;
 
 public interface Engine {
@@ -20,7 +20,7 @@ public interface Engine {
 
 	public Player getInitialPlayerActivePlayer();
 
-	public void setActivePlayer(String playerType, boolean turnOnTimer);
+	public void setActivePlayer(Player playerType, boolean turnOnTimer);
 
 	public Board getBoard();
 
@@ -34,7 +34,7 @@ public interface Engine {
 
 	public void initializePiece();
 
-	public void setActivePlayerTimer(String playerType);
+	public void setActivePlayerTimer(Player playerType);
 
 	public boolean getStartGame();
 

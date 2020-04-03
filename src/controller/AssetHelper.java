@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import models.enumeration.Player;
+
 /**
  * @author Ted
  * @implNote Pure Fabrication class decouples relevant data of two team with
@@ -13,8 +15,8 @@ import java.util.Set;
  */
 public class AssetHelper {
 	public static Map<String, String> fileName = new HashMap<String, String>();
-	public static final String sharkTeamName = "sharkplayer";
-	public static final String eagleTeamName = "eagleplayer";
+	public static final Player sharkTeamName = Player.SHARK;
+	public static final Player eagleTeamName = Player.EAGLE;
 
 	public static final String attackingEagle = "AttackingEagle";
 	public static final String leadershipEagle = "LeadershipEagle";

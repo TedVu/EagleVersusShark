@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.swing.AbstractButton;
 
 import models.engine.EngineImpl;
+import models.enumeration.Player;
 import view.operationview.BoardPanel;
 
 /**
@@ -121,13 +122,13 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 			boardPanel.restoreButtonStateForNextTurn(AssetHelper.eagleNames);
 
 			EngineImpl.getSingletonInstance().cancelTimer();
-			EngineImpl.getSingletonInstance().setActivePlayer("shark", true);
+			EngineImpl.getSingletonInstance().setActivePlayer(Player.SHARK, true);
 
 		} else if (AssetHelper.sharkNames.contains(pieceType.toLowerCase())) {
 			// refresh state ready for next turn
 			boardPanel.restoreButtonStateForNextTurn(AssetHelper.sharkNames);
 			EngineImpl.getSingletonInstance().cancelTimer();
-			EngineImpl.getSingletonInstance().setActivePlayer("eagle", true);
+			EngineImpl.getSingletonInstance().setActivePlayer(Player.EAGLE, true);
 
 		}
 	}

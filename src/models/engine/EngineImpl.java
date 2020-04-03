@@ -16,8 +16,7 @@ import models.pieces.LeadershipEagle;
 import models.pieces.Piece;
 import models.pieces.PieceFactory;
 import models.pieces.VisionaryEagle;
-import models.player.Player;
-import models.player.PlayerImpl;
+import models.enumeration.Player;
 import view.callbacks.GameEngineCallbackImpl;
 import view.interfaces.GameEngineCallback;
 
@@ -29,13 +28,13 @@ import view.interfaces.GameEngineCallback;
 public class EngineImpl implements Engine {
 	private boolean startGame = false;
 	private static Engine engine = null;
+	private boolean eagleActive = false;
+	private boolean sharkActive = false;
 	private Map<String, Piece> pieces = new HashMap<String, Piece>();
 	private PieceFactory pieceFactory = new PieceFactory();
 
 	private List<Piece> activeEagles = new ArrayList<Piece>();
 	private List<Piece> activeSharks = new ArrayList<Piece>();
-	private Player eaglePlayer = new PlayerImpl("eaglePlayer");
-	private Player sharkPlayer = new PlayerImpl("sharkPlayer");
 	private Timer gameTimer;
 
 	private GameEngineCallback geCallback = new GameEngineCallbackImpl();
@@ -144,10 +143,10 @@ public class EngineImpl implements Engine {
 	@Override
 	public Player getCurrentActivePlayer() {
 
-		if (eaglePlayer.getActive())
-			return eaglePlayer;
+		if (eagleActive)
+			return Player.EAGLE;
 		else
-			return sharkPlayer;
+			return Player.SHARK;
 
 	}
 
@@ -176,18 +175,19 @@ public class EngineImpl implements Engine {
 	@Override
 	public Player getInitialPlayerActivePlayer() {
 		startGame = true;
-
+		
 		Player activePlayer;
+		
 		Random rand = new Random();
 		int randomValue = rand.nextInt() % 2;
 		if (randomValue == 0) {
-			this.eaglePlayer.setActive(true);
-			this.sharkPlayer.setActive(false);
-			activePlayer = eaglePlayer;
+			eagleActive = true;
+			sharkActive = false;
+			activePlayer = Player.EAGLE;
 		} else {
-			this.eaglePlayer.setActive(false);
-			this.sharkPlayer.setActive(true);
-			activePlayer = sharkPlayer;
+			eagleActive = false;
+			sharkActive = true;
+			activePlayer = Player.SHARK;
 		}
 		return activePlayer;
 	}
@@ -201,16 +201,16 @@ public class EngineImpl implements Engine {
 	 * not
 	 */
 	@Override
-	public void setActivePlayer(String playerType, boolean turnOnTimer) {
-		String nextPlayer;
-		if (playerType.equals("eagle")) {
-			this.eaglePlayer.setActive(true);
-			this.sharkPlayer.setActive(false);
-			nextPlayer = "shark";
-		} else if (playerType.equals("shark")) {
-			this.eaglePlayer.setActive(false);
-			this.sharkPlayer.setActive(true);
-			nextPlayer = "eagle";
+	public void setActivePlayer(Player playerType, boolean turnOnTimer) {
+		Player nextPlayer;
+		if (playerType == Player.EAGLE) {
+			eagleActive = true;
+			sharkActive = false;
+			nextPlayer = Player.SHARK;
+		} else if (playerType == Player.SHARK) {
+			eagleActive = false;
+			sharkActive = true;
+			nextPlayer = Player.SHARK;
 		} else {
 			throw new IllegalArgumentException("invalid player type, must be eagle or shark");
 		}
@@ -227,14 +227,14 @@ public class EngineImpl implements Engine {
 	 */
 
 	@Override
-	public void setActivePlayerTimer(String playerType) {
+	public void setActivePlayerTimer(Player playerType) {
 
 		gameTimer = new java.util.Timer();
 		gameTimer.schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
 				setActivePlayer(playerType, true);
-				String currentPlayerTurn = eaglePlayer.getActive() ? "Eagle" : "Shark";
+				Player currentPlayerTurn = eagleActive ? Player.EAGLE : Player.SHARK;
 				geCallback.timerNextMove(playerType, currentPlayerTurn);
 			}
 		}, 10000);
@@ -243,7 +243,7 @@ public class EngineImpl implements Engine {
 
 	@Override
 	public void cancelTimer() {
-		String currentPlayerTurn = eaglePlayer.getActive() ? "Shark" : "Eagle";
+		Player currentPlayerTurn = sharkActive ? Player.EAGLE : Player.SHARK;
 		geCallback.nextMove(currentPlayerTurn);
 		gameTimer.cancel();
 	}

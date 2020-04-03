@@ -2,7 +2,7 @@ package view.callbacks;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-
+import models.enumeration.Player;
 import view.interfaces.GameEngineCallback;
 
 public class GameEngineCallbackImpl implements GameEngineCallback {
@@ -10,12 +10,12 @@ public class GameEngineCallbackImpl implements GameEngineCallback {
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
 	@Override
-	public void timerNextMove(String playerType, String currentPlayerTurn) {
+	public void timerNextMove(Player playerType, Player currentPlayerTurn) {
 		pcs.firePropertyChange("SwitchTurn", playerType, currentPlayerTurn);
 	}
 
 	@Override
-	public void nextMove(String currentPlayerTurn) {
+	public void nextMove(Player currentPlayerTurn) {
 		pcs.firePropertyChange("MakingMove", null, currentPlayerTurn);
 
 	}
