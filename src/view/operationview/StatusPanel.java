@@ -27,7 +27,7 @@ public class StatusPanel extends JPanel {
 	private List<SwingWorker<Void, Void>> workerThreads = new ArrayList<SwingWorker<Void, Void>>();
 
 	public StatusPanel() {
-		setBorder(BorderFactory.createTitledBorder("Status Panel"));
+		setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),"Status Panel"));
 		setPreferredSize(new Dimension(WIDTH_OF_PANEL, HEIGHT_OF_PANEL));
 		setLayout(new BorderLayout());
 		startButton.addActionListener(new StartGameController(this));
