@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -19,7 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import controller.AssetHelper;
+import asset.PieceType;
 import controller.SelectPieceController;
 import controller.TimerPropertyChangeListener;
 import models.engine.EngineImpl;
@@ -60,10 +61,10 @@ public class BoardPanel extends JPanel {
 			}
 		}
 
-	
-
-		populate(AssetHelper.attackingEagle, AssetHelper.visionaryEagle, AssetHelper.leadershipEagle);
-		populate(AssetHelper.aggressiveShark, AssetHelper.defensiveShark, AssetHelper.healingShark);
+		populate(PieceType.ATTACKINGEAGLE.toString(), PieceType.VISIONARYEAGLE.toString(),
+				PieceType.LEADERSHIPEAGLE.toString());
+		populate(PieceType.AGGRESSIVESHARK.toString(), PieceType.DEFENSIVESHARK.toString(),
+				PieceType.HEALINGSHARK.toString());
 
 		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getGameEngineCallback()
 				.getPropertyChangeListener();
@@ -82,9 +83,12 @@ public class BoardPanel extends JPanel {
 
 		Map<String, Integer> posPiece3 = EngineImpl.getSingletonInstance().getAllPieces().get(pieceName3).getPosition();
 		try {
-			Image pieceImage1 = ImageIO.read(getClass().getResource(AssetHelper.fileName.get(pieceName1)));
-			Image pieceImage2 = ImageIO.read(getClass().getResource(AssetHelper.fileName.get(pieceName2)));
-			Image pieceImage3 = ImageIO.read(getClass().getResource(AssetHelper.fileName.get(pieceName3)));
+			Image pieceImage1 = ImageIO
+					.read(getClass().getResource(PieceType.valueOf((pieceName1.toUpperCase())).getFileName()));
+			Image pieceImage2 = ImageIO
+					.read(getClass().getResource(PieceType.valueOf((pieceName2.toUpperCase())).getFileName()));
+			Image pieceImage3 = ImageIO
+					.read(getClass().getResource(PieceType.valueOf((pieceName3.toUpperCase())).getFileName()));
 
 			placePieceOnBoardWhenStart(pieceName1, pieceName2, pieceName3, posPiece1, posPiece2, posPiece3, pieceImage1,
 					pieceImage2, pieceImage3);
@@ -142,10 +146,15 @@ public class BoardPanel extends JPanel {
 	}
 
 	public void updateBoardAfterChoosingPiece(Set<List<Integer>> validMoves, String pieceType) {
+		EnumSet<PieceType> eagleSet = EnumSet.of(PieceType.ATTACKINGEAGLE, PieceType.LEADERSHIPEAGLE,
+				PieceType.VISIONARYEAGLE);
+		EnumSet<PieceType> sharkSet = EnumSet.of(PieceType.AGGRESSIVESHARK, PieceType.DEFENSIVESHARK,
+				PieceType.HEALINGSHARK);
+
 		for (List<Integer> moves : validMoves) {
-			if (AssetHelper.eagleNames.contains(pieceType.toLowerCase())) {
+			if (eagleSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
 				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.yellow);
-			} else if (AssetHelper.sharkNames.contains(pieceType.toLowerCase())) {
+			} else if (sharkSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
 				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.blue);
 			}
 
@@ -166,11 +175,12 @@ public class BoardPanel extends JPanel {
 		}
 	}
 
-	public void restoreButtonStateForNextTurn(Set<String> pieceName) {
-		for (int i = 0; i < buttons.size(); ++i) {
-			for (int j = 0; j < buttons.get(0).size(); ++j) {
-				if (pieceName.contains(buttons.get(i).get(j).getActionCommand().toLowerCase())) {
-					AbstractButton button = buttons.get(i).get(j);
+	public void restoreButtonStateForNextTurn(EnumSet<PieceType> pieceName) {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				if (!buttons.get(row).get(col).getActionCommand().equals("NormalButton") && pieceName
+						.contains(PieceType.valueOf(buttons.get(row).get(col).getActionCommand().toUpperCase()))) {
+					AbstractButton button = buttons.get(row).get(col);
 					for (ActionListener l : button.getActionListeners()) {
 						button.removeActionListener(l);
 					}
@@ -183,7 +193,7 @@ public class BoardPanel extends JPanel {
 	public void updateIcon(AbstractButton buttonClicked, String pieceType) {
 		Image animal = null;
 		try {
-			animal = ImageIO.read(getClass().getResource(AssetHelper.fileName.get(pieceType)));
+			animal = ImageIO.read(getClass().getResource(PieceType.valueOf((pieceType.toUpperCase())).getFileName()));
 		} catch (IOException e1) {
 			System.err.println("IMAGE NOT FOUND");
 		}

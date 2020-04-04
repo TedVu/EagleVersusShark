@@ -6,6 +6,7 @@ import java.beans.PropertyChangeSupport;
 
 import javax.swing.AbstractButton;
 
+import asset.PieceType;
 import models.engine.EngineImpl;
 import view.messagedialog.MessageDialog;
 import view.operationview.BoardPanel;
@@ -47,11 +48,12 @@ public class SelectPieceController implements ActionListener {
 		if (EngineImpl.getSingletonInstance().checkSelectPiece(button.getActionCommand())) {
 
 			if (EngineImpl.getSingletonInstance().getCurrentActivePlayer().getPlayerType()
-					.equalsIgnoreCase(AssetHelper.sharkTeamName)) {
-				checkAllowTransitToMovePieceAction(AssetHelper.aggressiveShark, AssetHelper.defensiveShark, AssetHelper.healingShark);
+					.equalsIgnoreCase(PieceType.getSharkTeamName())) {
+				checkAllowTransitToMovePieceAction(PieceType.AGGRESSIVESHARK.toString(),
+						PieceType.DEFENSIVESHARK.toString(), PieceType.HEALINGSHARK.toString());
 			} else {
-				checkAllowTransitToMovePieceAction(AssetHelper.attackingEagle, AssetHelper.leadershipEagle,
-						AssetHelper.visionaryEagle);
+				checkAllowTransitToMovePieceAction(PieceType.ATTACKINGEAGLE.toString(),
+						PieceType.LEADERSHIPEAGLE.toString(), PieceType.VISIONARYEAGLE.toString());
 			}
 		}
 	}

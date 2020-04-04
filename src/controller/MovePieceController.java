@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 import javax.swing.AbstractButton;
 
+import asset.PieceType;
 import models.engine.EngineImpl;
 import view.operationview.BoardPanel;
 
@@ -26,6 +28,10 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 	private BoardPanel boardPanel;
 	private String pieceType;
 	private Set<List<Integer>> validMoves;
+	private EnumSet<PieceType> eagleSet = EnumSet.of(PieceType.ATTACKINGEAGLE, PieceType.LEADERSHIPEAGLE,
+			PieceType.VISIONARYEAGLE);
+	private EnumSet<PieceType> sharkSet = EnumSet.of(PieceType.AGGRESSIVESHARK, PieceType.DEFENSIVESHARK,
+			PieceType.HEALINGSHARK);
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -116,16 +122,16 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 	}
 
 	private void updateModelStateForNextTurn(List<List<AbstractButton>> buttons) {
-		if (AssetHelper.eagleNames.contains(pieceType.toLowerCase())) {
 
-			boardPanel.restoreButtonStateForNextTurn(AssetHelper.eagleNames);
+		if (eagleSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
+			boardPanel.restoreButtonStateForNextTurn(eagleSet);
 
 			EngineImpl.getSingletonInstance().cancelTimer();
 			EngineImpl.getSingletonInstance().setActivePlayer("shark", true);
 
-		} else if (AssetHelper.sharkNames.contains(pieceType.toLowerCase())) {
+		} else if (sharkSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
 			// refresh state ready for next turn
-			boardPanel.restoreButtonStateForNextTurn(AssetHelper.sharkNames);
+			boardPanel.restoreButtonStateForNextTurn(sharkSet);
 			EngineImpl.getSingletonInstance().cancelTimer();
 			EngineImpl.getSingletonInstance().setActivePlayer("eagle", true);
 
@@ -133,14 +139,16 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 	}
 
 	private boolean checkIfMoveOnAlly(ActionEvent e, boolean notEnterAlly) {
-		if (AssetHelper.eagleNames.contains(pieceType.toLowerCase())) {
+		if (eagleSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
 			AbstractButton buttonClicked = (AbstractButton) e.getSource();
-			if (AssetHelper.eagleNames.contains(buttonClicked.getActionCommand().toLowerCase())) {
+			if (!buttonClicked.getActionCommand().equals("NormalButton")
+					&& eagleSet.contains(PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase()))) {
 				notEnterAlly = false;
 			}
-		} else if (AssetHelper.sharkNames.contains(pieceType.toLowerCase())) {
+		} else if (sharkSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
 			AbstractButton buttonClicked = (AbstractButton) e.getSource();
-			if (AssetHelper.sharkNames.contains(buttonClicked.getActionCommand().toLowerCase())) {
+			if (!buttonClicked.getActionCommand().equals("NormalButton")
+					&& sharkSet.contains(PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase()))) {
 				notEnterAlly = false;
 
 			}

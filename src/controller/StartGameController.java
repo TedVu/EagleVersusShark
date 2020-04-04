@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import asset.PieceType;
 import models.engine.EngineImpl;
 import models.player.Player;
 import view.operationview.StatusPanel;
@@ -20,12 +21,12 @@ public class StartGameController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Player initialPlayer = EngineImpl.getSingletonInstance().getInitialPlayerActivePlayer();
-		if (initialPlayer.getPlayerType().equalsIgnoreCase(AssetHelper.sharkTeamName)) {
+		if (initialPlayer.getPlayerType().equalsIgnoreCase(PieceType.getSharkTeamName())) {
 			statusPanel.updateTurnLabel("Shark");
 			statusPanel.startCountDown();
 			EngineImpl.getSingletonInstance().setActivePlayerTimer("eagle");
 
-		} else if (initialPlayer.getPlayerType().equalsIgnoreCase(AssetHelper.eagleTeamName)) {
+		} else if (initialPlayer.getPlayerType().equalsIgnoreCase(PieceType.getEagleTeamName())) {
 			statusPanel.updateTurnLabel("Eagle");
 			statusPanel.startCountDown();
 			EngineImpl.getSingletonInstance().setActivePlayerTimer("eagle");

@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 
-import controller.AssetHelper;
+import asset.PieceType;
 import controller.MakingMovePropertyChangeListener;
 import controller.TimerPropertyChangeListener;
 import models.board.Board;
@@ -59,36 +59,36 @@ public class EngineImpl implements Engine {
 	}
 
 	public void initializePiece() {
-		AssetHelper.populate();
-		Piece eaglePiece1 = pieceFactory.generatePiece("AttackingEagle", AssetHelper.initialPosAttackingEagle.get("x"),
-				AssetHelper.initialPosAttackingEagle.get("y"));
-		Piece eaglePiece2 = pieceFactory.generatePiece("LeadershipEagle", AssetHelper.initialPosLeadershipEagle.get("x"),
-				AssetHelper.initialPosLeadershipEagle.get("y"));
-		Piece eaglePiece3 = pieceFactory.generatePiece("VisionaryEagle", AssetHelper.initialPosVisionaryEagle.get("x"),
-				AssetHelper.initialPosVisionaryEagle.get("y"));
 
-		Piece sharkPiece1 = pieceFactory.generatePiece("AggressiveShark", AssetHelper.initialPosAggressiveShark.get("x"),
-				AssetHelper.initialPosAggressiveShark.get("y"));
-		Piece sharkPiece2 = pieceFactory.generatePiece("DefensiveShark", AssetHelper.initialPosDefensiveShark.get("x"),
-				AssetHelper.initialPosDefensiveShark.get("y"));
-		Piece sharkPiece3 = pieceFactory.generatePiece("HealingShark", AssetHelper.initialPosHealingShark.get("x"),
-				AssetHelper.initialPosHealingShark.get("y"));
+		Piece attackingEagle = pieceFactory.generatePiece(PieceType.ATTACKINGEAGLE.toString(),
+				PieceType.ATTACKINGEAGLE.getInitialPosX(), PieceType.ATTACKINGEAGLE.getInitialPosY());
+		Piece leadershipEagle = pieceFactory.generatePiece(PieceType.LEADERSHIPEAGLE.toString(),
+				PieceType.LEADERSHIPEAGLE.getInitialPosX(), PieceType.LEADERSHIPEAGLE.getInitialPosY());
+		Piece visionaryEagle = pieceFactory.generatePiece(PieceType.VISIONARYEAGLE.toString(),
+				PieceType.VISIONARYEAGLE.getInitialPosX(), PieceType.VISIONARYEAGLE.getInitialPosY());
 
-		board.addPiece(0, 3);
-		board.addPiece(1, 4);
-		board.addPiece(0, 5);
+		Piece aggressiveShark = pieceFactory.generatePiece(PieceType.AGGRESSIVESHARK.toString(),
+				PieceType.AGGRESSIVESHARK.getInitialPosX(), PieceType.AGGRESSIVESHARK.getInitialPosY());
+		Piece defensiveShark = pieceFactory.generatePiece(PieceType.DEFENSIVESHARK.toString(),
+				PieceType.DEFENSIVESHARK.getInitialPosX(), PieceType.DEFENSIVESHARK.getInitialPosY());
+		Piece healingShark = pieceFactory.generatePiece(PieceType.HEALINGSHARK.toString(),
+				PieceType.HEALINGSHARK.getInitialPosX(), PieceType.HEALINGSHARK.getInitialPosY());
 
-		board.addPiece(8, 3);
-		board.addPiece(7, 4);
-		board.addPiece(8, 5);
+		board.addPiece(attackingEagle.getPosition().get("x"), attackingEagle.getPosition().get("y"));
+		board.addPiece(leadershipEagle.getPosition().get("x"), leadershipEagle.getPosition().get("y"));
+		board.addPiece(visionaryEagle.getPosition().get("x"), visionaryEagle.getPosition().get("y"));
 
-		pieces.put("AttackingEagle", eaglePiece1);
-		pieces.put("LeadershipEagle", eaglePiece2);
-		pieces.put("VisionaryEagle", eaglePiece3);
+		board.addPiece(aggressiveShark.getPosition().get("x"), aggressiveShark.getPosition().get("y"));
+		board.addPiece(defensiveShark.getPosition().get("x"), defensiveShark.getPosition().get("y"));
+		board.addPiece(healingShark.getPosition().get("x"), healingShark.getPosition().get("y"));
 
-		pieces.put("AggressiveShark", sharkPiece1);
-		pieces.put("DefensiveShark", sharkPiece2);
-		pieces.put("HealingShark", sharkPiece3);
+		pieces.put(PieceType.ATTACKINGEAGLE.toString(), attackingEagle);
+		pieces.put(PieceType.LEADERSHIPEAGLE.toString(), leadershipEagle);
+		pieces.put(PieceType.VISIONARYEAGLE.toString(), visionaryEagle);
+
+		pieces.put(PieceType.AGGRESSIVESHARK.toString(), aggressiveShark);
+		pieces.put(PieceType.DEFENSIVESHARK.toString(), defensiveShark);
+		pieces.put(PieceType.HEALINGSHARK.toString(), healingShark);
 
 	}
 

@@ -3,6 +3,8 @@ package view.callbacks;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import javax.swing.SwingUtilities;
+
 import view.interfaces.GameEngineCallback;
 
 public class GameEngineCallbackImpl implements GameEngineCallback {
@@ -11,12 +13,29 @@ public class GameEngineCallbackImpl implements GameEngineCallback {
 
 	@Override
 	public void timerNextMove(String playerType, String currentPlayerTurn) {
-		pcs.firePropertyChange("SwitchTurn", playerType, currentPlayerTurn);
+		SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				pcs.firePropertyChange("SwitchTurn", playerType, currentPlayerTurn);
+			}
+
+		});
 	}
 
 	@Override
 	public void nextMove(String currentPlayerTurn) {
-		pcs.firePropertyChange("MakingMove", null, currentPlayerTurn);
+		SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				pcs.firePropertyChange("MakingMove", null, currentPlayerTurn);
+
+			}
+
+		});
 
 	}
 
