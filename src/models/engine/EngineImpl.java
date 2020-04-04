@@ -60,19 +60,18 @@ public class EngineImpl implements Engine {
 
 	public void initializePiece() {
 
-		Piece attackingEagle = pieceFactory.generatePiece(PieceType.ATTACKINGEAGLE.toString(),
-				PieceType.ATTACKINGEAGLE.getInitialPosX(), PieceType.ATTACKINGEAGLE.getInitialPosY());
-		Piece leadershipEagle = pieceFactory.generatePiece(PieceType.LEADERSHIPEAGLE.toString(),
-				PieceType.LEADERSHIPEAGLE.getInitialPosX(), PieceType.LEADERSHIPEAGLE.getInitialPosY());
-		Piece visionaryEagle = pieceFactory.generatePiece(PieceType.VISIONARYEAGLE.toString(),
-				PieceType.VISIONARYEAGLE.getInitialPosX(), PieceType.VISIONARYEAGLE.getInitialPosY());
+		Piece attackingEagle = pieceFactory.generatePiece(PieceType.ATTACKINGEAGLE.toString(), (board.getCol() / 2 - 1),
+				0);
+		Piece leadershipEagle = pieceFactory.generatePiece(PieceType.LEADERSHIPEAGLE.toString(), board.getCol() / 2, 1);
+		Piece visionaryEagle = pieceFactory.generatePiece(PieceType.VISIONARYEAGLE.toString(), board.getCol() / 2 + 1,
+				0);
 
-		Piece aggressiveShark = pieceFactory.generatePiece(PieceType.AGGRESSIVESHARK.toString(),
-				PieceType.AGGRESSIVESHARK.getInitialPosX(), PieceType.AGGRESSIVESHARK.getInitialPosY());
-		Piece defensiveShark = pieceFactory.generatePiece(PieceType.DEFENSIVESHARK.toString(),
-				PieceType.DEFENSIVESHARK.getInitialPosX(), PieceType.DEFENSIVESHARK.getInitialPosY());
-		Piece healingShark = pieceFactory.generatePiece(PieceType.HEALINGSHARK.toString(),
-				PieceType.HEALINGSHARK.getInitialPosX(), PieceType.HEALINGSHARK.getInitialPosY());
+		Piece aggressiveShark = pieceFactory.generatePiece(PieceType.AGGRESSIVESHARK.toString(), board.getCol() / 2 - 1,
+				board.getRow() - 1);
+		Piece defensiveShark = pieceFactory.generatePiece(PieceType.DEFENSIVESHARK.toString(), board.getCol() / 2,
+				board.getRow() - 2);
+		Piece healingShark = pieceFactory.generatePiece(PieceType.HEALINGSHARK.toString(), board.getCol() / 2 + 1,
+				board.getRow() - 1);
 
 		board.addPiece(attackingEagle.getPosition().get("x"), attackingEagle.getPosition().get("y"));
 		board.addPiece(leadershipEagle.getPosition().get("x"), leadershipEagle.getPosition().get("y"));
@@ -261,6 +260,51 @@ public class EngineImpl implements Engine {
 	@Override
 	public GameEngineCallback getGameEngineCallback() {
 		return geCallback;
+	}
+
+	@Override
+	public void configBoardSize(int row, int col) {
+		board = new Board(row, col);
+		initializePiece();
+	}
+
+	@Override
+	public void configNumPiece(int numPiece) {
+		// TODO Auto-generated method stub
+		if (numPiece == 4) {
+			pieces = new HashMap<String, Piece>();
+
+			Piece attackingEagle = pieceFactory.generatePiece(PieceType.ATTACKINGEAGLE.toString(),
+					(board.getCol() / 2 - 1), 0);
+			Piece visionaryEagle = pieceFactory.generatePiece(PieceType.VISIONARYEAGLE.toString(),
+					board.getCol() / 2 + 1, 0);
+
+			Piece aggressiveShark = pieceFactory.generatePiece(PieceType.AGGRESSIVESHARK.toString(),
+					board.getCol() / 2 - 1, board.getRow() - 1);
+			Piece healingShark = pieceFactory.generatePiece(PieceType.HEALINGSHARK.toString(), board.getCol() / 2 + 1,
+					board.getRow() - 1);
+			board.addPiece(attackingEagle.getPosition().get("x"), attackingEagle.getPosition().get("y"));
+			board.addPiece(visionaryEagle.getPosition().get("x"), visionaryEagle.getPosition().get("y"));
+			board.addPiece(aggressiveShark.getPosition().get("x"), aggressiveShark.getPosition().get("y"));
+			board.addPiece(healingShark.getPosition().get("x"), healingShark.getPosition().get("y"));
+
+			pieces.put(PieceType.ATTACKINGEAGLE.toString(), attackingEagle);
+			pieces.put(PieceType.VISIONARYEAGLE.toString(), visionaryEagle);
+
+			pieces.put(PieceType.AGGRESSIVESHARK.toString(), aggressiveShark);
+			pieces.put(PieceType.HEALINGSHARK.toString(), healingShark);
+
+		} else if (numPiece == 2) {
+			pieces = new HashMap<String, Piece>();
+
+			Piece leadershipEagle = pieceFactory.generatePiece(PieceType.LEADERSHIPEAGLE.toString(), board.getCol() / 2,
+					1);
+			Piece defensiveShark = pieceFactory.generatePiece(PieceType.DEFENSIVESHARK.toString(), board.getCol() / 2,
+					board.getRow() - 2);
+			pieces.put(PieceType.LEADERSHIPEAGLE.toString(), leadershipEagle);
+			pieces.put(PieceType.DEFENSIVESHARK.toString(), defensiveShark);
+
+		}
 	}
 
 }

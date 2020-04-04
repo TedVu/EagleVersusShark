@@ -42,4 +42,9 @@ public interface Engine {
 
 	public GameEngineCallback getGameEngineCallback();
 
+	// A2-Ted
+	public void configBoardSize(int row, int col);
+
+	public void configNumPiece(int numPiece);
+
 }

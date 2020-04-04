@@ -64,4 +64,28 @@ public class SettingsDialog extends JDialog {
 		this.setResizable(false);
 		this.setVisible(true);
 	}
+
+	public int getBoardSizeSelection() {
+		int select = boardSizeMenu.getSelectedIndex();
+		if (select == 0) {
+			return 9;
+		} else if (select == 1) {
+			return 11;
+		} else if (select == 2) {
+			return 13;
+		} else {
+			return 15;
+		}
+	}
+
+	public int getPieceNumberSelection() {
+		int select = numPieceMenu.getSelectedIndex();
+		if (select == 0) {
+			return 6;
+		} else if (select == 1) {
+			return 4;
+		} else {
+			return 2;
+		}
+	}
 }

@@ -60,18 +60,99 @@ public class BoardPanel extends JPanel {
 				group.add(buttons.get(row).get(col));
 			}
 		}
-
-		populate(PieceType.ATTACKINGEAGLE.toString(), PieceType.VISIONARYEAGLE.toString(),
-				PieceType.LEADERSHIPEAGLE.toString());
-		populate(PieceType.AGGRESSIVESHARK.toString(), PieceType.DEFENSIVESHARK.toString(),
-				PieceType.HEALINGSHARK.toString());
-
+		checkConfigNumPiece();
 		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getGameEngineCallback()
 				.getPropertyChangeListener();
 		for (PropertyChangeListener listener : listeners) {
 			if (listener instanceof TimerPropertyChangeListener) {
 				((TimerPropertyChangeListener) listener).injectBoard(this);
 			}
+		}
+
+	}
+
+	private void checkConfigNumPiece() {
+		int numPiece = EngineImpl.getSingletonInstance().getAllPieces().size();
+		if (numPiece == 6) {
+			populate(PieceType.ATTACKINGEAGLE.toString(), PieceType.VISIONARYEAGLE.toString(),
+					PieceType.LEADERSHIPEAGLE.toString());
+			populate(PieceType.AGGRESSIVESHARK.toString(), PieceType.DEFENSIVESHARK.toString(),
+					PieceType.HEALINGSHARK.toString());
+		}
+		if (numPiece == 2) {
+
+			try {
+				Image pieceImage1 = ImageIO
+						.read(getClass().getResource(PieceType.valueOf(("LEADERSHIPEAGLE")).getFileName()));
+				buttons.get(1).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2)
+						.setIcon(new ImageIcon(pieceImage1));
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			buttons.get(1).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2)
+					.setActionCommand(PieceType.LEADERSHIPEAGLE.toString());
+
+			try {
+				Image pieceImage1 = ImageIO
+						.read(getClass().getResource(PieceType.valueOf(("DEFENSIVESHARK")).getFileName()));
+				buttons.get(EngineImpl.getSingletonInstance().getBoard().getCol() - 2)
+						.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2)
+						.setIcon(new ImageIcon(pieceImage1));
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 2)
+					.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2)
+					.setActionCommand(PieceType.DEFENSIVESHARK.toString());
+
+		} else if (numPiece == 4) {
+
+			try {
+				Image pieceImage1 = ImageIO
+						.read(getClass().getResource(PieceType.valueOf(("ATTACKINGEAGLE")).getFileName()));
+				Image pieceImage2 = ImageIO
+						.read(getClass().getResource(PieceType.valueOf(("VISIONARYEAGLE")).getFileName()));
+				buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
+						.setIcon(new ImageIcon(pieceImage1));
+				buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
+						.setIcon(new ImageIcon(pieceImage2));
+			} catch (IOException e) {
+
+			}
+
+			buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
+					.setActionCommand(PieceType.ATTACKINGEAGLE.toString());
+
+			buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
+					.setActionCommand(PieceType.VISIONARYEAGLE.toString());
+
+			try {
+				Image pieceImage1 = ImageIO
+						.read(getClass().getResource(PieceType.valueOf(("AGGRESSIVESHARK")).getFileName()));
+				Image pieceImage2 = ImageIO
+						.read(getClass().getResource(PieceType.valueOf(("HEALINGSHARK")).getFileName()));
+				buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
+						.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
+						.setIcon(new ImageIcon(pieceImage1));
+				buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
+						.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
+						.setIcon(new ImageIcon(pieceImage2));
+			} catch (IOException e) {
+
+			}
+
+			buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
+					.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
+					.setActionCommand(PieceType.AGGRESSIVESHARK.toString());
+
+			buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
+					.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
+					.setActionCommand(PieceType.HEALINGSHARK.toString());
+
 		}
 	}
 
