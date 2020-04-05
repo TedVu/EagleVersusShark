@@ -5,7 +5,7 @@ import java.util.Map;
 
 import models.engine.Engine;
 import models.engine.EngineImpl;
-import models.pieces.AttackerEagle;
+import models.pieces.AttackingEagle;
 import models.pieces.LeadershipEagle;
 import models.pieces.Piece;
 import models.pieces.VisionaryEagle;

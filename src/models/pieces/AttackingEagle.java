@@ -8,9 +8,9 @@ import java.util.Set;
 
 import models.engine.EngineImpl;
 
-public class AttackerEagle extends AbstractPiece {
+public class AttackingEagle extends AbstractPiece {
 
-	public AttackerEagle(int x, int y) {
+	public AttackingEagle(int x, int y) {
 		super(x, y);
 	}
 

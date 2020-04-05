@@ -2,6 +2,7 @@ package models.engine;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
 
 import models.board.Board;
 import models.pieces.Piece;
@@ -46,5 +47,15 @@ public interface Engine {
 	public void configBoardSize(int row, int col);
 
 	public void configNumPiece(int numPiece);
+
+	public void loadBoard(int side);
+
+	public void loadPiece(List<Piece> pieces);
+
+	public void loadTurn(String currentTurn);
+
+	public boolean getLoadGame();
+	
+	public void setStartGame();
 
 }

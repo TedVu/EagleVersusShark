@@ -11,7 +11,10 @@ import asset.PieceType;
 import controller.MakingMovePropertyChangeListener;
 import controller.TimerPropertyChangeListener;
 import models.board.Board;
-import models.pieces.AttackerEagle;
+import models.pieces.AggressiveShark;
+import models.pieces.AttackingEagle;
+import models.pieces.DefensiveShark;
+import models.pieces.HealingShark;
 import models.pieces.LeadershipEagle;
 import models.pieces.Piece;
 import models.pieces.PieceFactory;
@@ -38,16 +41,18 @@ public class EngineImpl implements Engine {
 	private Player sharkPlayer = new PlayerImpl("sharkPlayer");
 	private Timer gameTimer;
 
+	private boolean loadGame = false;
+
 	private GameEngineCallback geCallback = new GameEngineCallbackImpl();
 
 	private Board board;
 
 	public EngineImpl() {
+		// these two will not be applicable for load game or not default game
 		board = new Board();
 		initializePiece();
 		geCallback.addProperytChangeListener(new TimerPropertyChangeListener());
 		geCallback.addProperytChangeListener(new MakingMovePropertyChangeListener());
-
 	}
 
 	public static Engine getSingletonInstance() {
@@ -55,6 +60,7 @@ public class EngineImpl implements Engine {
 			engine = new EngineImpl();
 
 		}
+
 		return engine;
 	}
 
@@ -106,8 +112,8 @@ public class EngineImpl implements Engine {
 	@Override
 	public List<Piece> getActiveEagles() {
 		for (Piece piece : pieces.values()) {
-			if (piece != null && piece.isActive() && (piece instanceof AttackerEagle || piece instanceof LeadershipEagle
-					|| piece instanceof VisionaryEagle)) {
+			if (piece != null && piece.isActive() && (piece instanceof AttackingEagle
+					|| piece instanceof LeadershipEagle || piece instanceof VisionaryEagle)) {
 				activeEagles.add(piece);
 			}
 		}
@@ -244,7 +250,9 @@ public class EngineImpl implements Engine {
 	public void cancelTimer() {
 		String currentPlayerTurn = eaglePlayer.getActive() ? "Shark" : "Eagle";
 		geCallback.nextMove(currentPlayerTurn);
-		gameTimer.cancel();
+		if (gameTimer != null) {
+			gameTimer.cancel();
+		}
 	}
 
 	@Override
@@ -305,6 +313,61 @@ public class EngineImpl implements Engine {
 			pieces.put(PieceType.DEFENSIVESHARK.toString(), defensiveShark);
 
 		}
+	}
+
+	@Override
+	public void loadBoard(int side) {
+		// TODO Auto-generated method stub
+		board = new Board(side, side);
+
+	}
+
+	@Override
+	public void loadPiece(List<Piece> piecesLoad) {
+		// TODO Auto-generated method stub
+
+		pieces = new HashMap<String, Piece>();
+		for (Piece piece : piecesLoad) {
+			if (piece instanceof AttackingEagle) {
+				pieces.put("AttackingEagle", piece);
+			} else if (piece instanceof LeadershipEagle) {
+				pieces.put("LeadershipEagle", piece);
+			} else if (piece instanceof VisionaryEagle) {
+				pieces.put("VisionaryEagle", piece);
+			} else if (piece instanceof AggressiveShark) {
+				pieces.put("AggressiveShark", piece);
+			} else if (piece instanceof DefensiveShark) {
+				pieces.put("DefensiveShark", piece);
+			} else if (piece instanceof HealingShark) {
+				pieces.put("HealingShark", piece);
+			}
+			board.addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+		}
+	}
+
+	@Override
+	public void loadTurn(String currentTurn) {
+		// TODO Auto-generated method stub
+		loadGame = true;
+		if (currentTurn.equals("sharkPlayer")) {
+			sharkPlayer.setActive(true);
+			eaglePlayer.setActive(false);
+		} else {
+			sharkPlayer.setActive(false);
+			eaglePlayer.setActive(true);
+		}
+
+	}
+
+	@Override
+	public boolean getLoadGame() {
+		// TODO Auto-generated method stub
+		return loadGame;
+	}
+
+	@Override
+	public void setStartGame() {
+		startGame = true;
 	}
 
 }

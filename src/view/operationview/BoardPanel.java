@@ -8,6 +8,7 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,6 +25,7 @@ import asset.PieceType;
 import controller.SelectPieceController;
 import controller.TimerPropertyChangeListener;
 import models.engine.EngineImpl;
+import models.pieces.Piece;
 
 /**
  * @author Ted
@@ -60,7 +62,9 @@ public class BoardPanel extends JPanel {
 				group.add(buttons.get(row).get(col));
 			}
 		}
-		checkConfigNumPiece();
+		if (!EngineImpl.getSingletonInstance().getLoadGame()) {
+			configNumPiece();
+		}
 		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getGameEngineCallback()
 				.getPropertyChangeListener();
 		for (PropertyChangeListener listener : listeners) {
@@ -71,135 +75,95 @@ public class BoardPanel extends JPanel {
 
 	}
 
-	private void checkConfigNumPiece() {
+	private void configNumPiece() {
 		int numPiece = EngineImpl.getSingletonInstance().getAllPieces().size();
-		if (numPiece == 6) {
-			populate(PieceType.ATTACKINGEAGLE.toString(), PieceType.VISIONARYEAGLE.toString(),
-					PieceType.LEADERSHIPEAGLE.toString());
-			populate(PieceType.AGGRESSIVESHARK.toString(), PieceType.DEFENSIVESHARK.toString(),
-					PieceType.HEALINGSHARK.toString());
-		}
+
 		if (numPiece == 2) {
-
-			try {
-				Image pieceImage1 = ImageIO
-						.read(getClass().getResource(PieceType.valueOf(("LEADERSHIPEAGLE")).getFileName()));
-				buttons.get(1).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2)
-						.setIcon(new ImageIcon(pieceImage1));
-
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			buttons.get(1).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2)
-					.setActionCommand(PieceType.LEADERSHIPEAGLE.toString());
-
-			try {
-				Image pieceImage1 = ImageIO
-						.read(getClass().getResource(PieceType.valueOf(("DEFENSIVESHARK")).getFileName()));
-				buttons.get(EngineImpl.getSingletonInstance().getBoard().getCol() - 2)
-						.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2)
-						.setIcon(new ImageIcon(pieceImage1));
-
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 2)
-					.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2)
-					.setActionCommand(PieceType.DEFENSIVESHARK.toString());
-
+			populateTwoMiddlePiece();
 		} else if (numPiece == 4) {
-
-			try {
-				Image pieceImage1 = ImageIO
-						.read(getClass().getResource(PieceType.valueOf(("ATTACKINGEAGLE")).getFileName()));
-				Image pieceImage2 = ImageIO
-						.read(getClass().getResource(PieceType.valueOf(("VISIONARYEAGLE")).getFileName()));
-				buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
-						.setIcon(new ImageIcon(pieceImage1));
-				buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
-						.setIcon(new ImageIcon(pieceImage2));
-			} catch (IOException e) {
-
-			}
-
-			buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
-					.setActionCommand(PieceType.ATTACKINGEAGLE.toString());
-
-			buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
-					.setActionCommand(PieceType.VISIONARYEAGLE.toString());
-
-			try {
-				Image pieceImage1 = ImageIO
-						.read(getClass().getResource(PieceType.valueOf(("AGGRESSIVESHARK")).getFileName()));
-				Image pieceImage2 = ImageIO
-						.read(getClass().getResource(PieceType.valueOf(("HEALINGSHARK")).getFileName()));
-				buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
-						.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
-						.setIcon(new ImageIcon(pieceImage1));
-				buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
-						.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
-						.setIcon(new ImageIcon(pieceImage2));
-			} catch (IOException e) {
-
-			}
-
-			buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
-					.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
-					.setActionCommand(PieceType.AGGRESSIVESHARK.toString());
-
-			buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
-					.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
-					.setActionCommand(PieceType.HEALINGSHARK.toString());
-
-		}
-	}
-
-	private void populate(String pieceName1, String pieceName2, String pieceName3) {
-
-		Map<String, Integer> posPiece1 = EngineImpl.getSingletonInstance().getAllPieces().get(pieceName1).getPosition();
-
-		Map<String, Integer> posPiece2 = EngineImpl.getSingletonInstance().getAllPieces().get(pieceName2).getPosition();
-
-		Map<String, Integer> posPiece3 = EngineImpl.getSingletonInstance().getAllPieces().get(pieceName3).getPosition();
-		try {
-			Image pieceImage1 = ImageIO
-					.read(getClass().getResource(PieceType.valueOf((pieceName1.toUpperCase())).getFileName()));
-			Image pieceImage2 = ImageIO
-					.read(getClass().getResource(PieceType.valueOf((pieceName2.toUpperCase())).getFileName()));
-			Image pieceImage3 = ImageIO
-					.read(getClass().getResource(PieceType.valueOf((pieceName3.toUpperCase())).getFileName()));
-
-			placePieceOnBoardWhenStart(pieceName1, pieceName2, pieceName3, posPiece1, posPiece2, posPiece3, pieceImage1,
-					pieceImage2, pieceImage3);
-
-		} catch (IOException e) {
-			e.printStackTrace();
+			populateTwoSidePiece();
+		} else if (numPiece == 6) {
+			populateTwoMiddlePiece();
+			populateTwoSidePiece();
 		}
 	}
 
 	/**
-	 * @param pieceNamek
-	 *            - name of piece k
-	 * @param posPiecek
-	 *            - initial position of piece k
-	 * 
-	 * @implNote This method will place piece on board in View
-	 * @see EngineModelImpl for placing piece on board for Model
-	 *
+	 * will extract into helper class for populate
 	 */
-	private void placePieceOnBoardWhenStart(String pieceName1, String pieceName2, String pieceName3,
-			Map<String, Integer> posPiece1, Map<String, Integer> posPiece2, Map<String, Integer> posPiece3,
-			Image pieceImage1, Image pieceImage2, Image pieceImage3) {
-		buttons.get(posPiece1.get("y")).get(posPiece1.get("x")).setIcon(new ImageIcon(pieceImage1));
-		buttons.get(posPiece1.get("y")).get(posPiece1.get("x")).setActionCommand(pieceName1);
+	private void populateTwoMiddlePiece() {
+		try {
+			Image pieceImage1 = ImageIO
+					.read(getClass().getResource(PieceType.valueOf(("LEADERSHIPEAGLE")).getFileName()));
+			buttons.get(1).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2)
+					.setIcon(new ImageIcon(pieceImage1));
 
-		buttons.get(posPiece2.get("y")).get(posPiece2.get("x")).setIcon(new ImageIcon(pieceImage2));
-		buttons.get(posPiece2.get("y")).get(posPiece2.get("x")).setActionCommand(pieceName2);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		buttons.get(1).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2)
+				.setActionCommand(PieceType.LEADERSHIPEAGLE.toString());
 
-		buttons.get(posPiece3.get("y")).get(posPiece3.get("x")).setIcon(new ImageIcon(pieceImage3));
-		buttons.get(posPiece3.get("y")).get(posPiece3.get("x")).setActionCommand(pieceName3);
+		try {
+			Image pieceImage1 = ImageIO
+					.read(getClass().getResource(PieceType.valueOf(("DEFENSIVESHARK")).getFileName()));
+			buttons.get(EngineImpl.getSingletonInstance().getBoard().getCol() - 2)
+					.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2).setIcon(new ImageIcon(pieceImage1));
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 2)
+				.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2)
+				.setActionCommand(PieceType.DEFENSIVESHARK.toString());
+	}
+
+	/**
+	 * will extract into helper class for populate
+	 */
+	private void populateTwoSidePiece() {
+		try {
+			Image pieceImage1 = ImageIO
+					.read(getClass().getResource(PieceType.valueOf(("ATTACKINGEAGLE")).getFileName()));
+			Image pieceImage2 = ImageIO
+					.read(getClass().getResource(PieceType.valueOf(("VISIONARYEAGLE")).getFileName()));
+			buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
+					.setIcon(new ImageIcon(pieceImage1));
+			buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
+					.setIcon(new ImageIcon(pieceImage2));
+		} catch (IOException e) {
+
+		}
+
+		buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
+				.setActionCommand(PieceType.ATTACKINGEAGLE.toString());
+
+		buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
+				.setActionCommand(PieceType.VISIONARYEAGLE.toString());
+
+		try {
+			Image pieceImage1 = ImageIO
+					.read(getClass().getResource(PieceType.valueOf(("AGGRESSIVESHARK")).getFileName()));
+			Image pieceImage2 = ImageIO.read(getClass().getResource(PieceType.valueOf(("HEALINGSHARK")).getFileName()));
+			buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
+					.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
+					.setIcon(new ImageIcon(pieceImage1));
+			buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
+					.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
+					.setIcon(new ImageIcon(pieceImage2));
+		} catch (IOException e) {
+
+		}
+
+		buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
+				.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
+				.setActionCommand(PieceType.AGGRESSIVESHARK.toString());
+
+		buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
+				.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
+				.setActionCommand(PieceType.HEALINGSHARK.toString());
 	}
 
 	public List<List<AbstractButton>> getButtonList() {
@@ -325,4 +289,20 @@ public class BoardPanel extends JPanel {
 		repaintWhiteCell();
 	}
 
+	public void updateLoadPanel() {
+		Map<String, Piece> pieces = EngineImpl.getSingletonInstance().getAllPieces();
+		for (String pieceName : pieces.keySet()) {
+			try {
+				Image pieceImage = ImageIO
+						.read(getClass().getResource(PieceType.valueOf((pieceName.toUpperCase())).getFileName()));
+				buttons.get(pieces.get(pieceName).getPosition().get("y"))
+						.get(pieces.get(pieceName).getPosition().get("x")).setIcon(new ImageIcon(pieceImage));
+				buttons.get(pieces.get(pieceName).getPosition().get("y"))
+						.get(pieces.get(pieceName).getPosition().get("x")).setActionCommand(pieceName);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }

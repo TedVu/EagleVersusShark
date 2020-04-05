@@ -22,7 +22,7 @@ public class MainAppFrame extends JFrame {
 
 	public MainAppFrame() {
 		boardPanel = new BoardPanel();
-		operationToolbar = new OperationToolbar();
+		operationToolbar = new OperationToolbar(this);
 		statusPanel = new StatusPanel();
 		rightPanel = new RightPanel();
 
@@ -37,5 +37,13 @@ public class MainAppFrame extends JFrame {
 		getContentPane().add(boardPanel, BorderLayout.CENTER);
 		getContentPane().add(operationToolbar, BorderLayout.NORTH);
 		getContentPane().add(rightPanel, BorderLayout.EAST);
+	}
+
+	public StatusPanel getStatusPanel() {
+		return statusPanel;
+	}
+
+	public void loadGame() {
+		boardPanel.updateLoadPanel();
 	}
 }
