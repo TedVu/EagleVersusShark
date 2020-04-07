@@ -12,8 +12,8 @@ import view.operationview.RightPanel;
 import view.operationview.StatusPanel;
 
 public class MainAppFrame extends JFrame {
-	private static final int FRAME_WIDTH = 800;
-	private static final int FRAME_HEIGHT = 600;
+	private static final int FRAME_WIDTH = 1000;
+	private static final int FRAME_HEIGHT = 700;
 
 	private OperationToolbar operationToolbar;
 	private StatusPanel statusPanel;
