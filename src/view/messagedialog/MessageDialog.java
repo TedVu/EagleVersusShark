@@ -14,12 +14,10 @@ public class MessageDialog {
 
 	public static void notifyInputFileNotExist(JFrame startFrame) {
 		JOptionPane.showMessageDialog(startFrame, "File request not exist in system");
-
 	}
 
 	public static void notifyInputWrongFileFormat(JFrame startFrame) {
 		JOptionPane.showMessageDialog(startFrame, "Wrong file input format please check again");
-
 	}
 
 	public static void notifySelectWrongTeam(BoardPanel boardView) {

@@ -22,5 +22,4 @@ public interface GameEngineCallback {
 	 * @param currentPlayerTurn
 	 */
 	public void timerNextMove(String playerType, String currentPlayerTurn);
-
 }
