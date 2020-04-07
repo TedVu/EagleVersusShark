@@ -57,6 +57,7 @@ public class SaveGameDialog extends JDialog {
 
 	/**
 	 * @return
+	 * @param 
 	 */
 	public String getFileNameInput() {
 		return fileNameField.getText();

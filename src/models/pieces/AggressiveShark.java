@@ -40,7 +40,7 @@ public class AggressiveShark extends AbstractPiece {
 		}
 	}
 
-	// Same movement as LeadershipEagle except 1 cell ←→↑↓
+	// Same movement as LeadershipEagle except 1 cell
 	@Override
 	public Set<List<Integer>> getValidMove() {
 		Map<String, Integer> currentPosition = this.getPosition();
