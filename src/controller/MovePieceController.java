@@ -24,10 +24,11 @@ import view.operationview.BoardPanel;
  * 
  */
 public class MovePieceController implements PropertyChangeListener, ActionListener {
-
 	private BoardPanel boardPanel;
-	private String pieceType;
+	private PieceType pieceType;
+	
 	private Set<List<Integer>> validMoves;
+	
 	private EnumSet<PieceType> eagleSet = EnumSet.of(PieceType.ATTACKINGEAGLE, PieceType.LEADERSHIPEAGLE,
 			PieceType.VISIONARYEAGLE);
 	private EnumSet<PieceType> sharkSet = EnumSet.of(PieceType.AGGRESSIVESHARK, PieceType.DEFENSIVESHARK,
@@ -47,18 +48,18 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 		if (notEnterAlly) {
 			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
 
-			Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getPosition();
+			Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString()).getPosition();
 
 			boardPanel.restoreViewForOldPos(oldPos);
 
 			AbstractButton buttonClicked = (AbstractButton) e.getSource();
-			buttonClicked.setActionCommand(pieceType);
+			buttonClicked.setActionCommand(pieceType.toString());
 
 			Map<String, Integer> newPos = new HashMap<String, Integer>();
 
 			updateModel(buttons, buttonClicked, newPos);
 
-			EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).movePiece(newPos.get("x"), newPos.get("y"));
+			EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString()).movePiece(newPos.get("x"), newPos.get("y"));
 
 			boardPanel.updateBoardAfterMovingPiece(buttonClicked, pieceType, validMoves);
 
@@ -68,8 +69,8 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 
 			AbstractButton buttonClicked = (AbstractButton) e.getSource();
 
-			pieceType = buttonClicked.getActionCommand();
-			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+			pieceType = PieceType.valueOf(buttonClicked.getActionCommand().toString());
+			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString()).getValidMove();
 
 			boardPanel.updateBoardRollback();
 			enableViewAvailableMove(buttons);
@@ -78,13 +79,13 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 	}
 
 	private boolean checkIfMoveOnAlly(ActionEvent e, boolean notEnterAlly) {
-		if (eagleSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
+		if (eagleSet.contains(pieceType)) {
 			AbstractButton buttonClicked = (AbstractButton) e.getSource();
 			if (!buttonClicked.getActionCommand().equals("NormalButton")
 					&& eagleSet.contains(PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase()))) {
 				notEnterAlly = false;
 			}
-		} else if (sharkSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
+		} else if (sharkSet.contains(pieceType)) {
 			AbstractButton buttonClicked = (AbstractButton) e.getSource();
 			if (!buttonClicked.getActionCommand().equals("NormalButton")
 					&& sharkSet.contains(PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase()))) {
@@ -118,9 +119,9 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 			boardPanel = (BoardPanel) evt.getNewValue();
 
 			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
-			pieceType = (String) evt.getOldValue();
+			pieceType = PieceType.valueOf(evt.getOldValue().toString().toUpperCase());
 
-			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString()).getValidMove();
 			enableViewAvailableMove(buttons);
 		}
 	}
@@ -140,13 +141,13 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 
 	private void updateModelStateForNextTurn(List<List<AbstractButton>> buttons) {
 
-		if (eagleSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
+		if (eagleSet.contains(pieceType)) {
 			boardPanel.restoreButtonStateForNextTurn(eagleSet);
 
 			EngineImpl.getSingletonInstance().cancelTimer();
 			EngineImpl.getSingletonInstance().setActivePlayer("shark", true);
 
-		} else if (sharkSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
+		} else if (sharkSet.contains(pieceType)) {
 			// refresh state ready for next turn
 			boardPanel.restoreButtonStateForNextTurn(sharkSet);
 			EngineImpl.getSingletonInstance().cancelTimer();

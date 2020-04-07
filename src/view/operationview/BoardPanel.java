@@ -189,16 +189,16 @@ public class BoardPanel extends JPanel {
 		buttons.get(oldPos.get("y")).get(oldPos.get("x")).setActionCommand("NormalButton");
 	}
 
-	public void updateBoardAfterChoosingPiece(Set<List<Integer>> validMoves, String pieceType) {
+	public void updateBoardAfterChoosingPiece(Set<List<Integer>> validMoves, PieceType pieceType) {
 		EnumSet<PieceType> eagleSet = EnumSet.of(PieceType.ATTACKINGEAGLE, PieceType.LEADERSHIPEAGLE,
 				PieceType.VISIONARYEAGLE);
 		EnumSet<PieceType> sharkSet = EnumSet.of(PieceType.AGGRESSIVESHARK, PieceType.DEFENSIVESHARK,
 				PieceType.HEALINGSHARK);
 
 		for (List<Integer> moves : validMoves) {
-			if (eagleSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
+			if (eagleSet.contains(pieceType)) {
 				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.yellow);
-			} else if (sharkSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
+			} else if (sharkSet.contains(pieceType)) {
 				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.blue);
 			}
 
@@ -208,7 +208,7 @@ public class BoardPanel extends JPanel {
 		}
 	}
 
-	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, String pieceType,
+	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType,
 			Set<List<Integer>> validMoves) {
 		updateIcon(buttonClicked, pieceType);
 		repaintWhiteCell();
@@ -240,10 +240,10 @@ public class BoardPanel extends JPanel {
 		repaintWhiteCell();
 	}
 
-	public void updateIcon(AbstractButton buttonClicked, String pieceType) {
+	public void updateIcon(AbstractButton buttonClicked, PieceType pieceType) {
 		Image animal = null;
 		try {
-			animal = ImageIO.read(getClass().getResource(PieceType.valueOf((pieceType.toUpperCase())).getFileName()));
+			animal = ImageIO.read(getClass().getResource(pieceType.getFileName()));
 		} catch (IOException e1) {
 			System.err.println("IMAGE NOT FOUND");
 		}
