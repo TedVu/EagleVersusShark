@@ -27,61 +27,68 @@ import models.engine.EngineImpl;
 import models.pieces.Piece;
 
 /**
- * @author Ted
- * 
- *         NOTE: for 1-1 correspondence with model I use a list of list for
+ * @author Ted NOTE: for 1-1 correspondence with model I use a list of list for
  *         button (this is a little bit model-ish)
- *
  */
 public class BoardPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -146176190184206205L;
 	private List<List<AbstractButton>> buttons;
-	private ButtonGroup group;
 
 	/**
 	 * Constructing the board panel,at the beginning, the board is a hard-coded
 	 * construction since we know exactly the beginning position of each piece
 	 */
 	public BoardPanel() {
-		group = new ButtonGroup();
-		int nRow = EngineImpl.getSingletonInstance().getBoard().getRow();
-		int nCol = EngineImpl.getSingletonInstance().getBoard().getCol();
-		setLayout(new GridLayout(nRow, nCol));
+		ButtonGroup group = new ButtonGroup();
+
+		int numberOfRow = EngineImpl.getSingletonInstance().getBoard().getRow();
+		int numberOfCol = EngineImpl.getSingletonInstance().getBoard().getCol();
+
+		setLayout(new GridLayout(numberOfRow, numberOfCol));
 		buttons = new ArrayList<>();
 
-		for (int row = 0; row < nRow; ++row) {
+		for (int row = 0; row < numberOfRow; ++row) {
 			buttons.add(new ArrayList<AbstractButton>());
-			for (int col = 0; col < nCol; ++col) {
-				buttons.get(row).add(new JButton());
-				buttons.get(row).get(col).setBackground(Color.WHITE);
-				buttons.get(row).get(col).setBorder(BorderFactory.createRaisedBevelBorder());
-				buttons.get(row).get(col).setActionCommand("NormalButton");
-				buttons.get(row).get(col).addActionListener(new SelectPieceController(buttons.get(row).get(col), this));
-				add(buttons.get(row).get(col));
-				group.add(buttons.get(row).get(col));
+			for (int col = 0; col < numberOfCol; ++col) {
+				JButton currentButton = new JButton();
+				buttons.get(row).add(currentButton);
+
+				currentButton.setBackground(Color.WHITE);
+				currentButton.setBorder(BorderFactory.createRaisedBevelBorder());
+
+				currentButton.setActionCommand("NormalButton");
+				currentButton.addActionListener(new SelectPieceController(currentButton, this));
+
+				add(currentButton);
+				group.add(currentButton);
 			}
 		}
+
 		if (!EngineImpl.getSingletonInstance().getLoadGame()) {
-			configNumPiece();
+			defaultNumberPiece();
 		}
+
 		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getGameEngineCallback()
 				.getPropertyChangeListener();
+
 		for (PropertyChangeListener listener : listeners) {
 			if (listener instanceof TimerPropertyChangeListener) {
 				((TimerPropertyChangeListener) listener).injectBoard(this);
 			}
 		}
-
 	}
 
-	private void configNumPiece() {
-		int numPiece = EngineImpl.getSingletonInstance().getAllPieces().size();
-
-		if (numPiece == 2) {
+	private void defaultNumberPiece() {
+		int numberOfPiece = EngineImpl.getSingletonInstance().getAllPieces().size();
+		if (numberOfPiece == 2) {
 			populateTwoMiddlePiece();
-		} else if (numPiece == 4) {
+		} else if (numberOfPiece == 4) {
 			populateTwoSidePiece();
-		} else if (numPiece == 6) {
+		} else if (numberOfPiece == 6) {
 			populateTwoMiddlePiece();
 			populateTwoSidePiece();
 		}
@@ -95,78 +102,33 @@ public class BoardPanel extends JPanel {
 	 * will extract into helper class for populate
 	 */
 	private void populateTwoMiddlePiece() {
-		try {
-			Image pieceImage1 = ImageIO
-					.read(getClass().getResource(PieceType.valueOf(("LEADERSHIPEAGLE")).getFileName()));
-			buttons.get(1).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2)
-					.setIcon(new ImageIcon(pieceImage1));
+		populateCustomPiece(1, EngineImpl.getSingletonInstance().getBoard().getCol() / 2, PieceType.LEADERSHIPEAGLE);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		buttons.get(1).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2)
-				.setActionCommand(PieceType.LEADERSHIPEAGLE.toString());
-
-		try {
-			Image pieceImage1 = ImageIO
-					.read(getClass().getResource(PieceType.valueOf(("DEFENSIVESHARK")).getFileName()));
-			buttons.get(EngineImpl.getSingletonInstance().getBoard().getCol() - 2)
-					.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2).setIcon(new ImageIcon(pieceImage1));
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 2)
-				.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2)
-				.setActionCommand(PieceType.DEFENSIVESHARK.toString());
+		populateCustomPiece(EngineImpl.getSingletonInstance().getBoard().getCol() - 2,
+				EngineImpl.getSingletonInstance().getBoard().getCol() / 2, PieceType.DEFENSIVESHARK);
 	}
 
 	/**
 	 * will extract into helper class for populate
 	 */
 	private void populateTwoSidePiece() {
+		populateCustomPiece(0, EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1, PieceType.ATTACKINGEAGLE);
+		populateCustomPiece(0, EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1, PieceType.VISIONARYEAGLE);
+		
+		populateCustomPiece(EngineImpl.getSingletonInstance().getBoard().getRow() - 1,
+				EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1, PieceType.AGGRESSIVESHARK);
+		populateCustomPiece(EngineImpl.getSingletonInstance().getBoard().getRow() - 1,
+				EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1, PieceType.HEALINGSHARK);
+	}
+	
+	private void populateCustomPiece(int positionX, int positionY, PieceType pieceType) {
 		try {
-			Image pieceImage1 = ImageIO
-					.read(getClass().getResource(PieceType.valueOf(("ATTACKINGEAGLE")).getFileName()));
-			Image pieceImage2 = ImageIO
-					.read(getClass().getResource(PieceType.valueOf(("VISIONARYEAGLE")).getFileName()));
-			buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
-					.setIcon(new ImageIcon(pieceImage1));
-			buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
-					.setIcon(new ImageIcon(pieceImage2));
+			Image pieceImage = ImageIO.read(getClass().getResource(pieceType.getFileName()));
+			buttons.get(positionX).get(positionY).setIcon(new ImageIcon(pieceImage));
 		} catch (IOException e) {
-
+			e.printStackTrace();
 		}
-
-		buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
-				.setActionCommand(PieceType.ATTACKINGEAGLE.toString());
-
-		buttons.get(0).get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
-				.setActionCommand(PieceType.VISIONARYEAGLE.toString());
-
-		try {
-			Image pieceImage1 = ImageIO
-					.read(getClass().getResource(PieceType.valueOf(("AGGRESSIVESHARK")).getFileName()));
-			Image pieceImage2 = ImageIO.read(getClass().getResource(PieceType.valueOf(("HEALINGSHARK")).getFileName()));
-			buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
-					.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
-					.setIcon(new ImageIcon(pieceImage1));
-			buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
-					.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
-					.setIcon(new ImageIcon(pieceImage2));
-		} catch (IOException e) {
-
-		}
-
-		buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
-				.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1)
-				.setActionCommand(PieceType.AGGRESSIVESHARK.toString());
-
-		buttons.get(EngineImpl.getSingletonInstance().getBoard().getRow() - 1)
-				.get(EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1)
-				.setActionCommand(PieceType.HEALINGSHARK.toString());
+		buttons.get(positionX).get(positionY).setActionCommand(pieceType.toString());
 	}
 
 	public void repaintWhiteCell() {
@@ -288,7 +250,7 @@ public class BoardPanel extends JPanel {
 		buttonClicked.setIcon(new ImageIcon(animal));
 	}
 
-	public void updateLoadPanel() {
+	public void loadGame() {
 		Map<String, Piece> pieces = EngineImpl.getSingletonInstance().getAllPieces();
 		for (String pieceName : pieces.keySet()) {
 			try {
@@ -299,7 +261,6 @@ public class BoardPanel extends JPanel {
 				buttons.get(pieces.get(pieceName).getPosition().get("y"))
 						.get(pieces.get(pieceName).getPosition().get("x")).setActionCommand(pieceName);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

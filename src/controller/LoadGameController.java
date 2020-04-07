@@ -84,7 +84,7 @@ public class LoadGameController implements ActionListener {
 					public void run() {
 						try {
 							MainAppFrame window = new MainAppFrame();
-							window.loadGame();
+							window.getBoardPanel().loadGame();
 							window.setVisible(true);
 
 						} catch (Exception e) {

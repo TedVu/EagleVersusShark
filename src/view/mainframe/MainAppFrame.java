@@ -34,14 +34,14 @@ public class MainAppFrame extends JFrame {
 
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setResizable(false);
+//		setResizable(false);
 
 		getContentPane().add(boardPanel, BorderLayout.CENTER);
 		getContentPane().add(operationToolbar, BorderLayout.NORTH);
 		getContentPane().add(rightPanel, BorderLayout.EAST);
 	}
 
-	public void loadGame() {
-		boardPanel.updateLoadPanel();
+	public BoardPanel getBoardPanel() {
+		return boardPanel;
 	}
 }
