@@ -1,15 +1,14 @@
 package view.configuration;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.SaveGameController;
@@ -20,42 +19,34 @@ public class SaveGameDialog extends JDialog {
 	 */
 	private static final long serialVersionUID = -4258981534634398081L;
 	private static final int FRAME_WIDTH = 350;
-	private static final int FRAME_HEIGHT = 200;
+	private static final int FRAME_HEIGHT = 100;
 
-	private JFrame startFrame;
-	private JTextField fileNameField = new JTextField(15);
+	private JTextField fileNameField;
 
 	private JButton saveGameButton = new JButton("Save");
 
 	public SaveGameDialog(JFrame startFrame) {
-		this.startFrame = startFrame;
-		saveGameButton.addActionListener(new SaveGameController(this));
+		fileNameField = new JTextField(15);
 
 		setTitle("Save Game");
 
-		setLayout(new GridBagLayout());
-		GridBagConstraints constraints = new GridBagConstraints();
-		constraints.anchor = GridBagConstraints.WEST;
-		constraints.insets = new Insets(10, 10, 10, 10);
-
-		// add components to the panel
-		constraints.gridx = 0;
-		constraints.gridy = 0;
-		this.add(new JLabel("File name:"), constraints);
-
-		constraints.gridx = 1;
-		this.add(fileNameField, constraints);
-
-		constraints.gridx = 1;
-		constraints.gridy = 2;
-		constraints.gridwidth = 2;
-		constraints.anchor = GridBagConstraints.WEST;
-		this.add(saveGameButton, constraints);
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(dimension.width / 2 - FRAME_WIDTH / 2, dimension.height / 2 - FRAME_HEIGHT / 2);
+		setLocation(dimension.width / 2 - FRAME_WIDTH / 2, dimension.height / 2 - FRAME_HEIGHT / 2);
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-		this.setResizable(false);
-		this.setVisible(true);
+		setResizable(false);
+
+		saveGameButton.addActionListener(new SaveGameController(this));
+
+		JPanel textFieldPanel = new JPanel();
+		textFieldPanel.add(new JLabel("File name:"));
+		textFieldPanel.add(fileNameField);
+		add(textFieldPanel, BorderLayout.CENTER);
+
+		JPanel btnPanel = new JPanel();
+		btnPanel.add(saveGameButton);
+		add(btnPanel, BorderLayout.SOUTH);
+
+		setVisible(true);
 	}
 
 	public String getFileNameInput() {
