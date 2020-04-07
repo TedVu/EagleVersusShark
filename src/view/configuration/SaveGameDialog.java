@@ -15,6 +15,10 @@ import javax.swing.JTextField;
 import controller.SaveGameController;
 
 public class SaveGameDialog extends JDialog {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4258981534634398081L;
 	private static final int FRAME_WIDTH = 350;
 	private static final int FRAME_HEIGHT = 200;
 
