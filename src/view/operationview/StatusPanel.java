@@ -16,9 +16,12 @@ import controller.MakingMovePropertyChangeListener;
 import controller.StartGameController;
 import models.engine.EngineImpl;
 
-@SuppressWarnings("serial")
 public class StatusPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8787252718705342879L;
 	private static final int WIDTH_OF_PANEL = 230;
 	private static final int HEIGHT_OF_PANEL = 0;
 	private JButton startButton = new JButton("START");

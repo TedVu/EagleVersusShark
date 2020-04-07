@@ -4,7 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import view.operationview.BoardPanel;
 import view.operationview.OperationToolbar;
@@ -34,11 +36,15 @@ public class MainAppFrame extends JFrame {
 
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-//		setResizable(false);
-
-		getContentPane().add(boardPanel, BorderLayout.CENTER);
+		setResizable(false);
+		
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
+		centerPanel.add(boardPanel);
+		centerPanel.add(rightPanel);
+		
+		getContentPane().add(centerPanel, BorderLayout.CENTER);
 		getContentPane().add(operationToolbar, BorderLayout.NORTH);
-		getContentPane().add(rightPanel, BorderLayout.EAST);
 	}
 
 	public BoardPanel getBoardPanel() {
