@@ -6,8 +6,9 @@ import javax.swing.JOptionPane;
 import view.operationview.BoardPanel;
 
 /**
+ * <b>Note:</b> Pure Fabrication class for logging message panel
+ * 
  * @author Ted
- * @implNote Pure Fabrication class for logging message panel
  * 
  */
 public class MessageDialog {

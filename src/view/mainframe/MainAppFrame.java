@@ -12,9 +12,12 @@ import view.operationview.BoardPanel;
 import view.operationview.OperationToolbar;
 import view.operationview.RightPanel;
 
+/**
+ * @author kevin & ted
+ */
 public class MainAppFrame extends JFrame {
 	/**
-	 * 
+	 * @serial -6241584551658525365L
 	 */
 	private static final long serialVersionUID = -6241584551658525365L;
 	private static final int FRAME_WIDTH = 1000;
@@ -24,6 +27,9 @@ public class MainAppFrame extends JFrame {
 	private BoardPanel boardPanel;
 	private RightPanel rightPanel;
 
+	/**
+	 * @see
+	 */
 	public MainAppFrame() {
 		boardPanel = new BoardPanel();
 		operationToolbar = new OperationToolbar(this);
@@ -47,6 +53,9 @@ public class MainAppFrame extends JFrame {
 		getContentPane().add(operationToolbar, BorderLayout.NORTH);
 	}
 
+	/**
+	 * @return
+	 */
 	public BoardPanel getBoardPanel() {
 		return boardPanel;
 	}

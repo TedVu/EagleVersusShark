@@ -13,9 +13,12 @@ import javax.swing.JTextField;
 
 import controller.LoadGameController;
 
+/**
+ * @author kevin & ted
+ */
 public class LoadGameDialog extends JDialog {
 	/**
-	 * 
+	 * @serial -391556514040071948L
 	 */
 	private static final long serialVersionUID = -391556514040071948L;
 	private static final int FRAME_WIDTH = 350;
@@ -25,6 +28,9 @@ public class LoadGameDialog extends JDialog {
 
 	private JButton loadGameButton;
 
+	/**
+	 * @see
+	 */
 	public LoadGameDialog(JFrame startFrame) {
 		fileNameField = new JTextField(15);
 		loadGameButton = new JButton("Load");
@@ -50,6 +56,9 @@ public class LoadGameDialog extends JDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * @return
+	 */
 	public String getFileNameInput() {
 		return fileNameField.getText();
 	}

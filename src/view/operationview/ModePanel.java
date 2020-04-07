@@ -6,15 +6,21 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+/**
+ * @author kevin & ted
+ */
 public class ModePanel extends JPanel {
 
 	/**
-	 * 
+	 * @serial 4010321472922982018L
 	 */
 	private static final long serialVersionUID = 4010321472922982018L;
 	private JComboBox<String> modeBox;
 	private JButton undoBtn;
 
+	/**
+	 * @see
+	 */
 	public ModePanel() {
 		String[] modes = { "Please select mode", "Normal Mode", "Sky Mode", "Protection Mode" };
 		modeBox = new JComboBox<String>(modes);

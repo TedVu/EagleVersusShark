@@ -16,9 +16,12 @@ import javax.swing.JPanel;
 import controller.InvokeConfigureGameDialogController;
 import controller.InvokeLoadGameDialogController;
 
+/**
+ * @author kevin & ted
+ */
 public class ConfigurationFrame extends JFrame {
 	/**
-	 * 
+	 * @serial -8454047695594084099L
 	 */
 	private static final long serialVersionUID = -8454047695594084099L;
 	private static final int FRAME_WIDTH = 550;
@@ -28,6 +31,9 @@ public class ConfigurationFrame extends JFrame {
 	private JButton loadButton;
 	private JButton exitButton;
 
+	/**
+	 * @see
+	 */
 	public ConfigurationFrame() {
 		startButton = new JButton("START GAME");
 		loadButton = new JButton("LOAD GAME");

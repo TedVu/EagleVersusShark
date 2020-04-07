@@ -7,16 +7,22 @@ import javax.swing.JMenuItem;
 import controller.InvokeSaveGameDialogController;
 import view.mainframe.MainAppFrame;
 
+/**
+ * @author kevin & ted
+ */
 public class OperationToolbar extends JMenuBar {
 
 	/**
-	 * 
+	 * @serial -3854607902557332468L
 	 */
 	private static final long serialVersionUID = -3854607902557332468L;
 	private JMenu[] menus;
 	private JMenuItem save;
 	private JMenuItem exit;
 
+	/**
+	 * @see
+	 */
 	public OperationToolbar(MainAppFrame mainFrame) {
 		String[] options = new String[] { "File", "Edit", "Help" };
 		menus = new JMenu[options.length];

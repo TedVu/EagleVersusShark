@@ -16,9 +16,12 @@ import controller.MakingMovePropertyChangeListener;
 import controller.StartGameController;
 import models.engine.EngineImpl;
 
+/**
+ * @author kevin & ted
+ */
 public class StatusPanel extends JPanel {
 	/**
-	 * 
+	 * @serial 8787252718705342879L
 	 */
 	private static final long serialVersionUID = 8787252718705342879L;
 	private JButton startButton;
@@ -29,6 +32,9 @@ public class StatusPanel extends JPanel {
 
 	private List<SwingWorker<Void, Void>> workerThreads;
 
+	/**
+	 * @see
+	 */
 	public StatusPanel() {
 		startButton = new JButton("START");
 		turnLabel = new JLabel("Turn:");
@@ -69,6 +75,9 @@ public class StatusPanel extends JPanel {
 
 	}
 
+	/**
+	 * @return
+	 */
 	public void startCountDown() {
 		for (SwingWorker<Void, Void> preWorker : workerThreads) {
 			preWorker.cancel(true);
@@ -88,6 +97,9 @@ public class StatusPanel extends JPanel {
 		worker.execute();
 	}
 
+	/**
+	 * @return
+	 */
 	public void updateTurnLabel(String currentPlayerType) {
 		turnTextField.setText(currentPlayerType);
 	}

@@ -14,9 +14,12 @@ import javax.swing.JPanel;
 
 import controller.ApplyConfigurationController;
 
+/**
+ * @author kevin & ted
+ */
 public class SettingsDialog extends JDialog {
 	/**
-	 * 
+	 * @serial -4920890146910758833L
 	 */
 	private static final long serialVersionUID = -4920890146910758833L;
 	private static final int FRAME_WIDTH = 350;
@@ -27,6 +30,9 @@ public class SettingsDialog extends JDialog {
 
 	private JButton applyButton;
 
+	/**
+	 * @see
+	 */
 	public SettingsDialog(JFrame startFrame) {
 		String[] boardSize = { "9 x 9", "11 x 11", "13 x 13", "15 x 15" };
 		String[] numPieces = { "   6   ", "   4   ", "   2   " };
@@ -64,6 +70,9 @@ public class SettingsDialog extends JDialog {
 		setVisible(true);
 	}
 
+	/**
+	 * @return
+	 */
 	public int getBoardSizeSelection() {
 		int select = boardSizeMenu.getSelectedIndex();
 		if (select == 0) {
@@ -77,6 +86,9 @@ public class SettingsDialog extends JDialog {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public int getPieceNumberSelection() {
 		int select = numPieceMenu.getSelectedIndex();
 		if (select == 0) {

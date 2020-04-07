@@ -29,13 +29,20 @@ import models.engine.EngineImpl;
 import models.pieces.Piece;
 
 /**
- * @author Ted NOTE: for 1-1 correspondence with model I use a list of list for
- *         button (this is a little bit model-ish)
+ * <h1>Board Panel View</h1> BoardPanel class contains the boards (can be
+ * various size).
+ * <p>
+ * <b>Note:</b> for 1-1 correspondence with model I use a list of list for
+ * button (this is a little bit model-ish)
+ * 
+ * @author ted & kevin
+ * @version 1.0
+ * @since 07.04.20
  */
 public class BoardPanel extends JPanel {
 
 	/**
-	 * 
+	 * @serial -146176190184206205L
 	 */
 	private static final long serialVersionUID = -146176190184206205L;
 	private List<List<AbstractButton>> buttons;
@@ -43,6 +50,10 @@ public class BoardPanel extends JPanel {
 	/**
 	 * Constructing the board panel,at the beginning, the board is a hard-coded
 	 * construction since we know exactly the beginning position of each piece
+	 * <p>
+	 * Layout: BorderLayout.
+	 * 
+	 * @see
 	 */
 	public BoardPanel() {
 		ButtonGroup group = new ButtonGroup();
@@ -93,6 +104,9 @@ public class BoardPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	private void defaultNumberPiece() {
 		int numberOfPiece = EngineImpl.getSingletonInstance().getAllPieces().size();
 		if (numberOfPiece == 2) {
@@ -105,10 +119,16 @@ public class BoardPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public List<List<AbstractButton>> getButtonList() {
 		return buttons;
 	}
 
+	/**
+	 * @return
+	 */
 	private void populateTwoMiddlePiece() {
 		populateCustomPiece(1, EngineImpl.getSingletonInstance().getBoard().getCol() / 2, PieceType.LEADERSHIPEAGLE);
 
@@ -116,6 +136,9 @@ public class BoardPanel extends JPanel {
 				EngineImpl.getSingletonInstance().getBoard().getCol() / 2, PieceType.DEFENSIVESHARK);
 	}
 
+	/**
+	 * @return
+	 */
 	private void populateTwoSidePiece() {
 		populateCustomPiece(0, EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1, PieceType.ATTACKINGEAGLE);
 		populateCustomPiece(0, EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1, PieceType.VISIONARYEAGLE);
@@ -126,6 +149,9 @@ public class BoardPanel extends JPanel {
 				EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1, PieceType.HEALINGSHARK);
 	}
 
+	/**
+	 * @return
+	 */
 	private void populateCustomPiece(int positionX, int positionY, PieceType pieceType) {
 		try {
 			Image pieceImage = ImageIO.read(getClass().getResource(pieceType.getFileName()));
@@ -136,6 +162,9 @@ public class BoardPanel extends JPanel {
 		buttons.get(positionX).get(positionY).setActionCommand(pieceType.toString());
 	}
 
+	/**
+	 * @return
+	 */
 	public void restoreCellColor() {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
@@ -147,6 +176,9 @@ public class BoardPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public void restoreButtonStateForColorButton() {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
@@ -163,6 +195,9 @@ public class BoardPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public void restoreButtonStateForNextTurn(EnumSet<PieceType> pieceName) {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
@@ -178,6 +213,9 @@ public class BoardPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public void restoreStateForPossibleValidMove(Set<List<Integer>> validMoves) {
 		for (List<Integer> l : validMoves) {
 			ActionListener[] movePieceController = buttons.get(l.get(1)).get(l.get(0)).getActionListeners();
@@ -188,11 +226,17 @@ public class BoardPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public void restoreViewForOldPos(Map<String, Integer> oldPos) {
 		buttons.get(oldPos.get("y")).get(oldPos.get("x")).setIcon(null);
 		buttons.get(oldPos.get("y")).get(oldPos.get("x")).setActionCommand("NormalButton");
 	}
 
+	/**
+	 * @return
+	 */
 	public void updateBoardAfterChoosingPiece(Set<List<Integer>> validMoves, PieceType pieceType) {
 		EnumSet<PieceType> eagleSet = EnumSet.of(PieceType.ATTACKINGEAGLE, PieceType.LEADERSHIPEAGLE,
 				PieceType.VISIONARYEAGLE);
@@ -211,6 +255,9 @@ public class BoardPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType,
 			Set<List<Integer>> validMoves) {
 		updateIcon(buttonClicked, pieceType);
@@ -219,8 +266,8 @@ public class BoardPanel extends JPanel {
 	}
 
 	/**
-	 * @implNote: basically clear all effects - using color as enum would be a <br>
-	 *            better design choice here
+	 * <b>Note:</b> basically clear all effects - using color as enum would be a
+	 * better design choice here
 	 */
 	public void updateBoardEndOfTimer() {
 		int nRow = EngineImpl.getSingletonInstance().getBoard().getRow();
@@ -238,11 +285,17 @@ public class BoardPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public void updateBoardRollback() {
 		restoreButtonStateForColorButton();
 		restoreCellColor();
 	}
 
+	/**
+	 * @return
+	 */
 	public void updateIcon(AbstractButton buttonClicked, PieceType pieceType) {
 		Image animal = null;
 		try {
@@ -253,6 +306,9 @@ public class BoardPanel extends JPanel {
 		buttonClicked.setIcon(new ImageIcon(animal));
 	}
 
+	/**
+	 * @return
+	 */
 	public void loadGame() {
 		Map<String, Piece> pieces = EngineImpl.getSingletonInstance().getAllPieces();
 		for (String pieceName : pieces.keySet()) {
