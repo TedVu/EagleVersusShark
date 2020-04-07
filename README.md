@@ -18,6 +18,10 @@ Eagles Versus Shark is a two dimensional, turn based board game that is subject 
 
 <img width="408" alt="boardimg" src="https://user-images.githubusercontent.com/36873497/77842369-ff687100-71dc-11ea-9e3c-9c96752f5c3b.png">
 
+# Design for View-Controller
+1. Change to View-Model Approach 
+2. At least decouple the MovePieceController => separate into another actionlistener
+3. Find a way to pass the status panel for update
 
 # TODO 
 1. Refactor Code
