@@ -4,6 +4,12 @@ public enum PieceType {
 	ATTACKINGEAGLE {
 
 		@Override
+		public String getFileName() {
+			// TODO Auto-generated method stub
+			return "/asset/AttackingEagle.png";
+		}
+
+		@Override
 		public int getInitialPosX() {
 			// TODO Auto-generated method stub
 			return 3;
@@ -21,15 +27,15 @@ public enum PieceType {
 			return "AttackingEagle";
 		}
 
-		@Override
-		public String getFileName() {
-			// TODO Auto-generated method stub
-			return "/asset/AttackingEagle.png";
-		}
-
 	},
 
 	LEADERSHIPEAGLE {
+
+		@Override
+		public String getFileName() {
+			// TODO Auto-generated method stub
+			return "/asset/LeadershipEagle.png";
+		}
 
 		@Override
 		public int getInitialPosX() {
@@ -49,15 +55,15 @@ public enum PieceType {
 			return "LeadershipEagle";
 		}
 
-		@Override
-		public String getFileName() {
-			// TODO Auto-generated method stub
-			return "/asset/LeadershipEagle.png";
-		}
-
 	},
 
 	VISIONARYEAGLE {
+
+		@Override
+		public String getFileName() {
+			// TODO Auto-generated method stub
+			return "/asset/VisionaryEagle.png";
+		}
 
 		@Override
 		public int getInitialPosX() {
@@ -77,15 +83,15 @@ public enum PieceType {
 			return "VisionaryEagle";
 		}
 
-		@Override
-		public String getFileName() {
-			// TODO Auto-generated method stub
-			return "/asset/VisionaryEagle.png";
-		}
-
 	},
 
 	AGGRESSIVESHARK {
+
+		@Override
+		public String getFileName() {
+			// TODO Auto-generated method stub
+			return "/asset/AggressiveShark.png";
+		}
 
 		@Override
 		public int getInitialPosX() {
@@ -105,15 +111,15 @@ public enum PieceType {
 			return "AggressiveShark";
 		}
 
-		@Override
-		public String getFileName() {
-			// TODO Auto-generated method stub
-			return "/asset/AggressiveShark.png";
-		}
-
 	},
 
 	DEFENSIVESHARK {
+
+		@Override
+		public String getFileName() {
+			// TODO Auto-generated method stub
+			return "/asset/DefensiveShark.png";
+		}
 
 		@Override
 		public int getInitialPosX() {
@@ -133,15 +139,15 @@ public enum PieceType {
 			return "DefensiveShark";
 		}
 
-		@Override
-		public String getFileName() {
-			// TODO Auto-generated method stub
-			return "/asset/DefensiveShark.png";
-		}
-
 	},
 
 	HEALINGSHARK {
+
+		@Override
+		public String getFileName() {
+			// TODO Auto-generated method stub
+			return "/asset/HealingShark.png";
+		}
 
 		@Override
 		public int getInitialPosX() {
@@ -161,20 +167,7 @@ public enum PieceType {
 			return "HealingShark";
 		}
 
-		@Override
-		public String getFileName() {
-			// TODO Auto-generated method stub
-			return "/asset/HealingShark.png";
-		}
-
 	};
-	public abstract int getInitialPosX();
-
-	public abstract int getInitialPosY();
-
-	public abstract String toString();
-
-	public abstract String getFileName();
 
 	private static String eagleTeamName = "eagleplayer";
 
@@ -187,5 +180,13 @@ public enum PieceType {
 	public static String getSharkTeamName() {
 		return sharkTeamName;
 	}
+
+	public abstract String getFileName();
+
+	public abstract int getInitialPosX();
+
+	public abstract int getInitialPosY();
+
+	public abstract String toString();
 
 }

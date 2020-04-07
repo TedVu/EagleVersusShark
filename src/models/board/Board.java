@@ -37,25 +37,25 @@ public class Board {
 		cells.get(y).get(x).setOccupied();
 	}
 
-	// Either from being captured or have made a new move
-	public void removePiece(int oldX, int oldY) {
-		cells.get(oldY).get(oldX).setUnoccupied();
+	public int getCol() {
+		return boardCol;
 	}
 
 	public int getRow() {
 		return boardRow;
 	}
 
-	public int getCol() {
-		return boardCol;
-	}
-
-	public void setRow(int row) {
-		this.boardRow = row;
+	// Either from being captured or have made a new move
+	public void removePiece(int oldX, int oldY) {
+		cells.get(oldY).get(oldX).setUnoccupied();
 	}
 
 	public void setCol(int col) {
 		this.boardCol = col;
+	}
+
+	public void setRow(int row) {
+		this.boardRow = row;
 	}
 
 	@Override

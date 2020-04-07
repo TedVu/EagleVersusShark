@@ -8,7 +8,6 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -86,6 +85,10 @@ public class BoardPanel extends JPanel {
 			populateTwoMiddlePiece();
 			populateTwoSidePiece();
 		}
+	}
+
+	public List<List<AbstractButton>> getButtonList() {
+		return buttons;
 	}
 
 	/**
@@ -166,8 +169,88 @@ public class BoardPanel extends JPanel {
 				.setActionCommand(PieceType.HEALINGSHARK.toString());
 	}
 
-	public List<List<AbstractButton>> getButtonList() {
-		return buttons;
+	public void repaintWhiteCell() {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				if (buttons.get(row).get(col).getBackground().equals(Color.YELLOW)
+						|| buttons.get(row).get(col).getBackground().equals(Color.BLUE)) {
+					buttons.get(row).get(col).setBackground(Color.WHITE);
+				}
+			}
+		}
+	}
+
+	public void restoreButtonStateForColorButton() {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				if ((buttons.get(row).get(col).getBackground().equals(Color.YELLOW)
+						|| buttons.get(row).get(col).getBackground().equals(Color.BLUE))) {
+					ActionListener[] listeners = buttons.get(row).get(col).getActionListeners();
+					for (ActionListener l : listeners) {
+						buttons.get(row).get(col).removeActionListener(l);
+					}
+					buttons.get(row).get(col)
+							.addActionListener(new SelectPieceController(buttons.get(row).get(col), this));
+				}
+			}
+		}
+	}
+
+	public void restoreButtonStateForNextTurn(EnumSet<PieceType> pieceName) {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				if (!buttons.get(row).get(col).getActionCommand().equals("NormalButton") && pieceName
+						.contains(PieceType.valueOf(buttons.get(row).get(col).getActionCommand().toUpperCase()))) {
+					AbstractButton button = buttons.get(row).get(col);
+					for (ActionListener l : button.getActionListeners()) {
+						button.removeActionListener(l);
+					}
+					button.addActionListener(new SelectPieceController(button, this));
+				}
+			}
+		}
+	}
+
+	public void restoreStateForPossibleValidMove(Set<List<Integer>> validMoves) {
+		for (List<Integer> l : validMoves) {
+			ActionListener[] movePieceController = buttons.get(l.get(1)).get(l.get(0)).getActionListeners();
+			buttons.get(l.get(1)).get(l.get(0)).removeActionListener(movePieceController[0]);
+
+			buttons.get(l.get(1)).get(l.get(0))
+					.addActionListener(new SelectPieceController(buttons.get(l.get(1)).get(l.get(0)), this));
+
+		}
+	}
+
+	public void restoreViewForOldPos(Map<String, Integer> oldPos) {
+		buttons.get(oldPos.get("y")).get(oldPos.get("x")).setIcon(null);
+		buttons.get(oldPos.get("y")).get(oldPos.get("x")).setActionCommand("NormalButton");
+	}
+
+	public void updateBoardAfterChoosingPiece(Set<List<Integer>> validMoves, String pieceType) {
+		EnumSet<PieceType> eagleSet = EnumSet.of(PieceType.ATTACKINGEAGLE, PieceType.LEADERSHIPEAGLE,
+				PieceType.VISIONARYEAGLE);
+		EnumSet<PieceType> sharkSet = EnumSet.of(PieceType.AGGRESSIVESHARK, PieceType.DEFENSIVESHARK,
+				PieceType.HEALINGSHARK);
+
+		for (List<Integer> moves : validMoves) {
+			if (eagleSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
+				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.yellow);
+			} else if (sharkSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
+				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.blue);
+			}
+
+			ActionListener[] selectPieceListener = buttons.get(moves.get(1)).get(moves.get(0)).getActionListeners();
+			buttons.get(moves.get(1)).get(moves.get(0)).removeActionListener(selectPieceListener[0]);
+
+		}
+	}
+
+	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, String pieceType,
+			Set<List<Integer>> validMoves) {
+		updateIcon(buttonClicked, pieceType);
+		repaintWhiteCell();
+		restoreStateForPossibleValidMove(validMoves);
 	}
 
 	/**
@@ -190,49 +273,9 @@ public class BoardPanel extends JPanel {
 		}
 	}
 
-	public void updateBoardAfterChoosingPiece(Set<List<Integer>> validMoves, String pieceType) {
-		EnumSet<PieceType> eagleSet = EnumSet.of(PieceType.ATTACKINGEAGLE, PieceType.LEADERSHIPEAGLE,
-				PieceType.VISIONARYEAGLE);
-		EnumSet<PieceType> sharkSet = EnumSet.of(PieceType.AGGRESSIVESHARK, PieceType.DEFENSIVESHARK,
-				PieceType.HEALINGSHARK);
-
-		for (List<Integer> moves : validMoves) {
-			if (eagleSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
-				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.yellow);
-			} else if (sharkSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
-				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.blue);
-			}
-
-			ActionListener[] selectPieceListener = buttons.get(moves.get(1)).get(moves.get(0)).getActionListeners();
-			buttons.get(moves.get(1)).get(moves.get(0)).removeActionListener(selectPieceListener[0]);
-
-		}
-	}
-
-	public void repaintWhiteCell() {
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				if (buttons.get(row).get(col).getBackground().equals(Color.YELLOW)
-						|| buttons.get(row).get(col).getBackground().equals(Color.BLUE)) {
-					buttons.get(row).get(col).setBackground(Color.WHITE);
-				}
-			}
-		}
-	}
-
-	public void restoreButtonStateForNextTurn(EnumSet<PieceType> pieceName) {
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				if (!buttons.get(row).get(col).getActionCommand().equals("NormalButton") && pieceName
-						.contains(PieceType.valueOf(buttons.get(row).get(col).getActionCommand().toUpperCase()))) {
-					AbstractButton button = buttons.get(row).get(col);
-					for (ActionListener l : button.getActionListeners()) {
-						button.removeActionListener(l);
-					}
-					button.addActionListener(new SelectPieceController(button, this));
-				}
-			}
-		}
+	public void updateBoardRollback() {
+		restoreButtonStateForColorButton();
+		repaintWhiteCell();
 	}
 
 	public void updateIcon(AbstractButton buttonClicked, String pieceType) {
@@ -243,50 +286,6 @@ public class BoardPanel extends JPanel {
 			System.err.println("IMAGE NOT FOUND");
 		}
 		buttonClicked.setIcon(new ImageIcon(animal));
-	}
-
-	public void restoreViewForOldPos(Map<String, Integer> oldPos) {
-		buttons.get(oldPos.get("y")).get(oldPos.get("x")).setIcon(null);
-		buttons.get(oldPos.get("y")).get(oldPos.get("x")).setActionCommand("NormalButton");
-	}
-
-	public void restoreButtonStateForColorButton() {
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				if ((buttons.get(row).get(col).getBackground().equals(Color.YELLOW)
-						|| buttons.get(row).get(col).getBackground().equals(Color.BLUE))) {
-					ActionListener[] listeners = buttons.get(row).get(col).getActionListeners();
-					for (ActionListener l : listeners) {
-						buttons.get(row).get(col).removeActionListener(l);
-					}
-					buttons.get(row).get(col)
-							.addActionListener(new SelectPieceController(buttons.get(row).get(col), this));
-				}
-			}
-		}
-	}
-
-	public void restoreStateForPossibleValidMove(Set<List<Integer>> validMoves) {
-		for (List<Integer> l : validMoves) {
-			ActionListener[] movePieceController = buttons.get(l.get(1)).get(l.get(0)).getActionListeners();
-			buttons.get(l.get(1)).get(l.get(0)).removeActionListener(movePieceController[0]);
-
-			buttons.get(l.get(1)).get(l.get(0))
-					.addActionListener(new SelectPieceController(buttons.get(l.get(1)).get(l.get(0)), this));
-
-		}
-	}
-
-	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, String pieceType,
-			Set<List<Integer>> validMoves) {
-		updateIcon(buttonClicked, pieceType);
-		repaintWhiteCell();
-		restoreStateForPossibleValidMove(validMoves);
-	}
-
-	public void updateBoardRollback() {
-		restoreButtonStateForColorButton();
-		repaintWhiteCell();
 	}
 
 	public void updateLoadPanel() {

@@ -33,39 +33,8 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 	private EnumSet<PieceType> sharkSet = EnumSet.of(PieceType.AGGRESSIVESHARK, PieceType.DEFENSIVESHARK,
 			PieceType.HEALINGSHARK);
 
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-
-		if (evt.getPropertyName().equalsIgnoreCase("movepiece")) {
-
-			boardPanel = (BoardPanel) evt.getNewValue();
-
-			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
-			pieceType = (String) evt.getOldValue();
-
-			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
-			enableViewAvailableMove(buttons);
-		}
-	}
-
 	/**
-	 * @param buttons
-	 * @implNote This method does the colouring for available move cell, also
-	 *           deregister the original selectPieceListener which is registered at
-	 *           the start when creating board, and add move piece listener to allow
-	 *           move action
-	 * @see BoardPanel.java
-	 */
-	private void enableViewAvailableMove(List<List<AbstractButton>> buttons) {
-		boardPanel.updateBoardAfterChoosingPiece(validMoves, pieceType);
-		for (List<Integer> moves : validMoves) {
-			buttons.get(moves.get(1)).get(moves.get(0)).addActionListener(this);
-		}
-	}
-
-	/**
-	 * @param the
-	 *            selected button when moving piece
+	 * @param the selected button when moving piece
 	 * @implNote This method is a little bit heavyweight, may need decouple,
 	 *           extraction in later stage
 	 */
@@ -108,6 +77,54 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 		}
 	}
 
+	private boolean checkIfMoveOnAlly(ActionEvent e, boolean notEnterAlly) {
+		if (eagleSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
+			AbstractButton buttonClicked = (AbstractButton) e.getSource();
+			if (!buttonClicked.getActionCommand().equals("NormalButton")
+					&& eagleSet.contains(PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase()))) {
+				notEnterAlly = false;
+			}
+		} else if (sharkSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
+			AbstractButton buttonClicked = (AbstractButton) e.getSource();
+			if (!buttonClicked.getActionCommand().equals("NormalButton")
+					&& sharkSet.contains(PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase()))) {
+				notEnterAlly = false;
+
+			}
+		}
+		return notEnterAlly;
+	}
+
+	/**
+	 * @param buttons
+	 * @implNote This method does the colouring for available move cell, also
+	 *           deregister the original selectPieceListener which is registered at
+	 *           the start when creating board, and add move piece listener to allow
+	 *           move action
+	 * @see BoardPanel.java
+	 */
+	private void enableViewAvailableMove(List<List<AbstractButton>> buttons) {
+		boardPanel.updateBoardAfterChoosingPiece(validMoves, pieceType);
+		for (List<Integer> moves : validMoves) {
+			buttons.get(moves.get(1)).get(moves.get(0)).addActionListener(this);
+		}
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+
+		if (evt.getPropertyName().equalsIgnoreCase("movepiece")) {
+
+			boardPanel = (BoardPanel) evt.getNewValue();
+
+			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
+			pieceType = (String) evt.getOldValue();
+
+			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+			enableViewAvailableMove(buttons);
+		}
+	}
+
 	private void updateModel(List<List<AbstractButton>> buttons, AbstractButton buttonClicked,
 			Map<String, Integer> newPos) {
 		for (int i = 0; i < buttons.size(); ++i) {
@@ -136,24 +153,6 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 			EngineImpl.getSingletonInstance().setActivePlayer("eagle", true);
 
 		}
-	}
-
-	private boolean checkIfMoveOnAlly(ActionEvent e, boolean notEnterAlly) {
-		if (eagleSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
-			AbstractButton buttonClicked = (AbstractButton) e.getSource();
-			if (!buttonClicked.getActionCommand().equals("NormalButton")
-					&& eagleSet.contains(PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase()))) {
-				notEnterAlly = false;
-			}
-		} else if (sharkSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
-			AbstractButton buttonClicked = (AbstractButton) e.getSource();
-			if (!buttonClicked.getActionCommand().equals("NormalButton")
-					&& sharkSet.contains(PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase()))) {
-				notEnterAlly = false;
-
-			}
-		}
-		return notEnterAlly;
 	}
 
 }

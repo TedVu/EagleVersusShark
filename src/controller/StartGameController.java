@@ -13,7 +13,7 @@ import view.operationview.StatusPanel;
 public class StartGameController implements ActionListener {
 
 	private StatusPanel statusPanel;
- 
+
 	public StartGameController(StatusPanel statusPanel) {
 		this.statusPanel = statusPanel;
 	}

@@ -4,13 +4,9 @@ import java.beans.PropertyChangeListener;
 
 public interface GameEngineCallback {
 
-	/**
-	 * Will fire property change after timer goes off
-	 * 
-	 * @param playerType
-	 * @param currentPlayerTurn
-	 */
-	public void timerNextMove(String playerType, String currentPlayerTurn);
+	public void addProperytChangeListener(PropertyChangeListener listener);
+
+	public PropertyChangeListener[] getPropertyChangeListener();
 
 	/**
 	 * Will fire property change after making move
@@ -19,8 +15,12 @@ public interface GameEngineCallback {
 	 */
 	public void nextMove(String currentPlayerTurn);
 
-	public void addProperytChangeListener(PropertyChangeListener listener);
-
-	public PropertyChangeListener[] getPropertyChangeListener();
+	/**
+	 * Will fire property change after timer goes off
+	 * 
+	 * @param playerType
+	 * @param currentPlayerTurn
+	 */
+	public void timerNextMove(String playerType, String currentPlayerTurn);
 
 }

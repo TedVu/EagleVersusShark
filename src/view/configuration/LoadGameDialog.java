@@ -17,7 +17,7 @@ import controller.LoadGameController;
 public class LoadGameDialog extends JDialog {
 	private static final int FRAME_WIDTH = 350;
 	private static final int FRAME_HEIGHT = 200;
-	
+
 	private JFrame startFrame;
 	private JTextField fileNameField = new JTextField(15);
 
@@ -25,7 +25,7 @@ public class LoadGameDialog extends JDialog {
 
 	public LoadGameDialog(JFrame startFrame) {
 		this.startFrame = startFrame;
-		loadGameButton.addActionListener(new LoadGameController(startFrame,this));
+		loadGameButton.addActionListener(new LoadGameController(startFrame, this));
 
 		setTitle("Load Game");
 
@@ -53,10 +53,9 @@ public class LoadGameDialog extends JDialog {
 		this.setResizable(false);
 		this.setVisible(true);
 	}
-	
+
 	public String getFileNameInput() {
 		return fileNameField.getText();
 	}
-	
-	
+
 }

@@ -4,9 +4,9 @@ public interface Player {
 
 	public boolean getActive();
 
-	public void setActive(boolean isActive);
-
 	public String getPlayerType();
+
+	public void setActive(boolean isActive);
 
 	public void setPlayerType(String playerType);
 

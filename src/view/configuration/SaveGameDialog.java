@@ -21,13 +21,12 @@ public class SaveGameDialog extends JDialog {
 	private JFrame startFrame;
 	private JTextField fileNameField = new JTextField(15);
 
-
 	private JButton saveGameButton = new JButton("Save");
 
 	public SaveGameDialog(JFrame startFrame) {
 		this.startFrame = startFrame;
 		saveGameButton.addActionListener(new SaveGameController(this));
-		
+
 		setTitle("Save Game");
 
 		setLayout(new GridBagLayout());

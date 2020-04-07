@@ -16,17 +16,6 @@ public class RollbackController implements PropertyChangeListener {
 	private BoardPanel boardView;
 	private AbstractButton button;
 
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
-		if (evt.getPropertyName().equalsIgnoreCase("rollbackselectedpiece")) {
-			boardView = (BoardPanel) evt.getOldValue();
-			button = (AbstractButton) evt.getNewValue();
-			findColoredCellsForRollback(boardView.getButtonList());
-		}
-
-	}
-
 	private void findColoredCellsForRollback(List<List<AbstractButton>> buttons) {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
@@ -37,6 +26,17 @@ public class RollbackController implements PropertyChangeListener {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		// TODO Auto-generated method stub
+		if (evt.getPropertyName().equalsIgnoreCase("rollbackselectedpiece")) {
+			boardView = (BoardPanel) evt.getOldValue();
+			button = (AbstractButton) evt.getNewValue();
+			findColoredCellsForRollback(boardView.getButtonList());
+		}
+
 	}
 
 	private void rollbackSelectedPieceStatus() {

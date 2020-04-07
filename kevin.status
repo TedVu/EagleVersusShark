@@ -1,0 +1,5 @@
+BoardSize: 15
+NumPiece: 2
+DefensiveShark 7 13
+LeadershipEagle 7 1
+CurrentTurn: sharkPlayer

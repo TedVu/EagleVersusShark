@@ -11,7 +11,7 @@ public class MockViewClientA2 {
 		try {
 			UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
 		} catch (Throwable e) {
-			e.printStackTrace(); 
+			e.printStackTrace();
 		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

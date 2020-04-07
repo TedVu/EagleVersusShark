@@ -9,6 +9,10 @@ public class MakingMovePropertyChangeListener implements PropertyChangeListener 
 
 	private StatusPanel statusPanel;
 
+	public void injectStatusPanel(StatusPanel statusPanel) {
+		this.statusPanel = statusPanel;
+	}
+
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		// TODO Auto-generated method stub
@@ -17,9 +21,5 @@ public class MakingMovePropertyChangeListener implements PropertyChangeListener 
 			statusPanel.updateTurnLabel((String) evt.getNewValue());
 			statusPanel.startCountDown();
 		}
-	}
-
-	public void injectStatusPanel(StatusPanel statusPanel) {
-		this.statusPanel = statusPanel;
 	}
 }
