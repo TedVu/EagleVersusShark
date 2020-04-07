@@ -25,16 +25,16 @@ public class OperationToolbar extends JMenuBar {
 			menus[i] = new JMenu(options[i]);
 			add(menus[i]);
 		}
-		
+
 		save = new JMenuItem("Save");
 		exit = new JMenuItem("Exit");
 		menus[0].add(save);
 		menus[0].addSeparator();
 		menus[0].add(exit);
-		
+
 		save.setMnemonic('S');
 		exit.setMnemonic('E');
-		
+
 		save.addActionListener(new InvokeSaveGameDialogController(mainFrame));
 	}
 

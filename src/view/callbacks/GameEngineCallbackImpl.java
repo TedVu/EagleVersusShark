@@ -25,12 +25,9 @@ public class GameEngineCallbackImpl implements GameEngineCallback {
 	@Override
 	public void nextMove(String currentPlayerTurn) {
 		SwingUtilities.invokeLater(new Runnable() {
-
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				pcs.firePropertyChange("MakingMove", null, currentPlayerTurn);
-
 			}
 
 		});
@@ -40,10 +37,8 @@ public class GameEngineCallbackImpl implements GameEngineCallback {
 	@Override
 	public void timerNextMove(String playerType, String currentPlayerTurn) {
 		SwingUtilities.invokeLater(new Runnable() {
-
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				pcs.firePropertyChange("SwitchTurn", playerType, currentPlayerTurn);
 			}
 

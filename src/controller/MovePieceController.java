@@ -26,9 +26,9 @@ import view.operationview.BoardPanel;
 public class MovePieceController implements PropertyChangeListener, ActionListener {
 	private BoardPanel boardPanel;
 	private PieceType pieceType;
-	
+
 	private Set<List<Integer>> validMoves;
-	
+
 	private EnumSet<PieceType> eagleSet = EnumSet.of(PieceType.ATTACKINGEAGLE, PieceType.LEADERSHIPEAGLE,
 			PieceType.VISIONARYEAGLE);
 	private EnumSet<PieceType> sharkSet = EnumSet.of(PieceType.AGGRESSIVESHARK, PieceType.DEFENSIVESHARK,
@@ -48,7 +48,8 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 		if (notEnterAlly) {
 			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
 
-			Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString()).getPosition();
+			Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString())
+					.getPosition();
 
 			boardPanel.restoreViewForOldPos(oldPos);
 
@@ -59,7 +60,8 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 
 			updateModel(buttons, buttonClicked, newPos);
 
-			EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString()).movePiece(newPos.get("x"), newPos.get("y"));
+			EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString()).movePiece(newPos.get("x"),
+					newPos.get("y"));
 
 			boardPanel.updateBoardAfterMovingPiece(buttonClicked, pieceType, validMoves);
 

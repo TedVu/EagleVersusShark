@@ -41,7 +41,7 @@ public class SettingsDialog extends JDialog {
 		setLocation(dimension.width / 2 - FRAME_WIDTH / 2, dimension.height / 2 - FRAME_HEIGHT / 2);
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setResizable(false);
-		
+
 		applyButton.addActionListener(new ApplyConfigurationController(startFrame, this));
 
 		JPanel selectionPanel = new JPanel();
@@ -54,13 +54,13 @@ public class SettingsDialog extends JDialog {
 		numPiecesPanel.add(new JLabel("Board Size:"));
 		numPiecesPanel.add(numPieceMenu);
 		selectionPanel.add(numPiecesPanel);
-		
+
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.add(applyButton);
-		
+
 		add(buttonPanel, BorderLayout.SOUTH);
-		add(selectionPanel,BorderLayout.CENTER);
-		
+		add(selectionPanel, BorderLayout.CENTER);
+
 		setVisible(true);
 	}
 

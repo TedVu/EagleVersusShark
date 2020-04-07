@@ -31,6 +31,7 @@ import view.interfaces.GameEngineCallback;
  */
 public class EngineImpl implements Engine {
 	private static Engine engine = null;
+
 	public static Engine getSingletonInstance() {
 		if (engine == null) {
 			engine = new EngineImpl();
@@ -39,6 +40,7 @@ public class EngineImpl implements Engine {
 
 		return engine;
 	}
+
 	private boolean startGame = false;
 	private Map<String, Piece> pieces = new HashMap<String, Piece>();
 
