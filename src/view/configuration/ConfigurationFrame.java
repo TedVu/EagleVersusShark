@@ -22,7 +22,7 @@ public class ConfigurationFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = -8454047695594084099L;
 	private static final int FRAME_WIDTH = 550;
-	private static final int FRAME_HEIGHT = 300;
+	private static final int FRAME_HEIGHT = 240;
 
 	private JButton startButton;
 	private JButton loadButton;
