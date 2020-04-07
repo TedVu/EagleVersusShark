@@ -73,12 +73,12 @@ public class StatusPanel extends JPanel {
 		for (SwingWorker<Void, Void> preWorker : workerThreads) {
 			preWorker.cancel(true);
 		}
-		
+
 		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
 			@Override
 			protected Void doInBackground() throws Exception {
 				for (int i = 10; i >= 0; --i) {
-					timerTextField.setText(i+"");
+					timerTextField.setText(i + "");
 					Thread.sleep(1000);
 				}
 				return null;

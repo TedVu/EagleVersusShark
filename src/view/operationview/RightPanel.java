@@ -18,7 +18,7 @@ public class RightPanel extends JPanel {
 		modePanel = new ModePanel();
 
 		setLayout(new GridLayout(2, 1));
-		
+
 		add(statusPanel);
 		add(modePanel);
 	}

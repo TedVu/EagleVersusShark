@@ -1,6 +1,8 @@
 package view.operationview;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionListener;
@@ -48,8 +50,12 @@ public class BoardPanel extends JPanel {
 		int numberOfRow = EngineImpl.getSingletonInstance().getBoard().getRow();
 		int numberOfCol = EngineImpl.getSingletonInstance().getBoard().getCol();
 
-		setLayout(new GridLayout(numberOfRow, numberOfCol));
 		buttons = new ArrayList<>();
+
+		setLayout(new BorderLayout());
+
+		JPanel btnContainerPanel = new JPanel();
+		btnContainerPanel.setLayout(new GridLayout(numberOfRow, numberOfCol, 0, 0));
 
 		for (int row = 0; row < numberOfRow; ++row) {
 			buttons.add(new ArrayList<AbstractButton>());
@@ -63,10 +69,15 @@ public class BoardPanel extends JPanel {
 				currentButton.setActionCommand("NormalButton");
 				currentButton.addActionListener(new SelectPieceController(currentButton, this));
 
-				add(currentButton);
+				btnContainerPanel.add(currentButton);
 				group.add(currentButton);
+
 			}
 		}
+		add(btnContainerPanel, BorderLayout.CENTER);
+		setPreferredSize(new Dimension(800, 800));
+		setMaximumSize(new Dimension(800, 800));
+		setMinimumSize(new Dimension(800, 800));
 
 		if (!EngineImpl.getSingletonInstance().getLoadGame()) {
 			defaultNumberPiece();
