@@ -98,9 +98,6 @@ public class BoardPanel extends JPanel {
 		return buttons;
 	}
 
-	/**
-	 * will extract into helper class for populate
-	 */
 	private void populateTwoMiddlePiece() {
 		populateCustomPiece(1, EngineImpl.getSingletonInstance().getBoard().getCol() / 2, PieceType.LEADERSHIPEAGLE);
 
@@ -108,19 +105,16 @@ public class BoardPanel extends JPanel {
 				EngineImpl.getSingletonInstance().getBoard().getCol() / 2, PieceType.DEFENSIVESHARK);
 	}
 
-	/**
-	 * will extract into helper class for populate
-	 */
 	private void populateTwoSidePiece() {
 		populateCustomPiece(0, EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1, PieceType.ATTACKINGEAGLE);
 		populateCustomPiece(0, EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1, PieceType.VISIONARYEAGLE);
-		
+
 		populateCustomPiece(EngineImpl.getSingletonInstance().getBoard().getRow() - 1,
 				EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1, PieceType.AGGRESSIVESHARK);
 		populateCustomPiece(EngineImpl.getSingletonInstance().getBoard().getRow() - 1,
 				EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1, PieceType.HEALINGSHARK);
 	}
-	
+
 	private void populateCustomPiece(int positionX, int positionY, PieceType pieceType) {
 		try {
 			Image pieceImage = ImageIO.read(getClass().getResource(pieceType.getFileName()));
@@ -131,7 +125,7 @@ public class BoardPanel extends JPanel {
 		buttons.get(positionX).get(positionY).setActionCommand(pieceType.toString());
 	}
 
-	public void repaintWhiteCell() {
+	public void restoreCellColor() {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
 				if (buttons.get(row).get(col).getBackground().equals(Color.YELLOW)
@@ -177,7 +171,6 @@ public class BoardPanel extends JPanel {
 		for (List<Integer> l : validMoves) {
 			ActionListener[] movePieceController = buttons.get(l.get(1)).get(l.get(0)).getActionListeners();
 			buttons.get(l.get(1)).get(l.get(0)).removeActionListener(movePieceController[0]);
-
 			buttons.get(l.get(1)).get(l.get(0))
 					.addActionListener(new SelectPieceController(buttons.get(l.get(1)).get(l.get(0)), this));
 
@@ -204,14 +197,13 @@ public class BoardPanel extends JPanel {
 
 			ActionListener[] selectPieceListener = buttons.get(moves.get(1)).get(moves.get(0)).getActionListeners();
 			buttons.get(moves.get(1)).get(moves.get(0)).removeActionListener(selectPieceListener[0]);
-
 		}
 	}
 
 	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType,
 			Set<List<Integer>> validMoves) {
 		updateIcon(buttonClicked, pieceType);
-		repaintWhiteCell();
+		restoreCellColor();
 		restoreStateForPossibleValidMove(validMoves);
 	}
 
@@ -237,7 +229,7 @@ public class BoardPanel extends JPanel {
 
 	public void updateBoardRollback() {
 		restoreButtonStateForColorButton();
-		repaintWhiteCell();
+		restoreCellColor();
 	}
 
 	public void updateIcon(AbstractButton buttonClicked, PieceType pieceType) {
