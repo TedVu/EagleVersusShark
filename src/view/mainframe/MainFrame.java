@@ -13,9 +13,13 @@ import view.operationview.OperationToolbar;
 import view.operationview.RightPanel;
 
 /**
+ * <h1>Mainframe</h1> Contain the game board.
+ * 
  * @author kevin & ted
+ * @version 1.0
+ * @since 08.04.20
  */
-public class MainAppFrame extends JFrame {
+public class MainFrame extends JFrame {
 	/**
 	 * @serial -6241584551658525365L
 	 */
@@ -28,9 +32,16 @@ public class MainAppFrame extends JFrame {
 	private RightPanel rightPanel;
 
 	/**
-	 * @see
+	 * Constructor of Mainframe.
+	 * <p>
+	 * Set the title of frame, initial location (middle of screen), set fixed size.
+	 * <p>
+	 * <b>Layout:<b> Borderlayout. Contains 2 components at CENTER and NORTH.
+	 * <p>
+	 * <b>Note:<b> There is centerPanel contains boardPanel and rightPanel. Layout:
+	 * BoxLayout, X-Axis.
 	 */
-	public MainAppFrame() {
+	public MainFrame() {
 		boardPanel = new BoardPanel();
 		operationToolbar = new OperationToolbar(this);
 		rightPanel = new RightPanel();
@@ -54,7 +65,9 @@ public class MainAppFrame extends JFrame {
 	}
 
 	/**
-	 * @return
+	 * To access Board Panel for loading functionality.
+	 * 
+	 * @return BoardPanel
 	 */
 	public BoardPanel getBoardPanel() {
 		return boardPanel;

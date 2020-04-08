@@ -91,7 +91,6 @@ public class EngineImpl implements Engine {
 
 	@Override
 	public void configNumPiece(int numPiece) {
-		// TODO Auto-generated method stub
 		if (numPiece == 4) {
 			pieces = new HashMap<String, Piece>();
 
@@ -208,7 +207,6 @@ public class EngineImpl implements Engine {
 
 	@Override
 	public boolean getLoadGame() {
-		// TODO Auto-generated method stub
 		return loadGame;
 	}
 
@@ -252,14 +250,12 @@ public class EngineImpl implements Engine {
 
 	@Override
 	public void loadBoard(int side) {
-		// TODO Auto-generated method stub
 		board = new Board(side, side);
 
 	}
 
 	@Override
 	public void loadPiece(List<Piece> piecesLoad) {
-		// TODO Auto-generated method stub
 
 		pieces = new HashMap<String, Piece>();
 		for (Piece piece : piecesLoad) {
@@ -282,7 +278,6 @@ public class EngineImpl implements Engine {
 
 	@Override
 	public void loadTurn(String currentTurn) {
-		// TODO Auto-generated method stub
 		loadGame = true;
 		if (currentTurn.equals("sharkPlayer")) {
 			sharkPlayer.setActive(true);

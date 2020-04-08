@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.UIManager;
 
-import view.mainframe.MainAppFrame;
+import view.mainframe.MainFrame;
 
 /**
  * <h1>Main class (for testing)</h1> MockViewClient is the main class. It has
@@ -23,7 +23,7 @@ public class MockViewClient {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainAppFrame window = new MainAppFrame();
+					MainFrame window = new MainFrame();
 					window.setVisible(true);
 
 				} catch (Exception e) {

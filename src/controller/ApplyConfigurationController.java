@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 
 import models.engine.EngineImpl;
 import view.configuration.SettingsDialog;
-import view.mainframe.MainAppFrame;
+import view.mainframe.MainFrame;
 
 /**
  * 
@@ -44,7 +44,7 @@ public class ApplyConfigurationController implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainAppFrame window = new MainAppFrame();
+					MainFrame window = new MainFrame();
 					window.setVisible(true);
 
 				} catch (Exception e) {

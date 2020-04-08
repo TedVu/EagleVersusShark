@@ -17,7 +17,7 @@ import models.engine.EngineImpl;
 import models.pieces.Piece;
 import models.pieces.PieceFactory;
 import view.configuration.LoadGameDialog;
-import view.mainframe.MainAppFrame;
+import view.mainframe.MainFrame;
 import view.messagedialog.MessageDialog;
 
 /**
@@ -93,10 +93,9 @@ public class LoadGameController implements ActionListener {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							MainAppFrame window = new MainAppFrame();
+							MainFrame window = new MainFrame();
 							window.getBoardPanel().loadGame();
 							window.setVisible(true);
-
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

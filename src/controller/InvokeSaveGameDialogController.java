@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import view.configuration.SaveGameDialog;
-import view.mainframe.MainAppFrame;
+import view.mainframe.MainFrame;
 
 /**
  * 
@@ -13,14 +13,14 @@ import view.mainframe.MainAppFrame;
  */
 public class InvokeSaveGameDialogController implements ActionListener {
 
-	private MainAppFrame mainFrame;
+	private MainFrame mainFrame;
 	
 	/**
 	 * 
 	 * @see
 	 * 
 	 */
-	public InvokeSaveGameDialogController(MainAppFrame mainFrame) {
+	public InvokeSaveGameDialogController(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
 	}
 	

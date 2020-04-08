@@ -5,7 +5,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import controller.InvokeSaveGameDialogController;
-import view.mainframe.MainAppFrame;
+import view.mainframe.MainFrame;
 
 /**
  * @author kevin & ted
@@ -23,7 +23,7 @@ public class OperationToolbar extends JMenuBar {
 	/**
 	 * @see
 	 */
-	public OperationToolbar(MainAppFrame mainFrame) {
+	public OperationToolbar(MainFrame mainFrame) {
 		String[] options = new String[] { "File", "Edit", "Help" };
 		menus = new JMenu[options.length];
 

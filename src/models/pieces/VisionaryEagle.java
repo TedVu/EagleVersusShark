@@ -40,7 +40,6 @@ public class VisionaryEagle extends AbstractPiece {
 	}
 
 	public boolean isCanSwapPosition() {
-		// TODO Auto-generated constructor stub
 		return canSwapPosition;
 	}
 
@@ -62,7 +61,6 @@ public class VisionaryEagle extends AbstractPiece {
 	}
 
 	public void setCanSwapPosition(boolean canSwapPosition) {
-		// TODO Auto-generated constructor stub
 		this.canSwapPosition = canSwapPosition;
 	}
 
