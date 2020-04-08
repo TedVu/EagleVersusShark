@@ -34,11 +34,12 @@ public class MainFrame extends JFrame {
 	/**
 	 * Constructor of Mainframe.
 	 * <p>
-	 * Set the title of frame, initial location (middle of screen), set fixed size.
+	 * With default the title of frame, initial location (middle of screen), set
+	 * fixed size.
 	 * <p>
-	 * <b>Layout:<b> Borderlayout. Contains 2 components at CENTER and NORTH.
+	 * <b>Layout:</b> Borderlayout. Contains 2 components (centerPanel, operationToolbar) at CENTER and NORTH.
 	 * <p>
-	 * <b>Note:<b> There is centerPanel contains boardPanel and rightPanel. Layout:
+	 * <b>Note 1:</b> There is centerPanel contains boardPanel and rightPanel. Layout:
 	 * BoxLayout, X-Axis.
 	 */
 	public MainFrame() {

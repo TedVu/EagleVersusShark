@@ -51,23 +51,26 @@ public class BoardPanel extends JPanel {
 	 * Constructing the board panel,at the beginning, the board is a hard-coded
 	 * construction since we know exactly the beginning position of each piece
 	 * <p>
-	 * Layout: BorderLayout.
-	 * 
-	 * @see
+	 * With default the title of frame, initial location (middle of screen), set
+	 * fixed size.
+	 * <p>
+	 * Layout: BorderLayout. Contains 1 component (btnContainerPanel) at CENTER.
+	 * <p>
+	 * <b>Note 1:</b> There is btnContainerPanel contains all the button as board
+	 * cells. Layout: GridLayout. <b>Note 2:</b> The button will be store in
+	 * ArrayList.
 	 */
 	public BoardPanel() {
 		ButtonGroup group = new ButtonGroup();
+		buttons = new ArrayList<>();
 
 		int numberOfRow = EngineImpl.getSingletonInstance().getBoard().getRow();
 		int numberOfCol = EngineImpl.getSingletonInstance().getBoard().getCol();
-
-		buttons = new ArrayList<>();
 
 		setLayout(new BorderLayout());
 
 		JPanel btnContainerPanel = new JPanel();
 		btnContainerPanel.setLayout(new GridLayout(numberOfRow, numberOfCol, 0, 0));
-
 		for (int row = 0; row < numberOfRow; ++row) {
 			buttons.add(new ArrayList<AbstractButton>());
 			for (int col = 0; col < numberOfCol; ++col) {
@@ -82,10 +85,10 @@ public class BoardPanel extends JPanel {
 
 				btnContainerPanel.add(currentButton);
 				group.add(currentButton);
-
 			}
 		}
 		add(btnContainerPanel, BorderLayout.CENTER);
+
 		setPreferredSize(new Dimension(800, 800));
 		setMaximumSize(new Dimension(800, 800));
 		setMinimumSize(new Dimension(800, 800));
@@ -105,7 +108,9 @@ public class BoardPanel extends JPanel {
 	}
 
 	/**
-	 * @return
+	 * To decide the initial number of piece in each different mode. <b>Note 1:</b> 2
+	 * - Each player get 1 middle piece, 4 - Each player get 2 side pieces and 6
+	 * each player get all 3 pieces.
 	 */
 	private void defaultNumberPiece() {
 		int numberOfPiece = EngineImpl.getSingletonInstance().getAllPieces().size();
@@ -120,24 +125,28 @@ public class BoardPanel extends JPanel {
 	}
 
 	/**
-	 * @return
+	 * Used for move and select controller.
+	 * 
+	 * @return List<List<AbstractButton>>
 	 */
 	public List<List<AbstractButton>> getButtonList() {
 		return buttons;
 	}
 
 	/**
-	 * @return
+	 * Create 1 middle piece each side with predefined position and type. Leadership
+	 * Eagle for eagle team and Defensive shark for shark team.
 	 */
 	private void populateTwoMiddlePiece() {
 		populateCustomPiece(1, EngineImpl.getSingletonInstance().getBoard().getCol() / 2, PieceType.LEADERSHIPEAGLE);
-
 		populateCustomPiece(EngineImpl.getSingletonInstance().getBoard().getCol() - 2,
 				EngineImpl.getSingletonInstance().getBoard().getCol() / 2, PieceType.DEFENSIVESHARK);
 	}
 
 	/**
-	 * @return
+	 * Create 2 side pieces each side with predefined position and type. Attacking
+	 * eagle, visionary eagle for eagle team and aggressive shark, healing shark for
+	 * shark team.
 	 */
 	private void populateTwoSidePiece() {
 		populateCustomPiece(0, EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1, PieceType.ATTACKINGEAGLE);
@@ -150,7 +159,12 @@ public class BoardPanel extends JPanel {
 	}
 
 	/**
-	 * @return
+	 * Get 3 parameters that defined and used to display a piece.
+	 * 
+	 * @param positionX To set the default x coordinator of the pieces.
+	 * @param positionY To set the default y coordinator of the pieces.
+	 * @param pieceType To set the type of piece. PieceType (Enum) type.
+	 * @exception IOException
 	 */
 	private void populateCustomPiece(int positionX, int positionY, PieceType pieceType) {
 		try {
@@ -163,7 +177,7 @@ public class BoardPanel extends JPanel {
 	}
 
 	/**
-	 * @return
+	 * Paint colored button white after each evt action (move or select piece).
 	 */
 	public void restoreCellColor() {
 		for (int row = 0; row < buttons.size(); ++row) {
@@ -177,7 +191,7 @@ public class BoardPanel extends JPanel {
 	}
 
 	/**
-	 * @return
+	 * Set the controller of the button to default after each evt action (move or select piece).
 	 */
 	public void restoreButtonStateForColorButton() {
 		for (int row = 0; row < buttons.size(); ++row) {
@@ -196,7 +210,7 @@ public class BoardPanel extends JPanel {
 	}
 
 	/**
-	 * @return
+	 * 
 	 */
 	public void restoreButtonStateForNextTurn(EnumSet<PieceType> pieceName) {
 		for (int row = 0; row < buttons.size(); ++row) {
@@ -307,7 +321,7 @@ public class BoardPanel extends JPanel {
 	}
 
 	/**
-	 * @return
+	 * Used for load game.
 	 */
 	public void loadGame() {
 		Map<String, Piece> pieces = EngineImpl.getSingletonInstance().getAllPieces();
