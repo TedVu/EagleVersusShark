@@ -5,17 +5,31 @@ import java.beans.PropertyChangeListener;
 
 import view.operationview.StatusPanel;
 
+/**
+ * 
+ * @author kevin & ted
+ * 
+ */
 public class MakingMovePropertyChangeListener implements PropertyChangeListener {
 
 	private StatusPanel statusPanel;
 
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	public void injectStatusPanel(StatusPanel statusPanel) {
 		this.statusPanel = statusPanel;
 	}
 
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
 		if (evt.getPropertyName().equalsIgnoreCase("makingmove")
 				|| evt.getPropertyName().equalsIgnoreCase("switchturn")) {
 			statusPanel.updateTurnLabel((String) evt.getNewValue());

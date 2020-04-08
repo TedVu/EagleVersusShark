@@ -23,27 +23,40 @@ public class SelectPieceController implements ActionListener {
 	private AbstractButton button;
 	private BoardPanel boardView;
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	public SelectPieceController(AbstractButton button, BoardPanel boardView) {
 		this.button = button;
 		pcs.addPropertyChangeListener("MovePiece", new MovePieceController());
 		pcs.addPropertyChangeListener("RollbackSelectedPiece", new RollbackController());
 		this.boardView = boardView;
 	}
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent src) {
 		// only allow button clicked after start game
 		if (EngineImpl.getSingletonInstance().getStartGame()) {
-
 			pcs.firePropertyChange("RollbackSelectedPiece", boardView, button);
-
 			verifyPieceSelectedAndForwardCall();
 		} else {
 			MessageDialog.notifyStartGame(boardView);
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	private void checkAllowTransitToMovePieceAction(String pieceName1, String pieceName2, String pieceName3) {
 		if (button.getActionCommand().equalsIgnoreCase(pieceName1)
 				|| button.getActionCommand().equalsIgnoreCase(pieceName2)
@@ -53,10 +66,14 @@ public class SelectPieceController implements ActionListener {
 			MessageDialog.notifySelectWrongTeam(boardView);
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	private void verifyPieceSelectedAndForwardCall() {
 		if (EngineImpl.getSingletonInstance().checkSelectPiece(button.getActionCommand())) {
-
 			if (EngineImpl.getSingletonInstance().getCurrentActivePlayer().getPlayerType()
 					.equalsIgnoreCase(PieceType.getSharkTeamName())) {
 				checkAllowTransitToMovePieceAction(PieceType.AGGRESSIVESHARK.toString(),

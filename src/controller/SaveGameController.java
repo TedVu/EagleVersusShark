@@ -10,18 +10,31 @@ import javax.swing.JOptionPane;
 import models.engine.EngineImpl;
 import view.configuration.SaveGameDialog;
 
+/**
+ * 
+ * @author kevin & ted
+ * 
+ */
 public class SaveGameController implements ActionListener {
 
 	private SaveGameDialog saveGameDialog;
 
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	public SaveGameController(SaveGameDialog saveGameDialog) {
 		this.saveGameDialog = saveGameDialog;
 	}
 
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
 		if (saveGameDialog.getFileNameInput().endsWith(".status")) {
 			String fileName = saveGameDialog.getFileNameInput();
 			try {
@@ -45,7 +58,6 @@ public class SaveGameController implements ActionListener {
 
 				writer.close();
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			JOptionPane.showMessageDialog(saveGameDialog, "SaveGameSuccessful");

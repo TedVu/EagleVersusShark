@@ -11,11 +11,21 @@ import javax.swing.AbstractButton;
 import models.engine.EngineImpl;
 import view.operationview.BoardPanel;
 
+/**
+ * 
+ * @author kevin & ted
+ * 
+ */
 public class RollbackController implements PropertyChangeListener {
 
 	private BoardPanel boardView;
 	private AbstractButton button;
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	private void findColoredCellsForRollback(List<List<AbstractButton>> buttons) {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
@@ -27,10 +37,14 @@ public class RollbackController implements PropertyChangeListener {
 			}
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
 		if (evt.getPropertyName().equalsIgnoreCase("rollbackselectedpiece")) {
 			boardView = (BoardPanel) evt.getOldValue();
 			button = (AbstractButton) evt.getNewValue();
@@ -38,10 +52,14 @@ public class RollbackController implements PropertyChangeListener {
 		}
 
 	}
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	private void rollbackSelectedPieceStatus() {
 		List<List<AbstractButton>> buttons = boardView.getButtonList();
-
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
 

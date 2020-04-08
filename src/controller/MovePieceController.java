@@ -79,7 +79,12 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	private boolean checkIfMoveOnAlly(ActionEvent e, boolean notEnterAlly) {
 		if (eagleSet.contains(pieceType)) {
 			AbstractButton buttonClicked = (AbstractButton) e.getSource();
@@ -112,7 +117,12 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 			buttons.get(moves.get(1)).get(moves.get(0)).addActionListener(this);
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 
@@ -127,7 +137,12 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 			enableViewAvailableMove(buttons);
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	private void updateModel(List<List<AbstractButton>> buttons, AbstractButton buttonClicked,
 			Map<String, Integer> newPos) {
 		for (int i = 0; i < buttons.size(); ++i) {
@@ -140,15 +155,17 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 			}
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	private void updateModelStateForNextTurn(List<List<AbstractButton>> buttons) {
-
 		if (eagleSet.contains(pieceType)) {
 			boardPanel.restoreButtonStateForNextTurn(eagleSet);
-
 			EngineImpl.getSingletonInstance().cancelTimer();
 			EngineImpl.getSingletonInstance().setActivePlayer("shark", true);
-
 		} else if (sharkSet.contains(pieceType)) {
 			// refresh state ready for next turn
 			boardPanel.restoreButtonStateForNextTurn(sharkSet);

@@ -10,14 +10,29 @@ import models.engine.EngineImpl;
 import models.player.Player;
 import view.operationview.StatusPanel;
 
+/**
+ * 
+ * @author kevin & ted
+ * 
+ */
 public class StartGameController implements ActionListener {
 
 	private StatusPanel statusPanel;
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	public StartGameController(StatusPanel statusPanel) {
 		this.statusPanel = statusPanel;
 	}
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (!EngineImpl.getSingletonInstance().getLoadGame()) {
@@ -26,12 +41,10 @@ public class StartGameController implements ActionListener {
 				statusPanel.updateTurnLabel("Shark");
 				statusPanel.startCountDown();
 				EngineImpl.getSingletonInstance().setActivePlayerTimer("eagle");
-
 			} else if (initialPlayer.getPlayerType().equalsIgnoreCase(PieceType.getEagleTeamName())) {
 				statusPanel.updateTurnLabel("Eagle");
 				statusPanel.startCountDown();
 				EngineImpl.getSingletonInstance().setActivePlayerTimer("");
-
 			}
 		} else {
 			EngineImpl.getSingletonInstance().setStartGame();
