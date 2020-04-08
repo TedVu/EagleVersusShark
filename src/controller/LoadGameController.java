@@ -20,20 +20,34 @@ import view.configuration.LoadGameDialog;
 import view.mainframe.MainAppFrame;
 import view.messagedialog.MessageDialog;
 
+/**
+ * 
+ * @author kevin & ted
+ * 
+ */
 public class LoadGameController implements ActionListener {
 
 	private JFrame startFrame;
 	private LoadGameDialog loadGameDialog;
 	private BufferedReader br;
 
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	public LoadGameController(JFrame startFrame, LoadGameDialog loadGameDialog) {
 		this.startFrame = startFrame;
 		this.loadGameDialog = loadGameDialog;
 	}
 
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		// perform loading game state here
 		String fileRequest = loadGameDialog.getFileNameInput();
 		if (fileRequest.endsWith(".status")) {
@@ -72,14 +86,10 @@ public class LoadGameController implements ActionListener {
 					EngineImpl.getSingletonInstance().loadBoard(boardSize);
 					EngineImpl.getSingletonInstance().loadPiece(pieces);
 					EngineImpl.getSingletonInstance().loadTurn(currentTurn);
-
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
-				startFrame.setVisible(false);
-				loadGameDialog.setVisible(false);
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
@@ -93,11 +103,12 @@ public class LoadGameController implements ActionListener {
 					}
 				});
 
+				startFrame.dispose();
+				loadGameDialog.dispose();
 			}
 		} else {
 			MessageDialog.notifyInputWrongFileFormat(startFrame);
 		}
 
 	}
-
 }

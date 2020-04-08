@@ -7,18 +7,31 @@ import javax.swing.JFrame;
 
 import view.configuration.LoadGameDialog;
 
+/**
+ * 
+ * @author kevin & ted
+ * 
+ */
 public class InvokeLoadGameDialogController implements ActionListener {
 
 	private JFrame startFrame;
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	public InvokeLoadGameDialogController(JFrame startFrame) {
 		this.startFrame = startFrame;
 	}
-
+	
+	/**
+	 * 
+	 * @see
+	 * 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
 		new LoadGameDialog(startFrame);
 	}
 
