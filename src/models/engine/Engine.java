@@ -5,16 +5,17 @@ import java.util.Map;
 
 import models.board.Board;
 import models.pieces.Piece;
+import models.pieces.commands.PieceOperator;
 import models.player.Player;
 import view.interfaces.GameEngineCallback;
 
 public interface Engine {
 
-	public List<Piece> getActiveEagles();
+//	public List<Piece> getActiveEagles();
+//
+//	public List<Piece> getActiveSharks();
 
-	public List<Piece> getActiveSharks();
-
-	public boolean setPieceActiveStatus(Piece piece, boolean isActive);
+//	public boolean setPieceActiveStatus(Piece piece, boolean isActive);
 
 	public Player getCurrentActivePlayer();
 
@@ -24,15 +25,14 @@ public interface Engine {
 
 	public Board getBoard();
 
-	public void movePiece(Piece piece, int newX, int newY);
+//	public void movePiece(Piece piece, int newX, int newY);
 
-	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
+//	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
 
-	public Map<String, Piece> getAllPieces();
+//	public Map<String, Piece> getAllPieces();
 
-	public boolean checkSelectPiece(String occupiedPiece);
+//	public boolean checkSelectPiece(String occupiedPiece);
 
-	public void initializePiece();
 
 	public void setActivePlayerTimer(String playerType);
 
@@ -41,5 +41,7 @@ public interface Engine {
 	public void cancelTimer();
 
 	public GameEngineCallback getGameEngineCallback();
+	
+	public PieceOperator pieceOperator();
 
 }

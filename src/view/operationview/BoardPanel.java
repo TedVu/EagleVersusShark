@@ -76,11 +76,11 @@ public class BoardPanel extends JPanel {
 
 	private void populate(String pieceName1, String pieceName2, String pieceName3) {
 
-		Map<String, Integer> posPiece1 = EngineImpl.getSingletonInstance().getAllPieces().get(pieceName1).getPosition();
+		Map<String, Integer> posPiece1 = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces().get(pieceName1).getPosition();
 
-		Map<String, Integer> posPiece2 = EngineImpl.getSingletonInstance().getAllPieces().get(pieceName2).getPosition();
+		Map<String, Integer> posPiece2 = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces().get(pieceName2).getPosition();
 
-		Map<String, Integer> posPiece3 = EngineImpl.getSingletonInstance().getAllPieces().get(pieceName3).getPosition();
+		Map<String, Integer> posPiece3 = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces().get(pieceName3).getPosition();
 		try {
 			Image pieceImage1 = ImageIO.read(getClass().getResource(AssetHelper.fileName.get(pieceName1)));
 			Image pieceImage2 = ImageIO.read(getClass().getResource(AssetHelper.fileName.get(pieceName2)));

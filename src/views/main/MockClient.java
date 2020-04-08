@@ -16,9 +16,9 @@ public class MockClient {
 
 		Engine engine = EngineImpl.getSingletonInstance();
 		Map<String, Piece> pieces = new HashMap<String, Piece>();
-		engine.initializePiece();
+		engine.pieceOperator().initializePiece();
 
-		pieces = engine.getAllPieces();
+		pieces = engine.pieceOperator().getAllPieces();
 		// System.out.println(engine.getInitialPlayerActivePlayer().getPlayerType());
 
 		Piece attackerPiece = null;
@@ -46,7 +46,7 @@ public class MockClient {
 		//
 		// System.out.println(attackerPiece.isImmune());
 
-		System.out.println(engine.useAbility("capture", attackerPiece, visionPiece));
+//		System.out.println(engine.useAbility("capture", attackerPiece, visionPiece));
 
 	}
 

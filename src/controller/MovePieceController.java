@@ -37,7 +37,7 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
 			pieceType = (String) evt.getOldValue();
 
-			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+			validMoves = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces().get(pieceType).getValidMove();
 			enableViewAvailableMove(buttons);
 		}
 	}
@@ -72,7 +72,7 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 		if (notEnterAlly) {
 			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
 
-			Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getPosition();
+			Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces().get(pieceType).getPosition();
 
 			boardPanel.restoreViewForOldPos(oldPos);
 
@@ -83,7 +83,7 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 
 			updateModel(buttons, buttonClicked, newPos);
 
-			EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).movePiece(newPos.get("x"), newPos.get("y"));
+			EngineImpl.getSingletonInstance().pieceOperator().getAllPieces().get(pieceType).movePiece(newPos.get("x"), newPos.get("y"));
 
 			boardPanel.updateBoardAfterMovingPiece(buttonClicked, pieceType, validMoves);
 
@@ -94,7 +94,7 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 			AbstractButton buttonClicked = (AbstractButton) e.getSource();
 
 			pieceType = buttonClicked.getActionCommand();
-			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+			validMoves = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces().get(pieceType).getValidMove();
 
 			boardPanel.updateBoardRollback();
 			enableViewAvailableMove(buttons);

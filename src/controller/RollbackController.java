@@ -30,7 +30,7 @@ public class RollbackController implements PropertyChangeListener {
 	private void findColoredCellsForRollback(List<List<AbstractButton>> buttons) {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				if (EngineImpl.getSingletonInstance().checkSelectPiece(button.getActionCommand())
+				if (EngineImpl.getSingletonInstance().pieceOperator().checkSelectPiece(button.getActionCommand())
 						&& (buttons.get(row).get(col).getBackground().equals(Color.YELLOW)
 								|| buttons.get(row).get(col).getBackground().equals(Color.BLUE))) {
 					rollbackSelectedPieceStatus();
