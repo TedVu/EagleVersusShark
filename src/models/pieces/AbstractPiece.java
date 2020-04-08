@@ -24,19 +24,6 @@ public abstract class AbstractPiece implements Piece {
 	}
 
 	/*
-	 * modify the position of the piece
-	 * 
-	 * @param int x - x coordinate
-	 * 
-	 * @param int y - y coordinate
-	 */
-	@Override
-	public void setPosition(int x, int y) {
-		this.position.replace("x", x);
-		this.position.replace("y", y);
-	}
-
-	/*
 	 * get the current position of the piece
 	 * 
 	 * @return Map<String, Integer> - {"x" : , "y" : }
@@ -44,12 +31,6 @@ public abstract class AbstractPiece implements Piece {
 	@Override
 	public Map<String, Integer> getPosition() {
 		return this.position;
-
-	}
-
-	@Override
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
 
 	}
 
@@ -64,9 +45,28 @@ public abstract class AbstractPiece implements Piece {
 	}
 
 	@Override
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+
+	}
+
+	@Override
 	public void setImmune(boolean isImmune) {
 		this.isImmune = isImmune;
 
+	}
+
+	/*
+	 * modify the position of the piece
+	 * 
+	 * @param int x - x coordinate
+	 * 
+	 * @param int y - y coordinate
+	 */
+	@Override
+	public void setPosition(int x, int y) {
+		this.position.replace("x", x);
+		this.position.replace("y", y);
 	}
 
 }

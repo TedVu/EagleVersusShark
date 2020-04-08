@@ -1,47 +1,40 @@
 package view.operationview;
 
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * @author kevin & ted
+ */
 public class ModePanel extends JPanel {
 
-	private static final int WIDTH_OF_PANEL = 230;
-	private static final int HEIGHT_OF_PANEL = 0;
-	private JLabel modeLabel;
-	private JComboBox<String> modesMenu;
-	private String[] modes = { "Please select mode", "Normal Mode", "Sky Mode", "Protection Mode" };
+	/**
+	 * @serial 4010321472922982018L
+	 */
+	private static final long serialVersionUID = 4010321472922982018L;
+	private JComboBox<String> modeBox;
+	private JButton undoBtn;
 
+	/**
+	 * @see
+	 */
 	public ModePanel() {
+		String[] modes = { "Please select mode", "Normal Mode", "Sky Mode", "Protection Mode" };
+		modeBox = new JComboBox<String>(modes);
+		undoBtn = new JButton("Undo Move");
+
 		setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Mode Panel"));
-		setPreferredSize(new Dimension(WIDTH_OF_PANEL, HEIGHT_OF_PANEL));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-		modeLabel = new JLabel("Mode:");
-		modesMenu = new JComboBox<String>(modes);
+		JPanel compoBoxPannel = new JPanel();
+		compoBoxPannel.add(modeBox);
+		add(compoBoxPannel);
 
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 1;
-
-		// first row
-		gridBagConstraints.weightx = 1;
-		gridBagConstraints.weighty = 0.1;
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
-		gridBagConstraints.insets = new Insets(0, 0, 0, 5);
-		add(modeLabel, gridBagConstraints);
-
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.anchor = GridBagConstraints.LINE_START;
-		gridBagConstraints.insets = new Insets(0, 0, 0, 0);
-		add(modesMenu, gridBagConstraints);
+		JPanel undoBtnPanel = new JPanel();
+		undoBtnPanel.add(undoBtn);
+		add(undoBtnPanel);
 	}
 }

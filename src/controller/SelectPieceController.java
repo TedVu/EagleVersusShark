@@ -44,6 +44,16 @@ public class SelectPieceController implements ActionListener {
 		}
 	}
 
+	private void checkAllowTransitToMovePieceAction(String pieceName1, String pieceName2, String pieceName3) {
+		if (button.getActionCommand().equalsIgnoreCase(pieceName1)
+				|| button.getActionCommand().equalsIgnoreCase(pieceName2)
+				|| button.getActionCommand().equalsIgnoreCase(pieceName3)) {
+			pcs.firePropertyChange("MovePiece", button.getActionCommand(), boardView);
+		} else {
+			MessageDialog.notifySelectWrongTeam(boardView);
+		}
+	}
+
 	private void verifyPieceSelectedAndForwardCall() {
 		if (EngineImpl.getSingletonInstance().checkSelectPiece(button.getActionCommand())) {
 
@@ -55,16 +65,6 @@ public class SelectPieceController implements ActionListener {
 				checkAllowTransitToMovePieceAction(PieceType.ATTACKINGEAGLE.toString(),
 						PieceType.LEADERSHIPEAGLE.toString(), PieceType.VISIONARYEAGLE.toString());
 			}
-		}
-	}
-
-	private void checkAllowTransitToMovePieceAction(String pieceName1, String pieceName2, String pieceName3) {
-		if (button.getActionCommand().equalsIgnoreCase(pieceName1)
-				|| button.getActionCommand().equalsIgnoreCase(pieceName2)
-				|| button.getActionCommand().equalsIgnoreCase(pieceName3)) {
-			pcs.firePropertyChange("MovePiece", button.getActionCommand(), boardView);
-		} else {
-			MessageDialog.notifySelectWrongTeam(boardView);
 		}
 	}
 

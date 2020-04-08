@@ -1,41 +1,69 @@
 package view.operationview;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
 import controller.MakingMovePropertyChangeListener;
 import controller.StartGameController;
 import models.engine.EngineImpl;
 
-@SuppressWarnings("serial")
+/**
+ * @author kevin & ted
+ */
 public class StatusPanel extends JPanel {
+	/**
+	 * @serial 8787252718705342879L
+	 */
+	private static final long serialVersionUID = 8787252718705342879L;
+	private JButton startButton;
+	private JLabel turnLabel;
+	private JTextField turnTextField;
+	private JLabel timerLabel;
+	private JTextField timerTextField;
 
+	private List<SwingWorker<Void, Void>> workerThreads;
 
-	private static final int WIDTH_OF_PANEL = 230;
-	private static final int HEIGHT_OF_PANEL = 0;
-	private JButton startButton = new JButton("START");
-	private JLabel turnLabel = new JLabel("Turn:");
-	private JLabel timerLabel = new JLabel("Time making move left:");
-	private List<SwingWorker<Void, Void>> workerThreads = new ArrayList<SwingWorker<Void, Void>>();
-
+	/**
+	 * @see
+	 */
 	public StatusPanel() {
-		setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Status Panel"));
-		setPreferredSize(new Dimension(WIDTH_OF_PANEL, HEIGHT_OF_PANEL));
-		setLayout(new BorderLayout());
-		startButton.addActionListener(new StartGameController(this));
-		this.add(turnLabel, BorderLayout.NORTH);
-		this.add(timerLabel, BorderLayout.CENTER);
+		startButton = new JButton("START");
+		turnLabel = new JLabel("Turn:");
+		turnTextField = new JTextField(10);
+		turnTextField.setEditable(false);
+		timerLabel = new JLabel("Timer:");
+		timerTextField = new JTextField(10);
+		timerTextField.setEditable(false);
 
-		this.add(startButton, BorderLayout.SOUTH);
+		workerThreads = new ArrayList<SwingWorker<Void, Void>>();
+
+		setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Status Panel"));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+		startButton.addActionListener(new StartGameController(this));
+
+		JPanel turnLabelPanel = new JPanel();
+		turnLabelPanel.add(turnLabel);
+		turnLabelPanel.add(turnTextField);
+		add(turnLabelPanel);
+
+		JPanel timerPanel = new JPanel();
+		timerPanel.add(timerLabel);
+		timerPanel.add(timerTextField);
+		add(timerPanel);
+
+		JPanel startButtonPanel = new JPanel();
+		startButtonPanel.add(startButton);
+		add(startButtonPanel);
 
 		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getGameEngineCallback()
 				.getPropertyChangeListener();
@@ -47,21 +75,19 @@ public class StatusPanel extends JPanel {
 
 	}
 
-	public void updateTurnLabel(String currentPlayerType) {
-		turnLabel.setText("Turn: " + currentPlayerType);
-	}
-	
+	/**
+	 * @return
+	 */
 	public void startCountDown() {
 		for (SwingWorker<Void, Void> preWorker : workerThreads) {
 			preWorker.cancel(true);
 		}
+
 		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-			
 			@Override
 			protected Void doInBackground() throws Exception {
 				for (int i = 10; i >= 0; --i) {
-					timerLabel.setText("Time making move left: " + i);
-
+					timerTextField.setText(i + "");
 					Thread.sleep(1000);
 				}
 				return null;
@@ -71,5 +97,11 @@ public class StatusPanel extends JPanel {
 		worker.execute();
 	}
 
-	
+	/**
+	 * @return
+	 */
+	public void updateTurnLabel(String currentPlayerType) {
+		turnTextField.setText(currentPlayerType);
+	}
+
 }

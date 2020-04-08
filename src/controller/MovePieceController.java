@@ -24,28 +24,78 @@ import view.operationview.BoardPanel;
  * 
  */
 public class MovePieceController implements PropertyChangeListener, ActionListener {
-
 	private BoardPanel boardPanel;
-	private String pieceType;
+	private PieceType pieceType;
+
 	private Set<List<Integer>> validMoves;
+
 	private EnumSet<PieceType> eagleSet = EnumSet.of(PieceType.ATTACKINGEAGLE, PieceType.LEADERSHIPEAGLE,
 			PieceType.VISIONARYEAGLE);
 	private EnumSet<PieceType> sharkSet = EnumSet.of(PieceType.AGGRESSIVESHARK, PieceType.DEFENSIVESHARK,
 			PieceType.HEALINGSHARK);
 
+	/**
+	 * @param the selected button when moving piece
+	 * @implNote This method is a little bit heavyweight, may need decouple,
+	 *           extraction in later stage
+	 */
 	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
+	public void actionPerformed(ActionEvent e) {
+		boolean notEnterAlly = true;
 
-		if (evt.getPropertyName().equalsIgnoreCase("movepiece")) {
+		notEnterAlly = checkIfMoveOnAlly(e, notEnterAlly);
 
-			boardPanel = (BoardPanel) evt.getNewValue();
-
+		if (notEnterAlly) {
 			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
-			pieceType = (String) evt.getOldValue();
 
-			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+			Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString())
+					.getPosition();
+
+			boardPanel.restoreViewForOldPos(oldPos);
+
+			AbstractButton buttonClicked = (AbstractButton) e.getSource();
+			buttonClicked.setActionCommand(pieceType.toString());
+
+			Map<String, Integer> newPos = new HashMap<String, Integer>();
+
+			updateModel(buttons, buttonClicked, newPos);
+
+			EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString()).movePiece(newPos.get("x"),
+					newPos.get("y"));
+
+			boardPanel.updateBoardAfterMovingPiece(buttonClicked, pieceType, validMoves);
+
+			updateModelStateForNextTurn(buttons);
+		} else if (!notEnterAlly) {
+			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
+
+			AbstractButton buttonClicked = (AbstractButton) e.getSource();
+
+			pieceType = PieceType.valueOf(buttonClicked.getActionCommand().toString());
+			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString()).getValidMove();
+
+			boardPanel.updateBoardRollback();
 			enableViewAvailableMove(buttons);
+
 		}
+	}
+
+	private boolean checkIfMoveOnAlly(ActionEvent e, boolean notEnterAlly) {
+		if (eagleSet.contains(pieceType)) {
+			AbstractButton buttonClicked = (AbstractButton) e.getSource();
+			if (!buttonClicked.getActionCommand().equals("NormalButton")
+					&& eagleSet.contains(PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase()))) {
+				notEnterAlly = false;
+			}
+		} else if (sharkSet.contains(pieceType)) {
+			AbstractButton buttonClicked = (AbstractButton) e.getSource();
+			if (!buttonClicked.getActionCommand().equals("NormalButton")
+					&& sharkSet.contains(PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase()))) {
+				notEnterAlly = false;
+
+			}
+		}
+		return notEnterAlly;
 	}
 
 	/**
@@ -63,48 +113,18 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 		}
 	}
 
-	/**
-	 * @param the
-	 *            selected button when moving piece
-	 * @implNote This method is a little bit heavyweight, may need decouple,
-	 *           extraction in later stage
-	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		boolean notEnterAlly = true;
+	public void propertyChange(PropertyChangeEvent evt) {
 
-		notEnterAlly = checkIfMoveOnAlly(e, notEnterAlly);
+		if (evt.getPropertyName().equalsIgnoreCase("movepiece")) {
 
-		if (notEnterAlly) {
+			boardPanel = (BoardPanel) evt.getNewValue();
+
 			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
+			pieceType = PieceType.valueOf(evt.getOldValue().toString().toUpperCase());
 
-			Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getPosition();
-
-			boardPanel.restoreViewForOldPos(oldPos);
-
-			AbstractButton buttonClicked = (AbstractButton) e.getSource();
-			buttonClicked.setActionCommand(pieceType);
-
-			Map<String, Integer> newPos = new HashMap<String, Integer>();
-
-			updateModel(buttons, buttonClicked, newPos);
-
-			EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).movePiece(newPos.get("x"), newPos.get("y"));
-
-			boardPanel.updateBoardAfterMovingPiece(buttonClicked, pieceType, validMoves);
-
-			updateModelStateForNextTurn(buttons);
-		} else if (!notEnterAlly) {
-			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
-
-			AbstractButton buttonClicked = (AbstractButton) e.getSource();
-
-			pieceType = buttonClicked.getActionCommand();
-			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
-
-			boardPanel.updateBoardRollback();
+			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString()).getValidMove();
 			enableViewAvailableMove(buttons);
-
 		}
 	}
 
@@ -123,37 +143,19 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 
 	private void updateModelStateForNextTurn(List<List<AbstractButton>> buttons) {
 
-		if (eagleSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
+		if (eagleSet.contains(pieceType)) {
 			boardPanel.restoreButtonStateForNextTurn(eagleSet);
 
 			EngineImpl.getSingletonInstance().cancelTimer();
 			EngineImpl.getSingletonInstance().setActivePlayer("shark", true);
 
-		} else if (sharkSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
+		} else if (sharkSet.contains(pieceType)) {
 			// refresh state ready for next turn
 			boardPanel.restoreButtonStateForNextTurn(sharkSet);
 			EngineImpl.getSingletonInstance().cancelTimer();
 			EngineImpl.getSingletonInstance().setActivePlayer("eagle", true);
 
 		}
-	}
-
-	private boolean checkIfMoveOnAlly(ActionEvent e, boolean notEnterAlly) {
-		if (eagleSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
-			AbstractButton buttonClicked = (AbstractButton) e.getSource();
-			if (!buttonClicked.getActionCommand().equals("NormalButton")
-					&& eagleSet.contains(PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase()))) {
-				notEnterAlly = false;
-			}
-		} else if (sharkSet.contains(PieceType.valueOf(pieceType.toUpperCase()))) {
-			AbstractButton buttonClicked = (AbstractButton) e.getSource();
-			if (!buttonClicked.getActionCommand().equals("NormalButton")
-					&& sharkSet.contains(PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase()))) {
-				notEnterAlly = false;
-
-			}
-		}
-		return notEnterAlly;
 	}
 
 }

@@ -7,15 +7,7 @@ import java.util.Set;
 
 public interface Piece {
 
-	public void setPosition(int x, int y);
-
 	public Map<String, Integer> getPosition();
-
-	public void setActive(boolean isActive);
-
-	public boolean isActive();
-
-	public boolean movePiece(int newX, int newY);
 
 	// Ted
 	// the order matters for coordinate (hence use a list), convention is (x,y)
@@ -23,9 +15,17 @@ public interface Piece {
 	// [row][col]=[y][x]
 	public Set<List<Integer>> getValidMove();
 
+	public boolean isActive();
+
 	public boolean isImmune();
 
+	public boolean movePiece(int newX, int newY);
+
+	public void setActive(boolean isActive);
+
 	public void setImmune(boolean isImmune);
+
+	public void setPosition(int x, int y);
 
 	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
 

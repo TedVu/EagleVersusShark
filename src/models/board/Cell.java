@@ -11,16 +11,16 @@ public class Cell {
 		this.y = y;
 	}
 
+	public boolean getOccupied() {
+		return occupied;
+	}
+
 	public int getX() {
 		return x;
 	}
 
 	public int getY() {
 		return y;
-	}
-
-	public boolean getOccupied() {
-		return occupied;
 	}
 
 	public void setOccupied() {

@@ -24,6 +24,7 @@ public class LoadGameController implements ActionListener {
 
 	private JFrame startFrame;
 	private LoadGameDialog loadGameDialog;
+	private BufferedReader br;
 
 	public LoadGameController(JFrame startFrame, LoadGameDialog loadGameDialog) {
 		this.startFrame = startFrame;
@@ -32,7 +33,6 @@ public class LoadGameController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 
 		// perform loading game state here
 		String fileRequest = loadGameDialog.getFileNameInput();
@@ -44,7 +44,7 @@ public class LoadGameController implements ActionListener {
 				// start processing file here
 				try {
 					StringTokenizer stToken;
-					BufferedReader br = new BufferedReader(new FileReader(fileRequest));
+					br = new BufferedReader(new FileReader(fileRequest));
 					stToken = new StringTokenizer(br.readLine());
 					stToken.nextToken();
 					int boardSize = Integer.parseInt(stToken.nextToken());
@@ -84,7 +84,7 @@ public class LoadGameController implements ActionListener {
 					public void run() {
 						try {
 							MainAppFrame window = new MainAppFrame();
-							window.loadGame();
+							window.getBoardPanel().loadGame();
 							window.setVisible(true);
 
 						} catch (Exception e) {
