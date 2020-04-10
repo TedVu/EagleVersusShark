@@ -19,17 +19,10 @@ Eagles Versus Shark is a two dimensional, turn based board game that is subject 
 <img width="408" alt="boardimg" src="https://user-images.githubusercontent.com/36873497/77842369-ff687100-71dc-11ea-9e3c-9c96752f5c3b.png">
 
 # Design for View-Controller
-1. Change to View-Model Approach 
-2. At least decouple the MovePieceController => separate into another actionlistener
-3. Find a way to pass the status panel for update
-
-# TODO 
-1. Refactor Code
-2. Understanding threading and timer to implement save game(pause when saving game), undo move option.
-3. Incorporate view A2 with water area.
-4. Review A1
+1. Apply Bridge + DAO for Persistence
+2. Apply Observer Pattern
+3. Factory for Board
+4. Apply some patterns for cell (focus on structural including composite or decorator) / put color as an attribute in cell
 
 
-# Refactor Log 
-1. Make selectpiececontroller more cohesive by adding rollbackcontroller (forward two methods of selectpiececontroller to rollbackcontroller) 
 
