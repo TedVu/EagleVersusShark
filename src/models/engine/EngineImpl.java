@@ -58,7 +58,7 @@ public class EngineImpl implements Engine {
 
 	private Board board;
 
-	public EngineImpl() {
+	private EngineImpl() {
 		// these two will not be applicable for load game or not default game
 		board = new Board();
 		initializePiece();
@@ -330,10 +330,12 @@ public class EngineImpl implements Engine {
 		}
 	}
 
+
 	@Override
 	public void setActivePlayerTimer(String playerType) {
 
 		gameTimer = new java.util.Timer();
+
 		gameTimer.schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
@@ -341,7 +343,8 @@ public class EngineImpl implements Engine {
 				String currentPlayerTurn = eaglePlayer.getActive() ? "Eagle" : "Shark";
 				geCallback.timerNextMove(playerType, currentPlayerTurn);
 			}
-		}, 10000);
+
+		},10000);
 
 	}
 
@@ -371,5 +374,7 @@ public class EngineImpl implements Engine {
 	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece) {
 		return piece.useAbility(abilityName, piece, affectedPiece);
 	}
+
+
 
 }

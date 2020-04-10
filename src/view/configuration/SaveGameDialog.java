@@ -3,6 +3,8 @@ package view.configuration;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -12,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.SaveGameController;
+import models.engine.EngineImpl;
+import view.mainframe.MainAppFrame;
 
 /**
  * @author kevin & ted
@@ -27,11 +31,13 @@ public class SaveGameDialog extends JDialog {
 	private JTextField fileNameField;
 
 	private JButton saveGameButton = new JButton("Save");
+	private MainAppFrame mainFrame;
 
 	/**
 	 * @see
 	 */
-	public SaveGameDialog(JFrame startFrame) {
+	public SaveGameDialog(MainAppFrame startFrame) {
+		mainFrame = startFrame;
 		fileNameField = new JTextField(15);
 
 		setTitle("Save Game");
@@ -53,11 +59,13 @@ public class SaveGameDialog extends JDialog {
 		add(btnPanel, BorderLayout.SOUTH);
 
 		setVisible(true);
+
+	
 	}
 
 	/**
 	 * @return
-	 * @param 
+	 * @param
 	 */
 	public String getFileNameInput() {
 		return fileNameField.getText();

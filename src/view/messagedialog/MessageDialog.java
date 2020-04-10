@@ -25,7 +25,7 @@ public class MessageDialog {
 		JOptionPane.showMessageDialog(boardView, "You are selecting the wrong team");
 	}
 
-	public static void notifyStartGame(BoardPanel boardView) {
+	public static void notifyNotStartGame(BoardPanel boardView) {
 		JOptionPane.showMessageDialog(boardView, "You have not start the game yet");
 
 	}

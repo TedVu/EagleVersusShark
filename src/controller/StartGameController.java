@@ -30,7 +30,7 @@ public class StartGameController implements ActionListener {
 			} else if (initialPlayer.getPlayerType().equalsIgnoreCase(PieceType.getEagleTeamName())) {
 				statusPanel.updateTurnLabel("Eagle");
 				statusPanel.startCountDown();
-				EngineImpl.getSingletonInstance().setActivePlayerTimer("");
+				EngineImpl.getSingletonInstance().setActivePlayerTimer("shark");
 
 			}
 		} else {

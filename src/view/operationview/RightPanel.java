@@ -28,4 +28,8 @@ public class RightPanel extends JPanel {
 		add(statusPanel);
 		add(modePanel);
 	}
+
+	public StatusPanel getStatusPanel() {
+		return statusPanel;
+	}
 }
