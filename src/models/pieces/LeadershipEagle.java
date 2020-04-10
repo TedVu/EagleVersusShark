@@ -9,7 +9,7 @@ import java.util.Set;
 
 import models.engine.EngineImpl;
 
-public class LeadershipEagle extends AbstractPiece {
+public class LeadershipEagle extends AbstractPieceMove {
 
 	public LeadershipEagle(int x, int y) {
 		super(x, y);
