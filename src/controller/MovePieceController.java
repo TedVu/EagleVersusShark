@@ -71,7 +71,7 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 
 			AbstractButton buttonClicked = (AbstractButton) e.getSource();
 
-			pieceType = PieceType.valueOf(buttonClicked.getActionCommand().toString());
+			pieceType = PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase());
 			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString()).getValidMove();
 
 			boardPanel.updateBoardRollback();
