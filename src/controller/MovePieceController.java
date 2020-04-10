@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.swing.AbstractButton;
 
 import models.engine.EngineImpl;
+import models.pieces.Piece;
 import view.operationview.BoardPanel;
 
 /**
@@ -37,7 +38,8 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
 			pieceType = (String) evt.getOldValue();
 
-			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+			Piece piece = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType);
+			validMoves = piece.getValidMove(piece);
 			enableViewAvailableMove(buttons);
 		}
 	}
@@ -94,7 +96,8 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 			AbstractButton buttonClicked = (AbstractButton) e.getSource();
 
 			pieceType = buttonClicked.getActionCommand();
-			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+			Piece piece = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType);
+			validMoves = piece.getValidMove(piece);
 
 			boardPanel.updateBoardRollback();
 			enableViewAvailableMove(buttons);

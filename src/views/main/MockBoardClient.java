@@ -8,6 +8,6 @@ public class MockBoardClient {
 		Engine ge = EngineImpl.getSingletonInstance();
 		ge.initializePiece();
 		System.out.println(ge.getAllPieces().get("LeadershipEagle").getPosition());
-		System.out.println(ge.getAllPieces().get("LeadershipEagle").getValidMove());
+//		System.out.println(ge.getAllPieces().get("LeadershipEagle").getValidMove());
 	}
 }

@@ -29,19 +29,7 @@ public class AggressiveShark extends AbstractPieceMove{
 		return true;
 	}
 
-	// Same movement as LeadershipEagle except 1 cell ←→↑↓
-	@Override
-	public Set<List<Integer>> getValidMove() {
-		Map<String, Integer> currentPosition = this.getPosition();
-		int currentX = currentPosition.get("x");
-		int currentY = currentPosition.get("y");
-		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		validMoves.addAll(validMovesSouth(currentX, currentY, 1));
-		validMoves.addAll(validMovesNorth(currentX, currentY, 1));
-		validMoves.addAll(validMovesEast(currentX, currentY, 1));
-		validMoves.addAll(validMovesWest(currentX, currentY, 1));
-		return validMoves;
-	}
+
 
 	
 	@Override

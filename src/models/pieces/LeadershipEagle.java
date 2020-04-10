@@ -30,18 +30,6 @@ public class LeadershipEagle extends AbstractPieceMove {
 		return true;
 	}
 
-	@Override
-	public Set<List<Integer>> getValidMove() {
-		Map<String, Integer> currentPosition = this.getPosition();
-		int currentX = currentPosition.get("x");
-		int currentY = currentPosition.get("y");
-		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		validMoves.addAll(validMovesSouth(currentX, currentY, 2));
-		validMoves.addAll(validMovesNorth(currentX, currentY, 2));
-		validMoves.addAll(validMovesEast(currentX, currentY, 2));
-		validMoves.addAll(validMovesWest(currentX, currentY, 2));
-		return validMoves;
-	}
 
 	public Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();

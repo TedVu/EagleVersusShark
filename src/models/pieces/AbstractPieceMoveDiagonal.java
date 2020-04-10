@@ -82,36 +82,40 @@ public abstract class AbstractPieceMoveDiagonal extends AbstractPieceMove {
 	}
 	
 	
-//	private int getDistance(Piece piece) {
-//		
-//		if(piece instanceof AggressiveShark || piece instanceof AttackerEagle || piece instanceof HealingShark) {
-//			return 1;
-//		}
-//			
-//		else if(piece instanceof LeadershipEagle || piece instanceof DefensiveShark || piece instanceof VisionaryEagle) {
-//			return 2;
-//		}
-//		else {
-//			throw new IllegalArgumentException("invalid piece type");
-//		}
-//		
-//	}
-//	
-//	@Override
-//	public Set<List<Integer>> getValidMove(Piece piece, Map<String, Integer> position) {
-//		
-//		int distance = getDistance(piece);
-//		
-//		Map<String, Integer> currentPosition = position;
-//		int currentX = currentPosition.get("x");
-//		int currentY = currentPosition.get("y");
-//		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-//		validMoves.addAll(validDiaNorthEast(currentX, currentY, distance));
-//		validMoves.addAll(validDiaSouthWest(currentX, currentY, distance));
-//		validMoves.addAll(validDiaSouthEast(currentX, currentY, distance));
-//		validMoves.addAll(validDiaNorthWest(currentX, currentY, distance));
-//		return validMoves;
-//	}
+	private int getDistance(Piece piece) {
+		
+		if(piece instanceof AggressiveShark || piece instanceof AttackerEagle || piece instanceof HealingShark) {
+			return 1;
+		}
+			
+		else if(piece instanceof LeadershipEagle || piece instanceof DefensiveShark || piece instanceof VisionaryEagle) {
+			return 2;
+		}
+		else {
+			throw new IllegalArgumentException("invalid piece type");
+		}
+		
+	}
+	
+	@Override
+	public Set<List<Integer>> getValidMove(Piece piece) {
+		
+		int distance = getDistance(piece);
+		
+		Map<String, Integer> currentPosition = getPosition();
+		int currentX = currentPosition.get("x");
+		int currentY = currentPosition.get("y");
+		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
+		validMoves.addAll(validMovesSouth(currentX, currentY, distance));
+		validMoves.addAll(validMovesNorth(currentX, currentY, distance));
+		validMoves.addAll(validMovesEast(currentX, currentY, distance));
+		validMoves.addAll(validMovesWest(currentX, currentY, distance));
+		validMoves.addAll(validDiaNorthEast(currentX, currentY, distance));
+		validMoves.addAll(validDiaSouthWest(currentX, currentY, distance));
+		validMoves.addAll(validDiaSouthEast(currentX, currentY, distance));
+		validMoves.addAll(validDiaNorthWest(currentX, currentY, distance));
+		return validMoves;
+	}
 	
 
 }
