@@ -1,5 +1,7 @@
 package asset;
 
+import models.engine.EngineImpl;
+
 public enum PieceType {
 	ATTACKINGEAGLE {
 		@Override
@@ -14,13 +16,11 @@ public enum PieceType {
 
 		@Override
 		public int initialCoordinateX(int boardSize) {
-			// TODO Auto-generated method stub
-			return 0;
+			return boardSize / 2 - 1;
 		}
 
 		@Override
 		public int initialCoordinateY(int boardSize) {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 	},
@@ -38,14 +38,12 @@ public enum PieceType {
 
 		@Override
 		public int initialCoordinateX(int boardSize) {
-			// TODO Auto-generated method stub
-			return 0;
+			return boardSize / 2;
 		}
 
 		@Override
 		public int initialCoordinateY(int boardSize) {
-			// TODO Auto-generated method stub
-			return 0;
+			return 1;
 		}
 	},
 
@@ -62,13 +60,11 @@ public enum PieceType {
 
 		@Override
 		public int initialCoordinateX(int boardSize) {
-			// TODO Auto-generated method stub
-			return 0;
+			return boardSize / 2 + 1;
 		}
 
 		@Override
 		public int initialCoordinateY(int boardSize) {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 	},
@@ -86,14 +82,12 @@ public enum PieceType {
 
 		@Override
 		public int initialCoordinateX(int boardSize) {
-			// TODO Auto-generated method stub
-			return 0;
+			return boardSize / 2 - 1;
 		}
 
 		@Override
 		public int initialCoordinateY(int boardSize) {
-			// TODO Auto-generated method stub
-			return 0;
+			return boardSize - 1;
 		}
 
 	},
@@ -111,14 +105,12 @@ public enum PieceType {
 
 		@Override
 		public int initialCoordinateX(int boardSize) {
-			// TODO Auto-generated method stub
-			return 0;
+			return boardSize / 2;
 		}
 
 		@Override
 		public int initialCoordinateY(int boardSize) {
-			// TODO Auto-generated method stub
-			return 0;
+			return boardSize - 2;
 		}
 	},
 
@@ -135,14 +127,12 @@ public enum PieceType {
 
 		@Override
 		public int initialCoordinateX(int boardSize) {
-			// TODO Auto-generated method stub
-			return 0;
+			return boardSize / 2 + 1;
 		}
 
 		@Override
 		public int initialCoordinateY(int boardSize) {
-			// TODO Auto-generated method stub
-			return 0;
+			return boardSize - 1;
 		}
 	};
 

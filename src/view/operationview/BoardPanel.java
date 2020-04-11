@@ -140,23 +140,38 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @return
 	 */
 	private void populateTwoMiddlePiece() {
-		populateCustomPiece(1, EngineImpl.getSingletonInstance().getBoard().getCol() / 2, PieceType.LEADERSHIPEAGLE);
+		populateCustomPiece(
+				PieceType.LEADERSHIPEAGLE.initialCoordinateY(EngineImpl.getSingletonInstance().getBoard().getRow()),
+				PieceType.LEADERSHIPEAGLE.initialCoordinateX(EngineImpl.getSingletonInstance().getBoard().getCol()),
+				PieceType.LEADERSHIPEAGLE);
 
-		populateCustomPiece(EngineImpl.getSingletonInstance().getBoard().getCol() - 2,
-				EngineImpl.getSingletonInstance().getBoard().getCol() / 2, PieceType.DEFENSIVESHARK);
+		populateCustomPiece(
+				PieceType.DEFENSIVESHARK.initialCoordinateY(EngineImpl.getSingletonInstance().getBoard().getRow()),
+				PieceType.DEFENSIVESHARK.initialCoordinateX(EngineImpl.getSingletonInstance().getBoard().getCol()),
+				PieceType.DEFENSIVESHARK);
 	}
 
 	/**
 	 * @return
 	 */
 	private void populateTwoSidePiece() {
-		populateCustomPiece(0, EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1, PieceType.ATTACKINGEAGLE);
-		populateCustomPiece(0, EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1, PieceType.VISIONARYEAGLE);
+		populateCustomPiece(
+				PieceType.ATTACKINGEAGLE.initialCoordinateY(EngineImpl.getSingletonInstance().getBoard().getRow()),
+				PieceType.ATTACKINGEAGLE.initialCoordinateX(EngineImpl.getSingletonInstance().getBoard().getCol()),
+				PieceType.ATTACKINGEAGLE);
+		populateCustomPiece(
+				PieceType.VISIONARYEAGLE.initialCoordinateY(EngineImpl.getSingletonInstance().getBoard().getRow()),
+				PieceType.VISIONARYEAGLE.initialCoordinateX(EngineImpl.getSingletonInstance().getBoard().getCol()),
+				PieceType.VISIONARYEAGLE);
 
-		populateCustomPiece(EngineImpl.getSingletonInstance().getBoard().getRow() - 1,
-				EngineImpl.getSingletonInstance().getBoard().getCol() / 2 - 1, PieceType.AGGRESSIVESHARK);
-		populateCustomPiece(EngineImpl.getSingletonInstance().getBoard().getRow() - 1,
-				EngineImpl.getSingletonInstance().getBoard().getCol() / 2 + 1, PieceType.HEALINGSHARK);
+		populateCustomPiece(
+				PieceType.AGGRESSIVESHARK.initialCoordinateY(EngineImpl.getSingletonInstance().getBoard().getRow()),
+				PieceType.AGGRESSIVESHARK.initialCoordinateX(EngineImpl.getSingletonInstance().getBoard().getCol()),
+				PieceType.AGGRESSIVESHARK);
+		populateCustomPiece(
+				PieceType.HEALINGSHARK.initialCoordinateY(EngineImpl.getSingletonInstance().getBoard().getRow()),
+				PieceType.HEALINGSHARK.initialCoordinateX(EngineImpl.getSingletonInstance().getBoard().getCol()),
+				PieceType.HEALINGSHARK);
 	}
 
 	/**
