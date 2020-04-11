@@ -8,18 +8,20 @@ public enum PieceType {
 		}
 
 		@Override
-		public int getInitialPosX() {
-			return 3;
+		public String toString() {
+			return "AttackingEagle";
 		}
 
 		@Override
-		public int getInitialPosY() {
+		public int initialCoordinateX(int boardSize) {
+			// TODO Auto-generated method stub
 			return 0;
 		}
 
 		@Override
-		public String toString() {
-			return "AttackingEagle";
+		public int initialCoordinateY(int boardSize) {
+			// TODO Auto-generated method stub
+			return 0;
 		}
 	},
 
@@ -30,18 +32,20 @@ public enum PieceType {
 		}
 
 		@Override
-		public int getInitialPosX() {
-			return 4;
-		}
-
-		@Override
-		public int getInitialPosY() {
-			return 1;
-		}
-
-		@Override
 		public String toString() {
 			return "LeadershipEagle";
+		}
+
+		@Override
+		public int initialCoordinateX(int boardSize) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int initialCoordinateY(int boardSize) {
+			// TODO Auto-generated method stub
+			return 0;
 		}
 	},
 
@@ -52,18 +56,20 @@ public enum PieceType {
 		}
 
 		@Override
-		public int getInitialPosX() {
-			return 5;
+		public String toString() {
+			return "VisionaryEagle";
 		}
 
 		@Override
-		public int getInitialPosY() {
+		public int initialCoordinateX(int boardSize) {
+			// TODO Auto-generated method stub
 			return 0;
 		}
 
 		@Override
-		public String toString() {
-			return "VisionaryEagle";
+		public int initialCoordinateY(int boardSize) {
+			// TODO Auto-generated method stub
+			return 0;
 		}
 	},
 
@@ -74,18 +80,20 @@ public enum PieceType {
 		}
 
 		@Override
-		public int getInitialPosX() {
-			return 3;
-		}
-
-		@Override
-		public int getInitialPosY() {
-			return 8;
-		}
-
-		@Override
 		public String toString() {
 			return "AggressiveShark";
+		}
+
+		@Override
+		public int initialCoordinateX(int boardSize) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int initialCoordinateY(int boardSize) {
+			// TODO Auto-generated method stub
+			return 0;
 		}
 
 	},
@@ -97,18 +105,20 @@ public enum PieceType {
 		}
 
 		@Override
-		public int getInitialPosX() {
-			return 4;
-		}
-
-		@Override
-		public int getInitialPosY() {
-			return 7;
-		}
-
-		@Override
 		public String toString() {
 			return "DefensiveShark";
+		}
+
+		@Override
+		public int initialCoordinateX(int boardSize) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int initialCoordinateY(int boardSize) {
+			// TODO Auto-generated method stub
+			return 0;
 		}
 	},
 
@@ -119,18 +129,20 @@ public enum PieceType {
 		}
 
 		@Override
-		public int getInitialPosX() {
-			return 5;
-		}
-
-		@Override
-		public int getInitialPosY() {
-			return 8;
-		}
-
-		@Override
 		public String toString() {
 			return "HealingShark";
+		}
+
+		@Override
+		public int initialCoordinateX(int boardSize) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int initialCoordinateY(int boardSize) {
+			// TODO Auto-generated method stub
+			return 0;
 		}
 	};
 
@@ -148,9 +160,9 @@ public enum PieceType {
 
 	public abstract String getFileName();
 
-	public abstract int getInitialPosX();
+	public abstract int initialCoordinateX(int boardSize);
 
-	public abstract int getInitialPosY();
+	public abstract int initialCoordinateY(int boardSize);
 
 	public abstract String toString();
 }

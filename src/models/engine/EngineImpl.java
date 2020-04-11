@@ -330,7 +330,6 @@ public class EngineImpl implements Engine {
 		}
 	}
 
-
 	@Override
 	public void setActivePlayerTimer(String playerType) {
 
@@ -344,7 +343,7 @@ public class EngineImpl implements Engine {
 				geCallback.timerNextMove(playerType, currentPlayerTurn);
 			}
 
-		},10000);
+		}, 10000);
 
 	}
 
@@ -374,7 +373,5 @@ public class EngineImpl implements Engine {
 	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece) {
 		return piece.useAbility(abilityName, piece, affectedPiece);
 	}
-
-
 
 }

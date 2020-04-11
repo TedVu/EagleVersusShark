@@ -30,7 +30,6 @@ public class StatusPanel extends JPanel {
 	private JLabel timerLabel;
 	private JTextField timerTextField;
 
-
 	private List<SwingWorker<Void, Void>> workerThreads;
 
 	/**
@@ -105,5 +104,4 @@ public class StatusPanel extends JPanel {
 		turnTextField.setText(currentPlayerType);
 	}
 
-	
 }

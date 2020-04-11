@@ -25,7 +25,6 @@ public class MockViewClient {
 				try {
 					MainAppFrame window = new MainAppFrame();
 					window.setVisible(true);
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

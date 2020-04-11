@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import view.operationview.BoardPanel;
 import view.operationview.OperationToolbar;
 import view.operationview.RightPanel;
-import view.operationview.StatusPanel;
 
 /**
  * @author kevin & ted

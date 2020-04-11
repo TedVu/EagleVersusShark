@@ -11,7 +11,6 @@ import javax.swing.AbstractButton;
 import asset.PieceType;
 import controllermodel.facade.ControllerModelFacade;
 import controllermodel.interfaces.ControllerModelInterfaces;
-import models.engine.EngineImpl;
 import viewcontroller.interfaces.ViewControllerInterface;
 
 /**
@@ -24,9 +23,8 @@ import viewcontroller.interfaces.ViewControllerInterface;
 public class MovePieceController implements ActionListener {
 
 	private ViewControllerInterface viewControllerFacade;
-	private ControllerModelInterfaces controllerModelFacade=new ControllerModelFacade();
-	
-	
+	private ControllerModelInterfaces controllerModelFacade = new ControllerModelFacade();
+
 	private String pieceType;
 
 	private EnumSet<PieceType> eagleSet = EnumSet.of(PieceType.ATTACKINGEAGLE, PieceType.LEADERSHIPEAGLE,
@@ -35,8 +33,7 @@ public class MovePieceController implements ActionListener {
 			PieceType.HEALINGSHARK);
 
 	/**
-	 * @param the
-	 *            selected button when moving piece
+	 * @param the selected button when moving piece
 	 * @implNote This method is a little bit heavyweight, may need decouple,
 	 *           extraction in later stage
 	 */

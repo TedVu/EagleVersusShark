@@ -2,15 +2,11 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeSupport;
-import java.util.List;
-import java.util.Set;
 
 import javax.swing.AbstractButton;
 
 import asset.PieceType;
 import models.engine.EngineImpl;
-import view.messagedialog.MessageDialog;
 import view.operationview.BoardPanel;
 import viewcontroller.interfaces.ViewControllerInterface;
 

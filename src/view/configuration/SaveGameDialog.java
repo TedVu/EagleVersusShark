@@ -3,18 +3,14 @@ package view.configuration;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.SaveGameController;
-import models.engine.EngineImpl;
 import view.mainframe.MainAppFrame;
 
 /**
@@ -60,7 +56,6 @@ public class SaveGameDialog extends JDialog {
 
 		setVisible(true);
 
-	
 	}
 
 	/**

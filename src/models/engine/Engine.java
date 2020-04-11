@@ -56,7 +56,5 @@ public interface Engine {
 	public void setStartGame();
 
 	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
-	
-
 
 }
