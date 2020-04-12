@@ -25,8 +25,7 @@ public class ApplyConfigurationController implements ActionListener {
 		startFrame.setVisible(false);
 		settingGameDialog.setVisible(false);
 
-		EngineImpl.getSingletonInstance().configBoardSize(settingGameDialog.getBoardSizeSelection(),
-				settingGameDialog.getBoardSizeSelection());
+		EngineImpl.getSingletonInstance().configBoardSize(settingGameDialog.getBoardSizeSelection());
 		// perform configuration for board size and number of piece here
 		EngineImpl.getSingletonInstance().configNumPiece(settingGameDialog.getPieceNumberSelection());
 		EventQueue.invokeLater(new Runnable() {

@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.UIManager;
 
+import models.engine.EngineImpl;
 import view.mainframe.MainAppFrame;
 
 /**

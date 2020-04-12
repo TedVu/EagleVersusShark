@@ -9,7 +9,6 @@ import java.util.Set;
 import models.engine.EngineImpl;
 
 public class HealingShark extends AbstractPiece {
-
 	public HealingShark(int x, int y) {
 		super(x, y);
 	}
@@ -81,7 +80,7 @@ public class HealingShark extends AbstractPiece {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (x + i < EngineImpl.getSingletonInstance().getBoard().getCol() && y - i >= 0) {
+			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize() && y - i >= 0) {
 				validMove.add(x + i);
 				validMove.add(y - i);
 				validMoves.add(validMove);
@@ -113,8 +112,7 @@ public class HealingShark extends AbstractPiece {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (x + i < EngineImpl.getSingletonInstance().getBoard().getCol()
-					&& y + i < EngineImpl.getSingletonInstance().getBoard().getRow()) {
+			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize() && y + i < EngineImpl.getSingletonInstance().getBoard().getSize()) {
 				validMove.add(x + i);
 				validMove.add(y + i);
 				validMoves.add(validMove);
@@ -130,7 +128,7 @@ public class HealingShark extends AbstractPiece {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (y + i < EngineImpl.getSingletonInstance().getBoard().getRow() && x - i >= 0) {
+			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize() && x - i >= 0) {
 				validMove.add(x - i);
 				validMove.add(y + i);
 				validMoves.add(validMove);
@@ -146,7 +144,7 @@ public class HealingShark extends AbstractPiece {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (x + i < EngineImpl.getSingletonInstance().getBoard().getCol()) {
+			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()) {
 				validMove.add(x + i);
 				validMove.add(y);
 				validMoves.add(validMove);
@@ -186,7 +184,7 @@ public class HealingShark extends AbstractPiece {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (y + i < EngineImpl.getSingletonInstance().getBoard().getRow()) {
+			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize()) {
 				validMove.add(x);
 				validMove.add(y + i);
 				validMoves.add(validMove);

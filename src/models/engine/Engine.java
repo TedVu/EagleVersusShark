@@ -15,7 +15,7 @@ public interface Engine {
 	public boolean checkSelectPiece(String occupiedPiece);
 
 	// A2-Ted
-	public void configBoardSize(int row, int col);
+	public void configBoardSize(int size);
 
 	public void configNumPiece(int numPiece);
 

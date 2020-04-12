@@ -24,7 +24,6 @@ public class PieceFactory {
 		if (type.equalsIgnoreCase("HealingShark")) {
 			return new HealingShark(x, y);
 		}
-
 		return null;
 	}
 }

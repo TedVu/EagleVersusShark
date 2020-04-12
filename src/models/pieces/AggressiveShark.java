@@ -9,7 +9,6 @@ import java.util.Set;
 import models.engine.EngineImpl;
 
 public class AggressiveShark extends AbstractPiece {
-
 	private boolean onWaterCell;
 
 	public AggressiveShark(int x, int y) {
@@ -114,7 +113,7 @@ public class AggressiveShark extends AbstractPiece {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (x + i < EngineImpl.getSingletonInstance().getBoard().getCol()) {
+			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()) {
 				validMove.add(x + i);
 				validMove.add(y);
 				validMoves.add(validMove);
@@ -144,7 +143,7 @@ public class AggressiveShark extends AbstractPiece {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (y + i < EngineImpl.getSingletonInstance().getBoard().getRow()) {
+			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize()) {
 				validMove.add(x);
 				validMove.add(y + i);
 				validMoves.add(validMove);

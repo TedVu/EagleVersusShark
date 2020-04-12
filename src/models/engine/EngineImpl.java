@@ -35,9 +35,7 @@ public class EngineImpl implements Engine {
 	public static Engine getSingletonInstance() {
 		if (engine == null) {
 			engine = new EngineImpl();
-
 		}
-
 		return engine;
 	}
 
@@ -84,8 +82,8 @@ public class EngineImpl implements Engine {
 	}
 
 	@Override
-	public void configBoardSize(int row, int col) {
-		board = new Board(row, col);
+	public void configBoardSize(int size) {
+		board = new Board(size);
 		initializePiece();
 	}
 
@@ -96,14 +94,14 @@ public class EngineImpl implements Engine {
 			pieces = new HashMap<String, Piece>();
 
 			Piece attackingEagle = pieceFactory.generatePiece(PieceType.ATTACKINGEAGLE.toString(),
-					(board.getCol() / 2 - 1), 0);
+					(board.getSize() / 2 - 1), 0);
 			Piece visionaryEagle = pieceFactory.generatePiece(PieceType.VISIONARYEAGLE.toString(),
-					board.getCol() / 2 + 1, 0);
+					board.getSize() / 2 + 1, 0);
 
 			Piece aggressiveShark = pieceFactory.generatePiece(PieceType.AGGRESSIVESHARK.toString(),
-					board.getCol() / 2 - 1, board.getRow() - 1);
-			Piece healingShark = pieceFactory.generatePiece(PieceType.HEALINGSHARK.toString(), board.getCol() / 2 + 1,
-					board.getRow() - 1);
+					board.getSize() / 2 - 1, board.getSize() - 1);
+			Piece healingShark = pieceFactory.generatePiece(PieceType.HEALINGSHARK.toString(), board.getSize() / 2 + 1,
+					board.getSize() - 1);
 			board.addPiece(attackingEagle.getPosition().get("x"), attackingEagle.getPosition().get("y"));
 			board.addPiece(visionaryEagle.getPosition().get("x"), visionaryEagle.getPosition().get("y"));
 			board.addPiece(aggressiveShark.getPosition().get("x"), aggressiveShark.getPosition().get("y"));
@@ -118,10 +116,10 @@ public class EngineImpl implements Engine {
 		} else if (numPiece == 2) {
 			pieces = new HashMap<String, Piece>();
 
-			Piece leadershipEagle = pieceFactory.generatePiece(PieceType.LEADERSHIPEAGLE.toString(), board.getCol() / 2,
+			Piece leadershipEagle = pieceFactory.generatePiece(PieceType.LEADERSHIPEAGLE.toString(), board.getSize() / 2,
 					1);
-			Piece defensiveShark = pieceFactory.generatePiece(PieceType.DEFENSIVESHARK.toString(), board.getCol() / 2,
-					board.getRow() - 2);
+			Piece defensiveShark = pieceFactory.generatePiece(PieceType.DEFENSIVESHARK.toString(), board.getSize() / 2,
+					board.getSize() - 2);
 			pieces.put(PieceType.LEADERSHIPEAGLE.toString(), leadershipEagle);
 			pieces.put(PieceType.DEFENSIVESHARK.toString(), defensiveShark);
 
@@ -219,18 +217,18 @@ public class EngineImpl implements Engine {
 
 	public void initializePiece() {
 
-		Piece attackingEagle = pieceFactory.generatePiece(PieceType.ATTACKINGEAGLE.toString(), (board.getCol() / 2 - 1),
+		Piece attackingEagle = pieceFactory.generatePiece(PieceType.ATTACKINGEAGLE.toString(), (board.getSize() / 2 - 1),
 				0);
-		Piece leadershipEagle = pieceFactory.generatePiece(PieceType.LEADERSHIPEAGLE.toString(), board.getCol() / 2, 1);
-		Piece visionaryEagle = pieceFactory.generatePiece(PieceType.VISIONARYEAGLE.toString(), board.getCol() / 2 + 1,
+		Piece leadershipEagle = pieceFactory.generatePiece(PieceType.LEADERSHIPEAGLE.toString(), board.getSize() / 2, 1);
+		Piece visionaryEagle = pieceFactory.generatePiece(PieceType.VISIONARYEAGLE.toString(), board.getSize() / 2 + 1,
 				0);
 
-		Piece aggressiveShark = pieceFactory.generatePiece(PieceType.AGGRESSIVESHARK.toString(), board.getCol() / 2 - 1,
-				board.getRow() - 1);
-		Piece defensiveShark = pieceFactory.generatePiece(PieceType.DEFENSIVESHARK.toString(), board.getCol() / 2,
-				board.getRow() - 2);
-		Piece healingShark = pieceFactory.generatePiece(PieceType.HEALINGSHARK.toString(), board.getCol() / 2 + 1,
-				board.getRow() - 1);
+		Piece aggressiveShark = pieceFactory.generatePiece(PieceType.AGGRESSIVESHARK.toString(), board.getSize() / 2 - 1,
+				board.getSize() - 1);
+		Piece defensiveShark = pieceFactory.generatePiece(PieceType.DEFENSIVESHARK.toString(), board.getSize() / 2,
+				board.getSize() - 2);
+		Piece healingShark = pieceFactory.generatePiece(PieceType.HEALINGSHARK.toString(), board.getSize() / 2 + 1,
+				board.getSize() - 1);
 
 		board.addPiece(attackingEagle.getPosition().get("x"), attackingEagle.getPosition().get("y"));
 		board.addPiece(leadershipEagle.getPosition().get("x"), leadershipEagle.getPosition().get("y"));
@@ -252,15 +250,12 @@ public class EngineImpl implements Engine {
 
 	@Override
 	public void loadBoard(int side) {
-		// TODO Auto-generated method stub
-		board = new Board(side, side);
-
+		board = new Board(side);
 	}
 
 	@Override
 	public void loadPiece(List<Piece> piecesLoad) {
 		// TODO Auto-generated method stub
-
 		pieces = new HashMap<String, Piece>();
 		for (Piece piece : piecesLoad) {
 			if (piece instanceof AttackingEagle) {

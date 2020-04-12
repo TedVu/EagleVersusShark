@@ -27,7 +27,7 @@ public class SaveGameController implements ActionListener {
 			try {
 				PrintWriter writer = new PrintWriter(fileName);
 				writer.print("BoardSize: ");
-				writer.println(EngineImpl.getSingletonInstance().getBoard().getCol());
+				writer.println(EngineImpl.getSingletonInstance().getBoard().getSize());
 				writer.print("NumPiece: ");
 				writer.println(EngineImpl.getSingletonInstance().getAllPieces().size());
 

@@ -51,7 +51,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 */
 	private static final long serialVersionUID = -146176190184206205L;
 	private List<List<AbstractButton>> buttons;
-
+	private int boardSize = EngineImpl.getSingletonInstance().getBoard().getSize();
 	private ViewControllerInterface facade;
 
 	/**
@@ -65,22 +65,19 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	public BoardPanel() {
 		ButtonGroup group = new ButtonGroup();
 
-		int numberOfRow = EngineImpl.getSingletonInstance().getBoard().getRow();
-		int numberOfCol = EngineImpl.getSingletonInstance().getBoard().getCol();
-
 		buttons = new ArrayList<>();
 
 		setLayout(new BorderLayout());
 
 		JPanel btnContainerPanel = new JPanel();
-		btnContainerPanel.setLayout(new GridLayout(numberOfRow, numberOfCol, 0, 0));
+		btnContainerPanel.setLayout(new GridLayout(boardSize, boardSize, 0, 0));
 
 		facade = new ViewControllerFacade();
 		facade.addPropertyChangeListener(this);
 
-		for (int row = 0; row < numberOfRow; ++row) {
+		for (int row = 0; row < boardSize; ++row) {
 			buttons.add(new ArrayList<AbstractButton>());
-			for (int col = 0; col < numberOfCol; ++col) {
+			for (int col = 0; col < boardSize; ++col) {
 				JButton currentButton = new JButton();
 				buttons.get(row).add(currentButton);
 
@@ -140,38 +137,26 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @return
 	 */
 	private void populateTwoMiddlePiece() {
-		populateCustomPiece(
-				PieceType.LEADERSHIPEAGLE.initialCoordinateY(EngineImpl.getSingletonInstance().getBoard().getRow()),
-				PieceType.LEADERSHIPEAGLE.initialCoordinateX(EngineImpl.getSingletonInstance().getBoard().getCol()),
-				PieceType.LEADERSHIPEAGLE);
+		populateCustomPiece(PieceType.LEADERSHIPEAGLE.initialCoordinateY(boardSize),
+				PieceType.LEADERSHIPEAGLE.initialCoordinateX(boardSize), PieceType.LEADERSHIPEAGLE);
 
-		populateCustomPiece(
-				PieceType.DEFENSIVESHARK.initialCoordinateY(EngineImpl.getSingletonInstance().getBoard().getRow()),
-				PieceType.DEFENSIVESHARK.initialCoordinateX(EngineImpl.getSingletonInstance().getBoard().getCol()),
-				PieceType.DEFENSIVESHARK);
+		populateCustomPiece(PieceType.DEFENSIVESHARK.initialCoordinateY(boardSize),
+				PieceType.DEFENSIVESHARK.initialCoordinateX(boardSize), PieceType.DEFENSIVESHARK);
 	}
 
 	/**
 	 * @return
 	 */
 	private void populateTwoSidePiece() {
-		populateCustomPiece(
-				PieceType.ATTACKINGEAGLE.initialCoordinateY(EngineImpl.getSingletonInstance().getBoard().getRow()),
-				PieceType.ATTACKINGEAGLE.initialCoordinateX(EngineImpl.getSingletonInstance().getBoard().getCol()),
-				PieceType.ATTACKINGEAGLE);
-		populateCustomPiece(
-				PieceType.VISIONARYEAGLE.initialCoordinateY(EngineImpl.getSingletonInstance().getBoard().getRow()),
-				PieceType.VISIONARYEAGLE.initialCoordinateX(EngineImpl.getSingletonInstance().getBoard().getCol()),
-				PieceType.VISIONARYEAGLE);
+		populateCustomPiece(PieceType.ATTACKINGEAGLE.initialCoordinateY(boardSize),
+				PieceType.ATTACKINGEAGLE.initialCoordinateX(boardSize), PieceType.ATTACKINGEAGLE);
+		populateCustomPiece(PieceType.VISIONARYEAGLE.initialCoordinateY(boardSize),
+				PieceType.VISIONARYEAGLE.initialCoordinateX(boardSize), PieceType.VISIONARYEAGLE);
 
-		populateCustomPiece(
-				PieceType.AGGRESSIVESHARK.initialCoordinateY(EngineImpl.getSingletonInstance().getBoard().getRow()),
-				PieceType.AGGRESSIVESHARK.initialCoordinateX(EngineImpl.getSingletonInstance().getBoard().getCol()),
-				PieceType.AGGRESSIVESHARK);
-		populateCustomPiece(
-				PieceType.HEALINGSHARK.initialCoordinateY(EngineImpl.getSingletonInstance().getBoard().getRow()),
-				PieceType.HEALINGSHARK.initialCoordinateX(EngineImpl.getSingletonInstance().getBoard().getCol()),
-				PieceType.HEALINGSHARK);
+		populateCustomPiece(PieceType.AGGRESSIVESHARK.initialCoordinateY(boardSize),
+				PieceType.AGGRESSIVESHARK.initialCoordinateX(boardSize), PieceType.AGGRESSIVESHARK);
+		populateCustomPiece(PieceType.HEALINGSHARK.initialCoordinateY(boardSize),
+				PieceType.HEALINGSHARK.initialCoordinateX(boardSize), PieceType.HEALINGSHARK);
 	}
 
 	/**
@@ -309,11 +294,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * better design choice here
 	 */
 	public void updateBoardEndOfTimer() {
-		int nRow = EngineImpl.getSingletonInstance().getBoard().getRow();
-		int nCol = EngineImpl.getSingletonInstance().getBoard().getCol();
-
-		for (int row = 0; row < nRow; ++row) {
-			for (int col = 0; col < nCol; ++col) {
+		for (int row = 0; row < boardSize; ++row) {
+			for (int col = 0; col < boardSize; ++col) {
 				buttons.get(row).get(col).setBackground(Color.WHITE);
 				ActionListener[] listeners = buttons.get(row).get(col).getActionListeners();
 				for (ActionListener listener : listeners) {

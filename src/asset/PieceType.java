@@ -1,7 +1,5 @@
 package asset;
 
-import models.engine.EngineImpl;
-
 public enum PieceType {
 	ATTACKINGEAGLE {
 		@Override
