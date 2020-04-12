@@ -10,36 +10,53 @@ import view.interfaces.GameEngineCallback;
 
 public interface Engine {
 
+	public void cancelTimer();
+
+	public boolean checkSelectPiece(String occupiedPiece);
+
+	// A2-Ted
+	public void configBoardSize(int row, int col);
+
+	public void configNumPiece(int numPiece);
+
 	public List<Piece> getActiveEagles();
 
 	public List<Piece> getActiveSharks();
 
-	public boolean setPieceActiveStatus(Piece piece, boolean isActive);
-
-	public Player getCurrentActivePlayer();
-
-	public Player getInitialPlayerActivePlayer();
-
-	public void setActivePlayer(String playerType, boolean turnOnTimer);
+	public Map<String, Piece> getAllPieces();
 
 	public Board getBoard();
 
-	public void movePiece(Piece piece, int newX, int newY);
+	public Player getCurrentActivePlayer();
 
-	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
+	public GameEngineCallback getGameEngineCallback();
 
-	public Map<String, Piece> getAllPieces();
+	public Player getInitialPlayerActivePlayer();
 
-	public boolean checkSelectPiece(String occupiedPiece);
-
-	public void initializePiece();
-
-	public void setActivePlayerTimer(String playerType);
+	public boolean getLoadGame();
 
 	public boolean getStartGame();
 
-	public void cancelTimer();
+	public void initializePiece();
 
-	public GameEngineCallback getGameEngineCallback();
+	public void loadBoard(int side);
+
+	public void loadPiece(List<Piece> pieces);
+
+	public void loadTurn(String currentTurn);
+
+	public void movePiece(Piece piece, int newX, int newY);
+
+	public void setActivePlayer(String playerType, boolean turnOnTimer);
+
+	public void setActivePlayerTimer(String playerType);
+
+	public boolean setPieceActiveStatus(Piece piece, boolean isActive);
+
+	public void setStartGame();
+
+	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
+	
+
 
 }

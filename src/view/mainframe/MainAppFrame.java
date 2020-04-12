@@ -2,33 +2,66 @@ package view.mainframe;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import view.operationview.BoardPanel;
 import view.operationview.OperationToolbar;
+import view.operationview.RightPanel;
 import view.operationview.StatusPanel;
 
+/**
+ * @author kevin & ted
+ */
 public class MainAppFrame extends JFrame {
-	private static final int FRAME_WIDTH = 800;
-	private static final int FRAME_HEIGHT = 600;
+	/**
+	 * @serial -6241584551658525365L
+	 */
+	private static final long serialVersionUID = -6241584551658525365L;
+	private static final int FRAME_WIDTH = 1000;
+	private static final int FRAME_HEIGHT = 700;
 
 	private OperationToolbar operationToolbar;
-	private StatusPanel statusPanel;
 	private BoardPanel boardPanel;
+	private RightPanel rightPanel;
 
+	/**
+	 * @see
+	 */
 	public MainAppFrame() {
 		boardPanel = new BoardPanel();
-		operationToolbar = new OperationToolbar();
-		statusPanel = new StatusPanel();
+		operationToolbar = new OperationToolbar(this);
+		rightPanel = new RightPanel();
 
-		setTitle("Eagle versus Shark");
+		setTitle("Eagle vs Shark");
+
+		Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(screenDimension.width / 2 - FRAME_WIDTH / 2, screenDimension.height / 2 - FRAME_HEIGHT / 2);
+
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 
-		getContentPane().add(boardPanel, BorderLayout.CENTER);
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
+		centerPanel.add(boardPanel);
+		centerPanel.add(rightPanel);
+
+		getContentPane().add(centerPanel, BorderLayout.CENTER);
 		getContentPane().add(operationToolbar, BorderLayout.NORTH);
-		getContentPane().add(statusPanel, BorderLayout.EAST);
+	}
+
+	public RightPanel getRightPanel() {
+		return rightPanel;
+	}
+
+	/**
+	 * @return
+	 */
+	public BoardPanel getBoardPanel() {
+		return boardPanel;
 	}
 }

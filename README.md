@@ -18,13 +18,11 @@ Eagles Versus Shark is a two dimensional, turn based board game that is subject 
 
 <img width="408" alt="boardimg" src="https://user-images.githubusercontent.com/36873497/77842369-ff687100-71dc-11ea-9e3c-9c96752f5c3b.png">
 
+# Design for View-Controller
+1. Apply Bridge + DAO for Persistence
+2. Apply Observer Pattern
+3. Factory for Board
+4. Apply some patterns for cell (focus on structural including composite or decorator) / put color as an attribute in cell
 
-# TODO 
-1. Test thoroughly for timer
-2. Refactor code
-3. Craft the view (statuspanel)  
-4. Drawing diagrams and prepare documents for A1
 
-# Refactor Log 
-1. Make selectpiececontroller more cohesive by adding rollbackcontroller (forward two methods of selectpiececontroller to rollbackcontroller) 
 

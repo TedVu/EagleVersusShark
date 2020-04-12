@@ -2,17 +2,17 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.swing.AbstractButton;
 
+import asset.PieceType;
+import controllermodel.facade.ControllerModelFacade;
+import controllermodel.interfaces.ControllerModelInterfaces;
 import models.engine.EngineImpl;
-import view.operationview.BoardPanel;
+import viewcontroller.interfaces.ViewControllerInterface;
 
 /**
  * @author Ted
@@ -21,41 +21,18 @@ import view.operationview.BoardPanel;
  * @see documents on ggDrive for flow of events
  * 
  */
-public class MovePieceController implements PropertyChangeListener, ActionListener {
+public class MovePieceController implements ActionListener {
 
-	private BoardPanel boardPanel;
+	private ViewControllerInterface viewControllerFacade;
+	private ControllerModelInterfaces controllerModelFacade=new ControllerModelFacade();
+	
+	
 	private String pieceType;
-	private Set<List<Integer>> validMoves;
 
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-
-		if (evt.getPropertyName().equalsIgnoreCase("movepiece")) {
-
-			boardPanel = (BoardPanel) evt.getNewValue();
-
-			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
-			pieceType = (String) evt.getOldValue();
-
-			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
-			enableViewAvailableMove(buttons);
-		}
-	}
-
-	/**
-	 * @param buttons
-	 * @implNote This method does the colouring for available move cell, also
-	 *           deregister the original selectPieceListener which is registered at
-	 *           the start when creating board, and add move piece listener to allow
-	 *           move action
-	 * @see BoardPanel.java
-	 */
-	private void enableViewAvailableMove(List<List<AbstractButton>> buttons) {
-		boardPanel.updateBoardAfterChoosingPiece(validMoves, pieceType);
-		for (List<Integer> moves : validMoves) {
-			buttons.get(moves.get(1)).get(moves.get(0)).addActionListener(this);
-		}
-	}
+	private EnumSet<PieceType> eagleSet = EnumSet.of(PieceType.ATTACKINGEAGLE, PieceType.LEADERSHIPEAGLE,
+			PieceType.VISIONARYEAGLE);
+	private EnumSet<PieceType> sharkSet = EnumSet.of(PieceType.AGGRESSIVESHARK, PieceType.DEFENSIVESHARK,
+			PieceType.HEALINGSHARK);
 
 	/**
 	 * @param the
@@ -67,85 +44,67 @@ public class MovePieceController implements PropertyChangeListener, ActionListen
 	public void actionPerformed(ActionEvent e) {
 		boolean notEnterAlly = true;
 
-		notEnterAlly = checkIfMoveOnAlly(e, notEnterAlly);
-
+		notEnterAlly = checkIfMoveOnAlly((AbstractButton) e.getSource(), notEnterAlly);
 		if (notEnterAlly) {
-			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
-
-			Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getPosition();
-
-			boardPanel.restoreViewForOldPos(oldPos);
 
 			AbstractButton buttonClicked = (AbstractButton) e.getSource();
-			buttonClicked.setActionCommand(pieceType);
+			viewControllerFacade.updateBoardMovingPiece(buttonClicked, pieceType);
+			updateModel(buttonClicked);
+			updateModelStateForNextTurn();
 
-			Map<String, Integer> newPos = new HashMap<String, Integer>();
-
-			updateModel(buttons, buttonClicked, newPos);
-
-			EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).movePiece(newPos.get("x"), newPos.get("y"));
-
-			boardPanel.updateBoardAfterMovingPiece(buttonClicked, pieceType, validMoves);
-
-			updateModelStateForNextTurn(buttons);
 		} else if (!notEnterAlly) {
-			List<List<AbstractButton>> buttons = boardPanel.getButtonList();
-
 			AbstractButton buttonClicked = (AbstractButton) e.getSource();
 
 			pieceType = buttonClicked.getActionCommand();
-			validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
-
-			boardPanel.updateBoardRollback();
-			enableViewAvailableMove(buttons);
-
+			viewControllerFacade.updateBoardRollback();
+			viewControllerFacade.updateBoardAfterChoosingPiece(pieceType);
+			viewControllerFacade.readdMovePieceController(pieceType, this);
 		}
 	}
 
-	private void updateModel(List<List<AbstractButton>> buttons, AbstractButton buttonClicked,
-			Map<String, Integer> newPos) {
-		for (int i = 0; i < buttons.size(); ++i) {
-			for (int j = 0; j < buttons.get(0).size(); ++j) {
-				if (buttons.get(i).get(j).equals(buttonClicked)) {
-					newPos.put("y", i);
-					newPos.put("x", j);
-					break;
-				}
-			}
-		}
-	}
+	private boolean checkIfMoveOnAlly(AbstractButton buttonClicked, boolean notEnterAlly) {
+		PieceType pieceTypeEnum = PieceType.valueOf(pieceType.toUpperCase());
 
-	private void updateModelStateForNextTurn(List<List<AbstractButton>> buttons) {
-		if (AssetHelper.eagleNames.contains(pieceType.toLowerCase())) {
+		if (eagleSet.contains(pieceTypeEnum)) {
 
-			boardPanel.restoreButtonStateForNextTurn(AssetHelper.eagleNames);
-
-			EngineImpl.getSingletonInstance().cancelTimer();
-			EngineImpl.getSingletonInstance().setActivePlayer("shark", true);
-
-		} else if (AssetHelper.sharkNames.contains(pieceType.toLowerCase())) {
-			// refresh state ready for next turn
-			boardPanel.restoreButtonStateForNextTurn(AssetHelper.sharkNames);
-			EngineImpl.getSingletonInstance().cancelTimer();
-			EngineImpl.getSingletonInstance().setActivePlayer("eagle", true);
-
-		}
-	}
-
-	private boolean checkIfMoveOnAlly(ActionEvent e, boolean notEnterAlly) {
-		if (AssetHelper.eagleNames.contains(pieceType.toLowerCase())) {
-			AbstractButton buttonClicked = (AbstractButton) e.getSource();
-			if (AssetHelper.eagleNames.contains(buttonClicked.getActionCommand().toLowerCase())) {
+			if (!buttonClicked.getActionCommand().equals("NormalButton")
+					&& eagleSet.contains(PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase()))) {
 				notEnterAlly = false;
 			}
-		} else if (AssetHelper.sharkNames.contains(pieceType.toLowerCase())) {
-			AbstractButton buttonClicked = (AbstractButton) e.getSource();
-			if (AssetHelper.sharkNames.contains(buttonClicked.getActionCommand().toLowerCase())) {
+		} else if (sharkSet.contains(pieceTypeEnum)) {
+			if (!buttonClicked.getActionCommand().equals("NormalButton")
+					&& sharkSet.contains(PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase()))) {
 				notEnterAlly = false;
-
 			}
 		}
 		return notEnterAlly;
+	}
+
+	public void setUpControllerState(String pieceName, ViewControllerInterface facade) {
+		pieceType = pieceName;
+		this.viewControllerFacade = facade;
+	}
+
+	private void updateModel(AbstractButton buttonClicked) {
+
+		Map<String, Integer> newPos = new HashMap<String, Integer>();
+		viewControllerFacade.locateNewPos(buttonClicked, newPos);
+
+		controllerModelFacade.updateModelAfterMovingPiece(newPos, pieceType);
+
+	}
+
+	private void updateModelStateForNextTurn() {
+		PieceType pieceTypeEnum = PieceType.valueOf(pieceType.toUpperCase());
+		if (eagleSet.contains(pieceTypeEnum)) {
+			viewControllerFacade.restoreButtonStateForNextTurn(eagleSet);
+			controllerModelFacade.updateModelStateForNextTurn("shark");
+
+		} else if (sharkSet.contains(pieceTypeEnum)) {
+			// refresh state ready for next turn
+			viewControllerFacade.restoreButtonStateForNextTurn(sharkSet);
+			controllerModelFacade.updateModelStateForNextTurn("eagle");
+		}
 	}
 
 }

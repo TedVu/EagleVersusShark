@@ -15,13 +15,13 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public String getPlayerType() {
+		return this.playerType;
 	}
 
 	@Override
-	public String getPlayerType() {
-		return this.playerType;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	@Override
