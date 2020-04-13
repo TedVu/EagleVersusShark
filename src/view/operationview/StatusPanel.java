@@ -12,12 +12,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
+import asset.TeamType;
 import controller.MakingMovePropertyChangeListener;
 import controller.StartGameController;
 import models.engine.EngineImpl;
 
 /**
- * @author kevin & ted
+ * @author ted &#38; kevin
  */
 public class StatusPanel extends JPanel {
 	/**
@@ -81,7 +82,6 @@ public class StatusPanel extends JPanel {
 		for (SwingWorker<Void, Void> preWorker : workerThreads) {
 			preWorker.cancel(true);
 		}
-
 		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
 			@Override
 			protected Void doInBackground() throws Exception {
@@ -94,14 +94,13 @@ public class StatusPanel extends JPanel {
 		};
 		workerThreads.add(worker);
 		worker.execute();
-
 	}
 
 	/**
 	 * @return
 	 */
-	public void updateTurnLabel(String currentPlayerType) {
-		turnTextField.setText(currentPlayerType);
+	public void updateTurnLabel(TeamType currentPlayer) {
+		turnTextField.setText(currentPlayer.toString());
 	}
 
 }

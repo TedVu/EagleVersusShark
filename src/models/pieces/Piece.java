@@ -5,28 +5,46 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author sefira & chanboth
+ *
+ */
 public interface Piece {
 
+	/**
+	 * Get the current position of the piece
+	 * 
+	 * @return
+	 */
 	public Map<String, Integer> getPosition();
 
-	// Ted
-	// the order matters for coordinate (hence use a list), convention is (x,y)
-	// NOTE: this is a little bit confused when plugging into the board which is
-	// [row][col]=[y][x]
+	/**
+	 * @return
+	 */
 	public Set<List<Integer>> getValidMove();
 
+	/**
+	 * @return
+	 */
 	public boolean isActive();
 
-	public boolean isImmune();
+	/**
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean movePiece(int x, int y);
 
-	public boolean movePiece(int newX, int newY);
-
+	/**
+	 * @param isActive
+	 */
 	public void setActive(boolean isActive);
 
-	public void setImmune(boolean isImmune);
-
+	/**
+	 * Modify the position of the piece
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void setPosition(int x, int y);
-
-	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece);
-
 }

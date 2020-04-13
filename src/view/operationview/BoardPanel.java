@@ -10,7 +10,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,11 +23,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import asset.PieceType;
+import asset.TeamType;
 import controller.MovePieceController;
 import controller.SelectPieceController;
 import controller.TimerPropertyChangeListener;
 import models.engine.EngineImpl;
-import models.pieces.Piece;
 import view.messagedialog.MessageDialog;
 import viewcontroller.facade.ViewControllerFacade;
 import viewcontroller.interfaces.ViewControllerInterface;
@@ -42,7 +41,6 @@ import viewcontroller.interfaces.ViewControllerInterface;
  * 
  * @author ted & kevin
  * @version 1.0
- * @since 07.04.20
  */
 public class BoardPanel extends JPanel implements PropertyChangeListener {
 
@@ -51,7 +49,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 */
 	private static final long serialVersionUID = -146176190184206205L;
 	private List<List<AbstractButton>> buttons;
-	private int boardSize = EngineImpl.getSingletonInstance().getBoard().getSize();
 	private ViewControllerInterface facade;
 
 	/**
@@ -63,11 +60,11 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @see
 	 */
 	public BoardPanel() {
+		int boardSize = EngineImpl.getSingletonInstance().getBoard().getSize();
+
 		ButtonGroup group = new ButtonGroup();
 
 		buttons = new ArrayList<>();
-
-		setLayout(new BorderLayout());
 
 		JPanel btnContainerPanel = new JPanel();
 		btnContainerPanel.setLayout(new GridLayout(boardSize, boardSize, 0, 0));
@@ -77,6 +74,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 		for (int row = 0; row < boardSize; ++row) {
 			buttons.add(new ArrayList<AbstractButton>());
+
 			for (int col = 0; col < boardSize; ++col) {
 				JButton currentButton = new JButton();
 				buttons.get(row).add(currentButton);
@@ -89,17 +87,16 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 				btnContainerPanel.add(currentButton);
 				group.add(currentButton);
-
 			}
 		}
+
+		setLayout(new BorderLayout());
 		add(btnContainerPanel, BorderLayout.CENTER);
 		setPreferredSize(new Dimension(800, 800));
 		setMaximumSize(new Dimension(800, 800));
 		setMinimumSize(new Dimension(800, 800));
 
-		if (!EngineImpl.getSingletonInstance().getLoadGame()) {
-			defaultNumberPiece();
-		}
+		populatePieces(boardSize);
 
 		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getGameEngineCallback()
 				.getPropertyChangeListener();
@@ -111,18 +108,12 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
-	/**
-	 * @return
-	 */
-	private void defaultNumberPiece() {
-		int numberOfPiece = EngineImpl.getSingletonInstance().getAllPieces().size();
-		if (numberOfPiece == 2) {
-			populateTwoMiddlePiece();
-		} else if (numberOfPiece == 4) {
-			populateTwoSidePiece();
-		} else if (numberOfPiece == 6) {
-			populateTwoMiddlePiece();
-			populateTwoSidePiece();
+	private void addListenerOnValidMoveCell(AbstractButton buttonClicked, MovePieceController movePieceController) {
+		PieceType pieceType = PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase());
+		Set<List<Integer>> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+		for (List<Integer> moves : validMoves) {
+			AbstractButton button = buttons.get(moves.get(1)).get(moves.get(0));
+			button.addActionListener(movePieceController);
 		}
 	}
 
@@ -133,38 +124,21 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		return buttons;
 	}
 
-	/**
-	 * @return
-	 */
-	private void populateTwoMiddlePiece() {
-		populateCustomPiece(PieceType.LEADERSHIPEAGLE.initialCoordinateY(boardSize),
-				PieceType.LEADERSHIPEAGLE.initialCoordinateX(boardSize), PieceType.LEADERSHIPEAGLE);
-
-		populateCustomPiece(PieceType.DEFENSIVESHARK.initialCoordinateY(boardSize),
-				PieceType.DEFENSIVESHARK.initialCoordinateX(boardSize), PieceType.DEFENSIVESHARK);
+	private void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos) {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(row).size(); ++col) {
+				if (buttons.get(row).get(col).equals(buttonClicked)) {
+					newPos.put("y", row);
+					newPos.put("x", col);
+					break;
+				}
+			}
+		}
 	}
 
-	/**
-	 * @return
-	 */
-	private void populateTwoSidePiece() {
-		populateCustomPiece(PieceType.ATTACKINGEAGLE.initialCoordinateY(boardSize),
-				PieceType.ATTACKINGEAGLE.initialCoordinateX(boardSize), PieceType.ATTACKINGEAGLE);
-		populateCustomPiece(PieceType.VISIONARYEAGLE.initialCoordinateY(boardSize),
-				PieceType.VISIONARYEAGLE.initialCoordinateX(boardSize), PieceType.VISIONARYEAGLE);
-
-		populateCustomPiece(PieceType.AGGRESSIVESHARK.initialCoordinateY(boardSize),
-				PieceType.AGGRESSIVESHARK.initialCoordinateX(boardSize), PieceType.AGGRESSIVESHARK);
-		populateCustomPiece(PieceType.HEALINGSHARK.initialCoordinateY(boardSize),
-				PieceType.HEALINGSHARK.initialCoordinateX(boardSize), PieceType.HEALINGSHARK);
-	}
-
-	/**
-	 * @return
-	 */
 	private void populateCustomPiece(int positionX, int positionY, PieceType pieceType) {
 		try {
-			Image pieceImage = ImageIO.read(getClass().getResource(pieceType.getFileName()));
+			Image pieceImage = ImageIO.read(pieceType.file());
 			buttons.get(positionX).get(positionY).setIcon(new ImageIcon(pieceImage));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -172,17 +146,52 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		buttons.get(positionX).get(positionY).setActionCommand(pieceType.toString());
 	}
 
-	/**
-	 * @return
+	private void populatePieces(int boardSize) {
+		PieceType.onBoardSize(boardSize);
+		for (PieceType pt : PieceType.values()) {
+			populateCustomPiece(pt.y(), pt.x(), pt);
+		}
+	}
+
+	/*
+	 * Later design change to pure fabrication class for routing also change event
+	 * name to be more descriptive
 	 */
-	public void restoreCellColor() {
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				if (buttons.get(row).get(col).getBackground().equals(Color.YELLOW)
-						|| buttons.get(row).get(col).getBackground().equals(Color.BLUE)) {
-					buttons.get(row).get(col).setBackground(Color.WHITE);
-				}
-			}
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		String event = evt.getPropertyName();
+		if (event.equalsIgnoreCase("EnableAvailableMove")) {
+			updateBoardPieceSelected((AbstractButton) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("AddListenerValidMoveCell")) {
+			addListenerOnValidMoveCell((AbstractButton) evt.getNewValue(), (MovePieceController) evt.getOldValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardMovingPiece")) {
+			updateBoardMovingPiece((AbstractButton) evt.getNewValue(),
+					PieceType.parsePieceType((String) evt.getOldValue()));
+		} else if (event.equalsIgnoreCase("UpdateBoardRollback")) {
+			updateBoardRollback();
+		} else if (event.equalsIgnoreCase("UpdateBoardAfterChoosingPiece")) {
+			updateBoardAfterChoosingPiece(PieceType.parsePieceType((String) evt.getNewValue()));
+		} else if (event.equalsIgnoreCase("ReaddMovePieceController")) {
+			reAddMovePieceController(PieceType.parsePieceType((String) evt.getNewValue()),
+					(MovePieceController) evt.getOldValue());
+		} else if (event.equalsIgnoreCase("LocateNewPosition")) {
+			locateNewPos((AbstractButton) evt.getOldValue(), (Map<String, Integer>) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("RestoreButtonStateForNextTurn")) {
+			restoreButtonStateForNextTurn();
+		} else if (event.equalsIgnoreCase("RollbackSelectedPiece")) {
+			rollbackSelectedPiece((AbstractButton) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("NotifyNotStartGame")) {
+			MessageDialog.notifyNotStartGame(this);
+		} else if (event.equalsIgnoreCase("NotifySelectWrongTeam")) {
+			MessageDialog.notifySelectWrongTeam(this);
+		}
+	}
+
+	private void reAddMovePieceController(PieceType pieceType, MovePieceController movePieceController) {
+		Set<List<Integer>> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+		for (List<Integer> moves : validMoves) {
+			AbstractButton button = buttons.get(moves.get(1)).get(moves.get(0));
+			button.addActionListener(movePieceController);
 		}
 	}
 
@@ -191,30 +200,12 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 */
 	public void restoreButtonStateForColorButton() {
 		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				if ((buttons.get(row).get(col).getBackground().equals(Color.YELLOW)
-						|| buttons.get(row).get(col).getBackground().equals(Color.BLUE))) {
-					ActionListener[] listeners = buttons.get(row).get(col).getActionListeners();
-					for (ActionListener l : listeners) {
-						buttons.get(row).get(col).removeActionListener(l);
-					}
-					buttons.get(row).get(col).addActionListener(new SelectPieceController(facade, this));
-				}
-			}
-		}
-	}
-
-	/**
-	 * @return
-	 */
-	public void restoreButtonStateForNextTurn(EnumSet<PieceType> pieceName) {
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				if (!buttons.get(row).get(col).getActionCommand().equals("NormalButton") && pieceName
-						.contains(PieceType.valueOf(buttons.get(row).get(col).getActionCommand().toUpperCase()))) {
-					AbstractButton button = buttons.get(row).get(col);
-					for (ActionListener l : button.getActionListeners()) {
-						button.removeActionListener(l);
+			for (int col = 0; col < buttons.get(row).size(); ++col) {
+				AbstractButton button = buttons.get(row).get(col);
+				Color color = button.getBackground();
+				if (color.equals(Color.YELLOW) || color.equals(Color.BLUE)) {
+					for (ActionListener al : button.getActionListeners()) {
+						button.removeActionListener(al);
 					}
 					button.addActionListener(new SelectPieceController(facade, this));
 				}
@@ -225,12 +216,44 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	/**
 	 * @return
 	 */
+	public void restoreButtonStateForNextTurn() {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(row).size(); ++col) {
+				AbstractButton button = buttons.get(row).get(col);
+				if (!button.getActionCommand().equals("NormalButton")) {
+					for (ActionListener al : button.getActionListeners()) {
+						button.removeActionListener(al);
+					}
+					button.addActionListener(new SelectPieceController(facade, this));
+				}
+			}
+		}
+	}
+
+	/**
+	 * @return
+	 */
+	public void restoreCellColor() {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(row).size(); ++col) {
+				AbstractButton button = buttons.get(row).get(col);
+				Color color = button.getBackground();
+				if (color.equals(Color.YELLOW) || color.equals(Color.BLUE)) {
+					button.setBackground(Color.WHITE);
+				}
+			}
+		}
+	}
+
+	/**
+	 * @return
+	 */
 	public void restoreStateForPossibleValidMove(Set<List<Integer>> validMoves) {
 		for (List<Integer> l : validMoves) {
-			ActionListener[] movePieceController = buttons.get(l.get(1)).get(l.get(0)).getActionListeners();
-			buttons.get(l.get(1)).get(l.get(0)).removeActionListener(movePieceController[0]);
-			buttons.get(l.get(1)).get(l.get(0)).addActionListener(new SelectPieceController(facade, this));
-
+			AbstractButton button = buttons.get(l.get(1)).get(l.get(0));
+			ActionListener[] movePieceController = button.getActionListeners();
+			button.removeActionListener(movePieceController[0]);
+			button.addActionListener(new SelectPieceController(facade, this));
 		}
 	}
 
@@ -238,27 +261,49 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @return
 	 */
 	public void restoreViewForOldPos(Map<String, Integer> oldPos) {
-		buttons.get(oldPos.get("y")).get(oldPos.get("x")).setIcon(null);
-		buttons.get(oldPos.get("y")).get(oldPos.get("x")).setActionCommand("NormalButton");
+		AbstractButton button = buttons.get(oldPos.get("y")).get(oldPos.get("x"));
+		button.setIcon(null);
+		button.setActionCommand("NormalButton");
+	}
+
+	private void rollbackSelectedPiece(AbstractButton buttonClicked) {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(row).size(); ++col) {
+				Color color = buttons.get(row).get(col).getBackground();
+				if (EngineImpl.getSingletonInstance()
+						.checkSelectPiece(PieceType.parsePieceType(buttonClicked.getActionCommand()))
+						&& (color.equals(Color.YELLOW) || color.equals(Color.BLUE))) {
+					rollbackSelectedPieceStatus();
+				}
+			}
+		}
+	}
+
+	private void rollbackSelectedPieceStatus() {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(row).size(); ++col) {
+				AbstractButton button = buttons.get(row).get(col);
+				Color color = buttons.get(row).get(col).getBackground();
+				if (color.equals(Color.YELLOW) || color.equals(Color.BLUE)) {
+					button.setBackground(Color.WHITE);
+					for (ActionListener al : button.getActionListeners()) {
+						button.removeActionListener(al);
+					}
+					button.addActionListener(new SelectPieceController(facade, this));
+				}
+			}
+		}
 	}
 
 	/**
 	 * @return
 	 */
-	public void updateBoardAfterChoosingPiece(String pieceType) {
-		EnumSet<PieceType> eagleSet = EnumSet.of(PieceType.ATTACKINGEAGLE, PieceType.LEADERSHIPEAGLE,
-				PieceType.VISIONARYEAGLE);
-		EnumSet<PieceType> sharkSet = EnumSet.of(PieceType.AGGRESSIVESHARK, PieceType.DEFENSIVESHARK,
-				PieceType.HEALINGSHARK);
-		PieceType pieceTypeEnum = PieceType.valueOf(pieceType.toUpperCase());
-
-		Set<List<Integer>> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString())
-				.getValidMove();
-
+	public void updateBoardAfterChoosingPiece(PieceType pieceType) {
+		Set<List<Integer>> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
 		for (List<Integer> moves : validMoves) {
-			if (eagleSet.contains(pieceTypeEnum)) {
+			if (pieceType.team() == TeamType.EAGLE) {
 				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.yellow);
-			} else if (sharkSet.contains(pieceTypeEnum)) {
+			} else if (pieceType.team() == TeamType.SHARK) {
 				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.blue);
 			}
 
@@ -269,20 +314,10 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
-	public void updateBoardMovingPiece(AbstractButton buttonClicked, String pieceType) {
-		Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString())
-				.getPosition();
-		Set<List<Integer>> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString())
-				.getValidMove();
-		buttonClicked.setActionCommand(pieceType.toString());
-		updateBoardAfterMovingPiece(buttonClicked, pieceType, validMoves);
-		restoreViewForOldPos(oldPos);
-	}
-
 	/**
 	 * @return
 	 */
-	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, String pieceType,
+	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType,
 			Set<List<Integer>> validMoves) {
 		updateIcon(buttonClicked, pieceType);
 		restoreCellColor();
@@ -293,7 +328,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * <b>Note:</b> basically clear all effects - using color as enum would be a
 	 * better design choice here
 	 */
-	public void updateBoardEndOfTimer() {
+	public void updateBoardEndOfTimer(int boardSize) {
 		for (int row = 0; row < boardSize; ++row) {
 			for (int col = 0; col < boardSize; ++col) {
 				buttons.get(row).get(col).setBackground(Color.WHITE);
@@ -302,6 +337,37 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 					buttons.get(row).get(col).removeActionListener(listener);
 				}
 				buttons.get(row).get(col).addActionListener(new SelectPieceController(facade, this));
+			}
+		}
+	}
+
+	/**
+	 * @param buttonClicked
+	 * @param pieceType
+	 */
+	public void updateBoardMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
+		Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getPosition();
+		Set<List<Integer>> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+		buttonClicked.setActionCommand(pieceType.toString());
+		updateBoardAfterMovingPiece(buttonClicked, pieceType, validMoves);
+		restoreViewForOldPos(oldPos);
+	}
+
+	private void updateBoardPieceSelected(AbstractButton buttonClicked) {
+		PieceType pieceType = PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase());
+
+		Set<List<Integer>> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+
+		for (List<Integer> moves : validMoves) {
+			if (pieceType.team() == TeamType.EAGLE) {
+				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.yellow);
+			} else if (pieceType.team() == TeamType.SHARK) {
+				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.blue);
+			}
+
+			ActionListener[] selectPieceListener = buttons.get(moves.get(1)).get(moves.get(0)).getActionListeners();
+			for (ActionListener listener : selectPieceListener) {
+				buttons.get(moves.get(1)).get(moves.get(0)).removeActionListener(listener);
 			}
 		}
 	}
@@ -317,155 +383,13 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	/**
 	 * @return
 	 */
-	public void updateIcon(AbstractButton buttonClicked, String pieceType) {
+	public void updateIcon(AbstractButton buttonClicked, PieceType pieceType) {
 		Image animal = null;
-
 		try {
-			PieceType pieceTypeEnum = PieceType.valueOf(pieceType.toUpperCase());
-			animal = ImageIO.read(getClass().getResource(pieceTypeEnum.getFileName()));
+			animal = ImageIO.read(pieceType.file());
 		} catch (IOException e1) {
 			System.err.println("IMAGE NOT FOUND");
 		}
 		buttonClicked.setIcon(new ImageIcon(animal));
 	}
-
-	/**
-	 * @return
-	 */
-	public void loadGame() {
-		Map<String, Piece> pieces = EngineImpl.getSingletonInstance().getAllPieces();
-		for (String pieceName : pieces.keySet()) {
-			try {
-				Image pieceImage = ImageIO
-						.read(getClass().getResource(PieceType.valueOf((pieceName.toUpperCase())).getFileName()));
-				buttons.get(pieces.get(pieceName).getPosition().get("y"))
-						.get(pieces.get(pieceName).getPosition().get("x")).setIcon(new ImageIcon(pieceImage));
-				buttons.get(pieces.get(pieceName).getPosition().get("y"))
-						.get(pieces.get(pieceName).getPosition().get("x")).setActionCommand(pieceName);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	private void updateBoardPieceSelected(AbstractButton buttonClicked) {
-		PieceType pieceType = PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase());
-
-		Set<List<Integer>> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString())
-				.getValidMove();
-
-		EnumSet<PieceType> eagleSet = EnumSet.of(PieceType.ATTACKINGEAGLE, PieceType.LEADERSHIPEAGLE,
-				PieceType.VISIONARYEAGLE);
-		EnumSet<PieceType> sharkSet = EnumSet.of(PieceType.AGGRESSIVESHARK, PieceType.DEFENSIVESHARK,
-				PieceType.HEALINGSHARK);
-
-		for (List<Integer> moves : validMoves) {
-			if (eagleSet.contains(pieceType)) {
-				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.yellow);
-			} else if (sharkSet.contains(pieceType)) {
-				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.blue);
-			}
-
-			ActionListener[] selectPieceListener = buttons.get(moves.get(1)).get(moves.get(0)).getActionListeners();
-			for (ActionListener listener : selectPieceListener) {
-				buttons.get(moves.get(1)).get(moves.get(0)).removeActionListener(listener);
-			}
-		}
-	}
-
-	private void addListenerOnValidMoveCell(AbstractButton buttonClicked, MovePieceController movePieceController) {
-		PieceType pieceType = PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase());
-
-		Set<List<Integer>> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString())
-				.getValidMove();
-		for (List<Integer> moves : validMoves) {
-			buttons.get(moves.get(1)).get(moves.get(0)).addActionListener(movePieceController);
-		}
-	}
-
-	private void reAddMovePieceController(String pieceType, MovePieceController movePieceController) {
-		Set<List<Integer>> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType.toString())
-				.getValidMove();
-
-		for (List<Integer> moves : validMoves) {
-			buttons.get(moves.get(1)).get(moves.get(0)).addActionListener(movePieceController);
-		}
-	}
-
-	private void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos) {
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				if (buttons.get(row).get(col).equals(buttonClicked)) {
-					newPos.put("y", row);
-					newPos.put("x", col);
-					break;
-				}
-			}
-		}
-	}
-
-	private void rollbackSelectedPiece(AbstractButton buttonClicked) {
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				if (EngineImpl.getSingletonInstance().checkSelectPiece(buttonClicked.getActionCommand())
-						&& (buttons.get(row).get(col).getBackground().equals(Color.YELLOW)
-								|| buttons.get(row).get(col).getBackground().equals(Color.BLUE))) {
-					rollbackSelectedPieceStatus();
-				}
-			}
-		}
-	}
-
-	private void rollbackSelectedPieceStatus() {
-
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-
-				if (buttons.get(row).get(col).getBackground().equals(Color.YELLOW)
-						|| buttons.get(row).get(col).getBackground().equals(Color.BLUE)) {
-					buttons.get(row).get(col).setBackground(Color.WHITE);
-
-					ActionListener[] listenersAttached = buttons.get(row).get(col).getActionListeners();
-					for (ActionListener listener : listenersAttached) {
-						buttons.get(row).get(col).removeActionListener(listener);
-					}
-					buttons.get(row).get(col).addActionListener(new SelectPieceController(facade, this));
-				}
-			}
-		}
-	}
-
-	/*
-	 * Later design change to pure fabrication class for routing also change event
-	 * name to be more descriptive
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
-		if (evt.getPropertyName().equalsIgnoreCase("EnableAvailableMove")) {
-			updateBoardPieceSelected((AbstractButton) evt.getNewValue());
-		} else if (evt.getPropertyName().equalsIgnoreCase("AddListenerValidMoveCell")) {
-			addListenerOnValidMoveCell((AbstractButton) evt.getNewValue(), (MovePieceController) evt.getOldValue());
-		} else if (evt.getPropertyName().equalsIgnoreCase("UpdateBoardMovingPiece")) {
-			updateBoardMovingPiece((AbstractButton) evt.getNewValue(), (String) evt.getOldValue());
-		} else if (evt.getPropertyName().equalsIgnoreCase("UpdateBoardRollback")) {
-			updateBoardRollback();
-		} else if (evt.getPropertyName().equalsIgnoreCase("UpdateBoardAfterChoosingPiece")) {
-			updateBoardAfterChoosingPiece((String) evt.getNewValue());
-		} else if (evt.getPropertyName().equalsIgnoreCase("ReaddMovePieceController")) {
-			reAddMovePieceController((String) evt.getNewValue(), (MovePieceController) evt.getOldValue());
-		} else if (evt.getPropertyName().equalsIgnoreCase("LocateNewPosition")) {
-			locateNewPos((AbstractButton) evt.getOldValue(), (Map<String, Integer>) evt.getNewValue());
-		} else if (evt.getPropertyName().equalsIgnoreCase("RestoreButtonStateForNextTurn")) {
-			restoreButtonStateForNextTurn((EnumSet<PieceType>) evt.getNewValue());
-		} else if (evt.getPropertyName().equalsIgnoreCase("RollbackSelectedPiece")) {
-			rollbackSelectedPiece((AbstractButton) evt.getNewValue());
-		} else if (evt.getPropertyName().equalsIgnoreCase("NotifyNotStartGame")) {
-			MessageDialog.notifyNotStartGame(this);
-		} else if (evt.getPropertyName().equalsIgnoreCase("NotifySelectWrongTeam")) {
-			MessageDialog.notifySelectWrongTeam(this);
-		}
-	}
-
 }

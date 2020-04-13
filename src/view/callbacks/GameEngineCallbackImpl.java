@@ -5,10 +5,11 @@ import java.beans.PropertyChangeSupport;
 
 import javax.swing.SwingUtilities;
 
+import asset.TeamType;
 import view.interfaces.GameEngineCallback;
 
 /**
- * @author kevin & ted
+ * @author ted &#38; kevin
  */
 public class GameEngineCallbackImpl implements GameEngineCallback {
 
@@ -20,7 +21,6 @@ public class GameEngineCallbackImpl implements GameEngineCallback {
 	@Override
 	public void addProperytChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
-
 	}
 
 	/**
@@ -35,28 +35,25 @@ public class GameEngineCallbackImpl implements GameEngineCallback {
 	 * @return
 	 */
 	@Override
-	public void nextMove(String currentPlayerTurn) {
+	public void nextMove(TeamType currentPlayerTurn) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				pcs.firePropertyChange("MakingMove", null, currentPlayerTurn);
 			}
-
 		});
-
 	}
 
 	/**
 	 * @return
 	 */
 	@Override
-	public void timerNextMove(String playerType, String currentPlayerTurn) {
+	public void timerNextMove(TeamType playerType, TeamType currentPlayerTurn) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				pcs.firePropertyChange("SwitchTurn", playerType, currentPlayerTurn);
+				pcs.firePropertyChange("SwitchTurn", null, currentPlayerTurn);
 			}
-
 		});
 	}
 

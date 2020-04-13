@@ -9,11 +9,22 @@ import java.util.Set;
 
 import models.engine.EngineImpl;
 
+/**
+ * @author sefira & kevin
+ *
+ */
 public class LeadershipEagle extends AbstractPiece {
-		public LeadershipEagle(int x, int y) {
+	/**
+	 * @param x
+	 * @param y
+	 */
+	public LeadershipEagle(int x, int y) {
 		super(x, y);
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public Set<List<Integer>> getValidMove() {
 		Map<String, Integer> currentPosition = this.getPosition();
@@ -27,55 +38,16 @@ public class LeadershipEagle extends AbstractPiece {
 		return validMoves;
 	}
 
-	public boolean giveProtection(Piece piece, Piece affectedPiece) {
-
-		try {
-
-			int pieceX = piece.getPosition().get("x");
-			int pieceY = piece.getPosition().get("y");
-
-			int affectedPieceX = affectedPiece.getPosition().get("x");
-			int affectedPieceY = affectedPiece.getPosition().get("y");
-
-			if (affectedPieceX > pieceX + 1 || affectedPieceY > pieceY + 1 || affectedPieceX < pieceX - 1
-					|| affectedPieceY < pieceY - 1) {
-				return false;
-			}
-
-			affectedPiece.setImmune(true);
-
-			return true;
-
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	/*
-	 * validate the new position and set it if it's valid
-	 * 
-	 * @param int newX - new x position
-	 * 
-	 * @param int newY - new y position
-	 * 
-	 * @return position valid based on rule ? true : false
+	/**
+	 *
 	 */
 	@Override
-	public boolean movePiece(int newX, int newY) {
-		setPosition(newX, newY);
+	public boolean movePiece(int x, int y) {
+		setPosition(x, y);
 		return true;
 	}
 
-	// usage: piece.useAbility("protect", piece, affectedPiece)
-	@Override
-	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece) {
-		if (abilityName.equals("protect"))
-			return giveProtection(piece, affectedPiece);
-
-		return false;
-	}
-
-	public Set<List<Integer>> validMovesEast(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -91,7 +63,7 @@ public class LeadershipEagle extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesNorth(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesNorth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -107,7 +79,7 @@ public class LeadershipEagle extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -122,7 +94,7 @@ public class LeadershipEagle extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesWest(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();

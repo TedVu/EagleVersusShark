@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="javadoc">
     <target name="javadoc">
-        <javadoc access="private" author="true" classpath="." destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="controller,view.configuration,asset,view.mainframe,view.messagedialog,models.pieces,view.callbacks,view.interfaces,models.board,views.main,models.engine,models.player,view.operationview" source="1.8" sourcepath="src" splitindex="true" stylesheetfile="C:\Users\kevin\dev\EagleVersusShark\doc\stylesheet\stylesheet.css" use="true" version="true">
-            <link href="file:/C:/Users/kevin/dev/EagleVersusShark/doc/"/>
-        </javadoc>
+        <javadoc access="public" author="true" classpath="." destdir="doc" doctitle="EaglevsShark Documentation" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="controller,controllermodel.interfaces,asset,view.mainframe,view.messagedialog,viewcontroller.facade,models.pieces,view.callbacks,view.interfaces,models.board,views.main,controllermodel.facade,viewcontroller.interfaces,models.engine,models.player,view.operationview" source="1.8" sourcepath="src" splitindex="true" stylesheetfile="C:\Users\kevin\dev\EagleVersusShark\doc\stylesheet\stylesheet.css" use="true" version="true"/>
     </target>
 </project>

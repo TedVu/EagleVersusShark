@@ -1,7 +1,6 @@
 package viewcontroller.interfaces;
 
 import java.beans.PropertyChangeListener;
-import java.util.EnumSet;
 import java.util.Map;
 
 import javax.swing.AbstractButton;
@@ -9,30 +8,74 @@ import javax.swing.AbstractButton;
 import asset.PieceType;
 import controller.MovePieceController;
 
+/**
+ * @author ted &#38; kevin
+ *
+ */
 public interface ViewControllerInterface {
 
-	void enableAvailableMove(AbstractButton buttonClicked);
+	/**
+	 * @param buttonClicked
+	 * @param movePieceController
+	 */
+	public void addListenerOnValidMovesCell(AbstractButton buttonClicked, MovePieceController movePieceController);
 
-	void addListenerOnValidMovesCell(AbstractButton buttonClicked, MovePieceController movePieceController);
+	/**
+	 * @param listener
+	 */
+	public void addPropertyChangeListener(PropertyChangeListener listener);
 
-	void updateBoardMovingPiece(AbstractButton buttonClicked, String pieceType);
+	/**
+	 * @param buttonClicked
+	 */
+	public void enableAvailableMove(AbstractButton buttonClicked);
 
-	void updateBoardRollback();
+	/**
+	 * @param buttonClicked
+	 * @param newPos
+	 */
+	public void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos);
 
-	void updateBoardAfterChoosingPiece(String pieceType);
+	/**
+	 * 
+	 */
+	public void notifyNotStartGame();
 
-	void readdMovePieceController(String pieceType, MovePieceController movePieceController);
+	/**
+	 * 
+	 */
+	public void notifySelectWrongTeam();
 
-	void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos);
+	/**
+	 * @param pieceType
+	 * @param movePieceController
+	 */
+	public void readdMovePieceController(PieceType pieceType, MovePieceController movePieceController);
 
-	void restoreButtonStateForNextTurn(EnumSet<PieceType> animalSet);
+	/**
+	 * 
+	 */
+	public void restoreButtonStateForNextTurn();
 
-	void rollbackSelectedPiece(AbstractButton buttonClicked);
+	/**
+	 * @param buttonClicked
+	 */
+	public void rollbackSelectedPiece(AbstractButton buttonClicked);
 
-	void notifyNotStartGame();
+	/**
+	 * @param pieceType
+	 */
+	public void updateBoardAfterChoosingPiece(PieceType pieceType);
 
-	void notifySelectWrongTeam();
+	/**
+	 * @param buttonClicked
+	 * @param pieceType
+	 */
+	public void updateBoardMovingPiece(AbstractButton buttonClicked, PieceType pieceType);
 
-	void addPropertyChangeListener(PropertyChangeListener listener);
+	/**
+	 * 
+	 */
+	public void updateBoardRollback();
 
 }

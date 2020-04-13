@@ -5,7 +5,7 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 /**
- * @author kevin & ted
+ * @author ted &#38; kevin
  */
 public class RightPanel extends JPanel {
 
@@ -29,6 +29,9 @@ public class RightPanel extends JPanel {
 		add(modePanel);
 	}
 
+	/**
+	 * @return
+	 */
 	public StatusPanel getStatusPanel() {
 		return statusPanel;
 	}

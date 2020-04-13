@@ -1,7 +1,6 @@
 
 package models.pieces;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,17 +9,23 @@ import java.util.Set;
 
 import models.engine.EngineImpl;
 
+/**
+ * @author sefira & kevin
+ *
+ */
 public class VisionaryEagle extends AbstractPiece {
 
-	private boolean canSwapPosition = true;
+	/**
+	 * @param x
+	 * @param y
+	 */
 	public VisionaryEagle(int x, int y) {
 		super(x, y);
 	}
 
-	public boolean capture(Piece capturingPiece, Piece capturedPiece) {
-		throw new IllegalArgumentException("this piece can't capture opponent!");
-	}
-
+	/**
+	 *
+	 */
 	@Override
 	public Set<List<Integer>> getValidMove() {
 		Map<String, Integer> currentPosition = this.getPosition();
@@ -38,61 +43,16 @@ public class VisionaryEagle extends AbstractPiece {
 		return validMoves;
 	}
 
-	public boolean isCanSwapPosition() {
-		return canSwapPosition;
-	}
-
-	/*
-	 * validate the new position and set it if it's valid
-	 * 
-	 * @param int newX - new x position
-	 * 
-	 * @param int newY - new y position
-	 * 
-	 * @return position valid based on rule ? true : false
+	/**
+	 *
 	 */
 	@Override
-	public boolean movePiece(int newX, int newY) {
-
-		setPosition(newX, newY);
+	public boolean movePiece(int x, int y) {
+		setPosition(x, y);
 		return true;
-
 	}
 
-	public void setCanSwapPosition(boolean canSwapPosition) {
-		// TODO Auto-generated constructor stub
-		this.canSwapPosition = canSwapPosition;
-	}
-
-	public boolean swap(Piece piece, Piece affectedPiece) {
-
-		try {
-			Map<String, Integer> position1 = new HashMap<String, Integer>();
-			Map<String, Integer> position2 = new HashMap<String, Integer>();
-
-			position1.putAll(piece.getPosition());
-			position2.putAll(affectedPiece.getPosition());
-
-			piece.setPosition(position2.get("x"), position2.get("y"));
-			affectedPiece.setPosition(position1.get("x"), position1.get("y"));
-
-			return true;
-
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	// usage: piece.useAbility("swap", piece, affectedPiece)
-	@Override
-	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece) {
-		if (abilityName.equals("swap"))
-			return swap(piece, affectedPiece);
-
-		return false;
-	}
-
-	public Set<List<Integer>> validDiaNorthEast(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaNorthEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -108,7 +68,7 @@ public class VisionaryEagle extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaNorthWest(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaNorthWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -124,7 +84,7 @@ public class VisionaryEagle extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaSouthEast(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaSouthEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -141,7 +101,7 @@ public class VisionaryEagle extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaSouthWest(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaSouthWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -157,7 +117,7 @@ public class VisionaryEagle extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesEast(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -173,7 +133,7 @@ public class VisionaryEagle extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesNorth(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesNorth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -189,7 +149,7 @@ public class VisionaryEagle extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -204,7 +164,7 @@ public class VisionaryEagle extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesWest(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -216,7 +176,6 @@ public class VisionaryEagle extends AbstractPiece {
 				break;
 			}
 		}
-
 		return validMoves;
 	}
 

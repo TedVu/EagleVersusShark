@@ -7,7 +7,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 /**
- * @author kevin & ted
+ * @author ted &#38; kevin
  */
 public class ModePanel extends JPanel {
 

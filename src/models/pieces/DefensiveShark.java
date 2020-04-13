@@ -8,33 +8,22 @@ import java.util.Set;
 
 import models.engine.EngineImpl;
 
+/**
+ * @author chanboth
+ *
+ */
 public class DefensiveShark extends AbstractPiece {
-		public DefensiveShark(int x, int y) {
+	/**
+	 * @param x
+	 * @param y
+	 */
+	public DefensiveShark(int x, int y) {
 		super(x, y);
 	}
 
-	private boolean defendShark(Piece piece, Piece affectedPiece) {
-		try {
-			if (!isSurrounding(piece, affectedPiece))
-				return false;
-
-			if (!affectedPiece.isImmune()) {
-				affectedPiece.setImmune(true);
-			} else {
-				System.out.println("Piece is already protected!");
-			}
-			// TODO: implement inactive ability for one turn after using
-
-			// TODO: implement "can quickly move to neighbouring cell of any sharks"
-
-			return true;
-		} catch (Exception e) {
-			System.out.println("Unable to protect the selected piece from being captured!");
-			return false;
-		}
-	}
-
-	// TO BE reimplemented as interface on refactoring stage
+	/**
+	 *
+	 */
 	@Override
 	public Set<List<Integer>> getValidMove() {
 		Map<String, Integer> currentPosition = this.getPosition();
@@ -52,39 +41,16 @@ public class DefensiveShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	private boolean isSurrounding(Piece piece, Piece affectedPiece) {
-		int visibility = 1;
-
-		int pieceX = piece.getPosition().get("x");
-		int pieceY = piece.getPosition().get("y");
-
-		int affectedPieceX = affectedPiece.getPosition().get("x");
-		int affectedPieceY = affectedPiece.getPosition().get("y");
-
-		if ((pieceX + visibility == affectedPieceX || pieceX == affectedPieceX || affectedPieceX - pieceX == visibility)
-				&& (pieceY + visibility == affectedPieceY || pieceY == affectedPieceY
-						|| affectedPieceY - pieceY == visibility)) {
-			return true;
-		}
-		return false;
-	}
-
-	// Movement same as VisionaryEagle
+	/**
+	 *
+	 */
 	@Override
-	public boolean movePiece(int newX, int newY) {
-		setPosition(newX, newY);
+	public boolean movePiece(int x, int y) {
+		setPosition(x, y);
 		return true;
 	}
 
-	@Override
-	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece) {
-		if (!abilityName.equals("DEFEND SHARK"))
-			return false;
-
-		return defendShark(piece, affectedPiece);
-	}
-
-	public Set<List<Integer>> validDiaNorthEast(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaNorthEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -100,7 +66,7 @@ public class DefensiveShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaNorthWest(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaNorthWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -116,7 +82,7 @@ public class DefensiveShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaSouthEast(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaSouthEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -133,7 +99,7 @@ public class DefensiveShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaSouthWest(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaSouthWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -149,7 +115,7 @@ public class DefensiveShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesEast(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -165,7 +131,7 @@ public class DefensiveShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesNorth(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesNorth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -181,7 +147,7 @@ public class DefensiveShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -196,7 +162,7 @@ public class DefensiveShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesWest(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -211,5 +177,4 @@ public class DefensiveShark extends AbstractPiece {
 
 		return validMoves;
 	}
-
 }

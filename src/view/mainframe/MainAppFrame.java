@@ -13,7 +13,7 @@ import view.operationview.OperationToolbar;
 import view.operationview.RightPanel;
 
 /**
- * @author kevin & ted
+ * @author ted &#38; kevin
  */
 public class MainAppFrame extends JFrame {
 	/**
@@ -51,16 +51,5 @@ public class MainAppFrame extends JFrame {
 
 		getContentPane().add(centerPanel, BorderLayout.CENTER);
 		getContentPane().add(operationToolbar, BorderLayout.NORTH);
-	}
-
-	public RightPanel getRightPanel() {
-		return rightPanel;
-	}
-
-	/**
-	 * @return
-	 */
-	public BoardPanel getBoardPanel() {
-		return boardPanel;
 	}
 }

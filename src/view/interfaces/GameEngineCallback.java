@@ -2,8 +2,10 @@ package view.interfaces;
 
 import java.beans.PropertyChangeListener;
 
+import asset.TeamType;
+
 /**
- * @author kevin & ted
+ * @author ted &#38; kevin
  */
 public interface GameEngineCallback {
 	/**
@@ -19,7 +21,7 @@ public interface GameEngineCallback {
 	 * @param currentPlayerTurn
 	 * @return
 	 */
-	public void nextMove(String currentPlayerTurn);
+	public void nextMove(TeamType currentPlayerTurn);
 
 	/**
 	 * Will fire property change after timer goes off
@@ -28,5 +30,5 @@ public interface GameEngineCallback {
 	 * @param currentPlayerTurn
 	 * @return
 	 */
-	public void timerNextMove(String playerType, String currentPlayerTurn);
+	public void timerNextMove(TeamType playerType, TeamType currentPlayerTurn);
 }

@@ -1,11 +1,20 @@
 package models.player;
 
+import asset.TeamType;
+
+/**
+ * @author sefira
+ *
+ */
 public class PlayerImpl implements Player {
 
 	private boolean isActive;
-	private String playerType;
+	private TeamType playerType;
 
-	public PlayerImpl(String playerType) {
+	/**
+	 * @param playerType
+	 */
+	public PlayerImpl(TeamType playerType) {
 		this.playerType = playerType;
 	}
 
@@ -15,19 +24,12 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public String getPlayerType() {
-		return this.playerType;
+	public TeamType getPlayerType() {
+		return playerType;
 	}
 
 	@Override
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-
-	@Override
-	public void setPlayerType(String playerType) {
-		this.playerType = playerType;
-
-	}
-
 }

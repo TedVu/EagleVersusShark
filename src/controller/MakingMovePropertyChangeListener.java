@@ -3,22 +3,38 @@ package controller;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import asset.TeamType;
 import view.operationview.StatusPanel;
 
+/**
+ * This controller responsible for updating turn label and timer count down in
+ * status panel.
+ * <p>
+ * It handle event when user makes move or the timer is over and switch turn.
+ * 
+ * @author ted &#38; kevin
+ *
+ */
 public class MakingMovePropertyChangeListener implements PropertyChangeListener {
 
 	private StatusPanel statusPanel;
 
+	/**
+	 * @param statusPanel Reference from view-status panel.
+	 */
 	public void injectStatusPanel(StatusPanel statusPanel) {
 		this.statusPanel = statusPanel;
 	}
 
+	/**
+	 * Check Player Making Move or Switch Turn to update the Turn label, and Start
+	 * the count down of the timer again.
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
-		if (evt.getPropertyName().equalsIgnoreCase("makingmove")
-				|| evt.getPropertyName().equalsIgnoreCase("switchturn")) {
-			statusPanel.updateTurnLabel((String) evt.getNewValue());
+		if (evt.getPropertyName().equalsIgnoreCase("MakingMove")
+				|| evt.getPropertyName().equalsIgnoreCase("SwitchTurn")) {
+			statusPanel.updateTurnLabel((TeamType) evt.getNewValue());
 			statusPanel.startCountDown();
 		}
 	}

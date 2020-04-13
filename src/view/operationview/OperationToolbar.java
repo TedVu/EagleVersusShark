@@ -4,11 +4,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import controller.InvokeSaveGameDialogController;
 import view.mainframe.MainAppFrame;
 
 /**
- * @author kevin & ted
+ * @author ted &#38; kevin
  */
 public class OperationToolbar extends JMenuBar {
 
@@ -40,8 +39,5 @@ public class OperationToolbar extends JMenuBar {
 
 		save.setMnemonic('S');
 		exit.setMnemonic('E');
-
-		save.addActionListener(new InvokeSaveGameDialogController(mainFrame));
 	}
-
 }

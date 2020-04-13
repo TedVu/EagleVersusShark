@@ -4,14 +4,13 @@ import java.awt.EventQueue;
 
 import javax.swing.UIManager;
 
-import models.engine.EngineImpl;
 import view.mainframe.MainAppFrame;
 
 /**
  * <h1>Main class (for testing)</h1> MockViewClient is the main class. It has
  * only the game board. Used for fast test game board.
  * 
- * @author kevin & ted
+ * @author ted &#38; kevin
  * 
  */
 public class MockViewClient {
@@ -22,6 +21,7 @@ public class MockViewClient {
 			e.printStackTrace();
 		}
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					MainAppFrame window = new MainAppFrame();

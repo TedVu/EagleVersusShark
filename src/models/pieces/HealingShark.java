@@ -8,11 +8,22 @@ import java.util.Set;
 
 import models.engine.EngineImpl;
 
+/**
+ * @author chanboth
+ *
+ */
 public class HealingShark extends AbstractPiece {
+	/**
+	 * @param x
+	 * @param y
+	 */
 	public HealingShark(int x, int y) {
 		super(x, y);
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	public Set<List<Integer>> getValidMove() {
 		Map<String, Integer> currentPosition = this.getPosition();
@@ -30,53 +41,16 @@ public class HealingShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	private boolean healShark(Piece piece, Piece affectedPiece) {
-		try {
-
-			if (!isSurrounding(piece, affectedPiece))
-				return false;
-
-			affectedPiece.setActive(true);
-			return true;
-
-		} catch (Exception e) {
-			System.out.println("Unable to heal the selected piece!");
-			return false;
-		}
-	}
-
-	private boolean isSurrounding(Piece piece, Piece affectedPiece) {
-		int visibility = 1;
-
-		int pieceX = piece.getPosition().get("x");
-		int pieceY = piece.getPosition().get("y");
-
-		int affectedPieceX = affectedPiece.getPosition().get("x");
-		int affectedPieceY = affectedPiece.getPosition().get("y");
-
-		if ((pieceX + visibility == affectedPieceX || pieceX == affectedPieceX || affectedPieceX - pieceX == visibility)
-				&& (pieceY + visibility == affectedPieceY || pieceY == affectedPieceY
-						|| affectedPieceY - pieceY == visibility)) {
-			return true;
-		}
-		return false;
-	}
-
+	/**
+	 *
+	 */
 	@Override
-	public boolean movePiece(int newX, int newY) {
-		setPosition(newX, newY);
+	public boolean movePiece(int x, int y) {
+		setPosition(x, y);
 		return true;
 	}
 
-	@Override
-	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece) {
-		if (!abilityName.equals("HEAL SHARK"))
-			return false;
-
-		return healShark(piece, affectedPiece);
-	}
-
-	public Set<List<Integer>> validDiaNorthEast(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaNorthEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -92,7 +66,7 @@ public class HealingShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaNorthWest(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaNorthWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -108,11 +82,12 @@ public class HealingShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaSouthEast(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaSouthEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize() && y + i < EngineImpl.getSingletonInstance().getBoard().getSize()) {
+			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
+					&& y + i < EngineImpl.getSingletonInstance().getBoard().getSize()) {
 				validMove.add(x + i);
 				validMove.add(y + i);
 				validMoves.add(validMove);
@@ -124,7 +99,7 @@ public class HealingShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaSouthWest(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaSouthWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -140,7 +115,7 @@ public class HealingShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesEast(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -156,11 +131,7 @@ public class HealingShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	/*
-	 * ATTENTION: CRITICAL TODO: Refactor all classes that have this code to
-	 * interface
-	 */
-	public Set<List<Integer>> validMovesNorth(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesNorth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -176,11 +147,7 @@ public class HealingShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	/*
-	 * ATTENTION: CRITICAL TODO: Refactor all classes that have this code to
-	 * interface
-	 */
-	public Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -195,7 +162,7 @@ public class HealingShark extends AbstractPiece {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesWest(int x, int y, int cells) {
+	private Set<List<Integer>> validMovesWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -207,7 +174,6 @@ public class HealingShark extends AbstractPiece {
 				break;
 			}
 		}
-
 		return validMoves;
 	}
 }

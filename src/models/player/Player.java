@@ -1,13 +1,25 @@
 package models.player;
 
+import asset.TeamType;
+
+/**
+ * @author sefira
+ *
+ */
 public interface Player {
 
+	/**
+	 * @return
+	 */
 	public boolean getActive();
 
-	public String getPlayerType();
+	/**
+	 * @return
+	 */
+	public TeamType getPlayerType();
 
+	/**
+	 * @param isActive
+	 */
 	public void setActive(boolean isActive);
-
-	public void setPlayerType(String playerType);
-
 }
