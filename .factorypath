@@ -1,0 +1,4 @@
+<factorypath>
+    <factorypathentry kind="PLUGIN" id="com.amazonaws.eclipse.simpleworkflow" enabled="false" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\kevin\Desktop\cofoja.contracts.asm-1.3-20160207.jar" enabled="true" runInBatchMode="false"/>
+</factorypath>
