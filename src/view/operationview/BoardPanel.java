@@ -387,9 +387,9 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		Image animal = null;
 		try {
 			animal = ImageIO.read(pieceType.file());
+			buttonClicked.setIcon(new ImageIcon(animal));
 		} catch (IOException e1) {
 			System.err.println("IMAGE NOT FOUND");
 		}
-		buttonClicked.setIcon(new ImageIcon(animal));
 	}
 }
