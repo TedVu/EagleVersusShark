@@ -34,6 +34,7 @@ public class EngineImpl implements Engine {
 		}
 		return engine;
 	}
+
 	private boolean startGame = false;
 
 	private Map<PieceType, Piece> pieces = new EnumMap<PieceType, Piece>(PieceType.class);

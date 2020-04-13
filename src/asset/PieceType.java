@@ -160,6 +160,7 @@ public enum PieceType {
 	};
 
 	private static int boardSize;
+
 	/**
 	 * Used for calculating the initial (x,y) of a piece.
 	 * 
@@ -168,6 +169,7 @@ public enum PieceType {
 	public static void onBoardSize(int size) {
 		boardSize = size;
 	}
+
 	/**
 	 * Casting from String to Enum PieceType.
 	 * 
