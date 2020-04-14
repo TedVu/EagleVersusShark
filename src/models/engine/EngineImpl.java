@@ -38,7 +38,6 @@ public class EngineImpl implements Engine {
 	private boolean startGame = false;
 
 	private Map<PieceType, Piece> pieces = new EnumMap<PieceType, Piece>(PieceType.class);
-	private PieceFactory pieceFactory = new PieceFactory();
 	private Player eaglePlayer = new PlayerImpl(TeamType.EAGLE);
 
 	private Player sharkPlayer = new PlayerImpl(TeamType.SHARK);
@@ -135,7 +134,7 @@ public class EngineImpl implements Engine {
 	public void initializePiece() {
 		PieceType.onBoardSize(9);
 		for (PieceType pt : PieceType.values()) {
-			Piece piece = pieceFactory.generatePiece(pt);
+			Piece piece = PieceFactory.generatePiece(pt);
 			board.addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 			pieces.put(pt, piece);
 		}

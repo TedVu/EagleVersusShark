@@ -149,7 +149,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	private void populatePieces(int boardSize) {
 		PieceType.onBoardSize(boardSize);
 		for (PieceType pt : PieceType.values()) {
-			populateCustomPiece(pt.y(), pt.x(), pt);
+			populateCustomPiece(pt.yCoordinate(), pt.xCoordinate(), pt);
 		}
 	}
 
@@ -384,12 +384,11 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @return
 	 */
 	public void updateIcon(AbstractButton buttonClicked, PieceType pieceType) {
-		Image animal = null;
 		try {
-			animal = ImageIO.read(pieceType.file());
+			Image animal = ImageIO.read(pieceType.file());
 			buttonClicked.setIcon(new ImageIcon(animal));
 		} catch (IOException e1) {
-			System.err.println("IMAGE NOT FOUND");
+			e1.getStackTrace();
 		}
 	}
 }

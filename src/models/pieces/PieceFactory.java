@@ -9,34 +9,50 @@ import asset.PieceType;
 public class PieceFactory {
 
 	/**
-	 * 
+	 * Don't let anyone instantiate this class
 	 */
-	public PieceFactory() {
+	private PieceFactory() {
 	}
 
-	/**
-	 * @param pieceType
-	 * @return
-	 */
-	public Piece generatePiece(PieceType pieceType) {
-		if (pieceType.toString().equalsIgnoreCase("AttackingEagle")) {
-			return new AttackingEagle(pieceType.x(), pieceType.y());
+	public static Piece generatePiece(PieceType pieceType) {
+		if (pieceType == PieceType.ATTACKINGEAGLE) {
+			return createAttackingEagle();
+		} else if (pieceType == PieceType.LEADERSHIPEAGLE) {
+			return createLeadershipEagle();
+		} else if (pieceType == PieceType.VISIONARYEAGLE) {
+			return createVisionaryEagle();
+		} else if (pieceType == PieceType.AGGRESSIVESHARK) {
+			return createAggressiveShark();
+		} else if (pieceType == PieceType.DEFENSIVESHARK) {
+			return createDesensiveShark();
+		} else if (pieceType == PieceType.HEALINGSHARK) {
+			return createHealingShark();
+		} else {
+			return null;
 		}
-		if (pieceType.toString().equalsIgnoreCase("VisionaryEagle")) {
-			return new VisionaryEagle(pieceType.x(), pieceType.y());
-		}
-		if (pieceType.toString().equalsIgnoreCase("LeadershipEagle")) {
-			return new LeadershipEagle(pieceType.x(), pieceType.y());
-		}
-		if (pieceType.toString().equalsIgnoreCase("AggressiveShark")) {
-			return new AggressiveShark(pieceType.x(), pieceType.y());
-		}
-		if (pieceType.toString().equalsIgnoreCase("DefensiveShark")) {
-			return new DefensiveShark(pieceType.x(), pieceType.y());
-		}
-		if (pieceType.toString().equalsIgnoreCase("HealingShark")) {
-			return new HealingShark(pieceType.x(), pieceType.y());
-		}
-		return null;
+	}
+
+	private static Piece createAttackingEagle() {
+		return new AttackingEagle(PieceType.ATTACKINGEAGLE.xCoordinate(), PieceType.ATTACKINGEAGLE.yCoordinate());
+	}
+
+	private static Piece createLeadershipEagle() {
+		return new LeadershipEagle(PieceType.LEADERSHIPEAGLE.xCoordinate(), PieceType.LEADERSHIPEAGLE.yCoordinate());
+	}
+
+	private static Piece createVisionaryEagle() {
+		return new VisionaryEagle(PieceType.VISIONARYEAGLE.xCoordinate(), PieceType.VISIONARYEAGLE.yCoordinate());
+	}
+
+	private static Piece createAggressiveShark() {
+		return new AggressiveShark(PieceType.AGGRESSIVESHARK.xCoordinate(), PieceType.AGGRESSIVESHARK.yCoordinate());
+	}
+
+	private static Piece createDesensiveShark() {
+		return new DefensiveShark(PieceType.DEFENSIVESHARK.xCoordinate(), PieceType.DEFENSIVESHARK.yCoordinate());
+	}
+
+	private static Piece createHealingShark() {
+		return new HealingShark(PieceType.HEALINGSHARK.xCoordinate(), PieceType.HEALINGSHARK.yCoordinate());
 	}
 }
