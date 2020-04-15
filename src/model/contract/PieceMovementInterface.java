@@ -1,22 +1,23 @@
 package model.contract;
 
-import java.util.List;
 import java.util.Set;
 
+import model.board.Cell;
+
 public interface PieceMovementInterface {
-	public Set<List<Integer>> validDiaNorthEast(int x, int y, int cells);
+	public Set<Cell> validDiaNorthEast(int x, int y, int step);
 
-	public Set<List<Integer>> validDiaNorthWest(int x, int y, int cells);
+	public Set<Cell> validDiaNorthWest(int x, int y, int step);
 
-	public Set<List<Integer>> validDiaSouthEast(int x, int y, int cells);
+	public Set<Cell> validDiaSouthEast(int x, int y, int step);
 
-	public Set<List<Integer>> validDiaSouthWest(int x, int y, int cells);
+	public Set<Cell> validDiaSouthWest(int x, int y, int step);
 
-	public Set<List<Integer>> validMovesEast(int x, int y, int cells);
+	public Set<Cell> validMovesEast(int x, int y, int step);
 
-	public Set<List<Integer>> validMovesNorth(int x, int y, int cells);
+	public Set<Cell> validMovesNorth(int x, int y, int step);
 
-	public Set<List<Integer>> validMovesSouth(int x, int y, int cells);
+	public Set<Cell> validMovesSouth(int x, int y, int step);
 
-	public Set<List<Integer>> validMovesWest(int x, int y, int cells);
+	public Set<Cell> validMovesWest(int x, int y, int step);
 }

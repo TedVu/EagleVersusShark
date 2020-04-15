@@ -2,11 +2,10 @@ package model.piece;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import model.board.Cell;
 import model.contract.PieceInterface;
 import model.contract.PieceMovementInterface;
 import model.engine.EngineImpl;
@@ -56,31 +55,26 @@ public abstract class AbstractPiece
 	}
 
 	@Override
-	public Set<List<Integer>> validDiaNorthEast(int x, int y, int cells) {
-		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		for (int i = 1; i <= cells; i++) {
-			List<Integer> validMove = new LinkedList<Integer>();
+	public Set<Cell> validDiaNorthEast(int x, int y, int step) {
+		Set<Cell> validMoves = new HashSet<>();
+		for (int i = 1; i <= step; i++) {
 			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
 					&& y - i >= 0) {
-				validMove.add(x + i);
-				validMove.add(y - i);
+				Cell validMove = new Cell(x + i, y - i);
 				validMoves.add(validMove);
 			} else {
 				break;
 			}
 		}
-
 		return validMoves;
 	}
 
 	@Override
-	public Set<List<Integer>> validDiaNorthWest(int x, int y, int cells) {
-		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		for (int i = 1; i <= cells; i++) {
-			List<Integer> validMove = new LinkedList<Integer>();
+	public Set<Cell> validDiaNorthWest(int x, int y, int step) {
+		Set<Cell> validMoves = new HashSet<>();
+		for (int i = 1; i <= step; i++) {
 			if (x - i >= 0 && y - i >= 0) {
-				validMove.add(x - i);
-				validMove.add(y - i);
+				Cell validMove = new Cell(x - i, y - i);
 				validMoves.add(validMove);
 			} else {
 				break;
@@ -91,15 +85,13 @@ public abstract class AbstractPiece
 	}
 
 	@Override
-	public Set<List<Integer>> validDiaSouthEast(int x, int y, int cells) {
-		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		for (int i = 1; i <= cells; i++) {
-			List<Integer> validMove = new LinkedList<Integer>();
+	public Set<Cell> validDiaSouthEast(int x, int y, int step) {
+		Set<Cell> validMoves = new HashSet<>();
+		for (int i = 1; i <= step; i++) {
 			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
 					&& y + i < EngineImpl.getSingletonInstance().getBoard()
 							.getSize()) {
-				validMove.add(x + i);
-				validMove.add(y + i);
+				Cell validMove = new Cell(x + i, y + i);
 				validMoves.add(validMove);
 			} else {
 				break;
@@ -110,14 +102,12 @@ public abstract class AbstractPiece
 	}
 
 	@Override
-	public Set<List<Integer>> validDiaSouthWest(int x, int y, int cells) {
-		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		for (int i = 1; i <= cells; i++) {
-			List<Integer> validMove = new LinkedList<Integer>();
+	public Set<Cell> validDiaSouthWest(int x, int y, int step) {
+		Set<Cell> validMoves = new HashSet<>();
+		for (int i = 1; i <= step; i++) {
 			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize()
 					&& x - i >= 0) {
-				validMove.add(x - i);
-				validMove.add(y + i);
+				Cell validMove = new Cell(x - i, y + i);
 				validMoves.add(validMove);
 			} else {
 				break;
@@ -128,14 +118,12 @@ public abstract class AbstractPiece
 	}
 
 	@Override
-	public Set<List<Integer>> validMovesEast(int x, int y, int cells) {
-		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		for (int i = 1; i <= cells; i++) {
-			List<Integer> validMove = new LinkedList<Integer>();
+	public Set<Cell> validMovesEast(int x, int y, int step) {
+		Set<Cell> validMoves = new HashSet<>();
+		for (int i = 1; i <= step; i++) {
 			if (x + i < EngineImpl.getSingletonInstance().getBoard()
 					.getSize()) {
-				validMove.add(x + i);
-				validMove.add(y);
+				Cell validMove = new Cell(x + i, y);
 				validMoves.add(validMove);
 			} else {
 				break;
@@ -146,13 +134,11 @@ public abstract class AbstractPiece
 	}
 
 	@Override
-	public Set<List<Integer>> validMovesNorth(int x, int y, int cells) {
-		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		for (int i = 1; i <= cells; i++) {
-			List<Integer> validMove = new LinkedList<Integer>();
+	public Set<Cell> validMovesNorth(int x, int y, int step) {
+		Set<Cell> validMoves = new HashSet<>();
+		for (int i = 1; i <= step; i++) {
 			if (y - i >= 0) {
-				validMove.add(x);
-				validMove.add(y - i);
+				Cell validMove = new Cell(x, y - i);
 				validMoves.add(validMove);
 			} else {
 				break;
@@ -163,14 +149,12 @@ public abstract class AbstractPiece
 	}
 
 	@Override
-	public Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
-		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		for (int i = 1; i <= cells; i++) {
-			List<Integer> validMove = new LinkedList<Integer>();
+	public Set<Cell> validMovesSouth(int x, int y, int step) {
+		Set<Cell> validMoves = new HashSet<Cell>();
+		for (int i = 1; i <= step; i++) {
 			if (y + i < EngineImpl.getSingletonInstance().getBoard()
 					.getSize()) {
-				validMove.add(x);
-				validMove.add(y + i);
+				Cell validMove = new Cell(x, y + i);
 				validMoves.add(validMove);
 			} else {
 				break;
@@ -180,13 +164,11 @@ public abstract class AbstractPiece
 	}
 
 	@Override
-	public Set<List<Integer>> validMovesWest(int x, int y, int cells) {
-		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		for (int i = 1; i <= cells; i++) {
-			List<Integer> validMove = new LinkedList<Integer>();
+	public Set<Cell> validMovesWest(int x, int y, int step) {
+		Set<Cell> validMoves = new HashSet<>();
+		for (int i = 1; i <= step; i++) {
 			if (x - i >= 0) {
-				validMove.add(x - i);
-				validMove.add(y);
+				Cell validMove = new Cell(x - i, y);
 				validMoves.add(validMove);
 			} else {
 				break;
