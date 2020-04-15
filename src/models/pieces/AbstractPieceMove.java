@@ -18,7 +18,7 @@ public abstract class AbstractPieceMove extends AbstractPiece{
 		moveDistance = getDistance(this);
 	}
 
-	public Set<List<Integer>> getValidMove(Piece piece) {
+	public Set<List<Integer>> getValidMove() {
 		Map<String, Integer> currentPosition = getPosition();
 		int currentX = currentPosition.get("x");
 		int currentY = currentPosition.get("y");
@@ -95,7 +95,7 @@ public abstract class AbstractPieceMove extends AbstractPiece{
 	
 	private int getDistance(Piece piece) {
 		
-		if(piece instanceof AggressiveShark || piece instanceof AttackerEagle || piece instanceof HealingShark) {
+		if(piece instanceof AggressiveShark || piece instanceof AttackingEagle || piece instanceof HealingShark) {
 			return 1;
 		}
 			

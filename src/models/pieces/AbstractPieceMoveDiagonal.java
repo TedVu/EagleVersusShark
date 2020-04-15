@@ -18,12 +18,12 @@ public abstract class AbstractPieceMoveDiagonal extends AbstractPieceMove {
 	}
 
 	@Override
-	public Set<List<Integer>> getValidMove(Piece piece) {
+	public Set<List<Integer>> getValidMove() {
 
 		Map<String, Integer> currentPosition = getPosition();
 		int currentX = currentPosition.get("x");
 		int currentY = currentPosition.get("y");
-		Set<List<Integer>> validMoves = super.getValidMove(piece);
+		Set<List<Integer>> validMoves = super.getValidMove();
 		validMoves.addAll(validDiaNorthEast(currentX, currentY, moveDistance));
 		validMoves.addAll(validDiaSouthWest(currentX, currentY, moveDistance));
 		validMoves.addAll(validDiaSouthEast(currentX, currentY, moveDistance));
