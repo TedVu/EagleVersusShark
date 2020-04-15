@@ -20,9 +20,6 @@ public class HealingShark extends AbstractPieceMoveDiagonal {
 		return true;
 	}
 
-
-	
-
 	@Override
 	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece) {
 		if (!abilityName.equals("HEAL SHARK"))

@@ -10,13 +10,30 @@ import java.util.Set;
 import models.engine.EngineImpl;
 
 public abstract class AbstractPieceMoveDiagonal extends AbstractPieceMove {
-	
+
 	public AbstractPieceMoveDiagonal(int x, int y) {
 		super(x, y);
+		moveDistance =  getDistance(this);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Set<List<Integer>> validDiaNorthEast(int x, int y, int cells) {
+	@Override
+	public Set<List<Integer>> getValidMove(Piece piece) {
+
+		int distance = getDistance(piece);
+
+		Map<String, Integer> currentPosition = getPosition();
+		int currentX = currentPosition.get("x");
+		int currentY = currentPosition.get("y");
+		Set<List<Integer>> validMoves = super.getValidMove(piece);
+		validMoves.addAll(validDiaNorthEast(currentX, currentY, moveDistance));
+		validMoves.addAll(validDiaSouthWest(currentX, currentY, moveDistance));
+		validMoves.addAll(validDiaSouthEast(currentX, currentY, moveDistance));
+		validMoves.addAll(validDiaNorthWest(currentX, currentY, moveDistance));
+		return validMoves;
+	}
+
+	private Set<List<Integer>> validDiaNorthEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -32,7 +49,7 @@ public abstract class AbstractPieceMoveDiagonal extends AbstractPieceMove {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaSouthWest(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaSouthWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -48,7 +65,7 @@ public abstract class AbstractPieceMoveDiagonal extends AbstractPieceMove {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaSouthEast(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaSouthEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -65,7 +82,7 @@ public abstract class AbstractPieceMoveDiagonal extends AbstractPieceMove {
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validDiaNorthWest(int x, int y, int cells) {
+	private Set<List<Integer>> validDiaNorthWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -96,26 +113,5 @@ public abstract class AbstractPieceMoveDiagonal extends AbstractPieceMove {
 		}
 		
 	}
-	
-	@Override
-	public Set<List<Integer>> getValidMove(Piece piece) {
-		
-		int distance = getDistance(piece);
-		
-		Map<String, Integer> currentPosition = getPosition();
-		int currentX = currentPosition.get("x");
-		int currentY = currentPosition.get("y");
-		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		validMoves.addAll(validMovesSouth(currentX, currentY, distance));
-		validMoves.addAll(validMovesNorth(currentX, currentY, distance));
-		validMoves.addAll(validMovesEast(currentX, currentY, distance));
-		validMoves.addAll(validMovesWest(currentX, currentY, distance));
-		validMoves.addAll(validDiaNorthEast(currentX, currentY, distance));
-		validMoves.addAll(validDiaSouthWest(currentX, currentY, distance));
-		validMoves.addAll(validDiaSouthEast(currentX, currentY, distance));
-		validMoves.addAll(validDiaNorthWest(currentX, currentY, distance));
-		return validMoves;
-	}
-	
 
 }

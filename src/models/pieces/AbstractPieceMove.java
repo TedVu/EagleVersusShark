@@ -11,13 +11,27 @@ import models.engine.EngineImpl;
 
 public abstract class AbstractPieceMove extends AbstractPiece{
 
-
+	protected int moveDistance;
 
 	public AbstractPieceMove(int x, int y) {
 		super(x, y);
+		moveDistance = getDistance(this);
 	}
 
-	public Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
+	@Override
+	public Set<List<Integer>> getValidMove(Piece piece) {
+		Map<String, Integer> currentPosition = getPosition();
+		int currentX = currentPosition.get("x");
+		int currentY = currentPosition.get("y");
+		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
+		validMoves.addAll(validMovesSouth(currentX, currentY, moveDistance));
+		validMoves.addAll(validMovesNorth(currentX, currentY, moveDistance));
+		validMoves.addAll(validMovesEast(currentX, currentY, moveDistance));
+		validMoves.addAll(validMovesWest(currentX, currentY, moveDistance));
+		return validMoves;
+	}
+
+	protected Set<List<Integer>> validMovesSouth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -32,7 +46,7 @@ public abstract class AbstractPieceMove extends AbstractPiece{
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesNorth(int x, int y, int cells) {
+	protected Set<List<Integer>> validMovesNorth(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -48,7 +62,7 @@ public abstract class AbstractPieceMove extends AbstractPiece{
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesEast(int x, int y, int cells) {
+	protected Set<List<Integer>> validMovesEast(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -64,7 +78,7 @@ public abstract class AbstractPieceMove extends AbstractPiece{
 		return validMoves;
 	}
 
-	public Set<List<Integer>> validMovesWest(int x, int y, int cells) {
+	protected Set<List<Integer>> validMovesWest(int x, int y, int cells) {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
@@ -93,22 +107,6 @@ public abstract class AbstractPieceMove extends AbstractPiece{
 			throw new IllegalArgumentException("invalid piece type");
 		}
 		
-	}
-	
-	@Override
-	public Set<List<Integer>> getValidMove(Piece piece) {
-		
-		int distance = getDistance(piece);
-		
-		Map<String, Integer> currentPosition = getPosition();
-		int currentX = currentPosition.get("x");
-		int currentY = currentPosition.get("y");
-		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		validMoves.addAll(validMovesSouth(currentX, currentY, distance));
-		validMoves.addAll(validMovesNorth(currentX, currentY, distance));
-		validMoves.addAll(validMovesEast(currentX, currentY, distance));
-		validMoves.addAll(validMovesWest(currentX, currentY, distance));
-		return validMoves;
 	}
 
 }

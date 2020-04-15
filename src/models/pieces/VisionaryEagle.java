@@ -45,8 +45,6 @@ public class VisionaryEagle extends AbstractPieceMoveDiagonal{
 
 	}
 
-	
-
 	// usage: piece.useAbility("swap", piece, affectedPiece)
 	@Override
 	public boolean useAbility(String abilityName, Piece piece, Piece affectedPiece) {
@@ -67,9 +65,7 @@ public class VisionaryEagle extends AbstractPieceMoveDiagonal{
 
 			piece.setPosition(position2.get("x"), position2.get("y"));
 			affectedPiece.setPosition(position1.get("x"), position1.get("y"));
-
 			return true;
-
 		} catch (Exception e) {
 			return false;
 		}
