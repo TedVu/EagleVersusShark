@@ -45,8 +45,7 @@ public class VisionaryEagle extends AbstractPiece {
 	 *
 	 */
 	@Override
-	public boolean movePiece(int x, int y) {
+	public void movePiece(int x, int y) {
 		setPosition(x, y);
-		return true;
 	}
 }

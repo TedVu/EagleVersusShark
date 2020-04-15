@@ -48,4 +48,8 @@ public class Board {
 	public void removePiece(int x, int y) {
 		cells.get(y).get(x).setUnoccupied();
 	}
+
+	public boolean getOccupationState(int x, int y) {
+		return cells.get(y).get(x).getOccupied();
+	}
 }

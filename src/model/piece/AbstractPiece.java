@@ -59,7 +59,8 @@ public abstract class AbstractPiece
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
 			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
-					&& y - i >= 0) {
+					&& y - i >= 0 && !EngineImpl.getSingletonInstance()
+							.getBoard().getOccupationState(x + i, y - i)) {
 				Cell validMove = new Cell(x + i, y - i);
 				validMoves.add(validMove);
 			} else {
@@ -73,7 +74,8 @@ public abstract class AbstractPiece
 	public Set<Cell> validDiaNorthWest(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
-			if (x - i >= 0 && y - i >= 0) {
+			if (x - i >= 0 && y - i >= 0 && !EngineImpl.getSingletonInstance()
+					.getBoard().getOccupationState(x - i, y - i)) {
 				Cell validMove = new Cell(x - i, y - i);
 				validMoves.add(validMove);
 			} else {
@@ -90,7 +92,9 @@ public abstract class AbstractPiece
 		for (int i = 1; i <= step; i++) {
 			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
 					&& y + i < EngineImpl.getSingletonInstance().getBoard()
-							.getSize()) {
+							.getSize()
+					&& !EngineImpl.getSingletonInstance().getBoard()
+							.getOccupationState(x + i, y + i)) {
 				Cell validMove = new Cell(x + i, y + i);
 				validMoves.add(validMove);
 			} else {
@@ -106,7 +110,8 @@ public abstract class AbstractPiece
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
 			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize()
-					&& x - i >= 0) {
+					&& x - i >= 0 && !EngineImpl.getSingletonInstance()
+							.getBoard().getOccupationState(x - i, y + i)) {
 				Cell validMove = new Cell(x - i, y + i);
 				validMoves.add(validMove);
 			} else {
@@ -121,8 +126,9 @@ public abstract class AbstractPiece
 	public Set<Cell> validMovesEast(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
-			if (x + i < EngineImpl.getSingletonInstance().getBoard()
-					.getSize()) {
+			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
+					&& !EngineImpl.getSingletonInstance().getBoard()
+							.getOccupationState(x + i, y)) {
 				Cell validMove = new Cell(x + i, y);
 				validMoves.add(validMove);
 			} else {
@@ -137,7 +143,8 @@ public abstract class AbstractPiece
 	public Set<Cell> validMovesNorth(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
-			if (y - i >= 0) {
+			if (y - i >= 0 && !EngineImpl.getSingletonInstance().getBoard()
+					.getOccupationState(x, y - i)) {
 				Cell validMove = new Cell(x, y - i);
 				validMoves.add(validMove);
 			} else {
@@ -152,8 +159,9 @@ public abstract class AbstractPiece
 	public Set<Cell> validMovesSouth(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<Cell>();
 		for (int i = 1; i <= step; i++) {
-			if (y + i < EngineImpl.getSingletonInstance().getBoard()
-					.getSize()) {
+			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize()
+					&& !EngineImpl.getSingletonInstance().getBoard()
+							.getOccupationState(x, y + i)) {
 				Cell validMove = new Cell(x, y + i);
 				validMoves.add(validMove);
 			} else {
@@ -167,7 +175,8 @@ public abstract class AbstractPiece
 	public Set<Cell> validMovesWest(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
-			if (x - i >= 0) {
+			if (x - i >= 0 && !EngineImpl.getSingletonInstance().getBoard()
+					.getOccupationState(x - i, y)) {
 				Cell validMove = new Cell(x - i, y);
 				validMoves.add(validMove);
 			} else {
