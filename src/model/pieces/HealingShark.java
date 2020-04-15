@@ -1,4 +1,4 @@
-package models.pieces;
+package model.pieces;
 
 import java.util.HashSet;
 import java.util.List;
@@ -6,16 +6,15 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author sefira & kevin
+ * @author chanboth
  *
  */
-public class AttackingEagle extends AbstractPiece {
-
+public class HealingShark extends AbstractPiece {
 	/**
 	 * @param x
 	 * @param y
 	 */
-	public AttackingEagle(int x, int y) {
+	public HealingShark(int x, int y) {
 		super(x, y);
 	}
 
@@ -47,4 +46,5 @@ public class AttackingEagle extends AbstractPiece {
 		setPosition(x, y);
 		return true;
 	}
+
 }

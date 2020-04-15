@@ -1,4 +1,4 @@
-package models.player;
+package model.player;
 
 import asset.TeamType;
 

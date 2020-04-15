@@ -23,7 +23,7 @@ public class OperationToolbar extends JMenuBar {
 	 * @see
 	 */
 	public OperationToolbar(MainAppFrame mainFrame) {
-		String[] options = new String[] { "File", "Edit", "Help" };
+		String[] options = new String[]{"File", "Edit", "Help"};
 		menus = new JMenu[options.length];
 
 		for (int i = 0; i < options.length; i++) {

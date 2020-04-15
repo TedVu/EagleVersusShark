@@ -1,12 +1,12 @@
-package models.engine;
+package model.engine;
 
 import java.util.Map;
 
 import asset.PieceType;
 import asset.TeamType;
-import models.board.Board;
-import models.pieces.Piece;
-import models.player.Player;
+import model.board.Board;
+import model.pieces.Piece;
+import model.player.Player;
 import view.interfaces.GameEngineCallback;
 
 /**

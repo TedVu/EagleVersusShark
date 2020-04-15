@@ -9,8 +9,8 @@ import javax.swing.AbstractButton;
 
 import asset.PieceType;
 import asset.TeamType;
-import controllermodel.facade.ControllerModelFacade;
-import controllermodel.interfaces.ControllerModelInterfaces;
+import modelcontroller.facade.ControllerModelFacade;
+import modelcontroller.interfaces.ControllerModelInterfaces;
 import viewcontroller.interfaces.ViewControllerInterface;
 
 /**
@@ -37,42 +37,49 @@ public class MovePieceController implements ActionListener {
 		boolean isAlly = checkAllyClicked(buttonClicked);
 
 		if (!isAlly) {
-			viewControllerFacade.updateBoardMovingPiece(buttonClicked, pieceType);
+			viewControllerFacade.updateBoardMovingPiece(buttonClicked,
+					pieceType);
 			updateModel(buttonClicked);
 			updateModelStateForNextTurn();
 		} else if (isAlly) {
-			pieceType = PieceType.parsePieceType(buttonClicked.getActionCommand());
+			pieceType = PieceType
+					.parsePieceType(buttonClicked.getActionCommand());
 			viewControllerFacade.updateBoardRollback();
 			viewControllerFacade.updateBoardAfterChoosingPiece(pieceType);
 			viewControllerFacade.readdMovePieceController(pieceType, this);
 		}
 	}
 
+	/**
+	 * @param pieceName
+	 * @param facade
+	 */
+	public void setUpControllerState(PieceType pieceName,
+			ViewControllerInterface facade) {
+		this.pieceType = pieceName;
+		this.viewControllerFacade = facade;
+	}
+
 	private boolean checkAllyClicked(AbstractButton buttonClicked) {
 		boolean isAlly = false;
 		if (pieceType.team() == TeamType.EAGLE) {
-			if (!buttonClicked.getActionCommand().equalsIgnoreCase("NormalButton")) {
-				if (PieceType.parsePieceType(buttonClicked.getActionCommand()).team() == TeamType.EAGLE) {
+			if (!buttonClicked.getActionCommand()
+					.equalsIgnoreCase("NormalButton")) {
+				if (PieceType.parsePieceType(buttonClicked.getActionCommand())
+						.team() == TeamType.EAGLE) {
 					isAlly = true;
 				}
 			}
 		} else if (pieceType.team() == TeamType.SHARK) {
-			if (!buttonClicked.getActionCommand().equalsIgnoreCase("NormalButton")) {
-				if (PieceType.parsePieceType(buttonClicked.getActionCommand()).team() == TeamType.SHARK) {
+			if (!buttonClicked.getActionCommand()
+					.equalsIgnoreCase("NormalButton")) {
+				if (PieceType.parsePieceType(buttonClicked.getActionCommand())
+						.team() == TeamType.SHARK) {
 					isAlly = true;
 				}
 			}
 		}
 		return isAlly;
-	}
-
-	/**
-	 * @param pieceName
-	 * @param facade
-	 */
-	public void setUpControllerState(PieceType pieceName, ViewControllerInterface facade) {
-		this.pieceType = pieceName;
-		this.viewControllerFacade = facade;
 	}
 
 	private void updateModel(AbstractButton buttonClicked) {

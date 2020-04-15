@@ -19,8 +19,10 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
 	@Override
-	public void addListenerOnValidMovesCell(AbstractButton buttonClicked, MovePieceController movePieceController) {
-		pcs.firePropertyChange("AddListenerValidMoveCell", movePieceController, buttonClicked);
+	public void addListenerOnValidMovesCell(AbstractButton buttonClicked,
+			MovePieceController movePieceController) {
+		pcs.firePropertyChange("AddListenerValidMoveCell", movePieceController,
+				buttonClicked);
 	}
 
 	@Override
@@ -34,7 +36,8 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos) {
+	public void locateNewPos(AbstractButton buttonClicked,
+			Map<String, Integer> newPos) {
 		pcs.firePropertyChange("LocateNewPosition", buttonClicked, newPos);
 	}
 
@@ -49,8 +52,10 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void readdMovePieceController(PieceType pieceType, MovePieceController movePieceController) {
-		pcs.firePropertyChange("ReaddMovePieceController", movePieceController, pieceType.toString());
+	public void readdMovePieceController(PieceType pieceType,
+			MovePieceController movePieceController) {
+		pcs.firePropertyChange("ReaddMovePieceController", movePieceController,
+				pieceType.toString());
 	}
 
 	@Override
@@ -65,12 +70,15 @@ public class ViewControllerFacade implements ViewControllerInterface {
 
 	@Override
 	public void updateBoardAfterChoosingPiece(PieceType pieceType) {
-		pcs.firePropertyChange("UpdateBoardAfterChoosingPiece", null, pieceType.toString());
+		pcs.firePropertyChange("UpdateBoardAfterChoosingPiece", null,
+				pieceType.toString());
 	}
 
 	@Override
-	public void updateBoardMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
-		pcs.firePropertyChange("UpdateBoardMovingPiece", pieceType.toString(), buttonClicked);
+	public void updateBoardMovingPiece(AbstractButton buttonClicked,
+			PieceType pieceType) {
+		pcs.firePropertyChange("UpdateBoardMovingPiece", pieceType.toString(),
+				buttonClicked);
 	}
 
 	@Override

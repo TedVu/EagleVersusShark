@@ -1,4 +1,4 @@
-package models.pieces;
+package model.pieces;
 
 import java.util.HashSet;
 import java.util.List;

@@ -18,7 +18,8 @@ public interface ViewControllerInterface {
 	 * @param buttonClicked
 	 * @param movePieceController
 	 */
-	public void addListenerOnValidMovesCell(AbstractButton buttonClicked, MovePieceController movePieceController);
+	public void addListenerOnValidMovesCell(AbstractButton buttonClicked,
+			MovePieceController movePieceController);
 
 	/**
 	 * @param listener
@@ -34,7 +35,8 @@ public interface ViewControllerInterface {
 	 * @param buttonClicked
 	 * @param newPos
 	 */
-	public void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos);
+	public void locateNewPos(AbstractButton buttonClicked,
+			Map<String, Integer> newPos);
 
 	/**
 	 * 
@@ -50,7 +52,8 @@ public interface ViewControllerInterface {
 	 * @param pieceType
 	 * @param movePieceController
 	 */
-	public void readdMovePieceController(PieceType pieceType, MovePieceController movePieceController);
+	public void readdMovePieceController(PieceType pieceType,
+			MovePieceController movePieceController);
 
 	/**
 	 * 
@@ -71,7 +74,8 @@ public interface ViewControllerInterface {
 	 * @param buttonClicked
 	 * @param pieceType
 	 */
-	public void updateBoardMovingPiece(AbstractButton buttonClicked, PieceType pieceType);
+	public void updateBoardMovingPiece(AbstractButton buttonClicked,
+			PieceType pieceType);
 
 	/**
 	 * 

@@ -1,5 +1,5 @@
 
-package models.pieces;
+package model.pieces;
 
 import java.util.List;
 import java.util.Map;

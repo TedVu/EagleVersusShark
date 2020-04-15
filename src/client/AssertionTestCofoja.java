@@ -1,4 +1,4 @@
-package views.main;
+package client;
 
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Invariant;
@@ -9,13 +9,13 @@ import com.google.java.contract.Requires;
 
 @Invariant("count != 0")
 public class AssertionTestCofoja {
-	@SuppressWarnings("unused")
-	private int count = 0;
-
 	public static void main(String args[]) {
 		// change param to null to break pre-condition
 		new AssertionTestCofoja().someMethod(" hello");
 	}
+
+	@SuppressWarnings("unused")
+	private int count = 0;
 
 	public AssertionTestCofoja() {
 		// comment increment to break invariant
@@ -31,7 +31,7 @@ public class AssertionTestCofoja {
 		s = s.concat("test");
 
 		// uncomment to break post-condition
-		 s = s.concat("test");
+		s = s.concat("test");
 
 		return s;
 	}

@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import asset.TeamType;
-import models.engine.EngineImpl;
-import models.player.Player;
+import model.engine.EngineImpl;
+import model.player.Player;
 import view.operationview.StatusPanel;
 
 /**
@@ -30,16 +30,19 @@ public class StartGameController implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Player initialPlayer = EngineImpl.getSingletonInstance().getInitialPlayerActivePlayer();
+		Player initialPlayer = EngineImpl.getSingletonInstance()
+				.getInitialPlayerActivePlayer();
 		if (initialPlayer.getPlayerType() == TeamType.SHARK) {
 			statusPanel.updateTurnLabel(TeamType.SHARK);
 			statusPanel.startCountDown();
-			EngineImpl.getSingletonInstance().setActivePlayerTimer(TeamType.EAGLE);
+			EngineImpl.getSingletonInstance()
+					.setActivePlayerTimer(TeamType.EAGLE);
 
 		} else if (initialPlayer.getPlayerType() == TeamType.EAGLE) {
 			statusPanel.updateTurnLabel(TeamType.EAGLE);
 			statusPanel.startCountDown();
-			EngineImpl.getSingletonInstance().setActivePlayerTimer(TeamType.SHARK);
+			EngineImpl.getSingletonInstance()
+					.setActivePlayerTimer(TeamType.SHARK);
 		}
 		JButton startButton = (JButton) e.getSource();
 		startButton.setEnabled(false);

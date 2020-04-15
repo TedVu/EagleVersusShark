@@ -22,11 +22,13 @@ public class ModePanel extends JPanel {
 	 * @see
 	 */
 	public ModePanel() {
-		String[] modes = { "Please select mode", "Normal Mode", "Sky Mode", "Protection Mode" };
+		String[] modes = {"Please select mode", "Normal Mode", "Sky Mode",
+				"Protection Mode"};
 		modeBox = new JComboBox<String>(modes);
 		undoBtn = new JButton("Undo Move");
 
-		setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Mode Panel"));
+		setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createEtchedBorder(), "Mode Panel"));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		JPanel compoBoxPannel = new JPanel();

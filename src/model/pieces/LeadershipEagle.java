@@ -1,5 +1,5 @@
 
-package models.pieces;
+package model.pieces;
 
 import java.util.HashSet;
 import java.util.List;
@@ -10,13 +10,12 @@ import java.util.Set;
  * @author sefira & kevin
  *
  */
-public class VisionaryEagle extends AbstractPiece {
-
+public class LeadershipEagle extends AbstractPiece {
 	/**
 	 * @param x
 	 * @param y
 	 */
-	public VisionaryEagle(int x, int y) {
+	public LeadershipEagle(int x, int y) {
 		super(x, y);
 	}
 
@@ -33,10 +32,6 @@ public class VisionaryEagle extends AbstractPiece {
 		validMoves.addAll(validMovesNorth(currentX, currentY, 2));
 		validMoves.addAll(validMovesEast(currentX, currentY, 2));
 		validMoves.addAll(validMovesWest(currentX, currentY, 2));
-		validMoves.addAll(validDiaNorthEast(currentX, currentY, 2));
-		validMoves.addAll(validDiaSouthWest(currentX, currentY, 2));
-		validMoves.addAll(validDiaSouthEast(currentX, currentY, 2));
-		validMoves.addAll(validDiaNorthWest(currentX, currentY, 2));
 		return validMoves;
 	}
 

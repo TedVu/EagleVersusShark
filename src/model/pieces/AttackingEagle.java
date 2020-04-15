@@ -1,5 +1,4 @@
-
-package models.pieces;
+package model.pieces;
 
 import java.util.HashSet;
 import java.util.List;
@@ -10,12 +9,13 @@ import java.util.Set;
  * @author sefira & kevin
  *
  */
-public class LeadershipEagle extends AbstractPiece {
+public class AttackingEagle extends AbstractPiece {
+
 	/**
 	 * @param x
 	 * @param y
 	 */
-	public LeadershipEagle(int x, int y) {
+	public AttackingEagle(int x, int y) {
 		super(x, y);
 	}
 
@@ -28,10 +28,14 @@ public class LeadershipEagle extends AbstractPiece {
 		int currentX = currentPosition.get("x");
 		int currentY = currentPosition.get("y");
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		validMoves.addAll(validMovesSouth(currentX, currentY, 2));
-		validMoves.addAll(validMovesNorth(currentX, currentY, 2));
-		validMoves.addAll(validMovesEast(currentX, currentY, 2));
-		validMoves.addAll(validMovesWest(currentX, currentY, 2));
+		validMoves.addAll(validMovesSouth(currentX, currentY, 1));
+		validMoves.addAll(validMovesNorth(currentX, currentY, 1));
+		validMoves.addAll(validMovesEast(currentX, currentY, 1));
+		validMoves.addAll(validMovesWest(currentX, currentY, 1));
+		validMoves.addAll(validDiaNorthEast(currentX, currentY, 1));
+		validMoves.addAll(validDiaSouthWest(currentX, currentY, 1));
+		validMoves.addAll(validDiaSouthEast(currentX, currentY, 1));
+		validMoves.addAll(validDiaNorthWest(currentX, currentY, 1));
 		return validMoves;
 	}
 

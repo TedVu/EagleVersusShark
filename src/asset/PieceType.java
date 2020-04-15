@@ -10,8 +10,8 @@ import java.io.File;
  */
 public enum PieceType {
 	/**
-	 * Attacking Eagle form Eagle team. Pre-calculated position (x,y) according to
-	 * the board size.
+	 * Attacking Eagle form Eagle team. Pre-calculated position (x,y) according
+	 * to the board size.
 	 * 
 	 * @author ted &#38; kevin
 	 *
@@ -19,49 +19,62 @@ public enum PieceType {
 	ATTACKINGEAGLE(new File("src\\asset\\AttackingEagle.png"), TeamType.EAGLE) {
 		/**
 		 * Attacking Eagle x is 1 cell to the left of middle column.
+		 * 
+		 * @param boardSize
+		 *            TODO
 		 */
 		@Override
-		public int xCoordinate() {
+		public int xCoordinate(final int boardSize) {
 			return boardSize / 2 - 1;
 		}
 
 		/**
 		 * Attacking Eagle y is on the top row.
+		 * 
+		 * @param boardSize
+		 *            TODO
 		 */
 		@Override
-		public int yCoordinate() {
+		public int yCoordinate(final int boardSize) {
 			return 0;
 		}
 	},
 
 	/**
-	 * Leadership Eagle from Eagle team. Pre-calculated position (x,y) according to
-	 * the board size.
+	 * Leadership Eagle from Eagle team. Pre-calculated position (x,y) according
+	 * to the board size.
 	 * 
 	 * @author ted &#38; kevin
 	 *
 	 */
-	LEADERSHIPEAGLE(new File("src\\asset\\LeadershipEagle.png"), TeamType.EAGLE) {
+	LEADERSHIPEAGLE(new File("src\\asset\\LeadershipEagle.png"),
+			TeamType.EAGLE) {
 		/**
 		 * Leadership Eagle x is in the middle column.
+		 * 
+		 * @param boardSize
+		 *            TODO
 		 */
 		@Override
-		public int xCoordinate() {
+		public int xCoordinate(final int boardSize) {
 			return boardSize / 2;
 		}
 
 		/**
 		 * Leadership Eagle y is 1 cell below the top row.
+		 * 
+		 * @param boardSize
+		 *            TODO
 		 */
 		@Override
-		public int yCoordinate() {
+		public int yCoordinate(final int boardSize) {
 			return 1;
 		}
 	},
 
 	/**
-	 * Visionary Eagle from Eagle team. Pre-calculated position (x,y) according to
-	 * the board size.
+	 * Visionary Eagle from Eagle team. Pre-calculated position (x,y) according
+	 * to the board size.
 	 * 
 	 * @author ted &#38; kevin
 	 *
@@ -69,49 +82,62 @@ public enum PieceType {
 	VISIONARYEAGLE(new File("src\\asset\\VisionaryEagle.png"), TeamType.EAGLE) {
 		/**
 		 * Visionary Eagle x is 1 cell to the right of the middle column.
+		 * 
+		 * @param boardSize
+		 *            TODO
 		 */
 		@Override
-		public int xCoordinate() {
+		public int xCoordinate(final int boardSize) {
 			return boardSize / 2 + 1;
 		}
 
 		/**
 		 * Visionary Eagle y is on the top row.
+		 * 
+		 * @param boardSize
+		 *            TODO
 		 */
 		@Override
-		public int yCoordinate() {
+		public int yCoordinate(final int boardSize) {
 			return 0;
 		}
 	},
 
 	/**
-	 * Aggressive Shark from Shark team. Pre-calculated position (x,y) according to
-	 * the board size.
+	 * Aggressive Shark from Shark team. Pre-calculated position (x,y) according
+	 * to the board size.
 	 * 
 	 * @author ted &#38; kevin
 	 *
 	 */
-	AGGRESSIVESHARK(new File("src\\asset\\AggressiveShark.png"), TeamType.SHARK) {
+	AGGRESSIVESHARK(new File("src\\asset\\AggressiveShark.png"),
+			TeamType.SHARK) {
 		/**
 		 * Aggressive Shark x is 1 cell to the left of the middle column.
+		 * 
+		 * @param boardSize
+		 *            TODO
 		 */
 		@Override
-		public int xCoordinate() {
+		public int xCoordinate(final int boardSize) {
 			return boardSize / 2 - 1;
 		}
 
 		/**
 		 * Aggressive Shark y is on the bottom row.
+		 * 
+		 * @param boardSize
+		 *            TODO
 		 */
 		@Override
-		public int yCoordinate() {
+		public int yCoordinate(final int boardSize) {
 			return boardSize - 1;
 		}
 	},
 
 	/**
-	 * Defensive Shark from Shark team. Pre-calculated position (x,y) according to
-	 * the board size.
+	 * Defensive Shark from Shark team. Pre-calculated position (x,y) according
+	 * to the board size.
 	 * 
 	 * @author ted &#38; kevin
 	 *
@@ -119,24 +145,30 @@ public enum PieceType {
 	DEFENSIVESHARK(new File("src\\asset\\DefensiveShark.png"), TeamType.SHARK) {
 		/**
 		 * Defensive Shark x is in the middle column.
+		 * 
+		 * @param boardSize
+		 *            TODO
 		 */
 		@Override
-		public int xCoordinate() {
+		public int xCoordinate(final int boardSize) {
 			return boardSize / 2;
 		}
 
 		/**
 		 * Defensive Shark y is 1 cell above the bottom row.
+		 * 
+		 * @param boardSize
+		 *            TODO
 		 */
 		@Override
-		public int yCoordinate() {
+		public int yCoordinate(final int boardSize) {
 			return boardSize - 2;
 		}
 	},
 
 	/**
-	 * Healing Shark from Shark team. Pre-calculated position (x,y) according to the
-	 * board size.
+	 * Healing Shark from Shark team. Pre-calculated position (x,y) according to
+	 * the board size.
 	 * 
 	 * @author ted &#38; kevin
 	 *
@@ -144,65 +176,69 @@ public enum PieceType {
 	HEALINGSHARK(new File("src\\asset\\HealingShark.png"), TeamType.SHARK) {
 		/**
 		 * Healing Shark x is 1 cell to the right of the middle column.
+		 * 
+		 * @param boardSize
+		 *            TODO
 		 */
 		@Override
-		public int xCoordinate() {
+		public int xCoordinate(final int boardSize) {
 			return boardSize / 2 + 1;
 		}
 
 		/**
 		 * HealingShark y is on the bottom row.
+		 * 
+		 * @param boardSize
+		 *            TODO
 		 */
 		@Override
-		public int yCoordinate() {
+		public int yCoordinate(final int boardSize) {
 			return boardSize - 1;
 		}
 	};
 
-	private static int boardSize;
+	/**
+	 * 
+	 */
+	private final File file;
 
 	/**
-	 * Used for calculating the initial (x,y) of a piece.
 	 * 
-	 * @param size The current Size of the board that the piece is located.
 	 */
-	public static void onBoardSize(final int size) {
-		boardSize = size;
-	}
+	private final TeamType teamType;
 
 	/**
 	 * Casting from String to Enum PieceType.
 	 * 
-	 * @param string The input string
-	 * @return The Enum version of the String refered to.
+	 * @param string
+	 *            The input string
+	 * @return The Enum version of the String referred to.
 	 */
 	public static PieceType parsePieceType(final String string) {
 		PieceType pieceType = null;
-		if (string.equalsIgnoreCase(PieceType.AGGRESSIVESHARK.toString())) {
+		if (string.equalsIgnoreCase(AGGRESSIVESHARK.toString())) {
 			pieceType = PieceType.AGGRESSIVESHARK;
-		} else if (string.equalsIgnoreCase(PieceType.ATTACKINGEAGLE.toString())) {
+		} else if (string.equalsIgnoreCase(ATTACKINGEAGLE.toString())) {
 			pieceType = PieceType.ATTACKINGEAGLE;
-		} else if (string.equalsIgnoreCase(PieceType.DEFENSIVESHARK.toString())) {
+		} else if (string.equalsIgnoreCase(DEFENSIVESHARK.toString())) {
 			pieceType = PieceType.DEFENSIVESHARK;
-		} else if (string.equalsIgnoreCase(PieceType.HEALINGSHARK.toString())) {
+		} else if (string.equalsIgnoreCase(HEALINGSHARK.toString())) {
 			pieceType = PieceType.HEALINGSHARK;
-		} else if (string.equalsIgnoreCase(PieceType.LEADERSHIPEAGLE.toString())) {
+		} else if (string.equalsIgnoreCase(LEADERSHIPEAGLE.toString())) {
 			pieceType = PieceType.LEADERSHIPEAGLE;
-		} else if (string.equalsIgnoreCase(PieceType.VISIONARYEAGLE.toString())) {
+		} else if (string.equalsIgnoreCase(VISIONARYEAGLE.toString())) {
 			pieceType = PieceType.VISIONARYEAGLE;
 		}
 		return pieceType;
 	}
 
-	private final File file; // NOPMD by kevin on 4/14/20 10:19 PM
-
-	private final TeamType teamType; // NOPMD by kevin on 4/14/20 10:20 PM
-
 	/**
-	 * @param file     Relative file path.
-	 * @param teamType TeamType of the Piece Type.
+	 * @param file
+	 *            Relative file path.
+	 * @param teamType
+	 *            TeamType of the Piece Type.
 	 */
-	PieceType(final File file,final TeamType teamType) {
+	PieceType(final File file, final TeamType teamType) {
 		this.file = file;
 		this.teamType = teamType;
 	}
@@ -224,10 +260,10 @@ public enum PieceType {
 	/**
 	 * @return The initial coordinate x
 	 */
-	public abstract int xCoordinate();
+	public abstract int xCoordinate(int boardSize);
 
 	/**
-	 * @return The inituial coordinate y
+	 * @return The initial coordinate y
 	 */
-	public abstract int yCoordinate();
+	public abstract int yCoordinate(int boardSize);
 }

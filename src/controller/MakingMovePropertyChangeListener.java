@@ -15,20 +15,23 @@ import view.operationview.StatusPanel;
  * @author ted &#38; kevin
  *
  */
-public class MakingMovePropertyChangeListener implements PropertyChangeListener {
+public class MakingMovePropertyChangeListener
+		implements
+			PropertyChangeListener {
 
 	private StatusPanel statusPanel;
 
 	/**
-	 * @param statusPanel Reference from view-status panel.
+	 * @param statusPanel
+	 *            Reference from view-status panel.
 	 */
 	public void injectStatusPanel(StatusPanel statusPanel) {
 		this.statusPanel = statusPanel;
 	}
 
 	/**
-	 * Check Player Making Move or Switch Turn to update the Turn label, and Start
-	 * the count down of the timer again.
+	 * Check Player Making Move or Switch Turn to update the Turn label, and
+	 * Start the count down of the timer again.
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {

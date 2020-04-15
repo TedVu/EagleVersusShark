@@ -15,13 +15,15 @@ public class MessageDialog {
 	 * @param boardView
 	 */
 	public static void notifyNotStartGame(BoardPanel boardView) {
-		JOptionPane.showMessageDialog(boardView, "You have not start the game yet");
+		JOptionPane.showMessageDialog(boardView,
+				"You have not start the game yet");
 	}
 
 	/**
 	 * @param boardView
 	 */
 	public static void notifySelectWrongTeam(BoardPanel boardView) {
-		JOptionPane.showMessageDialog(boardView, "You are selecting the wrong team");
+		JOptionPane.showMessageDialog(boardView,
+				"You are selecting the wrong team");
 	}
 }

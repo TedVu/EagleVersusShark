@@ -1,4 +1,4 @@
-package models.board;
+package model.board;
 
 /**
  * @author ted &#38; kevin

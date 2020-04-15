@@ -3,7 +3,7 @@ package controller;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import models.engine.EngineImpl;
+import model.engine.EngineImpl;
 import view.operationview.BoardPanel;
 
 /**
@@ -27,7 +27,8 @@ public class TimerPropertyChangeListener implements PropertyChangeListener {
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equalsIgnoreCase("SwitchTurn")) {
-			boardView.updateBoardEndOfTimer(EngineImpl.getSingletonInstance().getBoard().getSize());
+			boardView.updateBoardEndOfTimer(
+					EngineImpl.getSingletonInstance().getBoard().getSize());
 		}
 	}
 }

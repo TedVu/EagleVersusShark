@@ -1,4 +1,5 @@
-package models.pieces;
+
+package model.pieces;
 
 import java.util.HashSet;
 import java.util.List;
@@ -6,15 +7,16 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author chanboth
+ * @author sefira & kevin
  *
  */
-public class DefensiveShark extends AbstractPiece {
+public class VisionaryEagle extends AbstractPiece {
+
 	/**
 	 * @param x
 	 * @param y
 	 */
-	public DefensiveShark(int x, int y) {
+	public VisionaryEagle(int x, int y) {
 		super(x, y);
 	}
 

@@ -1,4 +1,4 @@
-package views.main;
+package client;
 
 import java.awt.EventQueue;
 
@@ -14,9 +14,15 @@ import view.mainframe.MainAppFrame;
  * 
  */
 public class MockViewClient {
-	public static void main(String[] args) {
+	/**
+	 * Main class for A1. 9x9 board with movable pieces and timer.
+	 * @author ktsc team
+	 * @param args
+	 */
+	public static void main(final String[] args) {
 		try {
-			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager.setLookAndFeel(
+					"javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -24,7 +30,7 @@ public class MockViewClient {
 			@Override
 			public void run() {
 				try {
-					MainAppFrame window = new MainAppFrame();
+					final MainAppFrame window = new MainAppFrame();
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

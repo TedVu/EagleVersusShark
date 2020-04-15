@@ -1,4 +1,4 @@
-package models.pieces;
+package model.pieces;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import models.engine.EngineImpl;
+import model.engine.EngineImpl;
 
 /**
  * @author sefira & chanboth
@@ -55,7 +55,8 @@ public abstract class AbstractPiece implements Piece, PieceMovement {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize() && y - i >= 0) {
+			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
+					&& y - i >= 0) {
 				validMove.add(x + i);
 				validMove.add(y - i);
 				validMoves.add(validMove);
@@ -90,7 +91,8 @@ public abstract class AbstractPiece implements Piece, PieceMovement {
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
 			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
-					&& y + i < EngineImpl.getSingletonInstance().getBoard().getSize()) {
+					&& y + i < EngineImpl.getSingletonInstance().getBoard()
+							.getSize()) {
 				validMove.add(x + i);
 				validMove.add(y + i);
 				validMoves.add(validMove);
@@ -107,7 +109,8 @@ public abstract class AbstractPiece implements Piece, PieceMovement {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize() && x - i >= 0) {
+			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize()
+					&& x - i >= 0) {
 				validMove.add(x - i);
 				validMove.add(y + i);
 				validMoves.add(validMove);
@@ -124,7 +127,8 @@ public abstract class AbstractPiece implements Piece, PieceMovement {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()) {
+			if (x + i < EngineImpl.getSingletonInstance().getBoard()
+					.getSize()) {
 				validMove.add(x + i);
 				validMove.add(y);
 				validMoves.add(validMove);
@@ -158,7 +162,8 @@ public abstract class AbstractPiece implements Piece, PieceMovement {
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize()) {
+			if (y + i < EngineImpl.getSingletonInstance().getBoard()
+					.getSize()) {
 				validMove.add(x);
 				validMove.add(y + i);
 				validMoves.add(validMove);

@@ -1,11 +1,11 @@
-package controllermodel.facade;
+package modelcontroller.facade;
 
 import java.util.Map;
 
 import asset.PieceType;
 import asset.TeamType;
-import controllermodel.interfaces.ControllerModelInterfaces;
-import models.engine.EngineImpl;
+import model.engine.EngineImpl;
+import modelcontroller.interfaces.ControllerModelInterfaces;
 
 /**
  * @author ted &#38; kevin
@@ -14,8 +14,10 @@ import models.engine.EngineImpl;
 public class ControllerModelFacade implements ControllerModelInterfaces {
 
 	@Override
-	public void updateModelAfterMovingPiece(Map<String, Integer> newPos, PieceType pieceType) {
-		EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).movePiece(newPos.get("x"), newPos.get("y"));
+	public void updateModelAfterMovingPiece(Map<String, Integer> newPos,
+			PieceType pieceType) {
+		EngineImpl.getSingletonInstance().getAllPieces().get(pieceType)
+				.movePiece(newPos.get("x"), newPos.get("y"));
 	}
 
 	@Override

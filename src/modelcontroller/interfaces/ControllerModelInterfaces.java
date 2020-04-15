@@ -1,4 +1,4 @@
-package controllermodel.interfaces;
+package modelcontroller.interfaces;
 
 import java.util.Map;
 
@@ -15,7 +15,8 @@ public interface ControllerModelInterfaces {
 	 * @param newPos
 	 * @param pieceType
 	 */
-	public void updateModelAfterMovingPiece(Map<String, Integer> newPos, PieceType pieceType);
+	public void updateModelAfterMovingPiece(Map<String, Integer> newPos,
+			PieceType pieceType);
 
 	/**
 	 * @param teamName
