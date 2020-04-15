@@ -33,7 +33,7 @@ public interface PieceInterface {
 	 * @param y
 	 * @return
 	 */
-	public boolean movePiece(int x, int y);
+	public void movePiece(int x, int y);
 
 	/**
 	 * @param isActive

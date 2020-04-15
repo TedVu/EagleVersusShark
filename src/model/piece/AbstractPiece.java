@@ -15,10 +15,7 @@ import model.engine.EngineImpl;
  * @author sefira & chanboth
  *
  */
-public abstract class AbstractPiece
-		implements
-			PieceInterface,
-			PieceMovementInterface {
+public abstract class AbstractPiece implements PieceInterface, PieceMovementInterface {
 
 	private Map<String, Integer> position = new HashMap<String, Integer>();
 	private boolean isActive;
@@ -60,8 +57,8 @@ public abstract class AbstractPiece
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
-					&& y - i >= 0) {
+			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize() && y - i >= 0
+					&& !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x + i, y - i)) {
 				validMove.add(x + i);
 				validMove.add(y - i);
 				validMoves.add(validMove);
@@ -78,7 +75,8 @@ public abstract class AbstractPiece
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (x - i >= 0 && y - i >= 0) {
+			if (x - i >= 0 && y - i >= 0
+					&& !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x - i, y - i)) {
 				validMove.add(x - i);
 				validMove.add(y - i);
 				validMoves.add(validMove);
@@ -96,8 +94,8 @@ public abstract class AbstractPiece
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
 			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
-					&& y + i < EngineImpl.getSingletonInstance().getBoard()
-							.getSize()) {
+					&& y + i < EngineImpl.getSingletonInstance().getBoard().getSize()
+					&& !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x + i, y + i)) {
 				validMove.add(x + i);
 				validMove.add(y + i);
 				validMoves.add(validMove);
@@ -114,8 +112,8 @@ public abstract class AbstractPiece
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize()
-					&& x - i >= 0) {
+			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize() && x - i >= 0
+					&& !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x - i, y + i)) {
 				validMove.add(x - i);
 				validMove.add(y + i);
 				validMoves.add(validMove);
@@ -132,8 +130,8 @@ public abstract class AbstractPiece
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (x + i < EngineImpl.getSingletonInstance().getBoard()
-					.getSize()) {
+			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
+					&& !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x + i, y)) {
 				validMove.add(x + i);
 				validMove.add(y);
 				validMoves.add(validMove);
@@ -150,7 +148,7 @@ public abstract class AbstractPiece
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (y - i >= 0) {
+			if (y - i >= 0 && !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x, y - i)) {
 				validMove.add(x);
 				validMove.add(y - i);
 				validMoves.add(validMove);
@@ -167,8 +165,8 @@ public abstract class AbstractPiece
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (y + i < EngineImpl.getSingletonInstance().getBoard()
-					.getSize()) {
+			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize()
+					&& !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x, y + i)) {
 				validMove.add(x);
 				validMove.add(y + i);
 				validMoves.add(validMove);
@@ -184,7 +182,7 @@ public abstract class AbstractPiece
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
 		for (int i = 1; i <= cells; i++) {
 			List<Integer> validMove = new LinkedList<Integer>();
-			if (x - i >= 0) {
+			if (x - i >= 0 && !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x - i, y)) {
 				validMove.add(x - i);
 				validMove.add(y);
 				validMoves.add(validMove);
