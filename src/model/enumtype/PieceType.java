@@ -1,4 +1,4 @@
-package asset;
+package model.enumtype;
 
 import java.io.File;
 
@@ -16,7 +16,7 @@ public enum PieceType {
 	 * @author ted &#38; kevin
 	 *
 	 */
-	ATTACKINGEAGLE(new File("src\\asset\\AttackingEagle.png"), TeamType.EAGLE) {
+	ATTACKINGEAGLE(new File("asset\\AttackingEagle.png"), TeamType.EAGLE) {
 		/**
 		 * Attacking Eagle x is 1 cell to the left of middle column.
 		 * 
@@ -47,8 +47,7 @@ public enum PieceType {
 	 * @author ted &#38; kevin
 	 *
 	 */
-	LEADERSHIPEAGLE(new File("src\\asset\\LeadershipEagle.png"),
-			TeamType.EAGLE) {
+	LEADERSHIPEAGLE(new File("asset\\LeadershipEagle.png"), TeamType.EAGLE) {
 		/**
 		 * Leadership Eagle x is in the middle column.
 		 * 
@@ -79,7 +78,7 @@ public enum PieceType {
 	 * @author ted &#38; kevin
 	 *
 	 */
-	VISIONARYEAGLE(new File("src\\asset\\VisionaryEagle.png"), TeamType.EAGLE) {
+	VISIONARYEAGLE(new File("asset\\VisionaryEagle.png"), TeamType.EAGLE) {
 		/**
 		 * Visionary Eagle x is 1 cell to the right of the middle column.
 		 * 
@@ -110,8 +109,7 @@ public enum PieceType {
 	 * @author ted &#38; kevin
 	 *
 	 */
-	AGGRESSIVESHARK(new File("src\\asset\\AggressiveShark.png"),
-			TeamType.SHARK) {
+	AGGRESSIVESHARK(new File("asset\\AggressiveShark.png"), TeamType.SHARK) {
 		/**
 		 * Aggressive Shark x is 1 cell to the left of the middle column.
 		 * 
@@ -142,7 +140,7 @@ public enum PieceType {
 	 * @author ted &#38; kevin
 	 *
 	 */
-	DEFENSIVESHARK(new File("src\\asset\\DefensiveShark.png"), TeamType.SHARK) {
+	DEFENSIVESHARK(new File("asset\\DefensiveShark.png"), TeamType.SHARK) {
 		/**
 		 * Defensive Shark x is in the middle column.
 		 * 
@@ -173,7 +171,7 @@ public enum PieceType {
 	 * @author ted &#38; kevin
 	 *
 	 */
-	HEALINGSHARK(new File("src\\asset\\HealingShark.png"), TeamType.SHARK) {
+	HEALINGSHARK(new File("asset\\HealingShark.png"), TeamType.SHARK) {
 		/**
 		 * Healing Shark x is 1 cell to the right of the middle column.
 		 * 
@@ -196,16 +194,6 @@ public enum PieceType {
 			return boardSize - 1;
 		}
 	};
-
-	/**
-	 * 
-	 */
-	private final File file;
-
-	/**
-	 * 
-	 */
-	private final TeamType teamType;
 
 	/**
 	 * Casting from String to Enum PieceType.
@@ -231,6 +219,16 @@ public enum PieceType {
 		}
 		return pieceType;
 	}
+
+	/**
+	 * 
+	 */
+	private final File file;
+
+	/**
+	 * 
+	 */
+	private final TeamType teamType;
 
 	/**
 	 * @param file

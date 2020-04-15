@@ -1,4 +1,4 @@
-package model.pieces;
+package model.piece;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,13 +7,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import model.contract.PieceInterface;
+import model.contract.PieceMovementInterface;
 import model.engine.EngineImpl;
 
 /**
  * @author sefira & chanboth
  *
  */
-public abstract class AbstractPiece implements Piece, PieceMovement {
+public abstract class AbstractPiece
+		implements
+			PieceInterface,
+			PieceMovementInterface {
 
 	private Map<String, Integer> position = new HashMap<String, Integer>();
 	private boolean isActive;

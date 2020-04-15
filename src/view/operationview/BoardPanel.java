@@ -22,15 +22,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import asset.PieceType;
-import asset.TeamType;
 import controller.MovePieceController;
 import controller.SelectPieceController;
 import controller.TimerPropertyChangeListener;
 import model.engine.EngineImpl;
+import model.enumtype.PieceType;
+import model.enumtype.TeamType;
 import view.messagedialog.MessageDialog;
+import viewcontroller.contract.ViewControllerInterface;
 import viewcontroller.facade.ViewControllerFacade;
-import viewcontroller.interfaces.ViewControllerInterface;
 
 /**
  * <h1>Board Panel View</h1> BoardPanel class contains the boards (can be
@@ -358,7 +358,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 	private void populatePieces(int boardSize) {
 		for (PieceType pt : PieceType.values()) {
-			populateCustomPiece(pt.yCoordinate(boardSize), pt.xCoordinate(boardSize), pt);
+			populateCustomPiece(pt.yCoordinate(boardSize),
+					pt.xCoordinate(boardSize), pt);
 		}
 	}
 

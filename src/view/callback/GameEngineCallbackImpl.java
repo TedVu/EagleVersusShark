@@ -1,17 +1,17 @@
-package view.callbacks;
+package view.callback;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.SwingUtilities;
 
-import asset.TeamType;
-import view.interfaces.GameEngineCallback;
+import model.enumtype.TeamType;
+import view.contract.GameEngineCallbackInterface;
 
 /**
  * @author ted &#38; kevin
  */
-public class GameEngineCallbackImpl implements GameEngineCallback {
+public class GameEngineCallbackImpl implements GameEngineCallbackInterface {
 
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 

@@ -2,16 +2,16 @@ package modelcontroller.facade;
 
 import java.util.Map;
 
-import asset.PieceType;
-import asset.TeamType;
 import model.engine.EngineImpl;
-import modelcontroller.interfaces.ControllerModelInterfaces;
+import model.enumtype.PieceType;
+import model.enumtype.TeamType;
+import modelcontroller.contract.ControllerModelInterface;
 
 /**
  * @author ted &#38; kevin
  *
  */
-public class ControllerModelFacade implements ControllerModelInterfaces {
+public class ControllerModelFacade implements ControllerModelInterface {
 
 	@Override
 	public void updateModelAfterMovingPiece(Map<String, Integer> newPos,

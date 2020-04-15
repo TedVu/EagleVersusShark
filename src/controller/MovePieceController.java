@@ -7,11 +7,11 @@ import java.util.Map;
 
 import javax.swing.AbstractButton;
 
-import asset.PieceType;
-import asset.TeamType;
+import model.enumtype.PieceType;
+import model.enumtype.TeamType;
+import modelcontroller.contract.ControllerModelInterface;
 import modelcontroller.facade.ControllerModelFacade;
-import modelcontroller.interfaces.ControllerModelInterfaces;
-import viewcontroller.interfaces.ViewControllerInterface;
+import viewcontroller.contract.ViewControllerInterface;
 
 /**
  * This controller responsible for XXX.
@@ -24,7 +24,7 @@ import viewcontroller.interfaces.ViewControllerInterface;
 public class MovePieceController implements ActionListener {
 
 	private ViewControllerInterface viewControllerFacade;
-	private ControllerModelInterfaces controllerModelFacade = new ControllerModelFacade();
+	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
 
 	private PieceType pieceType;
 

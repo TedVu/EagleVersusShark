@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
 
-import asset.PieceType;
-import asset.TeamType;
 import model.engine.EngineImpl;
+import model.enumtype.PieceType;
+import model.enumtype.TeamType;
 import view.operationview.BoardPanel;
-import viewcontroller.interfaces.ViewControllerInterface;
+import viewcontroller.contract.ViewControllerInterface;
 
 /**
  * Invoked when user choose a piece before making a move.<br>

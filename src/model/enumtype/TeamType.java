@@ -1,4 +1,4 @@
-package asset;
+package model.enumtype;
 
 /**
  * @author ted &#38; kevin

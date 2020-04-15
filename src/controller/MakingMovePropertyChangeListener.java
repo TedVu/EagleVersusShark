@@ -3,7 +3,7 @@ package controller;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import asset.TeamType;
+import model.enumtype.TeamType;
 import view.operationview.StatusPanel;
 
 /**

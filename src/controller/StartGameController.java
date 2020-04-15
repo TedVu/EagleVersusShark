@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import asset.TeamType;
 import model.engine.EngineImpl;
+import model.enumtype.TeamType;
 import model.player.Player;
 import view.operationview.StatusPanel;
 

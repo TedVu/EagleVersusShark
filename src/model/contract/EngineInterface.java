@@ -1,19 +1,18 @@
-package model.engine;
+package model.contract;
 
 import java.util.Map;
 
-import asset.PieceType;
-import asset.TeamType;
 import model.board.Board;
-import model.pieces.Piece;
+import model.enumtype.PieceType;
+import model.enumtype.TeamType;
 import model.player.Player;
-import view.interfaces.GameEngineCallback;
+import view.contract.GameEngineCallbackInterface;
 
 /**
  * @author sefira
  *
  */
-public interface Engine {
+public interface EngineInterface {
 
 	/**
 	 * 
@@ -29,7 +28,7 @@ public interface Engine {
 	/**
 	 * @return
 	 */
-	public Map<PieceType, Piece> getAllPieces();
+	public Map<PieceType, PieceInterface> getAllPieces();
 
 	/**
 	 * @return
@@ -44,7 +43,7 @@ public interface Engine {
 	/**
 	 * @return
 	 */
-	public GameEngineCallback getGameEngineCallback();
+	public GameEngineCallbackInterface getGameEngineCallback();
 
 	/**
 	 * @return
@@ -64,7 +63,7 @@ public interface Engine {
 	 * @param newX
 	 * @param newY
 	 */
-	public void movePiece(Piece piece, int newX, int newY);
+	public void movePiece(PieceInterface piece, int newX, int newY);
 
 	/*
 	 * set active player
@@ -90,7 +89,7 @@ public interface Engine {
 	 * 
 	 * @return
 	 */
-	public boolean setPieceActiveStatus(Piece piece, boolean isActive);
+	public boolean setPieceActiveStatus(PieceInterface piece, boolean isActive);
 
 	/**
 	 * 

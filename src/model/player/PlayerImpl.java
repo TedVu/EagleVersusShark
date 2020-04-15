@@ -1,6 +1,6 @@
 package model.player;
 
-import asset.TeamType;
+import model.enumtype.TeamType;
 
 /**
  * @author sefira

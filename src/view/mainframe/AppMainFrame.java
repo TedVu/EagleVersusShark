@@ -15,7 +15,7 @@ import view.operationview.RightPanel;
 /**
  * @author ted &#38; kevin
  */
-public class MainAppFrame extends JFrame {
+public class AppMainFrame extends JFrame {
 	/**
 	 * @serial -6241584551658525365L
 	 */
@@ -30,7 +30,7 @@ public class MainAppFrame extends JFrame {
 	/**
 	 * @see
 	 */
-	public MainAppFrame() {
+	public AppMainFrame() {
 		boardPanel = new BoardPanel();
 		operationToolbar = new OperationToolbar(this);
 		rightPanel = new RightPanel();

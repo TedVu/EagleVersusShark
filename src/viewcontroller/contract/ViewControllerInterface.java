@@ -1,12 +1,12 @@
-package viewcontroller.interfaces;
+package viewcontroller.contract;
 
 import java.beans.PropertyChangeListener;
 import java.util.Map;
 
 import javax.swing.AbstractButton;
 
-import asset.PieceType;
 import controller.MovePieceController;
+import model.enumtype.PieceType;
 
 /**
  * @author ted &#38; kevin

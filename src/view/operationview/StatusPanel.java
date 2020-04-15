@@ -12,10 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
-import asset.TeamType;
 import controller.MakingMovePropertyChangeListener;
 import controller.StartGameController;
 import model.engine.EngineImpl;
+import model.enumtype.TeamType;
 
 /**
  * @author ted &#38; kevin

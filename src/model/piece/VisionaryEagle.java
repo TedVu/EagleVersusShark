@@ -1,5 +1,5 @@
 
-package model.pieces;
+package model.piece;
 
 import java.util.HashSet;
 import java.util.List;

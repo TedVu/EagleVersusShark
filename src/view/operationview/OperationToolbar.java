@@ -4,7 +4,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import view.mainframe.MainAppFrame;
+import view.mainframe.AppMainFrame;
 
 /**
  * @author ted &#38; kevin
@@ -22,7 +22,7 @@ public class OperationToolbar extends JMenuBar {
 	/**
 	 * @see
 	 */
-	public OperationToolbar(MainAppFrame mainFrame) {
+	public OperationToolbar(AppMainFrame mainFrame) {
 		String[] options = new String[]{"File", "Edit", "Help"};
 		menus = new JMenu[options.length];
 

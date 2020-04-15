@@ -1,5 +1,5 @@
 
-package model.pieces;
+package model.contract;
 
 import java.util.List;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Set;
  * @author sefira & chanboth
  *
  */
-public interface Piece {
+public interface PieceInterface {
 
 	/**
 	 * Get the current position of the piece

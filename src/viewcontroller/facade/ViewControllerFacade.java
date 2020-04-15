@@ -6,9 +6,9 @@ import java.util.Map;
 
 import javax.swing.AbstractButton;
 
-import asset.PieceType;
 import controller.MovePieceController;
-import viewcontroller.interfaces.ViewControllerInterface;
+import model.enumtype.PieceType;
+import viewcontroller.contract.ViewControllerInterface;
 
 /**
  * @author kevin 7 ted

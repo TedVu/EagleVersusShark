@@ -1,4 +1,4 @@
-package model.pieces;
+package model.piece;
 
 import java.util.HashSet;
 import java.util.List;
@@ -9,12 +9,12 @@ import java.util.Set;
  * @author chanboth
  *
  */
-public class HealingShark extends AbstractPiece {
+public class DefensiveShark extends AbstractPiece {
 	/**
 	 * @param x
 	 * @param y
 	 */
-	public HealingShark(int x, int y) {
+	public DefensiveShark(int x, int y) {
 		super(x, y);
 	}
 
@@ -27,14 +27,14 @@ public class HealingShark extends AbstractPiece {
 		int currentX = currentPosition.get("x");
 		int currentY = currentPosition.get("y");
 		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
-		validMoves.addAll(validMovesSouth(currentX, currentY, 1));
-		validMoves.addAll(validMovesNorth(currentX, currentY, 1));
-		validMoves.addAll(validMovesEast(currentX, currentY, 1));
-		validMoves.addAll(validMovesWest(currentX, currentY, 1));
-		validMoves.addAll(validDiaNorthEast(currentX, currentY, 1));
-		validMoves.addAll(validDiaSouthWest(currentX, currentY, 1));
-		validMoves.addAll(validDiaSouthEast(currentX, currentY, 1));
-		validMoves.addAll(validDiaNorthWest(currentX, currentY, 1));
+		validMoves.addAll(validMovesSouth(currentX, currentY, 2));
+		validMoves.addAll(validMovesNorth(currentX, currentY, 2));
+		validMoves.addAll(validMovesEast(currentX, currentY, 2));
+		validMoves.addAll(validMovesWest(currentX, currentY, 2));
+		validMoves.addAll(validDiaNorthEast(currentX, currentY, 2));
+		validMoves.addAll(validDiaSouthWest(currentX, currentY, 2));
+		validMoves.addAll(validDiaSouthEast(currentX, currentY, 2));
+		validMoves.addAll(validDiaNorthWest(currentX, currentY, 2));
 		return validMoves;
 	}
 
@@ -46,5 +46,4 @@ public class HealingShark extends AbstractPiece {
 		setPosition(x, y);
 		return true;
 	}
-
 }

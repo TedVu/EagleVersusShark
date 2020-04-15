@@ -1,13 +1,13 @@
-package view.interfaces;
+package view.contract;
 
 import java.beans.PropertyChangeListener;
 
-import asset.TeamType;
+import model.enumtype.TeamType;
 
 /**
  * @author ted &#38; kevin
  */
-public interface GameEngineCallback {
+public interface GameEngineCallbackInterface {
 	/**
 	 * 
 	 */

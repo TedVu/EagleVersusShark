@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.UIManager;
 
-import view.mainframe.MainAppFrame;
+import view.mainframe.AppMainFrame;
 
 /**
  * <h1>Main class (for testing)</h1> MockViewClient is the main class. It has
@@ -16,6 +16,7 @@ import view.mainframe.MainAppFrame;
 public class MockViewClient {
 	/**
 	 * Main class for A1. 9x9 board with movable pieces and timer.
+	 * 
 	 * @author ktsc team
 	 * @param args
 	 */
@@ -30,7 +31,7 @@ public class MockViewClient {
 			@Override
 			public void run() {
 				try {
-					final MainAppFrame window = new MainAppFrame();
+					final AppMainFrame window = new AppMainFrame();
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

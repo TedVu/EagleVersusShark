@@ -5,30 +5,31 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 
-import asset.PieceType;
-import asset.TeamType;
 import controller.MakingMovePropertyChangeListener;
 import controller.TimerPropertyChangeListener;
 import model.board.Board;
-import model.pieces.Piece;
-import model.pieces.PieceFactory;
+import model.contract.EngineInterface;
+import model.contract.PieceInterface;
+import model.enumtype.PieceType;
+import model.enumtype.TeamType;
+import model.piece.PieceFactory;
 import model.player.Player;
 import model.player.PlayerImpl;
-import view.callbacks.GameEngineCallbackImpl;
-import view.interfaces.GameEngineCallback;
+import view.callback.GameEngineCallbackImpl;
+import view.contract.GameEngineCallbackInterface;
 
 /**
  *
  * @author Sefira
  *
  */
-public class EngineImpl implements Engine {
-	private static Engine engine = null;
+public class EngineImpl implements EngineInterface {
+	private static EngineInterface engine = null;
 
 	/**
 	 * @return
 	 */
-	public static Engine getSingletonInstance() {
+	public static EngineInterface getSingletonInstance() {
 		if (engine == null) {
 			engine = new EngineImpl();
 		}
@@ -37,7 +38,7 @@ public class EngineImpl implements Engine {
 
 	private boolean startGame = false;
 
-	private Map<PieceType, Piece> pieces = new EnumMap<PieceType, Piece>(
+	private Map<PieceType, PieceInterface> pieces = new EnumMap<PieceType, PieceInterface>(
 			PieceType.class);
 	private Player eaglePlayer = new PlayerImpl(TeamType.EAGLE);
 
@@ -45,7 +46,7 @@ public class EngineImpl implements Engine {
 
 	private Timer gameTimer;
 
-	private GameEngineCallback geCallback = new GameEngineCallbackImpl();
+	private GameEngineCallbackInterface geCallback = new GameEngineCallbackImpl();
 
 	private Board board;
 
@@ -77,7 +78,7 @@ public class EngineImpl implements Engine {
 	}
 
 	@Override
-	public Map<PieceType, Piece> getAllPieces() {
+	public Map<PieceType, PieceInterface> getAllPieces() {
 		return pieces;
 	}
 
@@ -100,7 +101,7 @@ public class EngineImpl implements Engine {
 	}
 
 	@Override
-	public GameEngineCallback getGameEngineCallback() {
+	public GameEngineCallbackInterface getGameEngineCallback() {
 		return geCallback;
 	}
 
@@ -139,7 +140,7 @@ public class EngineImpl implements Engine {
 	public void initializePiece() {
 		int boardSize = getBoard().getSize();
 		for (PieceType pt : PieceType.values()) {
-			Piece piece = PieceFactory.generatePiece(pt, boardSize);
+			PieceInterface piece = PieceFactory.generatePiece(pt, boardSize);
 			board.addPiece(piece.getPosition().get("x"),
 					piece.getPosition().get("y"));
 			pieces.put(pt, piece);
@@ -147,7 +148,7 @@ public class EngineImpl implements Engine {
 	}
 
 	@Override
-	public void movePiece(Piece piece, int x, int y) {
+	public void movePiece(PieceInterface piece, int x, int y) {
 		board.removePiece(piece.getPosition().get("x"),
 				piece.getPosition().get("y"));
 		board.addPiece(x, y);
@@ -190,7 +191,8 @@ public class EngineImpl implements Engine {
 	}
 
 	@Override
-	public boolean setPieceActiveStatus(Piece piece, boolean isActive) {
+	public boolean setPieceActiveStatus(PieceInterface piece,
+			boolean isActive) {
 		try {
 			piece.setActive(isActive);
 		} catch (Exception e) {

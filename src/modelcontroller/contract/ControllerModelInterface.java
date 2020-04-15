@@ -1,15 +1,15 @@
-package modelcontroller.interfaces;
+package modelcontroller.contract;
 
 import java.util.Map;
 
-import asset.PieceType;
-import asset.TeamType;
+import model.enumtype.PieceType;
+import model.enumtype.TeamType;
 
 /**
  * @author ted &#38; kevin
  *
  */
-public interface ControllerModelInterfaces {
+public interface ControllerModelInterface {
 
 	/**
 	 * @param newPos

@@ -1,4 +1,4 @@
-package model.pieces;
+package model.piece;
 
 import java.util.HashSet;
 import java.util.List;
@@ -6,16 +6,16 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author chanboth
+ * @author sefira & kevin
  *
  */
-public class AggressiveShark extends AbstractPiece {
+public class AttackingEagle extends AbstractPiece {
 
 	/**
 	 * @param x
 	 * @param y
 	 */
-	public AggressiveShark(int x, int y) {
+	public AttackingEagle(int x, int y) {
 		super(x, y);
 	}
 
@@ -32,6 +32,10 @@ public class AggressiveShark extends AbstractPiece {
 		validMoves.addAll(validMovesNorth(currentX, currentY, 1));
 		validMoves.addAll(validMovesEast(currentX, currentY, 1));
 		validMoves.addAll(validMovesWest(currentX, currentY, 1));
+		validMoves.addAll(validDiaNorthEast(currentX, currentY, 1));
+		validMoves.addAll(validDiaSouthWest(currentX, currentY, 1));
+		validMoves.addAll(validDiaSouthEast(currentX, currentY, 1));
+		validMoves.addAll(validDiaNorthWest(currentX, currentY, 1));
 		return validMoves;
 	}
 
