@@ -6,11 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author sefira & kevin
- *
- */
-public class VisionaryEagle extends AbstractPiece {
+public class VisionaryEagle extends AbstractPieceMoveDiagonal{
 
 	/**
 	 * @param x

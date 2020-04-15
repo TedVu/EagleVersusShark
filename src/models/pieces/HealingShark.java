@@ -5,15 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author chanboth
- *
- */
-public class HealingShark extends AbstractPiece {
-	/**
-	 * @param x
-	 * @param y
-	 */
+public class HealingShark extends AbstractPieceMoveDiagonal {
+
 	public HealingShark(int x, int y) {
 		super(x, y);
 	}

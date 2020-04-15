@@ -5,11 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author chanboth
- *
- */
-public class AggressiveShark extends AbstractPiece {
+public class AggressiveShark extends AbstractPieceMove{
 
 	/**
 	 * @param x

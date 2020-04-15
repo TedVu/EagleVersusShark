@@ -5,15 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author chanboth
- *
- */
-public class DefensiveShark extends AbstractPiece {
-	/**
-	 * @param x
-	 * @param y
-	 */
+public class DefensiveShark extends AbstractPieceMoveDiagonal {
 	public DefensiveShark(int x, int y) {
 		super(x, y);
 	}

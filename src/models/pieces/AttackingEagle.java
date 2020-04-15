@@ -9,7 +9,7 @@ import java.util.Set;
  * @author sefira & kevin
  *
  */
-public class AttackingEagle extends AbstractPiece {
+public class AttackingEagle extends AbstractPieceMoveDiagonal {
 
 	/**
 	 * @param x
@@ -18,7 +18,7 @@ public class AttackingEagle extends AbstractPiece {
 	public AttackingEagle(int x, int y) {
 		super(x, y);
 	}
-
+	
 	/**
 	 *
 	 */

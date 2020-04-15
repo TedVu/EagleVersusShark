@@ -6,15 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author sefira & kevin
- *
- */
-public class LeadershipEagle extends AbstractPiece {
-	/**
-	 * @param x
-	 * @param y
-	 */
+public class LeadershipEagle extends AbstractPieceMove {
+
 	public LeadershipEagle(int x, int y) {
 		super(x, y);
 	}
