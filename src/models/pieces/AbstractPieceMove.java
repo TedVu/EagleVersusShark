@@ -18,6 +18,7 @@ public abstract class AbstractPieceMove extends AbstractPiece{
 		moveDistance = getDistance(this);
 	}
 
+	@Override
 	public Set<List<Integer>> getValidMove() {
 		Map<String, Integer> currentPosition = getPosition();
 		int currentX = currentPosition.get("x");
