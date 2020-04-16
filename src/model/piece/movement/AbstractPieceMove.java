@@ -16,8 +16,7 @@ import model.engine.EngineImpl;
 
 public abstract class AbstractPieceMove implements PieceMovementInterface{
 	
-	public AbstractPieceMove() {
-	}
+	private Set<Cell> validMoves = new HashSet<>();
 	
 	/*
 	 * @param piece - selected piece
@@ -30,11 +29,10 @@ public abstract class AbstractPieceMove implements PieceMovementInterface{
 		int currentX = currentPosition.get("x");
 		int currentY = currentPosition.get("y");
 		
-		Set<Cell> validMoves = new HashSet<>();
-		validMoves.addAll(validMovesSouth(currentX, currentY, distance));
-		validMoves.addAll(validMovesNorth(currentX, currentY, distance));
-		validMoves.addAll(validMovesEast(currentX, currentY, distance));
-		validMoves.addAll(validMovesWest(currentX, currentY, distance));
+		this.validMoves.addAll(validMovesSouth(currentX, currentY, distance));
+		this.validMoves.addAll(validMovesNorth(currentX, currentY, distance));
+		this.validMoves.addAll(validMovesEast(currentX, currentY, distance));
+		this.validMoves.addAll(validMovesWest(currentX, currentY, distance));
 		return validMoves;
 	}
 	
