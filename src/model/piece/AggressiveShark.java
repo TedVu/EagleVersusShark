@@ -1,6 +1,7 @@
 package model.piece;
 
 import java.util.Set;
+
 import model.board.Cell;
 import model.piece.movement.BasicMove;
 
