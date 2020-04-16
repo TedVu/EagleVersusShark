@@ -16,7 +16,7 @@ import model.engine.EngineImpl;
 
 public abstract class AbstractPieceMove implements PieceMovementInterface{
 	
-	private Set<Cell> validMoves = new HashSet<>();
+	protected Set<Cell> validMoves = new HashSet<>();
 	
 	/*
 	 * @param piece - selected piece

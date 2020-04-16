@@ -15,7 +15,6 @@ import model.engine.EngineImpl;
 
 public class DiagonalMove extends AbstractPieceMove{
 	
-	private Set<Cell> validMoves;
 	
 	/*
 	 * @param piece - selected piece

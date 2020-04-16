@@ -3,7 +3,7 @@ package model.piece;
 
 import java.util.Set;
 import model.board.Cell;
-import model.piece.movement.BasicMove;
+import model.piece.movement.DiagonalMove;
 
 /**
  * @author sefira
@@ -17,7 +17,8 @@ public class VisionaryEagle extends AbstractPiece {
 
 	@Override
 	public Set<Cell> getValidMove() {
-		return new BasicMove().getValidMove(this, 2);
+		return new DiagonalMove().getValidMove(this, 2);
+		
 	}
 
 	@Override
