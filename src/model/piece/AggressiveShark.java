@@ -2,7 +2,6 @@ package model.piece;
 
 import java.util.Set;
 import model.board.Cell;
-import model.contract.PieceMovementInterface;
 import model.piece.movement.BasicMove;
 
 /**
@@ -11,7 +10,6 @@ import model.piece.movement.BasicMove;
  */
 public class AggressiveShark extends AbstractPiece{
 	
-	private PieceMovementInterface validMoves = new BasicMove();
 
 	public AggressiveShark(int x, int y) {
 		super(x, y);
@@ -24,7 +22,7 @@ public class AggressiveShark extends AbstractPiece{
 	
 	@Override
 	public Set<Cell> getValidMove() {
-		return this.validMoves.getValidMove(this, 1);
+		return  new BasicMove().getValidMove(this, 1);
 	}
 
 

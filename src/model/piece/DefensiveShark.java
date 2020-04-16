@@ -3,7 +3,6 @@ package model.piece;
 
 import java.util.Set;
 import model.board.Cell;
-import model.contract.PieceMovementInterface;
 import model.piece.movement.DiagonalMove;
 
 /**
@@ -12,8 +11,6 @@ import model.piece.movement.DiagonalMove;
  */
 public class DefensiveShark extends AbstractPiece {
 	
-	private PieceMovementInterface validMoves = new DiagonalMove();
-	
 
 	public DefensiveShark(int x, int y) {
 		super(x, y);
@@ -21,7 +18,8 @@ public class DefensiveShark extends AbstractPiece {
 
 	@Override
 	public Set<Cell> getValidMove() {
-		return this.validMoves.getValidMove(this, 2);
+		return new DiagonalMove().getValidMove(this, 2);
+
 	}
 
 	@Override

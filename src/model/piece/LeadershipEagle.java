@@ -3,7 +3,6 @@ package model.piece;
 
 import java.util.Set;
 import model.board.Cell;
-import model.contract.PieceMovementInterface;
 import model.piece.movement.BasicMove;
 
 /**
@@ -12,7 +11,6 @@ import model.piece.movement.BasicMove;
  */
 public class LeadershipEagle extends AbstractPiece {
 	
-	private PieceMovementInterface validMoves = new BasicMove();
 
 	public LeadershipEagle(int x, int y) {
 		super(x, y);
@@ -20,7 +18,7 @@ public class LeadershipEagle extends AbstractPiece {
 
 	@Override
 	public Set<Cell> getValidMove() {
-		return this.validMoves.getValidMove(this, 2);
+		return new BasicMove().getValidMove(this, 2);
 	}
 
 	@Override
