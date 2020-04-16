@@ -127,8 +127,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		String event = evt.getPropertyName();
-		if (event.equalsIgnoreCase("UpdateBoardMovingPiece")) {
-			updateBoardMovingPiece((AbstractButton) evt.getNewValue(),
+		if (event.equalsIgnoreCase("UpdateBoardAfterMovingPiece")) {
+			updateBoardAfterMovingPiece((AbstractButton) evt.getNewValue(),
 					PieceType.parsePieceType((String) evt.getOldValue()));
 		} else if (event.equalsIgnoreCase("LocateNewPosition")) {
 			locateNewPos((AbstractButton) evt.getOldValue(), (Map<String, Integer>) evt.getNewValue());
@@ -217,7 +217,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @param pieceType
 	 */
 	@Requires({ "buttonClicked != null", "pieceType != null" })
-	public void updateBoardMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
+	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
 		Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getPosition();
 		Set<Cell> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
 

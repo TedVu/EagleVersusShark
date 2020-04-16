@@ -31,7 +31,7 @@ public class AssertionTestCofoja {
 		s = s.concat("test");
 
 		// uncomment to break post-condition
-//		s = s.concat("test");
+		// s = s.concat("test");
 
 		return s;
 	}
