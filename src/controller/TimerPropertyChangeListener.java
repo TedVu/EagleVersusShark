@@ -3,6 +3,8 @@ package controller;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import com.google.java.contract.Requires;
+
 import model.engine.EngineImpl;
 import view.operationview.BoardPanel;
 
@@ -17,6 +19,7 @@ public class TimerPropertyChangeListener implements PropertyChangeListener {
 	/**
 	 * @param boardView
 	 */
+	@Requires("boardView != null")
 	public void injectBoard(BoardPanel boardView) {
 		this.boardView = boardView;
 	}

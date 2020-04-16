@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.swing.AbstractButton;
 
+import com.google.java.contract.Requires;
+
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import modelcontroller.contract.ControllerModelInterface;
@@ -34,7 +36,7 @@ public class MovePieceController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		AbstractButton buttonClicked = (AbstractButton) e.getSource();
-		viewControllerFacade.updateBoardMovingPiece(buttonClicked, pieceType);
+		viewControllerFacade.updateBoardAfterMovingPiece(buttonClicked, pieceType);
 		updateModel(buttonClicked);
 		updateModelStateForNextTurn();
 
@@ -44,23 +46,24 @@ public class MovePieceController implements ActionListener {
 	 * @param pieceName
 	 * @param facade
 	 */
+	@Requires({ "pieceName != null", "facade != null" })
 	public void setUpControllerState(PieceType pieceName, ViewControllerInterface facade) {
 		this.pieceType = pieceName;
 		this.viewControllerFacade = facade;
 	}
 
+	@Requires({ "buttonClicked != null" })
 	private void updateModel(AbstractButton buttonClicked) {
 		Map<String, Integer> newPos = new HashMap<String, Integer>();
 		viewControllerFacade.locateNewPos(buttonClicked, newPos);
 		controllerModelFacade.updateModelAfterMovingPiece(newPos, pieceType);
 	}
 
+	@Requires({ "pieceType.team()!=null" })
 	private void updateModelStateForNextTurn() {
 		if (pieceType.team() == TeamType.EAGLE) {
-			viewControllerFacade.restoreButtonStateForNextTurn();
 			controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
 		} else if (pieceType.team() == TeamType.SHARK) {
-			viewControllerFacade.restoreButtonStateForNextTurn();
 			controllerModelFacade.updateModelStateForNextTurn(TeamType.EAGLE);
 		}
 	}

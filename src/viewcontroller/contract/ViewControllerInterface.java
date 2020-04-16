@@ -14,29 +14,20 @@ import model.enumtype.PieceType;
  */
 public interface ViewControllerInterface {
 
-	/**
-	 * @param buttonClicked
-	 * @param movePieceController
-	 */
-	public void addListenerOnValidMovesCell(AbstractButton buttonClicked,
-			MovePieceController movePieceController);
+	
 
 	/**
 	 * @param listener
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener listener);
 
-	/**
-	 * @param buttonClicked
-	 */
-	public void enableAvailableMove(AbstractButton buttonClicked);
+	
 
 	/**
 	 * @param buttonClicked
 	 * @param newPos
 	 */
-	public void locateNewPos(AbstractButton buttonClicked,
-			Map<String, Integer> newPos);
+	public void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos);
 
 	/**
 	 * 
@@ -49,37 +40,16 @@ public interface ViewControllerInterface {
 	public void notifySelectWrongTeam();
 
 	/**
-	 * @param pieceType
-	 * @param movePieceController
-	 */
-	public void readdMovePieceController(PieceType pieceType,
-			MovePieceController movePieceController);
-
-	/**
-	 * 
-	 */
-	public void restoreButtonStateForNextTurn();
-
-	/**
 	 * @param buttonClicked
 	 */
-	public void rollbackSelectedPiece(AbstractButton buttonClicked);
+	public void updateBoardSelectAnotherPiece(AbstractButton buttonClicked);
 
-	/**
-	 * @param pieceType
-	 */
-	public void updateBoardAfterChoosingPiece(PieceType pieceType);
+	public void updateBoardBeforeMovePiece(AbstractButton buttonClicked, MovePieceController movePieceController);
 
 	/**
 	 * @param buttonClicked
 	 * @param pieceType
 	 */
-	public void updateBoardMovingPiece(AbstractButton buttonClicked,
-			PieceType pieceType);
-
-	/**
-	 * 
-	 */
-	public void updateBoardRollback();
+	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType);
 
 }

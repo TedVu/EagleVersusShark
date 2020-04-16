@@ -2,6 +2,8 @@ package model.contract;
 
 import java.util.Map;
 
+import com.google.java.contract.Requires;
+
 import model.board.Board;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;

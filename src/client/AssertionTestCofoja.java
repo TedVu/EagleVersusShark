@@ -11,7 +11,7 @@ import com.google.java.contract.Requires;
 public class AssertionTestCofoja {
 	public static void main(String args[]) {
 		// change param to null to break pre-condition
-		new AssertionTestCofoja().someMethod(" hello");
+		new AssertionTestCofoja().someMethod(null);
 	}
 
 	@SuppressWarnings("unused")
@@ -31,7 +31,7 @@ public class AssertionTestCofoja {
 		s = s.concat("test");
 
 		// uncomment to break post-condition
-		s = s.concat("test");
+//		s = s.concat("test");
 
 		return s;
 	}

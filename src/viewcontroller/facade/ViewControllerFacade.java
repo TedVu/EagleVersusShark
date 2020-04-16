@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.swing.AbstractButton;
 
+import com.google.java.contract.Requires;
+
 import controller.MovePieceController;
 import model.enumtype.PieceType;
 import viewcontroller.contract.ViewControllerInterface;
@@ -18,26 +20,16 @@ public class ViewControllerFacade implements ViewControllerInterface {
 
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-	@Override
-	public void addListenerOnValidMovesCell(AbstractButton buttonClicked,
-			MovePieceController movePieceController) {
-		pcs.firePropertyChange("AddListenerValidMoveCell", movePieceController,
-				buttonClicked);
-	}
 
 	@Override
+	@Requires("listener != null")
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
 	}
 
 	@Override
-	public void enableAvailableMove(AbstractButton buttonClicked) {
-		pcs.firePropertyChange("EnableAvailableMove", null, buttonClicked);
-	}
-
-	@Override
-	public void locateNewPos(AbstractButton buttonClicked,
-			Map<String, Integer> newPos) {
+	@Requires({ "buttonClicked != null", "newPos != null" })
+	public void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos) {
 		pcs.firePropertyChange("LocateNewPosition", buttonClicked, newPos);
 	}
 
@@ -52,38 +44,22 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void readdMovePieceController(PieceType pieceType,
-			MovePieceController movePieceController) {
-		pcs.firePropertyChange("ReaddMovePieceController", movePieceController,
-				pieceType.toString());
-	}
-
-	@Override
-	public void restoreButtonStateForNextTurn() {
-		pcs.firePropertyChange("RestoreButtonStateForNextTurn", null, null);
-	}
-
-	@Override
-	public void rollbackSelectedPiece(AbstractButton buttonClicked) {
+	@Requires("buttonClicked != null")
+	public void updateBoardSelectAnotherPiece(AbstractButton buttonClicked) {
 		pcs.firePropertyChange("RollbackSelectedPiece", null, buttonClicked);
 	}
 
 	@Override
-	public void updateBoardAfterChoosingPiece(PieceType pieceType) {
-		pcs.firePropertyChange("UpdateBoardAfterChoosingPiece", null,
-				pieceType.toString());
+	@Requires({ "buttonClicked !=null", "pieceType != null" })
+	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
+		pcs.firePropertyChange("UpdateBoardMovingPiece", pieceType.toString(), buttonClicked);
 	}
 
 	@Override
-	public void updateBoardMovingPiece(AbstractButton buttonClicked,
-			PieceType pieceType) {
-		pcs.firePropertyChange("UpdateBoardMovingPiece", pieceType.toString(),
-				buttonClicked);
-	}
+	public void updateBoardBeforeMovePiece(AbstractButton buttonClicked, MovePieceController movePieceController) {
+		// TODO Auto-generated method stub
+		pcs.firePropertyChange("UpdateBoardBeforeMovingPiece", buttonClicked, movePieceController);
 
-	@Override
-	public void updateBoardRollback() {
-		pcs.firePropertyChange("UpdateBoardRollback", null, null);
 	}
 
 }

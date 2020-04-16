@@ -3,6 +3,8 @@ package controller;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import com.google.java.contract.Requires;
+
 import model.enumtype.TeamType;
 import view.operationview.StatusPanel;
 
@@ -23,6 +25,7 @@ public class MakingMovePropertyChangeListener implements PropertyChangeListener 
 	 * @param statusPanel
 	 *            Reference from view-status panel.
 	 */
+	@Requires("statusPanel != null")
 	public void injectStatusPanel(StatusPanel statusPanel) {
 		this.statusPanel = statusPanel;
 	}
@@ -32,6 +35,7 @@ public class MakingMovePropertyChangeListener implements PropertyChangeListener 
 	 * the count down of the timer again.
 	 */
 	@Override
+	@Requires("evt != null")
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equalsIgnoreCase("MakingMove")
 				|| evt.getPropertyName().equalsIgnoreCase("SwitchTurn")) {
