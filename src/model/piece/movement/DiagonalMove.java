@@ -44,7 +44,7 @@ public class DiagonalMove extends AbstractPieceMove{
 	 * @param distance - piece moving distance
 	 * @return the set of valid coordinate for north east direction
 	 */
-	public Set<Cell> validDiaNorthEast(int x, int y, int step) {
+	private Set<Cell> validDiaNorthEast(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
 			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
@@ -64,7 +64,7 @@ public class DiagonalMove extends AbstractPieceMove{
 	 * @param distance - piece moving distance
 	 * @return the set of valid coordinate for north west direction
 	 */
-	public Set<Cell> validDiaNorthWest(int x, int y, int step) {
+	private Set<Cell> validDiaNorthWest(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
 			if (x - i >= 0 && y - i >= 0 && !EngineImpl.getSingletonInstance()
@@ -84,7 +84,7 @@ public class DiagonalMove extends AbstractPieceMove{
 	 * @param distance - piece moving distance
 	 * @return the set of valid coordinate for south east direction
 	 */
-	public Set<Cell> validDiaSouthEast(int x, int y, int step) {
+	private Set<Cell> validDiaSouthEast(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
 			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
@@ -107,7 +107,7 @@ public class DiagonalMove extends AbstractPieceMove{
 	 * @param distance - piece moving distance
 	 * @return the set of valid coordinate for south west direction
 	 */
-	public Set<Cell> validDiaSouthWest(int x, int y, int step) {
+	private Set<Cell> validDiaSouthWest(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
 			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize()
