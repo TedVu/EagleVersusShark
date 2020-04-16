@@ -15,38 +15,38 @@ import view.contract.GameEngineCallbackInterface;
 public interface EngineInterface {
 
 	/**
-	 * 
+	 *  stop the timer of the game
 	 */
 	public void cancelTimer();
 
 	/**
-	 * @param occupiedPieceType
-	 * @return
+	 * @param occupiedPieceType 
+	 * @return true if the piece is occupied, else false
 	 */
 	public boolean checkSelectPiece(PieceType occupiedPieceType);
 
 	/**
-	 * @return
+	 * @return all pieces
 	 */
 	public Map<PieceType, PieceInterface> getAllPieces();
 
-	/**
-	 * @return
-	 */
+
 	public Board getBoard();
 
 	/**
-	 * @return
+	 * get the current player turn
+	 * @return the active team
 	 */
 	public Player getCurrentActivePlayer();
 
-	/**
-	 * @return
-	 */
+
 	public GameEngineCallbackInterface getGameEngineCallback();
 
-	/**
-	 * @return
+	/*
+	 * return the initial active player, call this at the beginning of the
+	 * program
+	 * 
+	 * @return (eaglePlayer || sharkPlayer)
 	 */
 	public Player getInitialPlayerActivePlayer();
 
@@ -59,40 +59,33 @@ public interface EngineInterface {
 	public boolean getStartGame();
 
 	/**
-	 * @param piece
-	 * @param newX
-	 * @param newY
+	 * @param piece - the piece to be moved
+	 * @param newX - new x position
+	 * @param newY - new y position
+	 *  Generate the pieces and put them on the board
 	 */
 	public void movePiece(PieceInterface piece, int newX, int newY);
 
-	/*
-	 * set active player
+	/**
+	 * set the turn to the specified team in parameter
 	 * 
-	 * @param playerType String playerType
-	 * 
-	 * @param turnOnTimer turnOnTimer - set interval to change player every n
-	 * seconds or not
+	 * @param playerType - the player to be activated
+	 * @param turnOnTimer - whether to begin countdown or not
 	 */
 	public void setActivePlayer(TeamType playerType, boolean turnOnTimer);
 
 	/**
-	 * @param playerType
+	 * turn on the timer and loop call setActivePlayer to change every interval
+	 * @param playerType - the player to be activated next
 	 */
 	public void setActivePlayerTimer(TeamType playerType);
 
 	/*
-	 * contructor for initial eagle creation
-	 * 
-	 * @param piece Piece - the piece that the active status will change
-	 * 
-	 * @param isActive boolean - want to set to active ? true : false
-	 * 
-	 * @return
+	 * Set the selected piece status to active
+	 * @return boolean
 	 */
 	public boolean setPieceActiveStatus(PieceInterface piece, boolean isActive);
 
-	/**
-	 * 
-	 */
+
 	public void setStartGame();
 }
