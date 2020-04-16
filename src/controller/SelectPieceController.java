@@ -65,17 +65,12 @@ public class SelectPieceController implements ActionListener {
 	}
 
 	private void checkPieceSelectedTurn() {
-		if (EngineImpl.getSingletonInstance().checkSelectPiece(
-				PieceType.parsePieceType(buttonClicked.getActionCommand()))) {
-			if (EngineImpl.getSingletonInstance().getCurrentActivePlayer()
-					.getPlayerType() == TeamType.SHARK) {
-				checkAllowTransitToMovePieceAction(TeamType.SHARK);
-			} else if (EngineImpl.getSingletonInstance()
-					.getCurrentActivePlayer()
-					.getPlayerType() == TeamType.EAGLE) {
-				checkAllowTransitToMovePieceAction(TeamType.EAGLE);
-			}
-
+		if (EngineImpl.getSingletonInstance().getCurrentActivePlayer()
+				.getPlayerType() == TeamType.SHARK) {
+			checkAllowTransitToMovePieceAction(TeamType.SHARK);
+		} else if (EngineImpl.getSingletonInstance().getCurrentActivePlayer()
+				.getPlayerType() == TeamType.EAGLE) {
+			checkAllowTransitToMovePieceAction(TeamType.EAGLE);
 		}
 	}
 

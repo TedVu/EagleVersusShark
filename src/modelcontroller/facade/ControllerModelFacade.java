@@ -16,9 +16,6 @@ public class ControllerModelFacade implements ControllerModelInterface {
 
 	@Override
 	public void updateModelAfterMovingPiece(Map<String, Integer> newPos, PieceType pieceType) {
-		// EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).movePiece(newPos.get("x"),
-		// newPos.get("y"));
-
 		PieceInterface pieceMoved = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType);
 		EngineImpl.getSingletonInstance().movePiece(pieceMoved, newPos.get("x"), newPos.get("y"));
 	}
