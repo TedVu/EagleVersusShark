@@ -30,6 +30,11 @@ public class MovePieceController implements ActionListener {
 
 	private PieceType pieceType;
 
+	public MovePieceController(PieceType pieceName, ViewControllerInterface facade) {
+		this.pieceType = pieceName;
+		this.viewControllerFacade = facade;
+	}
+
 	/**
 	 *	
 	 */
@@ -40,16 +45,6 @@ public class MovePieceController implements ActionListener {
 		updateModel(buttonClicked);
 		updateModelStateForNextTurn();
 
-	}
-
-	/**
-	 * @param pieceName
-	 * @param facade
-	 */
-	@Requires({ "pieceName != null", "facade != null" })
-	public void setUpControllerState(PieceType pieceName, ViewControllerInterface facade) {
-		this.pieceType = pieceName;
-		this.viewControllerFacade = facade;
 	}
 
 	@Requires({ "buttonClicked != null" })
