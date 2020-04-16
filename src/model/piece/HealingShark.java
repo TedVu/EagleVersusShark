@@ -1,47 +1,28 @@
 package model.piece;
 
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-
 import model.board.Cell;
+import model.contract.PieceMovementInterface;
+import model.piece.movement.DiagonalMove;
 
 /**
  * @author chanboth
  *
  */
 public class HealingShark extends AbstractPiece {
-	/**
-	 * @param x
-	 * @param y
-	 */
+	
+	private PieceMovementInterface validMoves = new DiagonalMove();
+	
+
 	public HealingShark(int x, int y) {
 		super(x, y);
 	}
 
-	/**
-	 *
-	 */
 	@Override
 	public Set<Cell> getValidMove() {
-		Map<String, Integer> currentPosition = this.getPosition();
-		int currentX = currentPosition.get("x");
-		int currentY = currentPosition.get("y");
-		Set<Cell> validMoves = new HashSet<>();
-		validMoves.addAll(validMovesSouth(currentX, currentY, 1));
-		validMoves.addAll(validMovesNorth(currentX, currentY, 1));
-		validMoves.addAll(validMovesEast(currentX, currentY, 1));
-		validMoves.addAll(validMovesWest(currentX, currentY, 1));
-		validMoves.addAll(validDiaNorthEast(currentX, currentY, 1));
-		validMoves.addAll(validDiaSouthWest(currentX, currentY, 1));
-		validMoves.addAll(validDiaSouthEast(currentX, currentY, 1));
-		validMoves.addAll(validDiaNorthWest(currentX, currentY, 1));
-		return validMoves;
+		return this.validMoves.getValidMove(this, 1);
 	}
 
-	/**
-	 *
-	 */
 	@Override
 	public void movePiece(int x, int y) {
 		setPosition(x, y);

@@ -9,17 +9,17 @@ import model.enumtype.TeamType;
 public interface Player {
 
 	/**
-	 * @return
+	 * @return whether it's currently the player's turn or not
 	 */
 	public boolean getActive();
 
 	/**
-	 * @return
+	 * @return the type of player (eagle | shark)
 	 */
 	public TeamType getPlayerType();
 
 	/**
-	 * @param isActive
+	 * @param isActive - set the player active status
 	 */
 	public void setActive(boolean isActive);
 }

@@ -14,38 +14,36 @@ public interface PieceInterface {
 
 	/**
 	 * Get the current position of the piece
-	 * 
-	 * @return
+	 * @return {"x": .. , "y": ..}
 	 */
 	public Map<String, Integer> getPosition();
 
 	/**
-	 * @return
+	 * @return the set of valid coordinates
 	 */
 	public Set<Cell> getValidMove();
 
 	/**
-	 * @return
+	 * @return whether the piece is active or not
 	 */
 	public boolean isActive();
 
 	/**
-	 * @param x
-	 * @param y
+	 * @param x - the new x position
+	 * @param y - the new y position
 	 * @return
 	 */
 	public void movePiece(int x, int y);
 
 	/**
-	 * @param isActive
+	 * @param isActive - set the piece to active or not
 	 */
 	public void setActive(boolean isActive);
 
 	/**
 	 * Modify the position of the piece
-	 * 
-	 * @param x
-	 * @param y
+	 * @param x - new x position
+	 * @param y - new y position
 	 */
 	public void setPosition(int x, int y);
 }

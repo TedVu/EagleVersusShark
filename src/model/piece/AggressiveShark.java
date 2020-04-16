@@ -1,47 +1,31 @@
 package model.piece;
 
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-
 import model.board.Cell;
+import model.contract.PieceMovementInterface;
+import model.piece.movement.BasicMove;
 
 /**
  * @author chanboth
  *
  */
-public class AggressiveShark extends AbstractPiece {
+public class AggressiveShark extends AbstractPiece{
+	
+	private PieceMovementInterface validMoves = new BasicMove();
 
-	/**
-	 * @param x
-	 * @param y
-	 */
 	public AggressiveShark(int x, int y) {
 		super(x, y);
 	}
 
-	/**
-	 *
-	 */
-	@Override
-	public Set<Cell> getValidMove() {
-		Map<String, Integer> currentPosition = this.getPosition();
-		int currentX = currentPosition.get("x");
-		int currentY = currentPosition.get("y");
-		
-		Set<Cell> validMoves = new HashSet<>();
-		validMoves.addAll(validMovesSouth(currentX, currentY, 1));
-		validMoves.addAll(validMovesNorth(currentX, currentY, 1));
-		validMoves.addAll(validMovesEast(currentX, currentY, 1));
-		validMoves.addAll(validMovesWest(currentX, currentY, 1));
-		return validMoves;
-	}
-
-	/**
-	 *
-	 */
 	@Override
 	public void movePiece(int x, int y) {
 		setPosition(x, y);
 	}
+	
+	@Override
+	public Set<Cell> getValidMove() {
+		return this.validMoves.getValidMove(this, 1);
+	}
+
+
 }
