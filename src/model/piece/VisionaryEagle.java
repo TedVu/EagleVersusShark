@@ -2,9 +2,10 @@
 package model.piece;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import model.board.Cell;
 
 /**
  * @author sefira & kevin
@@ -24,11 +25,11 @@ public class VisionaryEagle extends AbstractPiece {
 	 *
 	 */
 	@Override
-	public Set<List<Integer>> getValidMove() {
+	public Set<Cell> getValidMove() {
 		Map<String, Integer> currentPosition = this.getPosition();
 		int currentX = currentPosition.get("x");
 		int currentY = currentPosition.get("y");
-		Set<List<Integer>> validMoves = new HashSet<List<Integer>>();
+		Set<Cell> validMoves = new HashSet<Cell>();
 		validMoves.addAll(validMovesSouth(currentX, currentY, 2));
 		validMoves.addAll(validMovesNorth(currentX, currentY, 2));
 		validMoves.addAll(validMovesEast(currentX, currentY, 2));

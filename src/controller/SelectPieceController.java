@@ -74,6 +74,7 @@ public class SelectPieceController implements ActionListener {
 				checkAllowTransitToMovePieceAction(TeamType.EAGLE);
 			}
 
+
 		}
 	}
 

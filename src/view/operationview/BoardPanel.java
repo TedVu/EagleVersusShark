@@ -28,6 +28,7 @@ import com.google.java.contract.Requires;
 import controller.MovePieceController;
 import controller.SelectPieceController;
 import controller.TimerPropertyChangeListener;
+import model.board.Cell;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
@@ -145,20 +146,20 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	private void updateBoardBeforeMovingPiece(AbstractButton buttonClicked, MovePieceController movePieceControlelr) {
 		PieceType pieceType = PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase());
 
-		Set<List<Integer>> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+		Set<Cell> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
 
-		for (List<Integer> moves : validMoves) {
+		for (Cell moves : validMoves) {
 			if (pieceType.team() == TeamType.EAGLE) {
-				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.yellow);
+				buttons.get(moves.getY()).get(moves.getX()).setBackground(Color.yellow);
 			} else if (pieceType.team() == TeamType.SHARK) {
-				buttons.get(moves.get(1)).get(moves.get(0)).setBackground(Color.blue);
+				buttons.get(moves.getY()).get(moves.getX()).setBackground(Color.blue);
 			}
 
-			ActionListener[] selectPieceListener = buttons.get(moves.get(1)).get(moves.get(0)).getActionListeners();
+			ActionListener[] selectPieceListener = buttons.get(moves.getY()).get(moves.getX()).getActionListeners();
 			for (ActionListener listener : selectPieceListener) {
-				buttons.get(moves.get(1)).get(moves.get(0)).removeActionListener(listener);
+				buttons.get(moves.getY()).get(moves.getX()).removeActionListener(listener);
 			}
-			buttons.get(moves.get(1)).get(moves.get(0)).addActionListener(movePieceControlelr);
+			buttons.get(moves.getY()).get(moves.getX()).addActionListener(movePieceControlelr);
 		}
 	}
 
@@ -174,18 +175,19 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	/**
 	 * @return
 	 */
+
 	@Requires({ "buttonClicked != null", "pieceType != null", "validMoves != null" })
 	public void updateIconAndButtonStateAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType,
-			Set<List<Integer>> validMoves) {
+			Set<Cell> validMoves) {
 		updateIcon(buttonClicked, pieceType);
 		updateBoardStateAfterMove();
+
 	}
 
 	private void updateBoardStateAfterMove() {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
 				buttons.get(row).get(col).setBackground(Color.WHITE);
-
 				ActionListener[] listeners = buttons.get(row).get(col).getActionListeners();
 				for (ActionListener l : listeners) {
 					buttons.get(row).get(col).removeActionListener(l);
@@ -196,10 +198,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
-	/**
-	 * <b>Note:</b> basically clear all effects - using color as enum would be a
-	 * better design choice here
-	 */
 	@Requires("boardSize > 0")
 	public void updateBoardEndOfTimer(int boardSize) {
 		for (int row = 0; row < boardSize; ++row) {
@@ -221,7 +219,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	@Requires({ "buttonClicked != null", "pieceType != null" })
 	public void updateBoardMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
 		Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getPosition();
-		Set<List<Integer>> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+		Set<Cell> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
+
 		buttonClicked.setActionCommand(pieceType.toString());
 		updateIconAndButtonStateAfterMovingPiece(buttonClicked, pieceType, validMoves);
 		restoreViewForOldPos(oldPos);
@@ -243,6 +242,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	@Requires({ "buttonClicked != null", "newPos != null" })
 	@Ensures("newPos.size()>0")
 	private void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos) {
+
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(row).size(); ++col) {
 				if (buttons.get(row).get(col).equals(buttonClicked)) {
@@ -269,6 +269,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	private void populatePieces(int boardSize) {
 		for (PieceType pt : PieceType.values()) {
 			populateCustomPiece(pt.yCoordinate(boardSize), pt.xCoordinate(boardSize), pt);
+
 		}
 	}
 

@@ -1,9 +1,10 @@
 
 package model.contract;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import model.board.Cell;
 
 /**
  * @author sefira & chanboth
@@ -21,7 +22,7 @@ public interface PieceInterface {
 	/**
 	 * @return
 	 */
-	public Set<List<Integer>> getValidMove();
+	public Set<Cell> getValidMove();
 
 	/**
 	 * @return
