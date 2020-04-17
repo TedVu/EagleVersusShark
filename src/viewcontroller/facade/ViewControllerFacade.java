@@ -20,7 +20,6 @@ public class ViewControllerFacade implements ViewControllerInterface {
 
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-
 	@Override
 	@Requires("listener != null")
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -52,7 +51,7 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	@Override
 	@Requires({ "buttonClicked !=null", "pieceType != null" })
 	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
-		pcs.firePropertyChange("UpdateBoardMovingPiece", pieceType.toString(), buttonClicked);
+		pcs.firePropertyChange("UpdateBoardAfterMovingPiece", pieceType.toString(), buttonClicked);
 	}
 
 	@Override

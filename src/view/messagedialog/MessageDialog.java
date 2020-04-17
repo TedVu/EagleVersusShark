@@ -16,7 +16,7 @@ public class MessageDialog {
 	 */
 	public static void notifyNotStartGame(BoardPanel boardView) {
 		JOptionPane.showMessageDialog(boardView,
-				"You have not start the game yet");
+				"You have not started the game yet");
 	}
 
 	/**

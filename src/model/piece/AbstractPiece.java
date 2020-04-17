@@ -3,6 +3,9 @@ package model.piece;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
+
 import model.contract.PieceInterface;
 
 /**
@@ -37,6 +40,8 @@ public abstract class AbstractPiece implements PieceInterface {
 	}
 
 	@Override
+	@Requires({"x>=0","y>=0"})
+	@Ensures({"position.get(\"x\")==x","position.get(\"y\")==y"})
 	public void setPosition(int x, int y) {
 		this.position.replace("x", x);
 		this.position.replace("y", y);

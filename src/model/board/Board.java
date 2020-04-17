@@ -3,6 +3,9 @@ package model.board;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
+
 /**
  * @author ted &#38; kevin
  *
@@ -30,6 +33,8 @@ public class Board {
 	 * @param x
 	 * @param y
 	 */
+	@Requires({ "x>=0", "y>=0" })
+	@Ensures("cells.get(y).get(x).getOccupied()==true")
 	public void addPiece(int x, int y) {
 		cells.get(y).get(x).setOccupied();
 	}
@@ -45,10 +50,13 @@ public class Board {
 	 * @param x
 	 * @param y
 	 */
+	@Requires({ "x>=0", "y>=0" })
+	@Ensures("cells.get(y).get(x).getOccupied()==false")
 	public void removePiece(int x, int y) {
 		cells.get(y).get(x).setUnoccupied();
 	}
 
+	@Requires({ "x>=0", "y>=0" })
 	public boolean getOccupationState(int x, int y) {
 		return cells.get(y).get(x).getOccupied();
 	}
