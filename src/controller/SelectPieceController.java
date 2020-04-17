@@ -50,6 +50,7 @@ public class SelectPieceController implements ActionListener {
 		}
 	}
 
+	@Requires({ "teamType != null", "viewControllerFacade != null" })
 	private void checkAllowTransitToMovePieceAction(TeamType teamType) {
 		if (PieceType.parsePieceType(buttonClicked.getActionCommand()).team() == teamType) {
 
@@ -62,7 +63,7 @@ public class SelectPieceController implements ActionListener {
 		}
 	}
 
-	@Requires({ "buttonClicked != null" })
+	@Requires("buttonClicked != null")
 	private void checkPieceSelectedTurn() {
 		if (EngineImpl.getSingletonInstance()
 				.checkSelectPiece(PieceType.parsePieceType(buttonClicked.getActionCommand()))) {

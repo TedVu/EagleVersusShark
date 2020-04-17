@@ -2,6 +2,8 @@ package model.piece;
 
 import java.util.Set;
 
+import com.google.java.contract.Requires;
+
 import model.board.Cell;
 import model.piece.movement.BasicMove;
 
@@ -17,6 +19,7 @@ public class AggressiveShark extends AbstractPiece{
 	}
 
 	@Override
+	@Requires({"x>=0","y>=0"})
 	public void movePiece(int x, int y) {
 		setPosition(x, y);
 	}
