@@ -14,7 +14,7 @@ import model.engine.EngineImpl;
  *
  */
 
-public abstract class AbstractPieceMove implements PieceMovementInterface{
+public class PieceMoveImpl implements PieceMovementInterface{
 	
 	protected Set<Cell> validMoves = new HashSet<>();
 	

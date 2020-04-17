@@ -13,7 +13,7 @@ import model.engine.EngineImpl;
  *
  */
 
-public class DiagonalMove extends AbstractPieceMove{
+public class DiagonalMove extends PieceMoveImpl{
 	
 	
 	/*

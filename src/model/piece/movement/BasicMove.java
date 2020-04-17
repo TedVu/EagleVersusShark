@@ -10,7 +10,7 @@ import model.contract.PieceInterface;
  *
  */
 
-public class BasicMove extends AbstractPieceMove{
+public class BasicMove extends PieceMoveImpl{
 	
 	/*
 	 * @param piece - selected piece
