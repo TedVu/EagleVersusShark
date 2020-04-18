@@ -143,7 +143,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
-	private void updateBoardBeforeMovingPiece(AbstractButton buttonClicked, MovePieceController movePieceControlelr) {
+	@Requires({ "buttonClicked!=null", "movePieceController!=null" })
+	private void updateBoardBeforeMovingPiece(AbstractButton buttonClicked, MovePieceController movePieceController) {
 		PieceType pieceType = PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase());
 
 		Set<Cell> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
@@ -159,13 +160,14 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			for (ActionListener listener : selectPieceListener) {
 				buttons.get(moves.getY()).get(moves.getX()).removeActionListener(listener);
 			}
-			buttons.get(moves.getY()).get(moves.getX()).addActionListener(movePieceControlelr);
+			buttons.get(moves.getY()).get(moves.getX()).addActionListener(movePieceController);
 		}
 	}
 
 	/**
 	 * @return
 	 */
+	@Requires("oldPos!=null")
 	private void restoreViewForOldPos(Map<String, Integer> oldPos) {
 		AbstractButton button = buttons.get(oldPos.get("y")).get(oldPos.get("x"));
 		button.setIcon(null);
@@ -217,7 +219,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @param pieceType
 	 */
 	@Requires({ "buttonClicked != null", "pieceType != null" })
-	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
+	private void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
 		Map<String, Integer> oldPos = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getPosition();
 		Set<Cell> validMoves = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType).getValidMove();
 
@@ -230,7 +232,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @return
 	 */
 	@Requires({ "buttonClicked != null", "pieceType != null" })
-	public void updateIcon(AbstractButton buttonClicked, PieceType pieceType) {
+	private void updateIcon(AbstractButton buttonClicked, PieceType pieceType) {
 		try {
 			Image animal = ImageIO.read(pieceType.file());
 			buttonClicked.setIcon(new ImageIcon(animal));
