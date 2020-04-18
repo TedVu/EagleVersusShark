@@ -17,7 +17,9 @@ import view.operationview.StatusPanel;
  * @author ted &#38; kevin
  *
  */
-public class MakingMovePropertyChangeListener implements PropertyChangeListener {
+public class MakingMovePropertyChangeListener
+		implements
+			PropertyChangeListener {
 
 	private StatusPanel statusPanel;
 
@@ -31,8 +33,8 @@ public class MakingMovePropertyChangeListener implements PropertyChangeListener 
 	}
 
 	/**
-	 * Check Player Making Move or Switch Turn to update the Turn label, and Start
-	 * the count down of the timer again.
+	 * Check Player Making Move or Switch Turn to update the Turn label, and
+	 * Start the count down of the timer again.
 	 */
 	@Override
 	@Requires("evt != null")

@@ -13,34 +13,37 @@ import model.engine.EngineImpl;
  *
  */
 
-public class DiagonalMove extends PieceMoveImpl{
-	
-	
+public class DiagonalMove extends PieceMoveImpl {
+
 	/*
 	 * @param piece - selected piece
+	 * 
 	 * @param distance - piece moving distance
+	 * 
 	 * @return the set of valid coordinate
 	 */
 	@Override
 	public Set<Cell> getValidMove(PieceInterface piece, int distance) {
-		
+
 		validMoves = super.getValidMove(piece, distance);
-		
+
 		Map<String, Integer> currentPosition = piece.getPosition();
 		int currentX = currentPosition.get("x");
 		int currentY = currentPosition.get("y");
-		
+
 		validMoves.addAll(validDiaNorthEast(currentX, currentY, distance));
 		validMoves.addAll(validDiaSouthWest(currentX, currentY, distance));
 		validMoves.addAll(validDiaSouthEast(currentX, currentY, distance));
 		validMoves.addAll(validDiaNorthWest(currentX, currentY, distance));
-		
+
 		return validMoves;
 	}
-	
+
 	/*
 	 * @param piece - selected piece
+	 * 
 	 * @param distance - piece moving distance
+	 * 
 	 * @return the set of valid coordinate for north east direction
 	 */
 	private Set<Cell> validDiaNorthEast(int x, int y, int step) {
@@ -57,10 +60,12 @@ public class DiagonalMove extends PieceMoveImpl{
 		}
 		return validMoves;
 	}
-	
+
 	/*
 	 * @param piece - selected piece
+	 * 
 	 * @param distance - piece moving distance
+	 * 
 	 * @return the set of valid coordinate for north west direction
 	 */
 	private Set<Cell> validDiaNorthWest(int x, int y, int step) {
@@ -77,10 +82,12 @@ public class DiagonalMove extends PieceMoveImpl{
 
 		return validMoves;
 	}
-	
+
 	/*
 	 * @param piece - selected piece
+	 * 
 	 * @param distance - piece moving distance
+	 * 
 	 * @return the set of valid coordinate for south east direction
 	 */
 	private Set<Cell> validDiaSouthEast(int x, int y, int step) {
@@ -100,10 +107,12 @@ public class DiagonalMove extends PieceMoveImpl{
 
 		return validMoves;
 	}
-	
+
 	/*
 	 * @param piece - selected piece
+	 * 
 	 * @param distance - piece moving distance
+	 * 
 	 * @return the set of valid coordinate for south west direction
 	 */
 	private Set<Cell> validDiaSouthWest(int x, int y, int step) {
@@ -121,5 +130,5 @@ public class DiagonalMove extends PieceMoveImpl{
 
 		return validMoves;
 	}
-	
+
 }

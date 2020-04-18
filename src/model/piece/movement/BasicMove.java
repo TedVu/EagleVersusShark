@@ -6,20 +6,22 @@ import model.board.Cell;
 import model.contract.PieceInterface;
 
 /**
- * @author sefira 
+ * @author sefira
  *
  */
 
-public class BasicMove extends PieceMoveImpl{
-	
+public class BasicMove extends PieceMoveImpl {
+
 	/*
 	 * @param piece - selected piece
+	 * 
 	 * @param distance - piece moving distance
+	 * 
 	 * @return the set of valid coordinate
 	 */
 	@Override
 	public Set<Cell> getValidMove(PieceInterface piece, int distance) {
 		return super.getValidMove(piece, distance);
 	}
-	
+
 }

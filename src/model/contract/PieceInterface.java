@@ -14,6 +14,7 @@ public interface PieceInterface {
 
 	/**
 	 * Get the current position of the piece
+	 * 
 	 * @return {"x": .. , "y": ..}
 	 */
 	public Map<String, Integer> getPosition();
@@ -29,21 +30,27 @@ public interface PieceInterface {
 	public boolean isActive();
 
 	/**
-	 * @param x - the new x position
-	 * @param y - the new y position
+	 * @param x
+	 *            - the new x position
+	 * @param y
+	 *            - the new y position
 	 * @return
 	 */
 	public void movePiece(int x, int y);
 
 	/**
-	 * @param isActive - set the piece to active or not
+	 * @param isActive
+	 *            - set the piece to active or not
 	 */
 	public void setActive(boolean isActive);
 
 	/**
 	 * Modify the position of the piece
-	 * @param x - new x position
-	 * @param y - new y position
+	 * 
+	 * @param x
+	 *            - new x position
+	 * @param y
+	 *            - new y position
 	 */
 	public void setPosition(int x, int y);
 }

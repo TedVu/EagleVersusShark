@@ -9,7 +9,7 @@ public class Cell {
 	private int x;
 	private int y;
 	private boolean occupied = false;
-	
+
 	/**
 	 * @param x
 	 * @param y

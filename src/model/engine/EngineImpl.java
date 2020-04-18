@@ -49,8 +49,7 @@ public class EngineImpl implements EngineInterface {
 	private GameEngineCallbackInterface geCallback = new GameEngineCallbackImpl();
 
 	private Board board;
-	
-	
+
 	/**
 	 * @return the singleton instance of the engine
 	 */
@@ -61,9 +60,9 @@ public class EngineImpl implements EngineInterface {
 		geCallback.addProperytChangeListener(
 				new MakingMovePropertyChangeListener());
 	}
-	
+
 	/**
-	 *  stop the timer of the game
+	 * stop the timer of the game
 	 */
 	@Override
 	public void cancelTimer() {
@@ -75,9 +74,9 @@ public class EngineImpl implements EngineInterface {
 			gameTimer.cancel();
 		}
 	}
-	
+
 	/**
-	 * @param occupiedPieceType 
+	 * @param occupiedPieceType
 	 * @return true if the piece is occupied, else false
 	 */
 	@Override
@@ -87,7 +86,7 @@ public class EngineImpl implements EngineInterface {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * @return all pieces
 	 */
@@ -96,14 +95,14 @@ public class EngineImpl implements EngineInterface {
 		return pieces;
 	}
 
-	
 	@Override
 	public Board getBoard() {
 		return board;
 	}
-	
+
 	/**
 	 * get the current player turn
+	 * 
 	 * @return the active team
 	 */
 	@Override
@@ -115,7 +114,7 @@ public class EngineImpl implements EngineInterface {
 			return sharkPlayer;
 
 	}
-	
+
 	@Override
 	public GameEngineCallbackInterface getGameEngineCallback() {
 		return geCallback;
@@ -151,7 +150,7 @@ public class EngineImpl implements EngineInterface {
 	}
 
 	/**
-	 *  Generate the pieces and put them on the board
+	 * Generate the pieces and put them on the board
 	 */
 	public void initializePiece() {
 		int boardSize = getBoard().getSize();
@@ -162,12 +161,14 @@ public class EngineImpl implements EngineInterface {
 			pieces.put(pt, piece);
 		}
 	}
-	
+
 	/**
-	 * @param piece - the piece to be moved
-	 * @param newX - new x position
-	 * @param newY - new y position
-	 *  Generate the pieces and put them on the board
+	 * @param piece
+	 *            - the piece to be moved
+	 * @param newX
+	 *            - new x position
+	 * @param newY
+	 *            - new y position Generate the pieces and put them on the board
 	 */
 	@Override
 	public void movePiece(PieceInterface piece, int x, int y) {
@@ -176,12 +177,14 @@ public class EngineImpl implements EngineInterface {
 		board.addPiece(x, y);
 		piece.movePiece(x, y);
 	}
-	
+
 	/**
 	 * set the turn to the specified team in parameter
 	 * 
-	 * @param playerType - the player to be activated
-	 * @param turnOnTimer - whether to begin countdown or not
+	 * @param playerType
+	 *            - the player to be activated
+	 * @param turnOnTimer
+	 *            - whether to begin countdown or not
 	 */
 	@Override
 	public void setActivePlayer(TeamType playerType, boolean turnOnTimer) {
@@ -202,10 +205,12 @@ public class EngineImpl implements EngineInterface {
 			setActivePlayerTimer(nextPlayer);
 		}
 	}
-	
+
 	/**
 	 * turn on the timer and loop call setActivePlayer to change every interval
-	 * @param playerType - the player to be activated next
+	 * 
+	 * @param playerType
+	 *            - the player to be activated next
 	 */
 	@Override
 	public void setActivePlayerTimer(TeamType playerType) {
@@ -221,9 +226,10 @@ public class EngineImpl implements EngineInterface {
 			}
 		}, 10000);
 	}
-	
+
 	/*
 	 * Set the selected piece status to active
+	 * 
 	 * @return boolean
 	 */
 	@Override

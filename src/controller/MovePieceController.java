@@ -30,7 +30,8 @@ public class MovePieceController implements ActionListener {
 
 	private PieceType pieceType;
 
-	public MovePieceController(PieceType pieceName, ViewControllerInterface facade) {
+	public MovePieceController(PieceType pieceName,
+			ViewControllerInterface facade) {
 		this.pieceType = pieceName;
 		this.viewControllerFacade = facade;
 	}
@@ -41,20 +42,21 @@ public class MovePieceController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		AbstractButton buttonClicked = (AbstractButton) e.getSource();
-		viewControllerFacade.updateBoardAfterMovingPiece(buttonClicked, pieceType);
+		viewControllerFacade.updateBoardAfterMovingPiece(buttonClicked,
+				pieceType);
 		updateModel(buttonClicked);
 		updateModelStateForNextTurn();
 
 	}
 
-	@Requires({ "buttonClicked != null" })
+	@Requires({"buttonClicked != null"})
 	private void updateModel(AbstractButton buttonClicked) {
 		Map<String, Integer> newPos = new HashMap<String, Integer>();
 		viewControllerFacade.locateNewPos(buttonClicked, newPos);
 		controllerModelFacade.updateModelAfterMovingPiece(newPos, pieceType);
 	}
 
-	@Requires({ "pieceType.team()!=null" })
+	@Requires({"pieceType.team()!=null"})
 	private void updateModelStateForNextTurn() {
 		if (pieceType.team() == TeamType.EAGLE) {
 			controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);

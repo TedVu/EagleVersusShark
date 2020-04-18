@@ -2,6 +2,7 @@
 package model.piece;
 
 import java.util.Set;
+
 import model.board.Cell;
 import model.piece.movement.DiagonalMove;
 
@@ -10,7 +11,7 @@ import model.piece.movement.DiagonalMove;
  *
  */
 public class VisionaryEagle extends AbstractPiece {
-	
+
 	public VisionaryEagle(int x, int y) {
 		super(x, y);
 	}
@@ -18,7 +19,7 @@ public class VisionaryEagle extends AbstractPiece {
 	@Override
 	public Set<Cell> getValidMove() {
 		return new DiagonalMove().getValidMove(this, 2);
-		
+
 	}
 
 	@Override

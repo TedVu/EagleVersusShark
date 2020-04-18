@@ -1,7 +1,7 @@
 package model.piece;
 
-
 import java.util.Set;
+
 import model.board.Cell;
 import model.piece.movement.DiagonalMove;
 
@@ -10,7 +10,6 @@ import model.piece.movement.DiagonalMove;
  *
  */
 public class DefensiveShark extends AbstractPiece {
-	
 
 	public DefensiveShark(int x, int y) {
 		super(x, y);

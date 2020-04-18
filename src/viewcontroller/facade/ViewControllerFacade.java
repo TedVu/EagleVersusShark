@@ -27,8 +27,9 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	@Requires({ "buttonClicked != null", "newPos != null" })
-	public void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos) {
+	@Requires({"buttonClicked != null", "newPos != null"})
+	public void locateNewPos(AbstractButton buttonClicked,
+			Map<String, Integer> newPos) {
 		pcs.firePropertyChange("LocateNewPosition", buttonClicked, newPos);
 	}
 
@@ -43,22 +44,26 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
+	@Requires({"buttonClicked !=null", "pieceType != null"})
+	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked,
+			PieceType pieceType) {
+		pcs.firePropertyChange("UpdateBoardAfterMovingPiece",
+				pieceType.toString(), buttonClicked);
+	}
+
+	@Override
+	public void updateBoardBeforeMovePiece(AbstractButton buttonClicked,
+			MovePieceController movePieceController) {
+		// TODO Auto-generated method stub
+		pcs.firePropertyChange("UpdateBoardBeforeMovingPiece", buttonClicked,
+				movePieceController);
+
+	}
+
+	@Override
 	@Requires("buttonClicked != null")
 	public void updateBoardSelectAnotherPiece(AbstractButton buttonClicked) {
 		pcs.firePropertyChange("RollbackSelectedPiece", null, buttonClicked);
-	}
-
-	@Override
-	@Requires({ "buttonClicked !=null", "pieceType != null" })
-	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
-		pcs.firePropertyChange("UpdateBoardAfterMovingPiece", pieceType.toString(), buttonClicked);
-	}
-
-	@Override
-	public void updateBoardBeforeMovePiece(AbstractButton buttonClicked, MovePieceController movePieceController) {
-		// TODO Auto-generated method stub
-		pcs.firePropertyChange("UpdateBoardBeforeMovingPiece", buttonClicked, movePieceController);
-
 	}
 
 }

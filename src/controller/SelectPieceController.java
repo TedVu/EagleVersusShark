@@ -31,7 +31,8 @@ public class SelectPieceController implements ActionListener {
 	 * @param facade
 	 * @param boardView
 	 */
-	public SelectPieceController(ViewControllerInterface facade, BoardPanel boardView) {
+	public SelectPieceController(ViewControllerInterface facade,
+			BoardPanel boardView) {
 		this.viewControllerFacade = facade;
 	}
 
@@ -50,14 +51,17 @@ public class SelectPieceController implements ActionListener {
 		}
 	}
 
-	@Requires({ "teamType != null", "viewControllerFacade != null" })
+	@Requires({"teamType != null", "viewControllerFacade != null"})
 	private void checkAllowTransitToMovePieceAction(TeamType teamType) {
-		if (PieceType.parsePieceType(buttonClicked.getActionCommand()).team() == teamType) {
+		if (PieceType.parsePieceType(buttonClicked.getActionCommand())
+				.team() == teamType) {
 
-			movePieceController = new MovePieceController(PieceType.parsePieceType(buttonClicked.getActionCommand()),
+			movePieceController = new MovePieceController(
+					PieceType.parsePieceType(buttonClicked.getActionCommand()),
 					viewControllerFacade);
 
-			viewControllerFacade.updateBoardBeforeMovePiece(buttonClicked, movePieceController);
+			viewControllerFacade.updateBoardBeforeMovePiece(buttonClicked,
+					movePieceController);
 		} else {
 			viewControllerFacade.notifySelectWrongTeam();
 		}
@@ -65,9 +69,10 @@ public class SelectPieceController implements ActionListener {
 
 	@Requires("buttonClicked != null")
 	private void checkPieceSelectedTurn() {
-		if (EngineImpl.getSingletonInstance()
-				.checkSelectPiece(PieceType.parsePieceType(buttonClicked.getActionCommand()))) {
-			TeamType currentTurn = EngineImpl.getSingletonInstance().getCurrentActivePlayer().getPlayerType();
+		if (EngineImpl.getSingletonInstance().checkSelectPiece(
+				PieceType.parsePieceType(buttonClicked.getActionCommand()))) {
+			TeamType currentTurn = EngineImpl.getSingletonInstance()
+					.getCurrentActivePlayer().getPlayerType();
 			checkAllowTransitToMovePieceAction(currentTurn);
 
 		}

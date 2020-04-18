@@ -17,10 +17,13 @@ import modelcontroller.contract.ControllerModelInterface;
 public class ControllerModelFacade implements ControllerModelInterface {
 
 	@Override
-	@Requires({"pieceType!=null","newPos!=null","newPos.size()>0"})
-	public void updateModelAfterMovingPiece(Map<String, Integer> newPos, PieceType pieceType) {
-		PieceInterface pieceMoved = EngineImpl.getSingletonInstance().getAllPieces().get(pieceType);
-		EngineImpl.getSingletonInstance().movePiece(pieceMoved, newPos.get("x"), newPos.get("y"));
+	@Requires({"pieceType!=null", "newPos!=null", "newPos.size()>0"})
+	public void updateModelAfterMovingPiece(Map<String, Integer> newPos,
+			PieceType pieceType) {
+		PieceInterface pieceMoved = EngineImpl.getSingletonInstance()
+				.getAllPieces().get(pieceType);
+		EngineImpl.getSingletonInstance().movePiece(pieceMoved, newPos.get("x"),
+				newPos.get("y"));
 	}
 
 	@Override

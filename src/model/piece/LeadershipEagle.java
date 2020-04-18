@@ -2,6 +2,7 @@
 package model.piece;
 
 import java.util.Set;
+
 import model.board.Cell;
 import model.piece.movement.BasicMove;
 
@@ -10,7 +11,6 @@ import model.piece.movement.BasicMove;
  *
  */
 public class LeadershipEagle extends AbstractPiece {
-	
 
 	public LeadershipEagle(int x, int y) {
 		super(x, y);

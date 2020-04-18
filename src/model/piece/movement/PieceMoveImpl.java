@@ -14,13 +14,15 @@ import model.engine.EngineImpl;
  *
  */
 
-public class PieceMoveImpl implements PieceMovementInterface{
-	
+public class PieceMoveImpl implements PieceMovementInterface {
+
 	protected Set<Cell> validMoves = new HashSet<>();
-	
+
 	/*
 	 * @param piece - selected piece
+	 * 
 	 * @param distance - piece moving distance
+	 * 
 	 * @return the set of valid coordinate
 	 */
 	@Override
@@ -28,17 +30,19 @@ public class PieceMoveImpl implements PieceMovementInterface{
 		Map<String, Integer> currentPosition = piece.getPosition();
 		int currentX = currentPosition.get("x");
 		int currentY = currentPosition.get("y");
-		
+
 		this.validMoves.addAll(validMovesSouth(currentX, currentY, distance));
 		this.validMoves.addAll(validMovesNorth(currentX, currentY, distance));
 		this.validMoves.addAll(validMovesEast(currentX, currentY, distance));
 		this.validMoves.addAll(validMovesWest(currentX, currentY, distance));
 		return validMoves;
 	}
-	
+
 	/*
 	 * @param piece - selected piece
+	 * 
 	 * @param distance - piece moving distance
+	 * 
 	 * @return the set of valid coordinate for east direction
 	 */
 	private Set<Cell> validMovesEast(int x, int y, int step) {
@@ -56,10 +60,12 @@ public class PieceMoveImpl implements PieceMovementInterface{
 
 		return validMoves;
 	}
-	
+
 	/*
 	 * @param piece - selected piece
+	 * 
 	 * @param distance - piece moving distance
+	 * 
 	 * @return the set of valid coordinate for north direction
 	 */
 	private Set<Cell> validMovesNorth(int x, int y, int step) {
@@ -76,10 +82,12 @@ public class PieceMoveImpl implements PieceMovementInterface{
 
 		return validMoves;
 	}
-	
+
 	/*
 	 * @param piece - selected piece
+	 * 
 	 * @param distance - piece moving distance
+	 * 
 	 * @return the set of valid coordinate for south direction
 	 */
 	private Set<Cell> validMovesSouth(int x, int y, int step) {
@@ -96,10 +104,12 @@ public class PieceMoveImpl implements PieceMovementInterface{
 		}
 		return validMoves;
 	}
-	
+
 	/*
 	 * @param piece - selected piece
+	 * 
 	 * @param distance - piece moving distance
+	 * 
 	 * @return the set of valid coordinate for west direction
 	 */
 	private Set<Cell> validMovesWest(int x, int y, int step) {
@@ -116,6 +126,5 @@ public class PieceMoveImpl implements PieceMovementInterface{
 
 		return validMoves;
 	}
-	
-	
+
 }

@@ -1,6 +1,7 @@
 package model.piece;
 
 import java.util.Set;
+
 import model.board.Cell;
 import model.piece.movement.DiagonalMove;
 
@@ -9,7 +10,7 @@ import model.piece.movement.DiagonalMove;
  *
  */
 public class HealingShark extends AbstractPiece {
-	
+
 	public HealingShark(int x, int y) {
 		super(x, y);
 	}
