@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.swing.AbstractButton;
 
 import controller.MovePieceController;
+import controller.PlayerAction;
 import model.enumtype.PieceType;
 
 /**
@@ -52,4 +53,6 @@ public interface ViewControllerInterface {
 	 */
 	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType);
 
+	
+	public void getPlayerAction(PlayerAction playerAction);
 }

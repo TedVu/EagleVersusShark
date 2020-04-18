@@ -20,7 +20,7 @@ import model.enumtype.TeamType;
 /**
  * @author ted &#38; kevin
  */
-public class StatusPanel extends JPanel {
+public class StatusPanel extends JPanel  {
 	/**
 	 * @serial 8787252718705342879L
 	 */
@@ -47,8 +47,7 @@ public class StatusPanel extends JPanel {
 
 		workerThreads = new ArrayList<SwingWorker<Void, Void>>();
 
-		setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createEtchedBorder(), "Status Panel"));
+		setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Status Panel"));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		startButton.addActionListener(new StartGameController(this));
@@ -67,12 +66,11 @@ public class StatusPanel extends JPanel {
 		startButtonPanel.add(startButton);
 		add(startButtonPanel);
 
-		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance()
-				.getGameEngineCallback().getPropertyChangeListener();
+		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getGameEngineCallback()
+				.getPropertyChangeListener();
 		for (PropertyChangeListener listener : listeners) {
 			if (listener instanceof MakingMovePropertyChangeListener) {
-				((MakingMovePropertyChangeListener) listener)
-						.injectStatusPanel(this);
+				((MakingMovePropertyChangeListener) listener).injectStatusPanel(this);
 			}
 		}
 	}
@@ -104,5 +102,7 @@ public class StatusPanel extends JPanel {
 	public void updateTurnLabel(TeamType currentPlayer) {
 		turnTextField.setText(currentPlayer.toString());
 	}
+
+	
 
 }

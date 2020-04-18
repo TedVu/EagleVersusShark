@@ -38,8 +38,7 @@ public class AppMainFrame extends JFrame {
 		setTitle("Eagle vs Shark");
 
 		Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
-		setLocation(screenDimension.width / 2 - FRAME_WIDTH / 2,
-				screenDimension.height / 2 - FRAME_HEIGHT / 2);
+		setLocation(screenDimension.width / 2 - FRAME_WIDTH / 2, screenDimension.height / 2 - FRAME_HEIGHT / 2);
 
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -52,5 +51,8 @@ public class AppMainFrame extends JFrame {
 
 		getContentPane().add(centerPanel, BorderLayout.CENTER);
 		getContentPane().add(operationToolbar, BorderLayout.NORTH);
+
+		boardPanel.getFacade().addPropertyChangeListener(rightPanel.getModePanel());
+
 	}
 }

@@ -87,7 +87,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 				currentButton.setBorder(BorderFactory.createRaisedBevelBorder());
 
 				currentButton.setActionCommand("NormalButton");
-				currentButton.addActionListener(new SelectPieceController(facade, this));
+				currentButton.addActionListener(new SelectPieceController(facade));
 
 				btnContainerPanel.add(currentButton);
 				group.add(currentButton);
@@ -194,7 +194,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 				for (ActionListener l : listeners) {
 					buttons.get(row).get(col).removeActionListener(l);
 				}
-				buttons.get(row).get(col).addActionListener(new SelectPieceController(facade, this));
+				buttons.get(row).get(col).addActionListener(new SelectPieceController(facade));
 
 			}
 		}
@@ -209,7 +209,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 				for (ActionListener listener : listeners) {
 					buttons.get(row).get(col).removeActionListener(listener);
 				}
-				buttons.get(row).get(col).addActionListener(new SelectPieceController(facade, this));
+				buttons.get(row).get(col).addActionListener(new SelectPieceController(facade));
 			}
 		}
 	}
@@ -288,11 +288,15 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 					for (ActionListener al : button.getActionListeners()) {
 						button.removeActionListener(al);
 					}
-					button.addActionListener(new SelectPieceController(facade, this));
+					button.addActionListener(new SelectPieceController(facade));
 
 				}
 			}
 		}
+	}
+
+	public ViewControllerInterface getFacade() {
+		return facade;
 	}
 
 }

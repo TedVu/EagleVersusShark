@@ -9,6 +9,7 @@ import javax.swing.AbstractButton;
 import com.google.java.contract.Requires;
 
 import controller.MovePieceController;
+import controller.PlayerAction;
 import model.enumtype.PieceType;
 import viewcontroller.contract.ViewControllerInterface;
 
@@ -58,6 +59,13 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	public void updateBoardBeforeMovePiece(AbstractButton buttonClicked, MovePieceController movePieceController) {
 		// TODO Auto-generated method stub
 		pcs.firePropertyChange("UpdateBoardBeforeMovingPiece", buttonClicked, movePieceController);
+
+	}
+
+	@Override
+	public void getPlayerAction(PlayerAction playerAction) {
+		// TODO Auto-generated method stub
+		pcs.firePropertyChange("GetMode", playerAction, null);
 
 	}
 

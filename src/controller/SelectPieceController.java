@@ -10,7 +10,6 @@ import com.google.java.contract.Requires;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
-import view.operationview.BoardPanel;
 import viewcontroller.contract.ViewControllerInterface;
 
 /**
@@ -27,12 +26,15 @@ public class SelectPieceController implements ActionListener {
 
 	private ViewControllerInterface viewControllerFacade;
 
+	private PlayerAction playerAction;
+
 	/**
 	 * @param facade
 	 * @param boardView
 	 */
-	public SelectPieceController(ViewControllerInterface facade, BoardPanel boardView) {
+	public SelectPieceController(ViewControllerInterface facade) {
 		this.viewControllerFacade = facade;
+		playerAction = new PlayerAction();
 	}
 
 	/**
@@ -54,6 +56,8 @@ public class SelectPieceController implements ActionListener {
 	private void checkAllowTransitToMovePieceAction(TeamType teamType) {
 		if (PieceType.parsePieceType(buttonClicked.getActionCommand()).team() == teamType) {
 
+			viewControllerFacade.getPlayerAction(playerAction);
+			System.out.println(playerAction.getPlayerAction());
 			movePieceController = new MovePieceController(PieceType.parsePieceType(buttonClicked.getActionCommand()),
 					viewControllerFacade);
 
