@@ -7,8 +7,12 @@ import javax.swing.AbstractButton;
 
 import com.google.java.contract.Requires;
 
+import controller.abstractfactory.AbilityController;
+import controller.abstractfactory.AbilityControllerFactory;
+import controller.abstractfactory.SpecialBehaviourControllerFactory;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
+import model.enumtype.PlayerActionType;
 import model.enumtype.TeamType;
 import viewcontroller.contract.ViewControllerInterface;
 
@@ -57,14 +61,35 @@ public class SelectPieceController implements ActionListener {
 		if (PieceType.parsePieceType(buttonClicked.getActionCommand()).team() == teamType) {
 
 			viewControllerFacade.getPlayerAction(playerAction);
-			System.out.println(playerAction.getPlayerAction());
-			movePieceController = new MovePieceController(PieceType.parsePieceType(buttonClicked.getActionCommand()),
-					viewControllerFacade);
+			PlayerActionType playerActionType = PlayerActionType.parsePlayerActionType(playerAction.getPlayerAction());
 
-			viewControllerFacade.updateBoardBeforeMovePiece(buttonClicked, movePieceController);
+			routePlayerAction(playerActionType, teamType);
 		} else {
 			viewControllerFacade.notifySelectWrongTeam();
 		}
+	}
+
+	private void routePlayerAction(PlayerActionType playerActionType, TeamType teamType) {
+		if (playerActionType == PlayerActionType.MOVE) {
+			movePieceController = new MovePieceController(PieceType.parsePieceType(buttonClicked.getActionCommand()),
+					viewControllerFacade);
+			viewControllerFacade.updateBoardBeforeMovePiece(buttonClicked, movePieceController);
+		} else if (playerActionType == PlayerActionType.USEABILITY) {
+			useAbilityViewController(playerActionType, teamType);
+
+		} else if (playerActionType == PlayerActionType.SKYMODE) {
+
+		} else if (playerActionType == PlayerActionType.PROTECTIONMODE) {
+
+		}
+	}
+
+	private void useAbilityViewController(PlayerActionType playerActionType, TeamType teamType) {
+		AbilityControllerFactory abilityFactory = SpecialBehaviourControllerFactory
+				.getSpecialBehaviourControllerFactory(teamType.toString()).createAbilityControllerFactory();
+		AbilityController abilityController = abilityFactory.createAbilityController(playerActionType.toString());
+		abilityController.setState(viewControllerFacade, this);
+		abilityController.setUpView();
 	}
 
 	@Requires("buttonClicked != null")

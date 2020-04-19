@@ -10,6 +10,7 @@ import com.google.java.contract.Requires;
 
 import controller.MovePieceController;
 import controller.PlayerAction;
+import controller.abstractfactory.VisionaryEagleAbilityController;
 import model.enumtype.PieceType;
 import viewcontroller.contract.ViewControllerInterface;
 
@@ -67,6 +68,17 @@ public class ViewControllerFacade implements ViewControllerInterface {
 		// TODO Auto-generated method stub
 		pcs.firePropertyChange("GetMode", playerAction, null);
 
+	}
+
+	@Override
+	public void updateBoardBeforeSwap(VisionaryEagleAbilityController swapController) {
+		// TODO Auto-generated method stub
+		pcs.firePropertyChange("UpdateBoardBeforeSwap", null, swapController);
+	}
+
+	@Override
+	public void updateBoardAfterSwap(AbstractButton buttonClicked) {
+		pcs.firePropertyChange("UpdateBoardAfterSwap", null, buttonClicked);
 	}
 
 }

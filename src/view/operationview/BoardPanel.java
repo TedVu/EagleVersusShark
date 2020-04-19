@@ -28,6 +28,7 @@ import com.google.java.contract.Requires;
 import controller.MovePieceController;
 import controller.SelectPieceController;
 import controller.TimerPropertyChangeListener;
+import controller.abstractfactory.VisionaryEagleAbilityController;
 import model.board.Cell;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
@@ -140,7 +141,35 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			MessageDialog.notifySelectWrongTeam(this);
 		} else if (event.equalsIgnoreCase("UpdateBoardBeforeMovingPiece")) {
 			updateBoardBeforeMovingPiece((AbstractButton) evt.getOldValue(), (MovePieceController) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardBeforeSwap")) {
+			updateBoardBeforeSwap((VisionaryEagleAbilityController) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardAfterSwap")) {
+			updateBoardAfterSwap((AbstractButton) evt.getNewValue());
 		}
+	}
+
+	/**
+	 * Do the following: </br>
+	 * 1) Update icon based on buttonClicked => affectedPiece </br>
+	 * 2) Recolor white</br>
+	 * 3) Set action command </br>
+	 * 4) Register selectpiececontroller
+	 * 
+	 * @param buttonClicked
+	 */
+	private void updateBoardAfterSwap(AbstractButton buttonClicked) {
+
+	}
+
+	/**
+	 * Do the following: </br>
+	 * 1) Retrieve the coordinate of the other two eagles from model </br>
+	 * 2) Color the button </br>
+	 * 3) Add swap controller
+	 * 
+	 * @param swapController
+	 */
+	private void updateBoardBeforeSwap(VisionaryEagleAbilityController swapController) {
 	}
 
 	@Requires({ "buttonClicked!=null", "movePieceController!=null" })

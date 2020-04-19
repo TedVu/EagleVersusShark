@@ -1,7 +1,7 @@
 package controller.abstractfactory;
 
 public abstract class SpecialBehaviourControllerFactory {
-	public static SpecialBehaviourControllerFactory getSpecialHebahviourControllerFactory(String animal) {
+	public static SpecialBehaviourControllerFactory getSpecialBehaviourControllerFactory(String animal) {
 		if (animal.equalsIgnoreCase("eagle")) {
 			return new EagleSpecialBehaviourControllerFactory();
 		} else {

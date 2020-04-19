@@ -2,10 +2,10 @@ package controller.abstractfactory;
 
 public class EagleAbilityControllerFactory implements AbilityControllerFactory {
 	@Override
-	public AbilityController createAbilityController(String ability) {
-		if (ability.equalsIgnoreCase("swap")) {
+	public AbilityController createAbilityController(String eagleType) {
+		if (eagleType.equalsIgnoreCase("VisionaryEagle")) {
 			return new VisionaryEagleAbilityController();
-		} else if (ability.equalsIgnoreCase("capture")) {
+		} else if (eagleType.equalsIgnoreCase("AttackingEagle")) {
 
 		}
 		return null;

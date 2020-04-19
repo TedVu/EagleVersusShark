@@ -9,20 +9,22 @@ import viewcontroller.contract.ViewControllerInterface;
 
 public class VisionaryEagleAbilityController implements AbilityController {
 
-	private ViewControllerInterface facade;
+	private ViewControllerInterface viewControllerFacade;
 	private SelectPieceController selectController;
 	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
-
 
 	@Override
 	public void setState(ViewControllerInterface viewControllerFacade, SelectPieceController selectController) {
 		// TODO Auto-generated method stub
+		this.viewControllerFacade = viewControllerFacade;
+		this.selectController = selectController;
 
 	}
 
 	@Override
 	public void setUpView() {
 		// TODO Auto-generated method stub
+		viewControllerFacade.updateBoardBeforeSwap(this);
 
 	}
 

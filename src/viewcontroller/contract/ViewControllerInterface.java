@@ -7,6 +7,7 @@ import javax.swing.AbstractButton;
 
 import controller.MovePieceController;
 import controller.PlayerAction;
+import controller.abstractfactory.VisionaryEagleAbilityController;
 import model.enumtype.PieceType;
 
 /**
@@ -15,14 +16,10 @@ import model.enumtype.PieceType;
  */
 public interface ViewControllerInterface {
 
-	
-
 	/**
 	 * @param listener
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener listener);
-
-	
 
 	/**
 	 * @param buttonClicked
@@ -53,6 +50,9 @@ public interface ViewControllerInterface {
 	 */
 	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType);
 
-	
+	public void updateBoardBeforeSwap(VisionaryEagleAbilityController swapControllerO);
+
 	public void getPlayerAction(PlayerAction playerAction);
+
+	void updateBoardAfterSwap(AbstractButton buttonClicked);
 }
