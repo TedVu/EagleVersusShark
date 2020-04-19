@@ -89,7 +89,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 				currentButton.setActionCommand("NormalButton");
 				currentButton.addActionListener(
-						new SelectPieceController(facade, this));
+						new SelectPieceController(facade));
 
 				btnContainerPanel.add(currentButton);
 				group.add(currentButton);
@@ -136,7 +136,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			locateNewPos((AbstractButton) evt.getOldValue(),
 					(Map<String, Integer>) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("RollbackSelectedPiece")) {
-			rollbackSelectedPiece((AbstractButton) evt.getNewValue());
+			updateBoardRollback((AbstractButton) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("NotifyNotStartGame")) {
 			MessageDialog.notifyNotStartGame(this);
 		} else if (event.equalsIgnoreCase("NotifySelectWrongTeam")) {
@@ -158,7 +158,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 					buttons.get(row).get(col).removeActionListener(listener);
 				}
 				buttons.get(row).get(col).addActionListener(
-						new SelectPieceController(facade, this));
+						new SelectPieceController(facade));
 			}
 		}
 	}
@@ -177,6 +177,11 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 	}
 
+	/**
+	 * Post-condition is needed because this method will process new position
+	 * @param buttonClicked
+	 * @param newPos
+	 */
 	@Requires({"buttonClicked != null", "newPos != null"})
 	@Ensures("newPos.size()>0")
 	private void locateNewPos(AbstractButton buttonClicked,
@@ -193,6 +198,12 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
+	/**
+	 * 
+	 * @param positionX
+	 * @param positionY
+	 * @param pieceType
+	 */
 	@Requires({"positionX >= 0", "positionY >= 0", "pieceType != null"})
 	private void populateCustomPiece(int positionX, int positionY,
 			PieceType pieceType) {
@@ -228,7 +239,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	@Requires("buttonClicked != null")
-	private void rollbackSelectedPiece(AbstractButton buttonClicked) {
+	private void updateBoardRollback(AbstractButton buttonClicked) {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(row).size(); ++col) {
 				Color color = buttons.get(row).get(col).getBackground();
@@ -243,7 +254,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 						button.removeActionListener(al);
 					}
 					button.addActionListener(
-							new SelectPieceController(facade, this));
+							new SelectPieceController(facade));
 
 				}
 			}
@@ -307,7 +318,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 					buttons.get(row).get(col).removeActionListener(l);
 				}
 				buttons.get(row).get(col).addActionListener(
-						new SelectPieceController(facade, this));
+						new SelectPieceController(facade));
 
 			}
 		}
