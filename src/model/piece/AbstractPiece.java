@@ -24,11 +24,14 @@ public abstract class AbstractPiece implements PieceInterface {
 	}
 
 	@Override
+	@Requires({"position.get(\"x\") != null && position.get(\"y\") != null"})
+	@Ensures("getPosition() != null")
 	public Map<String, Integer> getPosition() {
 		return this.position;
 	}
 
 	@Override
+	@Requires({"this.isActive  == true || this.isActive == false"})
 	public boolean isActive() {
 		return this.isActive;
 	}

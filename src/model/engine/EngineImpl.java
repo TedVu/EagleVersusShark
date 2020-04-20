@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
+
 import controller.MakingMovePropertyChangeListener;
 import controller.TimerPropertyChangeListener;
 import model.board.Board;
@@ -65,6 +68,7 @@ public class EngineImpl implements EngineInterface {
 	 * stop the timer of the game
 	 */
 	@Override
+	@Requires({"eaglePlayer.getActive() == true || eaglePlayer.getActive() == false"})
 	public void cancelTimer() {
 		TeamType currentPlayer = eaglePlayer.getActive()
 				? TeamType.SHARK
@@ -79,6 +83,7 @@ public class EngineImpl implements EngineInterface {
 	 * @param occupiedPieceType
 	 * @return true if the piece is occupied, else false
 	 */
+	@Requires({"occupiedPieceType != null"})
 	@Override
 	public boolean checkSelectPiece(PieceType occupiedPieceType) {
 		if (!pieces.containsKey(occupiedPieceType)) {
@@ -91,8 +96,10 @@ public class EngineImpl implements EngineInterface {
 	 * @return all pieces
 	 */
 	@Override
+	@Requires({"pieces.size()>0"})
 	public Map<PieceType, PieceInterface> getAllPieces() {
 		return pieces;
+		
 	}
 
 	@Override
@@ -126,6 +133,7 @@ public class EngineImpl implements EngineInterface {
 	 * 
 	 * @return (eaglePlayer || sharkPlayer)
 	 */
+	@Requires({"eaglePlayer!= null", "sharkPlayer != null"})
 	@Override
 	public Player getInitialPlayerActivePlayer() {
 		startGame = true;
@@ -152,6 +160,8 @@ public class EngineImpl implements EngineInterface {
 	/**
 	 * Generate the pieces and put them on the board
 	 */
+	@Requires({"pieces.size() < 1"})
+	@Ensures({"pieces.size()>0"})
 	public void initializePiece() {
 		int boardSize = getBoard().getSize();
 		for (PieceType pt : PieceType.values()) {
@@ -171,6 +181,8 @@ public class EngineImpl implements EngineInterface {
 	 *            - new y position Generate the pieces and put them on the board
 	 */
 	@Override
+	@Requires({"piece != null", "x>=0", "y>=0"})
+	@Ensures({"piece.getPosition().get(\"x\") != null && piece.getPosition().get(\"y\") != null"})
 	public void movePiece(PieceInterface piece, int x, int y) {
 		board.removePiece(piece.getPosition().get("x"),
 				piece.getPosition().get("y"));
@@ -187,6 +199,7 @@ public class EngineImpl implements EngineInterface {
 	 *            - whether to begin countdown or not
 	 */
 	@Override
+	@Requires({"playerType != null", "turnOnTimer == true || turnOnTimer == false"})
 	public void setActivePlayer(TeamType playerType, boolean turnOnTimer) {
 		TeamType nextPlayer;
 		if (playerType == TeamType.EAGLE) {
@@ -213,6 +226,7 @@ public class EngineImpl implements EngineInterface {
 	 *            - the player to be activated next
 	 */
 	@Override
+	@Requires({"playerType != null"})
 	public void setActivePlayerTimer(TeamType playerType) {
 		gameTimer = new java.util.Timer();
 		gameTimer.schedule(new java.util.TimerTask() {
@@ -233,6 +247,7 @@ public class EngineImpl implements EngineInterface {
 	 * @return boolean
 	 */
 	@Override
+	@Requires({"piece != null", " isActive  == true|| isActive == false"})
 	public boolean setPieceActiveStatus(PieceInterface piece,
 			boolean isActive) {
 		try {

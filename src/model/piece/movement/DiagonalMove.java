@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
+
 import model.board.Cell;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
@@ -23,6 +26,8 @@ public class DiagonalMove extends PieceMoveImpl {
 	 * @return the set of valid coordinate
 	 */
 	@Override
+	@Requires({"piece.getPosition().get(\"x\") != null && piece.getPosition().get(\"y\") != null"})
+	@Ensures("piece.getValidMove() != null")
 	public Set<Cell> getValidMove(PieceInterface piece, int distance) {
 
 		validMoves = super.getValidMove(piece, distance);
@@ -46,6 +51,8 @@ public class DiagonalMove extends PieceMoveImpl {
 	 * 
 	 * @return the set of valid coordinate for north east direction
 	 */
+	@Requires({"x>=0", "y>=0", "step== 1 || step==2"})
+	@Ensures("validMoves != null")
 	private Set<Cell> validDiaNorthEast(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
@@ -68,6 +75,8 @@ public class DiagonalMove extends PieceMoveImpl {
 	 * 
 	 * @return the set of valid coordinate for north west direction
 	 */
+	@Requires({"x>=0", "y>=0", "step== 1 || step==2"})
+	@Ensures("validMoves != null")
 	private Set<Cell> validDiaNorthWest(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
@@ -90,6 +99,8 @@ public class DiagonalMove extends PieceMoveImpl {
 	 * 
 	 * @return the set of valid coordinate for south east direction
 	 */
+	@Requires({"x>=0", "y>=0", "step== 1 || step==2"})
+	@Ensures("validMoves != null")
 	private Set<Cell> validDiaSouthEast(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
@@ -115,6 +126,8 @@ public class DiagonalMove extends PieceMoveImpl {
 	 * 
 	 * @return the set of valid coordinate for south west direction
 	 */
+	@Requires({"x>=0", "y>=0", "step== 1 || step==2"})
+	@Ensures("validMoves != null")
 	private Set<Cell> validDiaSouthWest(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {

@@ -1,5 +1,8 @@
 package model.player;
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
+
 import model.enumtype.TeamType;
 
 /**
@@ -19,16 +22,20 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
+	@Requires({"this.isActive ==true || this.isActive ==false"})
 	public boolean getActive() {
 		return isActive;
 	}
 
 	@Override
+	@Requires({"playerType != null"})
 	public TeamType getPlayerType() {
 		return playerType;
 	}
 
 	@Override
+	@Requires({"isActive ==true || isActive ==false"})
+	@Ensures({"this.isActive == isActive"})
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
