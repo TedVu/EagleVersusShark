@@ -4,8 +4,7 @@ public class EagleSpecialBehaviourControllerFactory extends SpecialBehaviourCont
 
 	@Override
 	public AbilityControllerFactory createAbilityControllerFactory() {
-		// TODO Auto-generated method stub
-		return null;
+		return new EagleAbilityControllerFactory();
 	}
 
 	@Override

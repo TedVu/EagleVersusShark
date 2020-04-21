@@ -1,6 +1,8 @@
 package controller.abstractfactory;
 
+import model.enumtype.PieceType;
+
 public interface AbilityControllerFactory {
-	public AbilityController createAbilityController(String ability);
+	public AbilityController createAbilityController(PieceType pieceType);
 
 }

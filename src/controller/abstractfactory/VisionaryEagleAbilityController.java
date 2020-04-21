@@ -2,36 +2,23 @@ package controller.abstractfactory;
 
 import java.awt.event.ActionEvent;
 
-import controller.SelectPieceController;
-import modelcontroller.contract.ControllerModelInterface;
-import modelcontroller.facade.ControllerModelFacade;
-import viewcontroller.contract.ViewControllerInterface;
+import javax.swing.AbstractButton;
 
-public class VisionaryEagleAbilityController implements AbilityController {
+import model.enumtype.PieceType;
 
-	private ViewControllerInterface viewControllerFacade;
-	private SelectPieceController selectController;
-	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
-
-	@Override
-	public void setState(ViewControllerInterface viewControllerFacade, SelectPieceController selectController) {
-		// TODO Auto-generated method stub
-		this.viewControllerFacade = viewControllerFacade;
-		this.selectController = selectController;
-
-	}
-
-	@Override
-	public void setUpView() {
-		// TODO Auto-generated method stub
-		viewControllerFacade.updateBoardBeforeSwap(this);
-
-	}
+public class VisionaryEagleAbilityController extends AbstractAbilityController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-
+		buttonClicked = (AbstractButton) e.getSource();
+		String buttonClickedStr = buttonClicked.getActionCommand();
+		if (buttonClickedStr.equalsIgnoreCase(PieceType.ATTACKINGEAGLE.toString())
+				|| buttonClickedStr.equalsIgnoreCase(PieceType.LEADERSHIPEAGLE.toString())) {
+			viewControllerFacade.updateBoardAfterSwap(buttonClicked);
+		} else {
+			viewControllerFacade.notifySelectWrongTeam();
+		}
 	}
 
 }

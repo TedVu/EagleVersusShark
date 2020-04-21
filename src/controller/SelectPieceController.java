@@ -75,7 +75,7 @@ public class SelectPieceController implements ActionListener {
 					viewControllerFacade);
 			viewControllerFacade.updateBoardBeforeMovePiece(buttonClicked, movePieceController);
 		} else if (playerActionType == PlayerActionType.USEABILITY) {
-			useAbilityViewController(playerActionType, teamType);
+			useAbilityViewController(teamType);
 
 		} else if (playerActionType == PlayerActionType.SKYMODE) {
 
@@ -84,11 +84,12 @@ public class SelectPieceController implements ActionListener {
 		}
 	}
 
-	private void useAbilityViewController(PlayerActionType playerActionType, TeamType teamType) {
+	private void useAbilityViewController(TeamType teamType) {
 		AbilityControllerFactory abilityFactory = SpecialBehaviourControllerFactory
-				.getSpecialBehaviourControllerFactory(teamType.toString()).createAbilityControllerFactory();
-		AbilityController abilityController = abilityFactory.createAbilityController(playerActionType.toString());
-		abilityController.setState(viewControllerFacade, this);
+				.getSpecialBehaviourControllerFactory(teamType).createAbilityControllerFactory();
+		AbilityController abilityController = abilityFactory
+				.createAbilityController(PieceType.parsePieceType(buttonClicked.getActionCommand()));
+		abilityController.setState(viewControllerFacade);
 		abilityController.setUpView();
 	}
 

@@ -4,6 +4,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
+import viewcontroller.contract.ViewControllerInterface;
+
 /**
  * @author ted &#38; kevin
  */
@@ -19,9 +21,9 @@ public class RightPanel extends JPanel {
 	/**
 	 * @see
 	 */
-	public RightPanel() {
+	public RightPanel(ViewControllerInterface viewControllerFacade) {
 		statusPanel = new StatusPanel();
-		modePanel = new ModePanel();
+		modePanel = new ModePanel(viewControllerFacade);
 
 		setLayout(new GridLayout(2, 1));
 

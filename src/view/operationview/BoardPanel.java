@@ -145,6 +145,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			updateBoardBeforeSwap((VisionaryEagleAbilityController) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterSwap")) {
 			updateBoardAfterSwap((AbstractButton) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardChangeAction")) {
+			updateBoardChangeAction();
 		}
 	}
 
@@ -165,7 +167,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * Do the following: </br>
 	 * 1) Retrieve the coordinate of the other two eagles from model </br>
 	 * 2) Color the button </br>
-	 * 3) Add swap controller
+	 * 3) Remove SelectPieceController and add SwapController
 	 * 
 	 * @param swapController
 	 */
@@ -320,6 +322,21 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 					button.addActionListener(new SelectPieceController(facade));
 
 				}
+			}
+		}
+	}
+
+	private void updateBoardChangeAction() {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				AbstractButton button = buttons.get(row).get(col);
+				button.setBackground(Color.WHITE);
+
+				ActionListener[] listeners = button.getActionListeners();
+				for (ActionListener l : listeners) {
+					button.removeActionListener(l);
+				}
+				button.addActionListener(new SelectPieceController(facade));
 			}
 		}
 	}
