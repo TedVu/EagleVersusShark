@@ -42,8 +42,6 @@ public class EngineImpl implements EngineInterface {
 
 	private boolean startGame = false;
 
-	private Map<PieceType, PieceInterface> pieces = new EnumMap<PieceType, PieceInterface>(
-			PieceType.class);
 	private Player eaglePlayer = new PlayerImpl(TeamType.EAGLE);
 
 	private Player sharkPlayer = new PlayerImpl(TeamType.SHARK);
@@ -83,28 +81,6 @@ public class EngineImpl implements EngineInterface {
 		}
 	}
 
-	/**
-	 * @param occupiedPieceType
-	 * @return true if the piece is occupied, else false
-	 */
-//	@Requires({"occupiedPieceType != null"})
-//	@Override
-//	public boolean checkSelectPiece(PieceType occupiedPieceType) {
-//		if (!pieces.containsKey(occupiedPieceType)) {
-//			return false;
-//		}
-//		return true;
-//	}
-
-	/**
-	 * @return all pieces
-	 */
-//	@Override
-//	@Requires({"pieces.size()>0"})
-//	public Map<PieceType, PieceInterface> getAllPieces() {
-//		return pieces;
-//		
-//	}
 
 	@Override
 	public Board getBoard() {
@@ -161,38 +137,7 @@ public class EngineImpl implements EngineInterface {
 		return startGame;
 	}
 
-	/**
-	 * Generate the pieces and put them on the board
-	 */
-//	@Requires({"pieces.size() < 1"})
-//	@Ensures({"pieces.size()>0"})
-//	public void initializePiece() {
-//		int boardSize = getBoard().getSize();
-//		for (PieceType pt : PieceType.values()) {
-//			PieceInterface piece = PieceFactory.generatePiece(pt, boardSize);
-//			board.addPiece(piece.getPosition().get("x"),
-//					piece.getPosition().get("y"));
-//			pieces.put(pt, piece);
-//		}
-//	}
 
-	/**
-	 * @param piece
-	 *            - the piece to be moved
-	 * @param newX
-	 *            - new x position
-	 * @param newY
-	 *            - new y position Generate the pieces and put them on the board
-	 */
-//	@Override
-//	@Requires({"piece != null", "x>=0", "y>=0"})
-//	@Ensures({"piece.getPosition().get(\"x\") != null && piece.getPosition().get(\"y\") != null"})
-//	public void movePiece(PieceInterface piece, int x, int y) {
-//		board.removePiece(piece.getPosition().get("x"),
-//				piece.getPosition().get("y"));
-//		board.addPiece(x, y);
-//		piece.movePiece(x, y);
-//	}
 
 	/**
 	 * set the turn to the specified team in parameter
@@ -245,22 +190,7 @@ public class EngineImpl implements EngineInterface {
 		}, 10000);
 	}
 
-	/*
-	 * Set the selected piece status to active
-	 * 
-	 * @return boolean
-	 */
-//	@Override
-//	@Requires({"piece != null", " isActive  == true|| isActive == false"})
-//	public boolean setPieceActiveStatus(PieceInterface piece,
-//			boolean isActive) {
-//		try {
-//			piece.setActive(isActive);
-//		} catch (Exception e) {
-//			return false;
-//		}
-//		return true;
-//	}
+
 
 	@Override
 	public void setStartGame() {

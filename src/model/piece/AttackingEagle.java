@@ -92,7 +92,7 @@ public class AttackingEagle extends AbstractPiece {
 			int sharkX = activeShark.getPosition().get("x");
 			int sharkY = activeShark.getPosition().get("y");
 			
-			if (isSurrounding(pieceX, sharkX, pieceY, sharkY, distance)) {
+			if (isSurrounding(pieceX, sharkX, pieceY, sharkY, distance) && !activeShark.isImmune()) {
 				enemyPositions.add(new Cell(sharkX, sharkY));
 			}
 		}
