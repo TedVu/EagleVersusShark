@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import model.board.Cell;
+import model.enumtype.PieceAbility;
 
 /**
  * @author sefira & chanboth
@@ -53,4 +54,12 @@ public interface PieceInterface {
 	 *            - new y position
 	 */
 	public void setPosition(int x, int y);
+	
+	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece);
+	
+	public Set<Cell> abilityCells();
+	
+	public void setImmune(boolean isImmune);
+	
+	public boolean isImmune();
 }

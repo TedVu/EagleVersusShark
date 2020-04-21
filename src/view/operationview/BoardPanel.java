@@ -29,6 +29,7 @@ import controller.MovePieceController;
 import controller.SelectPieceController;
 import controller.TimerPropertyChangeListener;
 import model.board.Cell;
+import model.contract.EngineInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
@@ -54,6 +55,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	private static final long serialVersionUID = -146176190184206205L;
 	private List<List<AbstractButton>> buttons;
 	private ViewControllerInterface facade;
+	private EngineInterface engine = EngineImpl.getSingletonInstance();
 
 	/**
 	 * Constructing the board panel,at the beginning, the board is a hard-coded
@@ -243,8 +245,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(row).size(); ++col) {
 				Color color = buttons.get(row).get(col).getBackground();
-				if (EngineImpl.getSingletonInstance()
-						.checkSelectPiece(PieceType.parsePieceType(
+				if (engine.pieceOperator().checkSelectPiece(PieceType.parsePieceType(
 								buttonClicked.getActionCommand()))
 						&& (color.equals(Color.YELLOW)
 								|| color.equals(Color.BLUE))) {
@@ -268,9 +269,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	@Requires({"buttonClicked != null", "pieceType != null"})
 	private void updateBoardAfterMovingPiece(AbstractButton buttonClicked,
 			PieceType pieceType) {
-		Map<String, Integer> oldPos = EngineImpl.getSingletonInstance()
-				.getAllPieces().get(pieceType).getPosition();
-		Set<Cell> validMoves = EngineImpl.getSingletonInstance().getAllPieces()
+		Map<String, Integer> oldPos = engine.pieceOperator().getAllPieces().get(pieceType).getPosition();
+		Set<Cell> validMoves = engine.pieceOperator().getAllPieces()
 				.get(pieceType).getValidMove();
 
 		buttonClicked.setActionCommand(pieceType.toString());
@@ -285,7 +285,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		PieceType pieceType = PieceType
 				.valueOf(buttonClicked.getActionCommand().toUpperCase());
 
-		Set<Cell> validMoves = EngineImpl.getSingletonInstance().getAllPieces()
+		Set<Cell> validMoves = engine.pieceOperator().getAllPieces()
 				.get(pieceType).getValidMove();
 
 		for (Cell moves : validMoves) {

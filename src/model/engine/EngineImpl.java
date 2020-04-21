@@ -16,6 +16,7 @@ import model.contract.PieceInterface;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import model.piece.PieceFactory;
+import model.piece.commands.PieceOperator;
 import model.player.Player;
 import model.player.PlayerImpl;
 import view.callback.GameEngineCallbackImpl;
@@ -52,13 +53,16 @@ public class EngineImpl implements EngineInterface {
 	private GameEngineCallbackInterface geCallback = new GameEngineCallbackImpl();
 
 	private Board board;
+	
+	private PieceOperator pieceOperator ; 
 
 	/**
 	 * @return the singleton instance of the engine
 	 */
 	private EngineImpl() {
 		board = new Board();
-		initializePiece();
+		pieceOperator = new PieceOperator(board, this);
+		pieceOperator.initializePiece();
 		geCallback.addProperytChangeListener(new TimerPropertyChangeListener());
 		geCallback.addProperytChangeListener(
 				new MakingMovePropertyChangeListener());
@@ -83,24 +87,24 @@ public class EngineImpl implements EngineInterface {
 	 * @param occupiedPieceType
 	 * @return true if the piece is occupied, else false
 	 */
-	@Requires({"occupiedPieceType != null"})
-	@Override
-	public boolean checkSelectPiece(PieceType occupiedPieceType) {
-		if (!pieces.containsKey(occupiedPieceType)) {
-			return false;
-		}
-		return true;
-	}
+//	@Requires({"occupiedPieceType != null"})
+//	@Override
+//	public boolean checkSelectPiece(PieceType occupiedPieceType) {
+//		if (!pieces.containsKey(occupiedPieceType)) {
+//			return false;
+//		}
+//		return true;
+//	}
 
 	/**
 	 * @return all pieces
 	 */
-	@Override
-	@Requires({"pieces.size()>0"})
-	public Map<PieceType, PieceInterface> getAllPieces() {
-		return pieces;
-		
-	}
+//	@Override
+//	@Requires({"pieces.size()>0"})
+//	public Map<PieceType, PieceInterface> getAllPieces() {
+//		return pieces;
+//		
+//	}
 
 	@Override
 	public Board getBoard() {
@@ -160,17 +164,17 @@ public class EngineImpl implements EngineInterface {
 	/**
 	 * Generate the pieces and put them on the board
 	 */
-	@Requires({"pieces.size() < 1"})
-	@Ensures({"pieces.size()>0"})
-	public void initializePiece() {
-		int boardSize = getBoard().getSize();
-		for (PieceType pt : PieceType.values()) {
-			PieceInterface piece = PieceFactory.generatePiece(pt, boardSize);
-			board.addPiece(piece.getPosition().get("x"),
-					piece.getPosition().get("y"));
-			pieces.put(pt, piece);
-		}
-	}
+//	@Requires({"pieces.size() < 1"})
+//	@Ensures({"pieces.size()>0"})
+//	public void initializePiece() {
+//		int boardSize = getBoard().getSize();
+//		for (PieceType pt : PieceType.values()) {
+//			PieceInterface piece = PieceFactory.generatePiece(pt, boardSize);
+//			board.addPiece(piece.getPosition().get("x"),
+//					piece.getPosition().get("y"));
+//			pieces.put(pt, piece);
+//		}
+//	}
 
 	/**
 	 * @param piece
@@ -180,15 +184,15 @@ public class EngineImpl implements EngineInterface {
 	 * @param newY
 	 *            - new y position Generate the pieces and put them on the board
 	 */
-	@Override
-	@Requires({"piece != null", "x>=0", "y>=0"})
-	@Ensures({"piece.getPosition().get(\"x\") != null && piece.getPosition().get(\"y\") != null"})
-	public void movePiece(PieceInterface piece, int x, int y) {
-		board.removePiece(piece.getPosition().get("x"),
-				piece.getPosition().get("y"));
-		board.addPiece(x, y);
-		piece.movePiece(x, y);
-	}
+//	@Override
+//	@Requires({"piece != null", "x>=0", "y>=0"})
+//	@Ensures({"piece.getPosition().get(\"x\") != null && piece.getPosition().get(\"y\") != null"})
+//	public void movePiece(PieceInterface piece, int x, int y) {
+//		board.removePiece(piece.getPosition().get("x"),
+//				piece.getPosition().get("y"));
+//		board.addPiece(x, y);
+//		piece.movePiece(x, y);
+//	}
 
 	/**
 	 * set the turn to the specified team in parameter
@@ -246,20 +250,28 @@ public class EngineImpl implements EngineInterface {
 	 * 
 	 * @return boolean
 	 */
-	@Override
-	@Requires({"piece != null", " isActive  == true|| isActive == false"})
-	public boolean setPieceActiveStatus(PieceInterface piece,
-			boolean isActive) {
-		try {
-			piece.setActive(isActive);
-		} catch (Exception e) {
-			return false;
-		}
-		return true;
-	}
+//	@Override
+//	@Requires({"piece != null", " isActive  == true|| isActive == false"})
+//	public boolean setPieceActiveStatus(PieceInterface piece,
+//			boolean isActive) {
+//		try {
+//			piece.setActive(isActive);
+//		} catch (Exception e) {
+//			return false;
+//		}
+//		return true;
+//	}
 
 	@Override
 	public void setStartGame() {
 		startGame = true;
 	}
+
+	@Override
+	public PieceOperator pieceOperator() {
+		
+		return pieceOperator;
+	}
+	
+	
 }

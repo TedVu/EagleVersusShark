@@ -15,13 +15,29 @@ import model.contract.PieceInterface;
 public abstract class AbstractPiece implements PieceInterface {
 
 	private Map<String, Integer> position = new HashMap<String, Integer>();
-	private boolean isActive;
+	private boolean isActive = true;
+	private boolean isImmune = false;
 
 	public AbstractPiece(int x, int y) {
 		position.put("x", x);
 		position.put("y", y);
 		isActive = true;
 	}
+	
+	
+
+	@Override
+	public void setImmune(boolean isImmune) {
+		this.isImmune = isImmune;
+	}
+
+
+	@Override
+	public boolean isImmune() {
+		return this.isImmune;
+	}
+
+
 
 	@Override
 	@Requires({"position.get(\"x\") != null && position.get(\"y\") != null"})

@@ -7,6 +7,7 @@ import javax.swing.AbstractButton;
 
 import com.google.java.contract.Requires;
 
+import model.contract.EngineInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
@@ -23,6 +24,7 @@ public class SelectPieceController implements ActionListener {
 
 	private AbstractButton buttonClicked;
 	private MovePieceController movePieceController;
+	private EngineInterface engine = EngineImpl.getSingletonInstance();
 
 	private ViewControllerInterface viewControllerFacade;
 
@@ -64,8 +66,7 @@ public class SelectPieceController implements ActionListener {
 
 	@Requires("buttonClicked != null")
 	private void checkCorrectPieceButtonClicked() {
-		if (EngineImpl.getSingletonInstance()
-				.checkSelectPiece(PieceType.parsePieceType(buttonClicked.getActionCommand()))) {
+		if (engine.pieceOperator().checkSelectPiece(PieceType.parsePieceType(buttonClicked.getActionCommand()))) {
 			TeamType currentTurn = EngineImpl.getSingletonInstance().getCurrentActivePlayer().getPlayerType();
 			checkChooseCorrectTeamTurn(currentTurn);
 
