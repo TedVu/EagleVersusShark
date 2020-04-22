@@ -31,6 +31,7 @@ import controller.TimerPropertyChangeListener;
 import controller.abstractfactory.VisionaryEagleAbilityController;
 import model.board.Cell;
 import model.contract.EngineInterface;
+import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
@@ -162,7 +163,36 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @param buttonClicked
 	 */
 	private void updateBoardAfterSwap(AbstractButton buttonClicked) {
+		PieceInterface visionaryEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.VISIONARYEAGLE);
 
+		AbstractButton visionButton = buttons.get(visionaryEagle.getPosition().get("y"))
+				.get(visionaryEagle.getPosition().get("x"));
+
+		PieceType affectedPiece = PieceType.parsePieceType(buttonClicked.getActionCommand());
+
+		updateIcon(buttonClicked, PieceType.VISIONARYEAGLE);
+		updateIcon(visionButton, affectedPiece);
+
+		visionButton.setActionCommand(buttonClicked.getActionCommand());
+		buttonClicked.setActionCommand("VisionaryEagle");
+
+		refreshBoardColorAndState();
+
+	}
+
+	private void refreshBoardColorAndState() {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				AbstractButton btn = buttons.get(row).get(col);
+				btn.setBackground(Color.WHITE);
+				ActionListener[] listeners = btn.getActionListeners();
+				for (ActionListener listener : listeners) {
+					btn.removeActionListener(listener);
+				}
+				btn.addActionListener(new SelectPieceController(facade));
+			}
+		}
 	}
 
 	/**
@@ -174,6 +204,20 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @param swapController
 	 */
 	private void updateBoardBeforeSwap(VisionaryEagleAbilityController swapController) {
+		PieceInterface visionaryEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.VISIONARYEAGLE);
+		Set<Cell> swapCells = visionaryEagle.abilityCells();
+		for (Cell cell : swapCells) {
+			AbstractButton affectedBtn = buttons.get(cell.getY()).get(cell.getX());
+			affectedBtn.setBackground(Color.YELLOW);
+
+			ActionListener[] listeners = affectedBtn.getActionListeners();
+			for (ActionListener listener : listeners) {
+				affectedBtn.removeActionListener(listener);
+			}
+			affectedBtn.addActionListener(swapController);
+		}
+
 	}
 
 	/**

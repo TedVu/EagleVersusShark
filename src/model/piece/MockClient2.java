@@ -16,40 +16,37 @@ import model.piece.commands.UseAbility;
 public class MockClient2 {
 
 	public static void main(String[] args) {
-		
 
 		EngineInterface engine = EngineImpl.getSingletonInstance();
 		Map<PieceType, PieceInterface> pieces = new HashMap<PieceType, PieceInterface>();
 		CommandExecutor commandExecutor = new CommandExecutor();
-//
+		//
 		pieces = engine.pieceOperator().getAllPieces();
-//		// System.out.println(engine.getInitialPlayerActivePlayer().getPlayerType());
-//
+		// // System.out.println(engine.getInitialPlayerActivePlayer().getPlayerType());
+		//
 		PieceInterface attackerPiece = null;
 		PieceInterface visionPiece = null;
 		PieceInterface leaderPiece = null;
 		PieceInterface defenceShark = null;
-//
+		//
 		for (PieceInterface piece : pieces.values()) {
 
-			if(piece instanceof AttackingEagle) {
+			if (piece instanceof AttackingEagle) {
 				attackerPiece = piece;
-				
+
 			}
-			if(piece instanceof VisionaryEagle) {
+			if (piece instanceof VisionaryEagle) {
 				visionPiece = piece;
 			}
-			if(piece instanceof LeadershipEagle) {
+			if (piece instanceof LeadershipEagle) {
 				leaderPiece = piece;
 			}
-			
-			if(piece instanceof DefensiveShark) {
+
+			if (piece instanceof DefensiveShark) {
 				defenceShark = piece;
 			}
 
-
 		}
-		
 
 		System.out.println("try undoing empty stack");
 		try {
@@ -57,32 +54,32 @@ public class MockClient2 {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-//		
-		
+		//
+
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
 		System.out.println("vision eagle loc: " + visionPiece.getPosition());
 		System.out.println();
-		
+
 		System.out.println("moving attacking eagle to (4,0)");
 		commandExecutor.executeCommand(new MovePiece(4, 0, attackerPiece));
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
 		System.out.println();
-		
+
 		System.out.println("undoing attacking eagle move");
 		commandExecutor.executeCommand(new Undo());
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
 		System.out.println();
-		
-		System.out.println("getting possible capture position for attackingEagle");
+
+		System.out.println("getting possible swapping position for visionay eagle");
 		System.out.println(visionPiece.abilityCells());
 		System.out.println();
-		
+
 		System.out.println("swapping attacking eagle & visionary position");
 		commandExecutor.executeCommand(new UseAbility(PieceAbility.SWAP, visionPiece, attackerPiece));
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
 		System.out.println("vision eagle loc: " + visionPiece.getPosition());
 		System.out.println();
-		
+
 		System.out.println("visionary eagle has immunity: " + visionPiece.isImmune());
 		System.out.println("leader eagle give immunity to visionary");
 		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, leaderPiece, visionPiece));
@@ -94,7 +91,7 @@ public class MockClient2 {
 			System.out.println(e);
 		}
 		System.out.println();
-		
+
 		System.out.println("trying to capture defence eagle that is too far");
 		System.out.println("defence shark loc: " + defenceShark.getPosition());
 		System.out.println("capture defence eagle");
@@ -103,15 +100,15 @@ public class MockClient2 {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		System.out.println("defence eagle active status: " + defenceShark.isActive() );
+		System.out.println("defence eagle active status: " + defenceShark.isActive());
 		System.out.println();
-		
+
 		System.out.println("moving defence shark to be close to attack eagle");
 		commandExecutor.executeCommand(new MovePiece(4, 0, defenceShark));
 		System.out.println("defence shark loc: " + defenceShark.getPosition());
 		System.out.println("capture defence eagle");
 		commandExecutor.executeCommand(new UseAbility(PieceAbility.CAPTURE, attackerPiece, defenceShark));
-		System.out.println("defence eagle active status: " + defenceShark.isActive() );
+		System.out.println("defence eagle active status: " + defenceShark.isActive());
 		System.out.println();
 
 	}

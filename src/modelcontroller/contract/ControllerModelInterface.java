@@ -15,11 +15,12 @@ public interface ControllerModelInterface {
 	 * @param newPos
 	 * @param pieceType
 	 */
-	public void updateModelAfterMovingPiece(Map<String, Integer> newPos,
-			PieceType pieceType);
+	public void updateModelAfterMovingPiece(Map<String, Integer> newPos, PieceType pieceType);
 
 	/**
 	 * @param teamName
 	 */
 	public void updateModelStateForNextTurn(TeamType teamName);
+
+	public void updateModelStateSwapPiece(PieceType affectedPieceEnum);
 }

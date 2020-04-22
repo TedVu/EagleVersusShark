@@ -12,7 +12,7 @@ public class AbstractAbilityController implements AbilityController {
 
 	protected AbstractButton buttonClicked;
 	protected ViewControllerInterface viewControllerFacade;
-	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
+	protected ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

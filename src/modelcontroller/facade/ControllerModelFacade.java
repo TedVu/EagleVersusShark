@@ -7,10 +7,12 @@ import com.google.java.contract.Requires;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
+import model.enumtype.PieceAbility;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import model.piece.commands.CommandExecutor;
 import model.piece.commands.MovePiece;
+import model.piece.commands.UseAbility;
 import modelcontroller.contract.ControllerModelInterface;
 
 /**
@@ -34,5 +36,15 @@ public class ControllerModelFacade implements ControllerModelInterface {
 	public void updateModelStateForNextTurn(TeamType teamName) {
 		EngineImpl.getSingletonInstance().cancelTimer();
 		EngineImpl.getSingletonInstance().setActivePlayer(teamName, true);
+	}
+
+	@Override
+	public void updateModelStateSwapPiece(PieceType affectedPieceEnum) {
+		PieceInterface affectedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(affectedPieceEnum);
+		PieceInterface visionaryPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.VISIONARYEAGLE);
+		commandExecutor.executeCommand(new UseAbility(PieceAbility.SWAP, visionaryPiece, affectedPiece));
+
 	}
 }

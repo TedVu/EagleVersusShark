@@ -53,4 +53,9 @@ public class Cell {
 	public void setUnoccupied() {
 		occupied = false;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("X=%d Y=%d", x, y);
+	}
 }

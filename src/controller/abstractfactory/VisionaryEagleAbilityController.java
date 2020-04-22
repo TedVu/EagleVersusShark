@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractButton;
 
 import model.enumtype.PieceType;
+import model.enumtype.TeamType;
 
 public class VisionaryEagleAbilityController extends AbstractAbilityController {
 
@@ -16,9 +17,9 @@ public class VisionaryEagleAbilityController extends AbstractAbilityController {
 		if (buttonClickedStr.equalsIgnoreCase(PieceType.ATTACKINGEAGLE.toString())
 				|| buttonClickedStr.equalsIgnoreCase(PieceType.LEADERSHIPEAGLE.toString())) {
 			viewControllerFacade.updateBoardAfterSwap(buttonClicked);
-		} else {
-			viewControllerFacade.notifySelectWrongTeam();
 		}
+		super.controllerModelFacade.updateModelStateSwapPiece(PieceType.parsePieceType(buttonClickedStr));
+		super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
 	}
 
 }
