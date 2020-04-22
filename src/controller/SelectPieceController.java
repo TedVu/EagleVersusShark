@@ -10,6 +10,7 @@ import com.google.java.contract.Requires;
 import controller.abstractfactory.AbilityController;
 import controller.abstractfactory.AbilityControllerFactory;
 import controller.abstractfactory.SpecialBehaviourControllerFactory;
+import model.contract.EngineInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.PlayerActionType;
@@ -27,6 +28,7 @@ public class SelectPieceController implements ActionListener {
 
 	private AbstractButton buttonClicked;
 	private MovePieceController movePieceController;
+	private EngineInterface engine = EngineImpl.getSingletonInstance();
 
 	private ViewControllerInterface viewControllerFacade;
 
@@ -50,14 +52,14 @@ public class SelectPieceController implements ActionListener {
 
 		if (EngineImpl.getSingletonInstance().getStartGame()) {
 			viewControllerFacade.updateBoardSelectAnotherPiece(buttonClicked);
-			checkPieceSelectedTurn();
+			checkCorrectPieceButtonClicked();
 		} else {
 			viewControllerFacade.notifyNotStartGame();
 		}
 	}
 
 	@Requires({ "teamType != null", "viewControllerFacade != null" })
-	private void checkAllowTransitToMovePieceAction(TeamType teamType) {
+	private void checkChooseCorrectTeamTurn(TeamType teamType) {
 		if (PieceType.parsePieceType(buttonClicked.getActionCommand()).team() == teamType) {
 
 			viewControllerFacade.getPlayerAction(playerAction);
@@ -94,11 +96,10 @@ public class SelectPieceController implements ActionListener {
 	}
 
 	@Requires("buttonClicked != null")
-	private void checkPieceSelectedTurn() {
-		if (EngineImpl.getSingletonInstance()
-				.checkSelectPiece(PieceType.parsePieceType(buttonClicked.getActionCommand()))) {
+	private void checkCorrectPieceButtonClicked() {
+		if (engine.pieceOperator().checkSelectPiece(PieceType.parsePieceType(buttonClicked.getActionCommand()))) {
 			TeamType currentTurn = EngineImpl.getSingletonInstance().getCurrentActivePlayer().getPlayerType();
-			checkAllowTransitToMovePieceAction(currentTurn);
+			checkChooseCorrectTeamTurn(currentTurn);
 
 		}
 	}

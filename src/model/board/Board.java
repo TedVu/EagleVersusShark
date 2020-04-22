@@ -33,10 +33,15 @@ public class Board {
 	 * @param x
 	 * @param y
 	 */
-	@Requires({ "x>=0", "y>=0" })
+	@Requires({"x>=0", "y>=0"})
 	@Ensures("cells.get(y).get(x).getOccupied()==true")
 	public void addPiece(int x, int y) {
 		cells.get(y).get(x).setOccupied();
+	}
+
+	@Requires({"x>=0", "y>=0"})
+	public boolean getOccupationState(int x, int y) {
+		return cells.get(y).get(x).getOccupied();
 	}
 
 	/**
@@ -50,14 +55,9 @@ public class Board {
 	 * @param x
 	 * @param y
 	 */
-	@Requires({ "x>=0", "y>=0" })
+	@Requires({"x>=0", "y>=0"})
 	@Ensures("cells.get(y).get(x).getOccupied()==false")
 	public void removePiece(int x, int y) {
 		cells.get(y).get(x).setUnoccupied();
-	}
-
-	@Requires({ "x>=0", "y>=0" })
-	public boolean getOccupationState(int x, int y) {
-		return cells.get(y).get(x).getOccupied();
 	}
 }

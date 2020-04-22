@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
+
 import controller.MakingMovePropertyChangeListener;
 import controller.TimerPropertyChangeListener;
 import model.board.Board;
@@ -13,6 +16,7 @@ import model.contract.PieceInterface;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import model.piece.PieceFactory;
+import model.piece.commands.PieceOperator;
 import model.player.Player;
 import model.player.PlayerImpl;
 import view.callback.GameEngineCallbackImpl;
@@ -38,8 +42,6 @@ public class EngineImpl implements EngineInterface {
 
 	private boolean startGame = false;
 
-	private Map<PieceType, PieceInterface> pieces = new EnumMap<PieceType, PieceInterface>(
-			PieceType.class);
 	private Player eaglePlayer = new PlayerImpl(TeamType.EAGLE);
 
 	private Player sharkPlayer = new PlayerImpl(TeamType.SHARK);
@@ -50,22 +52,25 @@ public class EngineImpl implements EngineInterface {
 
 	private Board board;
 	
-	
+	private PieceOperator pieceOperator ; 
+
 	/**
 	 * @return the singleton instance of the engine
 	 */
 	private EngineImpl() {
 		board = new Board();
-		initializePiece();
+		pieceOperator = new PieceOperator(board, this);
+		pieceOperator.initializePiece();
 		geCallback.addProperytChangeListener(new TimerPropertyChangeListener());
 		geCallback.addProperytChangeListener(
 				new MakingMovePropertyChangeListener());
 	}
-	
+
 	/**
-	 *  stop the timer of the game
+	 * stop the timer of the game
 	 */
 	@Override
+	@Requires({"eaglePlayer.getActive() == true || eaglePlayer.getActive() == false"})
 	public void cancelTimer() {
 		TeamType currentPlayer = eaglePlayer.getActive()
 				? TeamType.SHARK
@@ -75,35 +80,16 @@ public class EngineImpl implements EngineInterface {
 			gameTimer.cancel();
 		}
 	}
-	
-	/**
-	 * @param occupiedPieceType 
-	 * @return true if the piece is occupied, else false
-	 */
-	@Override
-	public boolean checkSelectPiece(PieceType occupiedPieceType) {
-		if (!pieces.containsKey(occupiedPieceType)) {
-			return false;
-		}
-		return true;
-	}
-	
-	/**
-	 * @return all pieces
-	 */
-	@Override
-	public Map<PieceType, PieceInterface> getAllPieces() {
-		return pieces;
-	}
 
-	
+
 	@Override
 	public Board getBoard() {
 		return board;
 	}
-	
+
 	/**
 	 * get the current player turn
+	 * 
 	 * @return the active team
 	 */
 	@Override
@@ -115,7 +101,7 @@ public class EngineImpl implements EngineInterface {
 			return sharkPlayer;
 
 	}
-	
+
 	@Override
 	public GameEngineCallbackInterface getGameEngineCallback() {
 		return geCallback;
@@ -127,6 +113,7 @@ public class EngineImpl implements EngineInterface {
 	 * 
 	 * @return (eaglePlayer || sharkPlayer)
 	 */
+	@Requires({"eaglePlayer!= null", "sharkPlayer != null"})
 	@Override
 	public Player getInitialPlayerActivePlayer() {
 		startGame = true;
@@ -150,40 +137,18 @@ public class EngineImpl implements EngineInterface {
 		return startGame;
 	}
 
-	/**
-	 *  Generate the pieces and put them on the board
-	 */
-	public void initializePiece() {
-		int boardSize = getBoard().getSize();
-		for (PieceType pt : PieceType.values()) {
-			PieceInterface piece = PieceFactory.generatePiece(pt, boardSize);
-			board.addPiece(piece.getPosition().get("x"),
-					piece.getPosition().get("y"));
-			pieces.put(pt, piece);
-		}
-	}
-	
-	/**
-	 * @param piece - the piece to be moved
-	 * @param newX - new x position
-	 * @param newY - new y position
-	 *  Generate the pieces and put them on the board
-	 */
-	@Override
-	public void movePiece(PieceInterface piece, int x, int y) {
-		board.removePiece(piece.getPosition().get("x"),
-				piece.getPosition().get("y"));
-		board.addPiece(x, y);
-		piece.movePiece(x, y);
-	}
-	
+
+
 	/**
 	 * set the turn to the specified team in parameter
 	 * 
-	 * @param playerType - the player to be activated
-	 * @param turnOnTimer - whether to begin countdown or not
+	 * @param playerType
+	 *            - the player to be activated
+	 * @param turnOnTimer
+	 *            - whether to begin countdown or not
 	 */
 	@Override
+	@Requires({"playerType != null", "turnOnTimer == true || turnOnTimer == false"})
 	public void setActivePlayer(TeamType playerType, boolean turnOnTimer) {
 		TeamType nextPlayer;
 		if (playerType == TeamType.EAGLE) {
@@ -202,12 +167,15 @@ public class EngineImpl implements EngineInterface {
 			setActivePlayerTimer(nextPlayer);
 		}
 	}
-	
+
 	/**
 	 * turn on the timer and loop call setActivePlayer to change every interval
-	 * @param playerType - the player to be activated next
+	 * 
+	 * @param playerType
+	 *            - the player to be activated next
 	 */
 	@Override
+	@Requires({"playerType != null"})
 	public void setActivePlayerTimer(TeamType playerType) {
 		gameTimer = new java.util.Timer();
 		gameTimer.schedule(new java.util.TimerTask() {
@@ -221,24 +189,19 @@ public class EngineImpl implements EngineInterface {
 			}
 		}, 10000);
 	}
-	
-	/*
-	 * Set the selected piece status to active
-	 * @return boolean
-	 */
-	@Override
-	public boolean setPieceActiveStatus(PieceInterface piece,
-			boolean isActive) {
-		try {
-			piece.setActive(isActive);
-		} catch (Exception e) {
-			return false;
-		}
-		return true;
-	}
+
+
 
 	@Override
 	public void setStartGame() {
 		startGame = true;
 	}
+
+	@Override
+	public PieceOperator pieceOperator() {
+		
+		return pieceOperator;
+	}
+	
+	
 }

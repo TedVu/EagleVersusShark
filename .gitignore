@@ -37,3 +37,4 @@ hs_err_pid*
 *.status
 doc/
 /.apt_generated/
+.run/A1-Final.run.xml
