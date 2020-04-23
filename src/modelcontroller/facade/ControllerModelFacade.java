@@ -47,4 +47,24 @@ public class ControllerModelFacade implements ControllerModelInterface {
 		commandExecutor.executeCommand(new UseAbility(PieceAbility.SWAP, visionaryPiece, affectedPiece));
 
 	}
+
+	@Override
+	public void updateModelStateProtectLeadership(PieceType affectedPieceEnum) {
+		// TODO Auto-generated method stub
+		PieceInterface affectedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(affectedPieceEnum);
+		PieceInterface leadershipPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.LEADERSHIPEAGLE);
+		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, leadershipPiece, affectedPiece));
+	}
+
+	@Override
+	public void updateModelStateAttackingEagle(PieceType affectedPieceEnum) {
+		PieceInterface affectedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(affectedPieceEnum);
+		PieceInterface attackingPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.ATTACKINGEAGLE);
+		commandExecutor.executeCommand(new UseAbility(PieceAbility.CAPTURE, attackingPiece, affectedPiece));
+
+	}
 }

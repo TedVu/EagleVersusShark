@@ -23,4 +23,8 @@ public interface ControllerModelInterface {
 	public void updateModelStateForNextTurn(TeamType teamName);
 
 	public void updateModelStateSwapPiece(PieceType affectedPieceEnum);
+
+	public void updateModelStateProtectLeadership(PieceType affectedPieceEnum);
+
+	public void updateModelStateAttackingEagle(PieceType affectedPieceEnum);
 }

@@ -29,9 +29,8 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	@Requires({"buttonClicked != null", "newPos != null"})
-	public void locateNewPos(AbstractButton buttonClicked,
-			Map<String, Integer> newPos) {
+	@Requires({ "buttonClicked != null", "newPos != null" })
+	public void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos) {
 		pcs.firePropertyChange("LocateNewPosition", buttonClicked, newPos);
 	}
 
@@ -46,19 +45,15 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	@Requires({"buttonClicked !=null", "pieceType != null"})
-	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked,
-			PieceType pieceType) {
-		pcs.firePropertyChange("UpdateBoardAfterMovingPiece",
-				pieceType.toString(), buttonClicked);
+	@Requires({ "buttonClicked !=null", "pieceType != null" })
+	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
+		pcs.firePropertyChange("UpdateBoardAfterMovingPiece", pieceType.toString(), buttonClicked);
 	}
 
 	@Override
-	public void updateBoardBeforeMovePiece(AbstractButton buttonClicked,
-			MovePieceController movePieceController) {
+	public void updateBoardBeforeMovePiece(AbstractButton buttonClicked, MovePieceController movePieceController) {
 		// TODO Auto-generated method stub
-		pcs.firePropertyChange("UpdateBoardBeforeMovingPiece", buttonClicked,
-				movePieceController);
+		pcs.firePropertyChange("UpdateBoardBeforeMovingPiece", buttonClicked, movePieceController);
 
 	}
 
@@ -76,9 +71,9 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void updateBoardBeforeSwap(AbilityController swapController) {
+	public void updateBoardBeforeSwap(AbilityController visionController) {
 		// TODO Auto-generated method stub
-		pcs.firePropertyChange("UpdateBoardBeforeSwap", null, swapController);
+		pcs.firePropertyChange("UpdateBoardBeforeSwap", null, visionController);
 	}
 
 	@Override
@@ -91,6 +86,32 @@ public class ViewControllerFacade implements ViewControllerInterface {
 		// TODO Auto-generated method stub
 		pcs.firePropertyChange("UpdateBoardChangeAction", null, null);
 
+	}
+
+	@Override
+	public void updateBoardBeforeLeadershipProtect(AbilityController leadershipController) {
+		// TODO Auto-generated method stub
+		pcs.firePropertyChange("UpdateBoardBeforeLeadershipProtect", null, leadershipController);
+	}
+
+	@Override
+	public void updateBoardAfterLeadershipProtect() {
+		pcs.firePropertyChange("UpdateBoardAfterLeadershipProtect", null, null);
+	}
+
+	@Override
+	public void updateBoardBeforeAttackingCapture(AbilityController attackingController) {
+		pcs.firePropertyChange("UpdateBoardBeforeAttackingCapture", null, attackingController);
+	}
+
+	@Override
+	public void updateBoardAfterAttackingCapture(AbstractButton btnClicked) {
+		pcs.firePropertyChange("UpdateBoardAfterAttackingCapture", null, btnClicked);
+	}
+
+	@Override
+	public void updateBoardFailToCaptureAttacking() {
+		pcs.firePropertyChange("UpdateBoardFailToCaptureAttacking", null, null);
 	}
 
 }

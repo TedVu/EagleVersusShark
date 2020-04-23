@@ -25,8 +25,7 @@ public interface ViewControllerInterface {
 	 * @param buttonClicked
 	 * @param newPos
 	 */
-	public void locateNewPos(AbstractButton buttonClicked,
-			Map<String, Integer> newPos);
+	public void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos);
 
 	/**
 	 * 
@@ -42,23 +41,31 @@ public interface ViewControllerInterface {
 	 * @param buttonClicked
 	 * @param pieceType
 	 */
-	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked,
-			PieceType pieceType);
+	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType);
 
-	public void updateBoardBeforeMovePiece(AbstractButton buttonClicked,
-			MovePieceController movePieceController);
+	public void updateBoardBeforeMovePiece(AbstractButton buttonClicked, MovePieceController movePieceController);
 
 	/**
 	 * @param buttonClicked
 	 */
 	public void updateBoardSelectAnotherPiece(AbstractButton buttonClicked);
 
-	public void updateBoardBeforeSwap(AbilityController swapControllerO);
+	public void updateBoardBeforeSwap(AbilityController visionController);
 
 	public void getPlayerAction(PlayerAction playerAction);
 
 	public void updateBoardAfterSwap(AbstractButton buttonClicked);
 
 	public void updateBoardChangeAction();
+
+	public void updateBoardBeforeLeadershipProtect(AbilityController leadershipController);
+
+	public void updateBoardAfterLeadershipProtect();
+
+	public void updateBoardBeforeAttackingCapture(AbilityController attackingController);
+
+	public void updateBoardAfterAttackingCapture(AbstractButton btnClicked);
+
+	public void updateBoardFailToCaptureAttacking();
 
 }

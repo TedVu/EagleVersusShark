@@ -81,10 +81,8 @@ public class AttackingEagle extends AbstractPiece {
 	public Set<Cell> abilityCells() {
 		Set<Cell> enemyPositions = new HashSet<>();
 		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
-		
 		int pieceX = getPosition().get("x");
 		int pieceY = getPosition().get("y");
-		
 		int distance = captureDistance(pieceX, pieceY);
 		
 		for (PieceInterface activeShark : activeSharks) {
@@ -92,12 +90,11 @@ public class AttackingEagle extends AbstractPiece {
 			int sharkX = activeShark.getPosition().get("x");
 			int sharkY = activeShark.getPosition().get("y");
 			
+			
 			if (isSurrounding(pieceX, sharkX, pieceY, sharkY, distance) && !activeShark.isImmune()) {
 				enemyPositions.add(new Cell(sharkX, sharkY));
 			}
 		}
-		
-		
 		return enemyPositions;
 	}
 	

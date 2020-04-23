@@ -11,7 +11,7 @@ public class VisionaryEagleAbilityController extends AbstractAbilityController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+
 		buttonClicked = (AbstractButton) e.getSource();
 		String buttonClickedStr = buttonClicked.getActionCommand();
 		if (buttonClickedStr.equalsIgnoreCase(PieceType.ATTACKINGEAGLE.toString())
@@ -20,6 +20,13 @@ public class VisionaryEagleAbilityController extends AbstractAbilityController {
 		}
 		super.controllerModelFacade.updateModelStateSwapPiece(PieceType.parsePieceType(buttonClickedStr));
 		super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
+	}
+
+	@Override
+	public void setUpView() {
+		// TODO Auto-generated method stub
+		viewControllerFacade.updateBoardBeforeSwap(this);
+
 	}
 
 }

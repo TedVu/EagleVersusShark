@@ -15,15 +15,31 @@ public class MessageDialog {
 	 * @param boardView
 	 */
 	public static void notifyNotStartGame(BoardPanel boardView) {
-		JOptionPane.showMessageDialog(boardView,
-				"You have not started the game yet");
+		JOptionPane.showMessageDialog(boardView, "You have not started the game yet");
 	}
 
 	/**
 	 * @param boardView
 	 */
 	public static void notifySelectWrongTeam(BoardPanel boardView) {
-		JOptionPane.showMessageDialog(boardView,
-				"You are selecting the wrong team");
+		JOptionPane.showMessageDialog(boardView, "You are selecting the wrong team");
 	}
+
+	public static void notifyCannotUseAbilityLeadershipNearby(BoardPanel boardView) {
+		JOptionPane.showMessageDialog(boardView, "Cannot use ability because there is no allies eagle around");
+	}
+
+	public static void notifyProtectSuccessLeadership(BoardPanel boardView) {
+		JOptionPane.showMessageDialog(boardView, "Leadership give protection successfull");
+	}
+
+	public static void notifyNoPieceNearbyToCapture(BoardPanel boardView) {
+		JOptionPane.showMessageDialog(boardView, "No shark nearby to capture");
+	}
+
+	public static void notifyFailToCaptureAttacking(BoardPanel boardView) {
+		JOptionPane.showMessageDialog(boardView, "Shark is immune you cannot capture");
+
+	}
+
 }

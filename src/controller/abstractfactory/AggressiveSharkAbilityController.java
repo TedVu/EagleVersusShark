@@ -8,4 +8,10 @@ public class AggressiveSharkAbilityController extends AbstractAbilityController 
 	public void actionPerformed(ActionEvent e) {
 		
 	}
+
+	@Override
+	public void setUpView() {
+		// TODO Auto-generated method stub
+		
+	}
 }

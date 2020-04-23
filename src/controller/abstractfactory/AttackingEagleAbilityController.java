@@ -2,10 +2,33 @@ package controller.abstractfactory;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.AbstractButton;
+
+import model.enumtype.PieceType;
+import model.enumtype.TeamType;
+
 public class AttackingEagleAbilityController extends AbstractAbilityController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		boolean captureSuccess = true;
+		AbstractButton btnClicked = (AbstractButton) e.getSource();
+		PieceType affectedPieceEnum = PieceType.parsePieceType(btnClicked.getActionCommand());
+
+		try {
+			super.controllerModelFacade.updateModelStateAttackingEagle(affectedPieceEnum);
+		} catch (Error err) {
+			captureSuccess = false;
+			super.viewControllerFacade.updateBoardFailToCaptureAttacking();
+		}
+		if (captureSuccess) {
+			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
+			super.viewControllerFacade.updateBoardAfterAttackingCapture(btnClicked);
+		}
+	}
+
+	@Override
+	public void setUpView() {
+		super.viewControllerFacade.updateBoardBeforeAttackingCapture(this);
 	}
 }

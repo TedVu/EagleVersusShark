@@ -28,6 +28,8 @@ import com.google.java.contract.Requires;
 import controller.MovePieceController;
 import controller.SelectPieceController;
 import controller.TimerPropertyChangeListener;
+import controller.abstractfactory.AttackingEagleAbilityController;
+import controller.abstractfactory.LeadershipEagleAbilityController;
 import controller.abstractfactory.VisionaryEagleAbilityController;
 import model.board.Cell;
 import model.contract.EngineInterface;
@@ -150,6 +152,85 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			updateBoardAfterSwap((AbstractButton) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardChangeAction")) {
 			updateBoardChangeAction();
+		} else if (event.equalsIgnoreCase("UpdateBoardBeforeLeadershipProtect")) {
+			updateBoardBeforeLeadershipProtect((LeadershipEagleAbilityController) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardAfterLeadershipProtect")) {
+			updateBoardAfterLeadershipProtect();
+		} else if (event.equalsIgnoreCase("UpdateBoardBeforeAttackingCapture")) {
+			updateBoardBeforeAttackingCapture((AttackingEagleAbilityController) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardAfterAttackingCapture")) {
+			updateBoardAfterAttackingCapture((AbstractButton) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardFailToCaptureAttacking")) {
+			updateBoardFailToCaptureAttacking();
+		}
+	}
+
+	private void updateBoardFailToCaptureAttacking() {
+		MessageDialog.notifyFailToCaptureAttacking(this);
+		refreshBoardColorAndState();
+	}
+
+	private void updateBoardAfterAttackingCapture(AbstractButton btnClicked) {
+		PieceInterface attackingEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.ATTACKINGEAGLE);
+
+		AbstractButton attackingBtn = buttons.get(attackingEagle.getPosition().get("y"))
+				.get(attackingEagle.getPosition().get("x"));
+		attackingBtn.setIcon(null);
+		attackingBtn.setActionCommand("NormalButton");
+
+		btnClicked.setActionCommand("AttackingEagle");
+		updateIcon(btnClicked, PieceType.ATTACKINGEAGLE);
+		refreshBoardColorAndState();
+
+	}
+
+	private void updateBoardBeforeAttackingCapture(AttackingEagleAbilityController attackingController) {
+		PieceInterface attackingEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.ATTACKINGEAGLE);
+		Set<Cell> abilityCell = attackingEagle.abilityCells();
+		if (abilityCell.size() > 0) {
+			for (Cell c : abilityCell) {
+				int x = c.getX();
+				int y = c.getY();
+				AbstractButton button = buttons.get(y).get(x);
+				button.setBackground(Color.YELLOW);
+				ActionListener[] listeners = button.getActionListeners();
+
+				for (ActionListener l : listeners) {
+					button.removeActionListener(l);
+				}
+				button.addActionListener(attackingController);
+			}
+		} else {
+			MessageDialog.notifyNoPieceNearbyToCapture(this);
+		}
+	}
+
+	private void updateBoardAfterLeadershipProtect() {
+		MessageDialog.notifyProtectSuccessLeadership(this);
+		refreshBoardColorAndState();
+	}
+
+	private void updateBoardBeforeLeadershipProtect(LeadershipEagleAbilityController leadershipController) {
+		PieceInterface leadershipEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.LEADERSHIPEAGLE);
+		Set<Cell> abilityCell = leadershipEagle.abilityCells();
+		if (abilityCell.size() > 0) {
+			for (Cell c : abilityCell) {
+				int x = c.getX();
+				int y = c.getY();
+				AbstractButton button = buttons.get(y).get(x);
+				button.setBackground(Color.YELLOW);
+				ActionListener[] listeners = button.getActionListeners();
+
+				for (ActionListener l : listeners) {
+					button.removeActionListener(l);
+				}
+				button.addActionListener(leadershipController);
+			}
+		} else {
+			MessageDialog.notifyCannotUseAbilityLeadershipNearby(this);
 		}
 	}
 

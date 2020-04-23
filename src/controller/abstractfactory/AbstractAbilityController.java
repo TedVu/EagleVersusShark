@@ -1,24 +1,16 @@
 package controller.abstractfactory;
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractButton;
 
 import modelcontroller.contract.ControllerModelInterface;
 import modelcontroller.facade.ControllerModelFacade;
 import viewcontroller.contract.ViewControllerInterface;
 
-public class AbstractAbilityController implements AbilityController {
+public abstract class AbstractAbilityController implements AbilityController {
 
 	protected AbstractButton buttonClicked;
 	protected ViewControllerInterface viewControllerFacade;
 	protected ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void setState(ViewControllerInterface viewControllerFacade) {
@@ -27,11 +19,6 @@ public class AbstractAbilityController implements AbilityController {
 
 	}
 
-	@Override
-	public void setUpView() {
-		// TODO Auto-generated method stub
-		viewControllerFacade.updateBoardBeforeSwap(this);
-
-	}
+	
 
 }

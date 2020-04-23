@@ -6,6 +6,7 @@ package model.board;
  */
 public class Cell {
 
+	private int ID;
 	private int x;
 	private int y;
 	private boolean occupied = false;
@@ -17,6 +18,9 @@ public class Cell {
 	public Cell(int x, int y) {
 		this.x = x;
 		this.y = y;
+		Integer X = x;
+		Integer Y = y;
+		ID = Integer.parseInt(X.toString() + Y.toString());
 	}
 
 	/**
@@ -58,4 +62,22 @@ public class Cell {
 	public String toString() {
 		return String.format("X=%d Y=%d", x, y);
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Cell)) {
+			return false;
+		}
+		if (this == o) {
+			return true;
+		}
+		Cell cell = (Cell) o;
+		return this.x == cell.getX() && this.getY() == cell.getY();
+	}
+
+	@Override
+	public int hashCode() {
+		return ID;
+	}
+
 }
