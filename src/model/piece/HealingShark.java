@@ -11,7 +11,7 @@ import model.piece.movement.DiagonalMove;
  * @author chanboth
  *
  */
-public class HealingShark extends AbstractPiece {
+public class HealingShark extends AbstractPiece  {
 
 	public HealingShark(int x, int y) {
 		super(x, y);
@@ -39,5 +39,6 @@ public class HealingShark extends AbstractPiece {
 		return null;
 		
 	}
+
 
 }

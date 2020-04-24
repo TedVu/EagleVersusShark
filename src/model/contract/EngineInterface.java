@@ -95,5 +95,9 @@ public interface EngineInterface {
 
 	// TED
 	public void cancelTimerPauseGame();
+	
+	public boolean ableToUndo(TeamType teamType);
+	
+	public void incrementUndo(TeamType teamType);
 
 }

@@ -20,7 +20,7 @@ import model.piece.movement.DiagonalMove;
  * @author sefira
  *
  */
-public class VisionaryEagle extends AbstractPiece {
+public class VisionaryEagle extends AbstractPiece  {
 	
 	EngineInterface engine;
 	
@@ -95,4 +95,6 @@ public class VisionaryEagle extends AbstractPiece {
 		
 		return swapPositions;
 	}
+	
+	
 }

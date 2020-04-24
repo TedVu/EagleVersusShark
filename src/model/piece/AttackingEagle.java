@@ -53,7 +53,18 @@ public class AttackingEagle extends AbstractPiece {
 	private void capture(PieceInterface piece, PieceInterface affectedPiece) {
 		try {
 
-			if (affectedPiece.isImmune())
+			int pieceX = getPosition().get("x");
+			int pieceY = getPosition().get("y");
+
+			int affectedPieceX = affectedPiece.getPosition().get("x");
+			int affectedPieceY = affectedPiece.getPosition().get("y");
+
+			int distance = captureDistance(pieceX, pieceY);
+
+			if (!isSurrounding(pieceX, affectedPieceX, pieceY, affectedPieceY, distance))
+				throw new IllegalArgumentException("Invalid piece to be captured");
+
+			if(affectedPiece.isImmune())
 				throw new IllegalArgumentException("The piece is immune");
 
 			affectedPiece.setActive(false);
@@ -110,5 +121,7 @@ public class AttackingEagle extends AbstractPiece {
 
 		return distance;
 	}
+	
+
 
 }
