@@ -156,21 +156,29 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			updateBoardBeforeLeadershipProtect((LeadershipEagleAbilityController) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterLeadershipProtect")) {
 			updateBoardAfterLeadershipProtect();
-		} else if (event.equalsIgnoreCase("UpdateBoardBeforeAttackingCapture")) {
-			updateBoardBeforeAttackingCapture((AttackingEagleAbilityController) evt.getNewValue());
-		} else if (event.equalsIgnoreCase("UpdateBoardAfterAttackingCapture")) {
-			updateBoardAfterAttackingCapture((AbstractButton) evt.getNewValue());
-		} else if (event.equalsIgnoreCase("UpdateBoardFailToCaptureAttacking")) {
-			updateBoardFailToCaptureAttacking();
+		} else if (event.equalsIgnoreCase("UpdateBoardBeforeAttackingEagleCapture")) {
+			updateBoardBeforeAttackingEagleCapture((AttackingEagleAbilityController) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardAfterAttackingEagleCapture")) {
+			updateBoardAfterAttackingEagleCapture((AbstractButton) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardAttackingEagleFailToCapture")) {
+			updateBoardAttackingEagleFailToCapture();
+		} else if (event.equalsIgnoreCase("UndoCancelTimer")) {
+			refreshBoardColorAndState();
+		} else if (event.equalsIgnoreCase("ConfirmUndoSuccessful")) {
+			confirmUndoSuccessful();
 		}
 	}
 
-	private void updateBoardFailToCaptureAttacking() {
+	private void confirmUndoSuccessful() {
+		MessageDialog.notifyUndoSuccessful(this);
+	}
+
+	private void updateBoardAttackingEagleFailToCapture() {
 		MessageDialog.notifyFailToCaptureAttacking(this);
 		refreshBoardColorAndState();
 	}
 
-	private void updateBoardAfterAttackingCapture(AbstractButton btnClicked) {
+	private void updateBoardAfterAttackingEagleCapture(AbstractButton btnClicked) {
 		PieceInterface attackingEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(PieceType.ATTACKINGEAGLE);
 
@@ -185,7 +193,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 	}
 
-	private void updateBoardBeforeAttackingCapture(AttackingEagleAbilityController attackingController) {
+	private void updateBoardBeforeAttackingEagleCapture(AttackingEagleAbilityController attackingController) {
 		PieceInterface attackingEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(PieceType.ATTACKINGEAGLE);
 		Set<Cell> abilityCell = attackingEagle.abilityCells();

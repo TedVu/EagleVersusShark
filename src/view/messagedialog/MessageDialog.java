@@ -39,6 +39,10 @@ public class MessageDialog {
 
 	public static void notifyFailToCaptureAttacking(BoardPanel boardView) {
 		JOptionPane.showMessageDialog(boardView, "Shark is immune you cannot capture");
+	}
+
+	public static void notifyUndoSuccessful(BoardPanel boardView) {
+		JOptionPane.showMessageDialog(boardView, "Undo successful !!! please resume game");
 
 	}
 

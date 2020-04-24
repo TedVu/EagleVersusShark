@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import controller.ItemChangeController;
 import controller.PlayerAction;
+import controller.ResumeGameController;
 import controller.UndoMoveController;
 import viewcontroller.contract.ViewControllerInterface;
 
@@ -37,9 +38,11 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 		String[] modes = { "MOVE", "USEABILITY", "SKYMODE", "PROTECTIONMODE" };
 		modeBox = new JComboBox<String>(modes);
 		modeBox.addItemListener(new ItemChangeController(viewControllerFacade));
-		undoBtn = new JButton("UNDO");
-		undoBtn.addActionListener(new UndoMoveController());
 		resumeBtn = new JButton("RESUME");
+		resumeBtn.addActionListener(new ResumeGameController(viewControllerFacade));
+		resumeBtn.setEnabled(false);
+		undoBtn = new JButton("UNDO");
+		undoBtn.addActionListener(new UndoMoveController(viewControllerFacade, resumeBtn));
 
 		setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Mode Panel"));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

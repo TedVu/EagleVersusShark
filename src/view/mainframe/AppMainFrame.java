@@ -53,6 +53,7 @@ public class AppMainFrame extends JFrame {
 		getContentPane().add(operationToolbar, BorderLayout.NORTH);
 
 		boardPanel.getFacade().addPropertyChangeListener(rightPanel.getModePanel());
+		boardPanel.getFacade().addPropertyChangeListener(rightPanel.getStatusPanel());
 
 	}
 }

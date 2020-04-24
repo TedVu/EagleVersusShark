@@ -1,10 +1,10 @@
 
 package model.piece;
 
-import java.util.Map;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.java.contract.Ensures;
@@ -13,7 +13,6 @@ import com.google.java.contract.Requires;
 import model.board.Cell;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
-import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.DiagonalMove;
 

@@ -9,6 +9,7 @@ import controller.MovePieceController;
 import controller.PlayerAction;
 import controller.abstractfactory.AbilityController;
 import model.enumtype.PieceType;
+import model.enumtype.TeamType;
 
 /**
  * @author ted &#38; kevin
@@ -62,10 +63,16 @@ public interface ViewControllerInterface {
 
 	public void updateBoardAfterLeadershipProtect();
 
-	public void updateBoardBeforeAttackingCapture(AbilityController attackingController);
+	public void updateBoardBeforeAttackingEagleCapture(AbilityController attackingController);
 
-	public void updateBoardAfterAttackingCapture(AbstractButton btnClicked);
+	public void updateBoardAfterAttackingEagleCapture(AbstractButton btnClicked);
 
 	public void updateBoardFailToCaptureAttacking();
+
+	public void undoMoveCancelTimer();
+
+	public void resumeGame(TeamType currentTeam);
+
+	public void confirmUndoSuccessful();
 
 }

@@ -22,21 +22,26 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	@Requires({"this.isActive ==true || this.isActive ==false"})
+	@Requires({ "this.isActive ==true || this.isActive ==false" })
 	public boolean getActive() {
 		return isActive;
 	}
 
 	@Override
-	@Requires({"playerType != null"})
+	@Requires({ "playerType != null" })
 	public TeamType getPlayerType() {
 		return playerType;
 	}
 
 	@Override
-	@Requires({"isActive ==true || isActive ==false"})
-	@Ensures({"this.isActive == isActive"})
+	@Requires({ "isActive ==true || isActive ==false" })
+	@Ensures({ "this.isActive == isActive" })
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s", playerType.toString());
 	}
 }

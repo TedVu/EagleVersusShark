@@ -10,6 +10,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controller.ConfirmUndoController;
+import viewcontroller.contract.ViewControllerInterface;
+
 public class UndoMovePanel extends JDialog {
 	private static final long serialVersionUID = -4258981534634398081L;
 	private static final int FRAME_WIDTH = 350;
@@ -19,11 +22,12 @@ public class UndoMovePanel extends JDialog {
 
 	private JButton confirmBtn;
 
-	public UndoMovePanel() {
+	public UndoMovePanel(ViewControllerInterface viewControllerFacade) {
 
 		setTitle("Undo Panel");
 
 		confirmBtn = new JButton("APPLY");
+		confirmBtn.addActionListener(new ConfirmUndoController(viewControllerFacade, this));
 
 		String[] numUndo = { "1", "2", "3" };
 		undoBox = new JComboBox<>(numUndo);
@@ -43,5 +47,9 @@ public class UndoMovePanel extends JDialog {
 		add(btnPanel, BorderLayout.SOUTH);
 
 		setVisible(true);
+	}
+
+	public String getNumUndo() {
+		return (String) undoBox.getSelectedItem();
 	}
 }

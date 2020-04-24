@@ -23,4 +23,6 @@ public interface Player {
 	 *            - set the player active status
 	 */
 	public void setActive(boolean isActive);
+	
+	
 }

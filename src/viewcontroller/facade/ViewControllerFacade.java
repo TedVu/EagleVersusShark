@@ -12,6 +12,7 @@ import controller.MovePieceController;
 import controller.PlayerAction;
 import controller.abstractfactory.AbilityController;
 import model.enumtype.PieceType;
+import model.enumtype.TeamType;
 import viewcontroller.contract.ViewControllerInterface;
 
 /**
@@ -100,18 +101,35 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void updateBoardBeforeAttackingCapture(AbilityController attackingController) {
-		pcs.firePropertyChange("UpdateBoardBeforeAttackingCapture", null, attackingController);
+	public void updateBoardBeforeAttackingEagleCapture(AbilityController attackingController) {
+		pcs.firePropertyChange("UpdateBoardBeforeAttackingEagleCapture", null, attackingController);
 	}
 
 	@Override
-	public void updateBoardAfterAttackingCapture(AbstractButton btnClicked) {
-		pcs.firePropertyChange("UpdateBoardAfterAttackingCapture", null, btnClicked);
+	public void updateBoardAfterAttackingEagleCapture(AbstractButton btnClicked) {
+		pcs.firePropertyChange("UpdateBoardAfterAttackingEagleCapture", null, btnClicked);
 	}
 
 	@Override
 	public void updateBoardFailToCaptureAttacking() {
-		pcs.firePropertyChange("UpdateBoardFailToCaptureAttacking", null, null);
+		pcs.firePropertyChange("UpdateBoardAttackingEagleFailToCapture", null, null);
+	}
+
+	@Override
+	public void undoMoveCancelTimer() {
+		pcs.firePropertyChange("UndoCancelTimer", null, null);
+	}
+
+	@Override
+	public void resumeGame(TeamType currentTeam) {
+		pcs.firePropertyChange("ResumeGame", null, currentTeam);
+	}
+
+	@Override
+	public void confirmUndoSuccessful() {
+		// TODO Auto-generated method stub
+		pcs.firePropertyChange("ConfirmUndoSuccessful", null, null);
+
 	}
 
 }

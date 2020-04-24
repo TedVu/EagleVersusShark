@@ -1,5 +1,6 @@
 package view.operationview;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import model.enumtype.TeamType;
 /**
  * @author ted &#38; kevin
  */
-public class StatusPanel extends JPanel  {
+public class StatusPanel extends JPanel implements PropertyChangeListener {
 	/**
 	 * @serial 8787252718705342879L
 	 */
@@ -96,6 +97,14 @@ public class StatusPanel extends JPanel  {
 		worker.execute();
 	}
 
+	private void cancelTimer() {
+		for (SwingWorker<Void, Void> preWorker : workerThreads) {
+			preWorker.cancel(true);
+		}
+		turnTextField.setText("PAUSE GAME");
+		timerTextField.setText("PAUSE GAME");
+	}
+
 	/**
 	 * @return
 	 */
@@ -103,6 +112,16 @@ public class StatusPanel extends JPanel  {
 		turnTextField.setText(currentPlayer.toString());
 	}
 
-	
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		// TODO Auto-generated method stub
+		if (evt.getPropertyName().equalsIgnoreCase("UndoCancelTimer")) {
+			cancelTimer();
+		} else if (evt.getPropertyName().equalsIgnoreCase("ResumeGame")) {
+			updateTurnLabel((TeamType) evt.getNewValue());
+			startCountDown();
+		}
+
+	}
 
 }

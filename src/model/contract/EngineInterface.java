@@ -17,16 +17,16 @@ public interface EngineInterface {
 	 */
 	public void cancelTimer();
 
-//	/**
-//	 * @param occupiedPieceType
-//	 * @return true if the piece is occupied, else false
-//	 */
-//	public boolean checkSelectPiece(PieceType occupiedPieceType);
+	// /**
+	// * @param occupiedPieceType
+	// * @return true if the piece is occupied, else false
+	// */
+	// public boolean checkSelectPiece(PieceType occupiedPieceType);
 
 	/**
 	 * @return all pieces
 	 */
-//	public Map<PieceType, PieceInterface> getAllPieces();
+	// public Map<PieceType, PieceInterface> getAllPieces();
 
 	public Board getBoard();
 
@@ -40,8 +40,7 @@ public interface EngineInterface {
 	public GameEngineCallbackInterface getGameEngineCallback();
 
 	/*
-	 * return the initial active player, call this at the beginning of the
-	 * program
+	 * return the initial active player, call this at the beginning of the program
 	 * 
 	 * @return (eaglePlayer || sharkPlayer)
 	 */
@@ -63,7 +62,7 @@ public interface EngineInterface {
 	 * @param newY
 	 *            - new y position Generate the pieces and put them on the board
 	 */
-//	public void movePiece(PieceInterface piece, int newX, int newY);
+	// public void movePiece(PieceInterface piece, int newX, int newY);
 
 	/**
 	 * set the turn to the specified team in parameter
@@ -88,9 +87,13 @@ public interface EngineInterface {
 	 * 
 	 * @return boolean
 	 */
-//	public boolean setPieceActiveStatus(PieceInterface piece, boolean isActive);
+	// public boolean setPieceActiveStatus(PieceInterface piece, boolean isActive);
 
 	public void setStartGame();
-	
+
 	public PieceOperator pieceOperator();
+
+	// TED
+	public void cancelTimerPauseGame();
+
 }

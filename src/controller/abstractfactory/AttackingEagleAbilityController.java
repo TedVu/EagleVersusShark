@@ -16,19 +16,21 @@ public class AttackingEagleAbilityController extends AbstractAbilityController {
 		PieceType affectedPieceEnum = PieceType.parsePieceType(btnClicked.getActionCommand());
 
 		try {
+			// will throw exception if capture immunity piece
 			super.controllerModelFacade.updateModelStateAttackingEagle(affectedPieceEnum);
 		} catch (Error err) {
 			captureSuccess = false;
 			super.viewControllerFacade.updateBoardFailToCaptureAttacking();
 		}
 		if (captureSuccess) {
+			super.viewControllerFacade.updateBoardAfterAttackingEagleCapture(btnClicked);
 			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
-			super.viewControllerFacade.updateBoardAfterAttackingCapture(btnClicked);
+
 		}
 	}
 
 	@Override
 	public void setUpView() {
-		super.viewControllerFacade.updateBoardBeforeAttackingCapture(this);
+		super.viewControllerFacade.updateBoardBeforeAttackingEagleCapture(this);
 	}
 }

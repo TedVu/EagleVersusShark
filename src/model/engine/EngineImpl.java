@@ -1,21 +1,15 @@
 package model.engine;
 
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 
-import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import controller.MakingMovePropertyChangeListener;
 import controller.TimerPropertyChangeListener;
 import model.board.Board;
 import model.contract.EngineInterface;
-import model.contract.PieceInterface;
-import model.enumtype.PieceType;
 import model.enumtype.TeamType;
-import model.piece.PieceFactory;
 import model.piece.commands.PieceOperator;
 import model.player.Player;
 import model.player.PlayerImpl;
@@ -51,8 +45,8 @@ public class EngineImpl implements EngineInterface {
 	private GameEngineCallbackInterface geCallback = new GameEngineCallbackImpl();
 
 	private Board board;
-	
-	private PieceOperator pieceOperator ; 
+
+	private PieceOperator pieceOperator;
 
 	/**
 	 * @return the singleton instance of the engine
@@ -62,25 +56,21 @@ public class EngineImpl implements EngineInterface {
 		pieceOperator = new PieceOperator(board, this);
 		pieceOperator.initializePiece();
 		geCallback.addProperytChangeListener(new TimerPropertyChangeListener());
-		geCallback.addProperytChangeListener(
-				new MakingMovePropertyChangeListener());
+		geCallback.addProperytChangeListener(new MakingMovePropertyChangeListener());
 	}
 
 	/**
 	 * stop the timer of the game
 	 */
 	@Override
-	@Requires({"eaglePlayer.getActive() == true || eaglePlayer.getActive() == false"})
+	@Requires({ "eaglePlayer.getActive() == true || eaglePlayer.getActive() == false" })
 	public void cancelTimer() {
-		TeamType currentPlayer = eaglePlayer.getActive()
-				? TeamType.SHARK
-				: TeamType.EAGLE;
+		TeamType currentPlayer = eaglePlayer.getActive() ? TeamType.SHARK : TeamType.EAGLE;
 		geCallback.nextMove(currentPlayer);
 		if (gameTimer != null) {
 			gameTimer.cancel();
 		}
 	}
-
 
 	@Override
 	public Board getBoard() {
@@ -108,12 +98,11 @@ public class EngineImpl implements EngineInterface {
 	}
 
 	/*
-	 * return the initial active player, call this at the beginning of the
-	 * program
+	 * return the initial active player, call this at the beginning of the program
 	 * 
 	 * @return (eaglePlayer || sharkPlayer)
 	 */
-	@Requires({"eaglePlayer!= null", "sharkPlayer != null"})
+	@Requires({ "eaglePlayer!= null", "sharkPlayer != null" })
 	@Override
 	public Player getInitialPlayerActivePlayer() {
 		startGame = true;
@@ -137,8 +126,6 @@ public class EngineImpl implements EngineInterface {
 		return startGame;
 	}
 
-
-
 	/**
 	 * set the turn to the specified team in parameter
 	 * 
@@ -148,7 +135,7 @@ public class EngineImpl implements EngineInterface {
 	 *            - whether to begin countdown or not
 	 */
 	@Override
-	@Requires({"playerType != null", "turnOnTimer == true || turnOnTimer == false"})
+	@Requires({ "playerType != null", "turnOnTimer == true || turnOnTimer == false" })
 	public void setActivePlayer(TeamType playerType, boolean turnOnTimer) {
 		TeamType nextPlayer;
 		if (playerType == TeamType.EAGLE) {
@@ -160,8 +147,7 @@ public class EngineImpl implements EngineInterface {
 			this.sharkPlayer.setActive(true);
 			nextPlayer = TeamType.EAGLE;
 		} else {
-			throw new IllegalArgumentException(
-					"invalid player type, must be eagle or shark");
+			throw new IllegalArgumentException("invalid player type, must be eagle or shark");
 		}
 		if (turnOnTimer) {
 			setActivePlayerTimer(nextPlayer);
@@ -175,22 +161,19 @@ public class EngineImpl implements EngineInterface {
 	 *            - the player to be activated next
 	 */
 	@Override
-	@Requires({"playerType != null"})
+	@Requires({ "playerType != null" })
 	public void setActivePlayerTimer(TeamType playerType) {
+
 		gameTimer = new java.util.Timer();
 		gameTimer.schedule(new java.util.TimerTask() {
 			@Override
 			public void run() {
 				setActivePlayer(playerType, true);
-				TeamType currentPlayer = eaglePlayer.getActive()
-						? TeamType.EAGLE
-						: TeamType.SHARK;
+				TeamType currentPlayer = eaglePlayer.getActive() ? TeamType.EAGLE : TeamType.SHARK;
 				geCallback.timerNextMove(playerType, currentPlayer);
 			}
 		}, 10000);
 	}
-
-
 
 	@Override
 	public void setStartGame() {
@@ -199,9 +182,15 @@ public class EngineImpl implements EngineInterface {
 
 	@Override
 	public PieceOperator pieceOperator() {
-		
+
 		return pieceOperator;
 	}
-	
-	
+
+	@Override
+	public void cancelTimerPauseGame() {
+		// TODO Auto-generated method stub
+		gameTimer.cancel();
+	}
+
+
 }
