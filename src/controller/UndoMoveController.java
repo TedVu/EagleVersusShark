@@ -22,12 +22,15 @@ public class UndoMoveController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// allow cancel timer depending on current player
-		EngineImpl.getSingletonInstance().cancelTimerPauseGame();
-		viewControllerFacade.undoMoveCancelTimer();
-		new UndoMovePanel(viewControllerFacade);
-		resumeBtn.setEnabled(true);
+		if (EngineImpl.getSingletonInstance().getStartGame()) {
+			EngineImpl.getSingletonInstance().cancelTimerPauseGame();
+			viewControllerFacade.undoMoveCancelTimer();
+			new UndoMovePanel(viewControllerFacade);
+			resumeBtn.setEnabled(true);
+		} else {
+			viewControllerFacade.notifyNotStartGame();
+		}
 
-		// else err msg
 
 	}
 

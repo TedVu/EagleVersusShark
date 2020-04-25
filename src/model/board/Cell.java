@@ -10,6 +10,7 @@ public class Cell {
 	private int x;
 	private int y;
 	private boolean occupied = false;
+	private boolean isWaterCell = false;
 
 	/**
 	 * @param x
@@ -44,6 +45,9 @@ public class Cell {
 		return y;
 	}
 
+	public boolean getIsWaterCell() {
+		return isWaterCell;
+	}
 	/**
 	 * 
 	 */
@@ -56,6 +60,10 @@ public class Cell {
 	 */
 	public void setUnoccupied() {
 		occupied = false;
+	}
+
+	public void setWaterCell() {
+		isWaterCell = true;
 	}
 
 	@Override

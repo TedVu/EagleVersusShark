@@ -67,12 +67,16 @@ public interface ViewControllerInterface {
 
 	public void updateBoardAfterAttackingEagleCapture(AbstractButton btnClicked);
 
-	public void updateBoardFailToCaptureAttacking();
+	public void updateBoardFailToCaptureImmunity();
 
 	public void undoMoveCancelTimer();
 
 	public void resumeGame(TeamType currentTeam);
 
 	public void confirmUndoSuccessful();
+
+	public void updateBoardBeforeAggressiveSharkCapture(AbilityController aggressiveController);
+
+	public void updateBoardAfterAggressiveSharkCapture(AbstractButton btnClicked);
 
 }

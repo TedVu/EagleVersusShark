@@ -8,11 +8,10 @@ public abstract class SpecialBehaviourControllerFactory {
 		if (teamType == TeamType.EAGLE) {
 			return new EagleSpecialBehaviourControllerFactory();
 		} else if (teamType == TeamType.SHARK) {
-
+			return new SharkSpecialBehaviourControllerFactory();
 		} else {
 			throw new IllegalArgumentException("");
 		}
-		return null;
 	}
 
 	public abstract AbilityControllerFactory createAbilityControllerFactory();

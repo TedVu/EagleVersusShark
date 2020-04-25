@@ -20,7 +20,7 @@ public class AttackingEagleAbilityController extends AbstractAbilityController {
 			super.controllerModelFacade.updateModelStateAttackingEagle(affectedPieceEnum);
 		} catch (Error err) {
 			captureSuccess = false;
-			super.viewControllerFacade.updateBoardFailToCaptureAttacking();
+			super.viewControllerFacade.updateBoardFailToCaptureImmunity();
 		}
 		if (captureSuccess) {
 			super.viewControllerFacade.updateBoardAfterAttackingEagleCapture(btnClicked);

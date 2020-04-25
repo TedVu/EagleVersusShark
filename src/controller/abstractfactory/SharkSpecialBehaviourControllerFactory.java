@@ -3,8 +3,7 @@ package controller.abstractfactory;
 public class SharkSpecialBehaviourControllerFactory extends SpecialBehaviourControllerFactory {
 	@Override
 	public AbilityControllerFactory createAbilityControllerFactory() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SharkAbilityControllerFactory();
 	}
 
 	@Override

@@ -67,4 +67,15 @@ public class ControllerModelFacade implements ControllerModelInterface {
 		commandExecutor.executeCommand(new UseAbility(PieceAbility.CAPTURE, attackingPiece, affectedPiece));
 
 	}
+
+	@Override
+	public void updateModelStateAggressiveSharkCapture(PieceType affectedPieceEnum) {
+		// TODO Auto-generated method stub
+		PieceInterface affectedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(affectedPieceEnum);
+		PieceInterface aggressivePiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.AGGRESSIVESHARK);
+		commandExecutor.executeCommand(new UseAbility(PieceAbility.CAPTURE, aggressivePiece, affectedPiece));
+
+	}
 }

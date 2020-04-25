@@ -28,6 +28,7 @@ import com.google.java.contract.Requires;
 import controller.MovePieceController;
 import controller.SelectPieceController;
 import controller.TimerPropertyChangeListener;
+import controller.abstractfactory.AggressiveSharkAbilityController;
 import controller.abstractfactory.AttackingEagleAbilityController;
 import controller.abstractfactory.LeadershipEagleAbilityController;
 import controller.abstractfactory.VisionaryEagleAbilityController;
@@ -90,6 +91,10 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 				buttons.get(row).add(currentButton);
 
 				currentButton.setBackground(Color.WHITE);
+				if (EngineImpl.getSingletonInstance().getBoard().getCell(col, row).getIsWaterCell()) {
+					Color color = new Color(178, 221, 247);
+					currentButton.setBackground(color);
+				}
 				currentButton.setBorder(BorderFactory.createRaisedBevelBorder());
 
 				currentButton.setActionCommand("NormalButton");
@@ -151,7 +156,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterSwap")) {
 			updateBoardAfterSwap((AbstractButton) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardChangeAction")) {
-			updateBoardChangeAction();
+			refreshBoardColorAndState();
 		} else if (event.equalsIgnoreCase("UpdateBoardBeforeLeadershipProtect")) {
 			updateBoardBeforeLeadershipProtect((LeadershipEagleAbilityController) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterLeadershipProtect")) {
@@ -166,6 +171,44 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			refreshBoardColorAndState();
 		} else if (event.equalsIgnoreCase("ConfirmUndoSuccessful")) {
 			confirmUndoSuccessful();
+		} else if (event.equalsIgnoreCase("UpdateBoardBeforeAggressiveSharkCapture")) {
+			updateBoardBeforeAggressiveSharkCapture((AggressiveSharkAbilityController) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardAfterAggressiveSharkCapture")) {
+			updateBoardAfterAggressiveSharkCapture((AbstractButton) evt.getNewValue());
+		}
+	}
+
+	private void updateBoardAfterAggressiveSharkCapture(AbstractButton btnClicked) {
+		PieceInterface aggressiveShark = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.AGGRESSIVESHARK);
+
+		AbstractButton aggressiveBtn = buttons.get(aggressiveShark.getPosition().get("y"))
+				.get(aggressiveShark.getPosition().get("x"));
+		aggressiveBtn.setIcon(null);
+		aggressiveBtn.setActionCommand("NormalButton");
+
+		btnClicked.setActionCommand("AggressiveShark");
+		updateIcon(btnClicked, PieceType.AGGRESSIVESHARK);
+		refreshBoardColorAndState();
+	}
+
+	private void updateBoardBeforeAggressiveSharkCapture(AggressiveSharkAbilityController aggressiveController) {
+		PieceInterface aggressiveShark = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.AGGRESSIVESHARK);
+		Set<Cell> abilityCell = aggressiveShark.abilityCells();
+		if (abilityCell.size() > 0) {
+			for (Cell cell : abilityCell) {
+				AbstractButton btn = buttons.get(cell.getY()).get(cell.getX());
+				buttons.get(cell.getY()).get(cell.getX()).setBackground(Color.BLUE);
+				ActionListener[] listeners = btn.getActionListeners();
+
+				for (ActionListener l : listeners) {
+					btn.removeActionListener(l);
+				}
+				btn.addActionListener(aggressiveController);
+			}
+		} else {
+			MessageDialog.notifyNoPieceNearbyToCapture(this);
 		}
 	}
 
@@ -270,11 +313,16 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 	}
 
-	private void refreshBoardColorAndState() {
+	public void refreshBoardColorAndState() {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
 				AbstractButton btn = buttons.get(row).get(col);
-				btn.setBackground(Color.WHITE);
+				if (!EngineImpl.getSingletonInstance().getBoard().getCell(col, row).getIsWaterCell()) {
+					btn.setBackground(Color.WHITE);
+				} else {
+					Color color = new Color(178, 221, 247);
+					btn.setBackground(color);
+				}
 				ActionListener[] listeners = btn.getActionListeners();
 				for (ActionListener listener : listeners) {
 					btn.removeActionListener(listener);
@@ -327,23 +375,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	public void updateIconAndButtonStateAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType,
 			Set<Cell> validMoves) {
 		updateIcon(buttonClicked, pieceType);
-		updateBoardStateAfterMove();
-
-	}
-
-	@Requires("boardSize > 0")
-	public void updateBoardEndOfTimer(int boardSize) {
-		for (int row = 0; row < boardSize; ++row) {
-			for (int col = 0; col < boardSize; ++col) {
-				buttons.get(row).get(col).setBackground(Color.WHITE);
-				ActionListener[] listeners = buttons.get(row).get(col).getActionListeners();
-				for (ActionListener listener : listeners) {
-					buttons.get(row).get(col).removeActionListener(listener);
-				}
-				buttons.get(row).get(col).addActionListener(new SelectPieceController(facade));
-
-			}
-		}
+		refreshBoardColorAndState();
 	}
 
 	/**
@@ -457,35 +489,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			buttonClicked.setIcon(new ImageIcon(animal));
 		} catch (IOException e1) {
 			e1.getStackTrace();
-		}
-	}
-
-	private void updateBoardStateAfterMove() {
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				buttons.get(row).get(col).setBackground(Color.WHITE);
-				ActionListener[] listeners = buttons.get(row).get(col).getActionListeners();
-				for (ActionListener l : listeners) {
-					buttons.get(row).get(col).removeActionListener(l);
-				}
-				buttons.get(row).get(col).addActionListener(new SelectPieceController(facade));
-
-			}
-		}
-	}
-
-	private void updateBoardChangeAction() {
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				AbstractButton button = buttons.get(row).get(col);
-				button.setBackground(Color.WHITE);
-
-				ActionListener[] listeners = button.getActionListeners();
-				for (ActionListener l : listeners) {
-					button.removeActionListener(l);
-				}
-				button.addActionListener(new SelectPieceController(facade));
-			}
 		}
 	}
 

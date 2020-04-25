@@ -111,7 +111,7 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void updateBoardFailToCaptureAttacking() {
+	public void updateBoardFailToCaptureImmunity() {
 		pcs.firePropertyChange("UpdateBoardAttackingEagleFailToCapture", null, null);
 	}
 
@@ -129,6 +129,17 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	public void confirmUndoSuccessful() {
 		// TODO Auto-generated method stub
 		pcs.firePropertyChange("ConfirmUndoSuccessful", null, null);
+
+	}
+
+	@Override
+	public void updateBoardBeforeAggressiveSharkCapture(AbilityController aggressiveController) {
+		pcs.firePropertyChange("UpdateBoardBeforeAggressiveSharkCapture", null, aggressiveController);
+	}
+
+	@Override
+	public void updateBoardAfterAggressiveSharkCapture(AbstractButton btnClicked) {
+		pcs.firePropertyChange("UpdateBoardAfterAggressiveSharkCapture", null, btnClicked);
 
 	}
 

@@ -27,19 +27,26 @@ public class Board {
 				cells.get(row).add(new Cell(col, row));
 			}
 		}
+
+		int mid = (cells.size() - 1) / 2;
+		for (int row = mid - 1; row <= mid + 1; ++row) {
+			for (int col = 0; col < size; ++col) {
+				cells.get(row).get(col).setWaterCell();
+			}
+		}
 	}
 
 	/**
 	 * @param x
 	 * @param y
 	 */
-	@Requires({"x>=0", "y>=0"})
+	@Requires({ "x>=0", "y>=0" })
 	@Ensures("cells.get(y).get(x).getOccupied()==true")
 	public void addPiece(int x, int y) {
 		cells.get(y).get(x).setOccupied();
 	}
 
-	@Requires({"x>=0", "y>=0"})
+	@Requires({ "x>=0", "y>=0" })
 	public boolean getOccupationState(int x, int y) {
 		return cells.get(y).get(x).getOccupied();
 	}
@@ -51,11 +58,15 @@ public class Board {
 		return size;
 	}
 
+	public Cell getCell(int x, int y) {
+		return cells.get(y).get(x);
+	}
+
 	/**
 	 * @param x
 	 * @param y
 	 */
-	@Requires({"x>=0", "y>=0"})
+	@Requires({ "x>=0", "y>=0" })
 	@Ensures("cells.get(y).get(x).getOccupied()==false")
 	public void removePiece(int x, int y) {
 		cells.get(y).get(x).setUnoccupied();

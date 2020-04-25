@@ -30,8 +30,7 @@ public class TimerPropertyChangeListener implements PropertyChangeListener {
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equalsIgnoreCase("SwitchTurn")) {
-			boardView.updateBoardEndOfTimer(
-					EngineImpl.getSingletonInstance().getBoard().getSize());
+			boardView.refreshBoardColorAndState();
 		}
 	}
 }
