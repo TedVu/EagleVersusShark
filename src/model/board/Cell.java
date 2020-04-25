@@ -11,6 +11,7 @@ public class Cell {
 	private int y;
 	private boolean occupied = false;
 	private boolean isWaterCell = false;
+	private boolean isMasterCell = false;
 
 	/**
 	 * @param x
@@ -48,6 +49,11 @@ public class Cell {
 	public boolean getIsWaterCell() {
 		return isWaterCell;
 	}
+
+	public boolean getIsMasterCell() {
+		return isMasterCell;
+	}
+
 	/**
 	 * 
 	 */
@@ -64,6 +70,10 @@ public class Cell {
 
 	public void setWaterCell() {
 		isWaterCell = true;
+	}
+
+	public void setMasterCell() {
+		isMasterCell = true;
 	}
 
 	@Override

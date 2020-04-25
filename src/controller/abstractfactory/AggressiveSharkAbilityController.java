@@ -17,7 +17,7 @@ public class AggressiveSharkAbilityController extends AbstractAbilityController 
 
 		try {
 			super.controllerModelFacade.updateModelStateAggressiveSharkCapture(affectedPieceEnum);
-		} catch (Error err) {
+		} catch (RuntimeException ex) {
 			captureSuccess = false;
 			super.viewControllerFacade.updateBoardFailToCaptureImmunity();
 		}

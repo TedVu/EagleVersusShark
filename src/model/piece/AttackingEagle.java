@@ -10,6 +10,7 @@ import com.google.java.contract.Requires;
 import model.board.Cell;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
+import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.DiagonalMove;
 
@@ -52,10 +53,16 @@ public class AttackingEagle extends AbstractPiece {
 
 	private void capture(PieceInterface piece, PieceInterface affectedPiece) {
 		try {
-
+			Cell currentPos = EngineImpl.getSingletonInstance().getBoard().getCell(piece.getPosition().get("x"),
+					piece.getPosition().get("y"));
+			Cell opponentPos = EngineImpl.getSingletonInstance().getBoard()
+					.getCell(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
 			if (affectedPiece.isImmune())
 				throw new IllegalArgumentException("The piece is immune");
 
+			EngineImpl.getSingletonInstance().getBoard().removePiece(currentPos.getX(), currentPos.getY());
+
+			movePiece(opponentPos.getX(), opponentPos.getY());
 			affectedPiece.setActive(false);
 
 		} catch (Exception e) {

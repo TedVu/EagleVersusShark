@@ -50,7 +50,6 @@ public class ControllerModelFacade implements ControllerModelInterface {
 
 	@Override
 	public void updateModelStateProtectLeadership(PieceType affectedPieceEnum) {
-		// TODO Auto-generated method stub
 		PieceInterface affectedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(affectedPieceEnum);
 		PieceInterface leadershipPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
@@ -70,7 +69,6 @@ public class ControllerModelFacade implements ControllerModelInterface {
 
 	@Override
 	public void updateModelStateAggressiveSharkCapture(PieceType affectedPieceEnum) {
-		// TODO Auto-generated method stub
 		PieceInterface affectedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(affectedPieceEnum);
 		PieceInterface aggressivePiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()

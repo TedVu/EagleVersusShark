@@ -21,9 +21,8 @@ import model.piece.movement.DiagonalMove;
  *
  */
 public class VisionaryEagle extends AbstractPiece {
-	
+
 	EngineInterface engine;
-	
 
 	public VisionaryEagle(int x, int y, EngineInterface engine) {
 		super(x, y);
@@ -31,7 +30,7 @@ public class VisionaryEagle extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({"getPosition() != null"})
+	@Requires({ "getPosition() != null" })
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
 		return new DiagonalMove().getValidMove(this, 2);
@@ -39,7 +38,7 @@ public class VisionaryEagle extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({"getPosition() != null"})
+	@Requires({ "getPosition() != null" })
 	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
 	public void movePiece(int x, int y) {
 		setPosition(x, y);
@@ -53,9 +52,9 @@ public class VisionaryEagle extends AbstractPiece {
 		else {
 			throw new IllegalArgumentException("Invalid ability");
 		}
-		
+
 	}
-	
+
 	public void swap(PieceInterface piece, PieceInterface affectedPiece) {
 
 		try {
@@ -68,31 +67,26 @@ public class VisionaryEagle extends AbstractPiece {
 			piece.setPosition(position2.get("x"), position2.get("y"));
 			affectedPiece.setPosition(position1.get("x"), position1.get("y"));
 
-			
-
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public Set<Cell> abilityCells() {
-		
+
 		Set<Cell> swapPositions = new HashSet<>();
 		List<PieceInterface> activeEagles = engine.pieceOperator().getActiveEagles();
-		
-		
 		for (PieceInterface activeEagle : activeEagles) {
-			if(!(activeEagle instanceof VisionaryEagle)) {
-				
+			if (!(activeEagle instanceof VisionaryEagle)) {
+
 				int x = activeEagle.getPosition().get("x");
 				int y = activeEagle.getPosition().get("y");
-				
+
 				swapPositions.add(new Cell(x, y));
 			}
 		}
-		
-		
+
 		return swapPositions;
 	}
 }

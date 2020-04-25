@@ -33,7 +33,6 @@ public class PieceOperator {
 	public PieceOperator(Board board, EngineInterface engine) {
 		this.board = board;
 		this.engine = engine;
-		initializePiece();
 	}
 
 	private EngineInterface engine;
@@ -117,9 +116,10 @@ public class PieceOperator {
 	 * @return List<Piece> - all active sharks
 	 */
 	public List<PieceInterface> getActiveSharks() {
+		activeSharks = new ArrayList<>();
 		for (PieceInterface piece : pieces.values()) {
-			if (piece != null && piece.isActive() && (piece instanceof AggressiveShark
-					|| piece instanceof HealingShark || piece instanceof DefensiveShark)) {
+			if (piece != null && piece.isActive() && (piece instanceof AggressiveShark || piece instanceof HealingShark
+					|| piece instanceof DefensiveShark)) {
 				activeSharks.add(piece);
 			}
 		}
@@ -130,6 +130,7 @@ public class PieceOperator {
 	 * @return List<Piece> all active eagles
 	 */
 	public List<PieceInterface> getActiveEagles() {
+		activeEagles = new ArrayList<>();
 		for (PieceInterface piece : pieces.values()) {
 			if (piece != null && piece.isActive() && (piece instanceof AttackingEagle
 					|| piece instanceof LeadershipEagle || piece instanceof VisionaryEagle)) {

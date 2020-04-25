@@ -50,11 +50,10 @@ public class AggressiveShark extends AbstractPiece {
 
 	private void capture(PieceInterface piece, PieceInterface affectedPiece) {
 		try {
-
 			Cell currentPos = EngineImpl.getSingletonInstance().getBoard().getCell(piece.getPosition().get("x"),
 					piece.getPosition().get("y"));
 			Cell opponentPos = EngineImpl.getSingletonInstance().getBoard()
-					.getCell(affectedPiece.getPosition().get("x"), piece.getPosition().get("y"));
+					.getCell(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
 			if (currentPos.getIsWaterCell()) {
 				if (!opponentPos.getIsWaterCell() && affectedPiece.isImmune()) {
 					throw new IllegalArgumentException("The piece is immune");
@@ -64,6 +63,10 @@ public class AggressiveShark extends AbstractPiece {
 					throw new IllegalArgumentException("The piece is immune");
 				}
 			}
+
+			EngineImpl.getSingletonInstance().getBoard().removePiece(currentPos.getX(), currentPos.getY());
+
+			movePiece(opponentPos.getX(), opponentPos.getY());
 			affectedPiece.setActive(false);
 
 		} catch (Exception e) {
@@ -100,7 +103,6 @@ public class AggressiveShark extends AbstractPiece {
 				}
 			}
 		}
-		System.out.println(abilityCell);
 
 		return abilityCell;
 	}

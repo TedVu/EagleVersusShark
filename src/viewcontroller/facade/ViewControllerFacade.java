@@ -112,7 +112,7 @@ public class ViewControllerFacade implements ViewControllerInterface {
 
 	@Override
 	public void updateBoardFailToCaptureImmunity() {
-		pcs.firePropertyChange("UpdateBoardAttackingEagleFailToCapture", null, null);
+		pcs.firePropertyChange("UpdateBoardFailToCaptureImmunity", null, null);
 	}
 
 	@Override
