@@ -15,7 +15,7 @@ import model.piece.PieceMemento;
 public class UseAbility implements CommandInterface {
 	
 	PieceAbility pieceAbility;
-	private PieceInterface piece, affectedPiece, prevPiece, prevAffectedPiece;
+	private PieceInterface piece, affectedPiece;
 	private EngineInterface engine = EngineImpl.getSingletonInstance();
 	private PieceOperator pieceOperator = engine.pieceOperator();
 	private PieceMemento pieceMemento, affectedPieceMemento;
@@ -25,10 +25,7 @@ public class UseAbility implements CommandInterface {
 		this.piece = piece;
 		this.pieceMemento = piece.pieceMemento();
 		this.affectedPieceMemento = affectedPiece.pieceMemento();
-//		this.prevPiece = piece.clonePiece();
 		this.pieceAbility = pieceAbility;
-		
-		
 		
 	}
 
@@ -45,6 +42,10 @@ public class UseAbility implements CommandInterface {
 
 		pieceOperator.replacePieceVersion(piece, pieceMemento);
 		pieceOperator.replacePieceVersion(affectedPiece, affectedPieceMemento);
+		engine.getBoard().removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+		engine.getBoard().addPiece(pieceMemento.getX(), pieceMemento.getY());
+		engine.getBoard().removePiece(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
+		engine.getBoard().addPiece(affectedPieceMemento.getX(), affectedPieceMemento.getY());
 	}
 
 }
