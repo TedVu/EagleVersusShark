@@ -21,6 +21,7 @@ import model.piece.DefensiveShark;
 import model.piece.HealingShark;
 import model.piece.LeadershipEagle;
 import model.piece.PieceFactory;
+import model.piece.PieceMemento;
 import model.piece.VisionaryEagle;
 
 /**
@@ -139,16 +140,27 @@ public class PieceOperator {
 		}
 		return activeEagles;
 	}
+	
+	protected void replacePieceVersion(PieceInterface piece, PieceMemento prevState) {
+		piece.setActive(prevState.isActive());
+		piece.setImmune(prevState.isImmune());
+		piece.setPosition(prevState.getX() , prevState.getY());
+			
+	}
 
 	protected void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		piece.useAbility(pieceAbility, piece, affectedPiece);
 	}
 
 	protected void undo() {
+		
+		System.out.println("command stack size " + commandHistory.size());
 
-		if (commandHistory.empty())
+		if (commandHistory.empty() || commandHistory.size() <= 2)
 			throw new RuntimeException("Nothing to undo");
 		else {
+			commandHistory.peek().undo();
+			commandHistory.pop();
 			commandHistory.peek().undo();
 			commandHistory.pop();
 		}

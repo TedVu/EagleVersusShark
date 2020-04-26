@@ -6,12 +6,14 @@ import java.util.Set;
 
 import model.board.Cell;
 import model.enumtype.PieceAbility;
+import model.piece.PieceMemento;
 
 /**
  * @author sefira & chanboth
  *
  */
 public interface PieceInterface {
+
 
 	/**
 	 * Get the current position of the piece
@@ -62,4 +64,6 @@ public interface PieceInterface {
 	public void setImmune(boolean isImmune);
 	
 	public boolean isImmune();
+
+	public PieceMemento pieceMemento();
 }

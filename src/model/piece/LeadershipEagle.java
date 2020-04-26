@@ -114,4 +114,6 @@ public class LeadershipEagle extends AbstractPiece {
 		}
 		return true;
 	}
+	
+
 }

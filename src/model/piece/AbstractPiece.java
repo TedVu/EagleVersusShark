@@ -12,7 +12,7 @@ import model.contract.PieceInterface;
  * @author sefira & chanboth
  *
  */
-public abstract class AbstractPiece implements PieceInterface {
+public abstract class AbstractPiece implements PieceInterface{
 
 	private Map<String, Integer> position = new HashMap<String, Integer>();
 	private boolean isActive = true;
@@ -64,5 +64,23 @@ public abstract class AbstractPiece implements PieceInterface {
 		this.position.replace("x", x);
 		this.position.replace("y", y);
 	}
+
+	public PieceMemento pieceMemento() {
+		PieceMemento memento =  new PieceMemento(isActive, isImmune, position.get("x"), position.get("y"));
+		return memento.getState();
+	}
+
+//	@Override
+//	protected Object clone() throws CloneNotSupportedException {
+//		PieceInterface clone = (PieceInterface)super.clone();
+//		
+//		Map<String, Integer> position = new HashMap<String, Integer>();
+//		position.put("x", clone.getPosition().get("x"));
+//		position.put("y", clone.getPosition().get("y"));
+//		clone.setPosition(position.get("x"), position.get("y"));
+//		return clone;
+//	}
+//	
+	
 
 }

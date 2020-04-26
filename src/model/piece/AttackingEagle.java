@@ -58,6 +58,7 @@ public class AttackingEagle extends AbstractPiece {
 			Cell opponentPos = EngineImpl.getSingletonInstance().getBoard()
 					.getCell(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
 			if (affectedPiece.isImmune())
+
 				throw new IllegalArgumentException("The piece is immune");
 
 			EngineImpl.getSingletonInstance().getBoard().removePiece(currentPos.getX(), currentPos.getY());
@@ -117,5 +118,7 @@ public class AttackingEagle extends AbstractPiece {
 
 		return distance;
 	}
+	
+
 
 }

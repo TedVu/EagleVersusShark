@@ -24,5 +24,13 @@ public interface Player {
 	 */
 	public void setActive(boolean isActive);
 	
+	/**
+	 * @param isActive
+	 *            - set the player active status
+	 */
+	public boolean ableToUndo(int round);
+	
+	public void undoCounter(int round);
+	
 	
 }

@@ -9,7 +9,14 @@ import controller.MakingMovePropertyChangeListener;
 import controller.TimerPropertyChangeListener;
 import model.board.Board;
 import model.contract.EngineInterface;
+import model.contract.PieceInterface;
 import model.enumtype.TeamType;
+import model.piece.AggressiveShark;
+import model.piece.AttackingEagle;
+import model.piece.DefensiveShark;
+import model.piece.HealingShark;
+import model.piece.LeadershipEagle;
+import model.piece.VisionaryEagle;
 import model.piece.commands.PieceOperator;
 import model.player.Player;
 import model.player.PlayerImpl;
@@ -47,6 +54,10 @@ public class EngineImpl implements EngineInterface {
 	private Board board;
 
 	private PieceOperator pieceOperator;
+	
+	private int turn = 0;
+	
+	private int round ;
 
 	/**
 	 * @return the singleton instance of the engine
@@ -137,7 +148,11 @@ public class EngineImpl implements EngineInterface {
 	@Override
 	@Requires({ "playerType != null", "turnOnTimer == true || turnOnTimer == false" })
 	public void setActivePlayer(TeamType playerType, boolean turnOnTimer) {
+		
 		TeamType nextPlayer;
+		turn ++;
+		round = turn / 2;
+		
 		if (playerType == TeamType.EAGLE) {
 			this.eaglePlayer.setActive(true);
 			this.sharkPlayer.setActive(false);
@@ -188,8 +203,41 @@ public class EngineImpl implements EngineInterface {
 
 	@Override
 	public void cancelTimerPauseGame() {
-		// TODO Auto-generated method stub
 		gameTimer.cancel();
+	}
+	
+
+	
+	@Override
+	public void incrementUndo(TeamType teamType) {
+		
+		System.out.println("IN INCREMENT UNDO");
+		
+		Player player = playerType(teamType);
+		
+		player.undoCounter(round);
+	}
+	@Override
+	public boolean ableToUndo(TeamType teamType) {
+		
+		Player player = playerType(teamType);
+		
+		return player.ableToUndo(round);
+	}
+	
+	
+	private Player playerType(TeamType teamType) {
+		
+		if(teamType.equals(TeamType.EAGLE)) {
+			return eaglePlayer;
+		}
+		else if(teamType.equals(TeamType.SHARK)) {
+			return sharkPlayer;
+		}
+		else {
+			throw new IllegalArgumentException("Invalid team type");
+		}
+		
 	}
 
 
