@@ -108,7 +108,7 @@ public class PieceOperator {
 		try {
 			piece.setActive(isActive);
 		} catch (Exception e) {
-			return false;
+			return false; 
 		}
 		return true;
 	}
