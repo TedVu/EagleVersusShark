@@ -55,7 +55,7 @@ public class EngineImpl implements EngineInterface {
 
 	private PieceOperator pieceOperator;
 	
-	private int turn = 0;
+	private int turn = 1;
 	
 	private int round ;
 
@@ -153,6 +153,9 @@ public class EngineImpl implements EngineInterface {
 		turn ++;
 		round = turn / 2;
 		
+//		System.out.println("turn: " + turn);
+		System.out.println("round: " + round);
+		
 		if (playerType == TeamType.EAGLE) {
 			this.eaglePlayer.setActive(true);
 			this.sharkPlayer.setActive(false);
@@ -210,13 +213,12 @@ public class EngineImpl implements EngineInterface {
 	
 	@Override
 	public void incrementUndo(TeamType teamType) {
-		
-		System.out.println("IN INCREMENT UNDO");
-		
+				
 		Player player = playerType(teamType);
 		
 		player.undoCounter(round);
 	}
+	
 	@Override
 	public boolean ableToUndo(TeamType teamType) {
 		

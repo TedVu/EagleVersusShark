@@ -21,7 +21,7 @@ public class PlayerImpl implements Player {
 	private TeamType playerType;
 	private Map<Integer, Integer> undoDict = new HashMap<Integer, Integer>();
 	private int undoCount = 0;
-	private int prevUndoRound;
+	private int prevUndoRound = -1;
 
 	public PlayerImpl(TeamType playerType) {
 		this.playerType = playerType;
@@ -53,14 +53,14 @@ public class PlayerImpl implements Player {
 	
 	@Override
 	public void undoCounter(int round) {
-		System.out.println("-----in undocounter");
-		System.out.println(undoDict);
+//		System.out.println("-----in undocounter");
+//		System.out.println(undoDict);
 		if(!undoDict.containsKey(round)) {
 			undoCount++;
 			prevUndoRound = round;
 			undoDict.put(round, 1);
 			
-			System.out.println("------ overall undo Count undo counter = " + undoCount);
+//			System.out.println("------ overall undo Count undo counter = " + undoCount);
 		}
 		else {
 			int newCount = undoDict.get(round) + 1;
@@ -73,19 +73,28 @@ public class PlayerImpl implements Player {
 		
 		boolean keyExist = undoDict.containsKey(round);
 		
-		System.out.println("overall undo Countdww = " + undoCount);
-		System.out.println("undo round " + round);
-		System.out.println("prev undo round " + prevUndoRound);
+//		System.out.println("overall undo Countdww = " + undoCount);
+//		System.out.println("undo round " + round);
+//		System.out.println("prev undo round " + prevUndoRound);
+//		
+//		if(keyExist) {
+//			System.out.println("prev undo round");
+//			System.out.println("undo times this round = " + undoDict.get(round));
+//			
+//			
+//		}
 		
-		if(keyExist) {
-			System.out.println("prev undo round");
-			System.out.println("undo times this round = " + undoDict.get(round));
-			
-			
-		}
+		boolean neverUndo =  prevUndoRound == -1;
 		
-		boolean roundCheck = (round != prevUndoRound && undoCount < 1) || (round == prevUndoRound);
-		if(roundCheck &&  (keyExist && undoDict.get(round) < 3 || !keyExist) ) {
+		boolean hasUndo =  prevUndoRound != -1;
+		
+		boolean sameRound = round == prevUndoRound;
+		
+		boolean validateSameRound = keyExist && undoDict.get(round) < 3 ;
+		
+		
+		
+		if(neverUndo || (hasUndo && sameRound && validateSameRound)) {
 			
 			return true;
 			

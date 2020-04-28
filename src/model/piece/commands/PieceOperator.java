@@ -154,17 +154,21 @@ public class PieceOperator {
 		piece.useAbility(pieceAbility, piece, affectedPiece);
 	}
 
-	protected void undo() {
+	protected void undo(int undoNum) {
 
-		System.out.println("command stack size " + commandHistory.size());
-
-		if (commandHistory.size() < 2)
+		int availableUndo = commandHistory.size() /2 ;
+		
+		if (availableUndo < 1)
 			throw new RuntimeException("Nothing to undo");
+		else if(availableUndo < undoNum) {
+			throw new IllegalArgumentException("Only able to undo " + availableUndo + " time(s)");
+		}
 		else {
-			commandHistory.peek().undo();
-			commandHistory.pop();
-			commandHistory.peek().undo();
-			commandHistory.pop();
+			for(int i = 0 ; i< undoNum * 2 ; i++) {
+				commandHistory.peek().undo();
+				commandHistory.pop();
+				
+			}
 		}
 	}
 

@@ -30,9 +30,8 @@ public class ConfirmUndoController implements ActionListener {
 		TeamType currentTeamEnum = TeamType.valueOf(currentTeam.toString());
 
 		try {
-			for (int i = 1; i <= numUndo; ++i) {
-				commandExecutor.executeCommand(new Undo(currentTeamEnum));
-			}
+			commandExecutor.executeCommand(new Undo(currentTeamEnum, numUndo));
+			
 		} catch (RuntimeException ex) {
 			undoSuccess = false;
 			viewControllerFacade.undoFail(ex.getMessage());

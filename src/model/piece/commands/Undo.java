@@ -15,9 +15,11 @@ public class Undo implements CommandInterface {
 	private EngineInterface engine = EngineImpl.getSingletonInstance();
 	private PieceOperator pieceOperator = engine.pieceOperator();
 	private TeamType teamType;
+	private int undoNum;
 
-	public Undo(TeamType teamType) {
+	public Undo(TeamType teamType, int undoNum) {
 		this.teamType = teamType;
+		this.undoNum = undoNum;
 	}
 
 	@Override
@@ -26,12 +28,12 @@ public class Undo implements CommandInterface {
 		// team type to check undoability
 		if (engine.ableToUndo(teamType)) {
 			try {
-				pieceOperator.undo();	
+				pieceOperator.undo(undoNum);	
+				engine.incrementUndo(teamType);
 				
 			} catch (Exception e) {
 				throw e;
 			}
-			engine.incrementUndo(teamType);
 		} else {
 			throw new RuntimeException("You already used undo");
 		}

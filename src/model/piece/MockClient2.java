@@ -51,7 +51,7 @@ public class MockClient2 {
 
 		System.out.println("try undoing empty stack");
 		try {
-			commandExecutor.executeCommand(new Undo(TeamType.EAGLE));
+			commandExecutor.executeCommand(new Undo(TeamType.EAGLE, 1));
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -117,7 +117,7 @@ public class MockClient2 {
 
 		System.out.println("\nUNDO AT EAGLE");
 		System.out.println("undoing the last round1");
-		commandExecutor.executeCommand(new Undo(TeamType.EAGLE));
+		commandExecutor.executeCommand(new Undo(TeamType.EAGLE, 1));
 		System.out.println("defence shark active status: " + defenceShark.isActive());
 		System.out.println("defence shark loc: " + defenceShark.getPosition());
 		System.out.println();
@@ -147,7 +147,7 @@ public class MockClient2 {
 		System.out.println();
 
 		System.out.println("undoing the last round2");
-		commandExecutor.executeCommand(new Undo(TeamType.EAGLE));
+		commandExecutor.executeCommand(new Undo(TeamType.EAGLE, 1));
 		System.out.println("attacker eagle has immunity: " + attackerPiece.isImmune());
 		System.out.println("vision eagle loc: " + visionPiece.getPosition());
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
