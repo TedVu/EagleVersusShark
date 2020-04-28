@@ -45,5 +45,9 @@ public class MessageDialog {
 		JOptionPane.showMessageDialog(boardView, "Undo successful !!! please resume game");
 	}
 
+	public static void notifyUndoFail(BoardPanel boardView, String failMsg) {
+		JOptionPane.showMessageDialog(boardView, failMsg);
+
+	}
 
 }

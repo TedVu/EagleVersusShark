@@ -79,4 +79,6 @@ public interface ViewControllerInterface {
 
 	public void updateBoardAfterAggressiveSharkCapture(AbstractButton btnClicked);
 
+	public void undoFail(String failMsg);
+
 }

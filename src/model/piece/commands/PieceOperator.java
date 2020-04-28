@@ -108,7 +108,7 @@ public class PieceOperator {
 		try {
 			piece.setActive(isActive);
 		} catch (Exception e) {
-			return false; 
+			return false;
 		}
 		return true;
 	}
@@ -156,7 +156,7 @@ public class PieceOperator {
 
 		System.out.println("command stack size " + commandHistory.size());
 
-		if (commandHistory.empty() || commandHistory.size() < 2)
+		if (commandHistory.size() < 2)
 			throw new RuntimeException("Nothing to undo");
 		else {
 			commandHistory.peek().undo();

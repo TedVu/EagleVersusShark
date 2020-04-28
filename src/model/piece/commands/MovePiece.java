@@ -33,7 +33,7 @@ public class MovePiece implements CommandInterface {
 
 	@Override
 	public void undo() {
-		System.out.println("movinr piece to " +  oldX + " "+ oldY);
+		System.out.println("moving piece to " +  oldX + " "+ oldY);
 		pieceOperator.movePiece(piece, oldX, oldY);
 	}
 

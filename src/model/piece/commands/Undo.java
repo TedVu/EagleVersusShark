@@ -23,18 +23,17 @@ public class Undo implements CommandInterface {
 	@Override
 	public void execute() {
 
+		// team type to check undoability
 		if (engine.ableToUndo(teamType)) {
 			try {
-				pieceOperator.undo();
-				// rollback the board based on activeSharks/activeEagles,position of each piece
-				// so that view can use that information to reconstruct the board view
-
+				pieceOperator.undo();	
+				
 			} catch (Exception e) {
 				throw e;
 			}
 			engine.incrementUndo(teamType);
 		} else {
-			throw new RuntimeException("Unable to undo");
+			throw new RuntimeException("You already used undo");
 		}
 	}
 
