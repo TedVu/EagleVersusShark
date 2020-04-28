@@ -91,5 +91,10 @@ public class VisionaryEagle extends AbstractPiece {
 		return swapPositions;
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("%s", "VisionaryEagle");
+	}
+	
 	
 }

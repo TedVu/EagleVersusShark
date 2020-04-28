@@ -40,5 +40,10 @@ public class DefensiveShark extends AbstractPiece {
 		
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("%s", "DefensiveShark");
+	}
+	
 	
 }
