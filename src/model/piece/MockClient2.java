@@ -60,26 +60,26 @@ public class MockClient2 {
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
 		System.out.println("vision eagle loc: " + visionPiece.getPosition());
 		System.out.println();
-		
-		// move 1
+
+		System.out.println("\nMOVE 1");
 		System.out.println("moving attacking eagle to (4,0)");
 		commandExecutor.executeCommand(new MovePiece(4, 0, attackerPiece));
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
 		System.out.println();
-//
-		
+		//
+
 		System.out.println("getting possible swapping position for visionay eagle");
 		System.out.println(visionPiece.abilityCells());
 		System.out.println();
-		
-		//move 2
+
+		System.out.println("\nMOVE 2");
 		System.out.println("swapping attacking eagle & visionary position");
 		commandExecutor.executeCommand(new UseAbility(PieceAbility.SWAP, visionPiece, attackerPiece));
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
 		System.out.println("vision eagle loc: " + visionPiece.getPosition());
 		System.out.println();
-		
-		//move 3
+
+		System.out.println("\nMOVE 3");
 		System.out.println("visionary eagle has immunity: " + visionPiece.isImmune());
 		System.out.println("leader eagle give immunity to visionary");
 		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, leaderPiece, visionPiece));
@@ -91,45 +91,46 @@ public class MockClient2 {
 			System.out.println(e);
 		}
 		System.out.println();
-		
-		
-		System.out.println("trying to capture defence eagle that is too far");
+
+		System.out.println("defence shark active status: " + defenceShark.isActive());
 		System.out.println("defence shark loc: " + defenceShark.getPosition());
-		System.out.println("capture defence eagle");
+		System.out.println("capture defence shark");
 		try {
 			commandExecutor.executeCommand(new UseAbility(PieceAbility.CAPTURE, attackerPiece, defenceShark));
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		System.out.println("defence eagle active status: " + defenceShark.isActive());
+		System.out.println("defence shark active status: " + defenceShark.isActive());
 		System.out.println();
-		
+
 		// move 4
+		System.out.println("\nMOVE 4");
 		System.out.println("moving defence shark to be close to attack eagle");
 		commandExecutor.executeCommand(new MovePiece(4, 0, defenceShark));
 		System.out.println("defence shark loc: " + defenceShark.getPosition());
-		System.out.println("capture defence eagle");
-		//move5
+
+		System.out.println("\nMOVE 5");
+		System.out.println("capture defensive shark");
 		commandExecutor.executeCommand(new UseAbility(PieceAbility.CAPTURE, attackerPiece, defenceShark));
-		System.out.println("defence eagle active status: " + defenceShark.isActive());
+		System.out.println("defence shark active status: " + defenceShark.isActive());
 		System.out.println();
-		
+
+		System.out.println("\nUNDO AT EAGLE");
 		System.out.println("undoing the last round1");
 		commandExecutor.executeCommand(new Undo(TeamType.EAGLE));
 		System.out.println("defence shark active status: " + defenceShark.isActive());
 		System.out.println("defence shark loc: " + defenceShark.getPosition());
 		System.out.println();
-		
-		
-		
-//		System.out.println("attack eagle has immunity: " + attackerPiece.isImmune());
-//		System.out.println("leader eagle give immunity to visionary");
-//		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, leaderPiece, attackerPiece));
-//		System.out.println("attacker eagle has immunity: " + attackerPiece.isImmune());
-//		
-//		System.out.println();
-		
-		
+
+		// System.out.println("attack eagle has immunity: " + attackerPiece.isImmune());
+		// System.out.println("leader eagle give immunity to visionary");
+		// commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT,
+		// leaderPiece, attackerPiece));
+		// System.out.println("attacker eagle has immunity: " +
+		// attackerPiece.isImmune());
+		//
+		// System.out.println();
+
 		System.out.println("vision eagle loc: " + visionPiece.getPosition());
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
 		System.out.println("swapping attacking eagle & visionary position");
@@ -137,23 +138,22 @@ public class MockClient2 {
 		System.out.println("vision eagle loc: " + visionPiece.getPosition());
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
 		System.out.println();
-		
+
 		System.out.println("attack eagle has immunity: " + attackerPiece.isImmune());
-		System.out.println("leader eagle give immunity to visionary");
+		System.out.println("leader eagle give immunity to attacker");
 		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, leaderPiece, attackerPiece));
 		System.out.println("attacker eagle has immunity: " + attackerPiece.isImmune());
-		
+
 		System.out.println();
-		
 
 		System.out.println("undoing the last round2");
 		commandExecutor.executeCommand(new Undo(TeamType.EAGLE));
 		System.out.println("attacker eagle has immunity: " + attackerPiece.isImmune());
 		System.out.println("vision eagle loc: " + visionPiece.getPosition());
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
-		
+
 		System.out.println();
-		
+
 	}
 
 }

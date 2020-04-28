@@ -412,8 +412,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 				buttons.get(moves.getY()).get(moves.getX()).setBackground(Color.blue);
 			}
 
-			ActionListener[] selectPieceListener = buttons.get(moves.getY()).get(moves.getX()).getActionListeners();
-			for (ActionListener listener : selectPieceListener) {
+			ActionListener[] listeners = buttons.get(moves.getY()).get(moves.getX()).getActionListeners();
+			for (ActionListener listener : listeners) {
 				buttons.get(moves.getY()).get(moves.getX()).removeActionListener(listener);
 			}
 			buttons.get(moves.getY()).get(moves.getX()).addActionListener(movePieceController);
