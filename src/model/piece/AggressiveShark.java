@@ -106,7 +106,10 @@ public class AggressiveShark extends AbstractPiece  {
 
 		return abilityCell;
 	}
-
+	@Override
+	public String toString() {
+		return String.format("%s", "AggressiveShark");
+	}
 
 	
 

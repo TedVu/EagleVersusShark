@@ -118,7 +118,10 @@ public class AttackingEagle extends AbstractPiece {
 
 		return distance;
 	}
-	
 
+	@Override
+	public String toString() {
+		return String.format("%s", "AttackingEagle");
+	}
 
 }

@@ -175,13 +175,19 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			updateBoardFailToCaptureImmunity();
 		} else if (event.equalsIgnoreCase("UndoCancelTimer")) {
 			refreshBoardColorAndState();
-		} else if (event.equalsIgnoreCase("ConfirmUndoSuccessful")) {
-			confirmUndoSuccessful();
+		} else if (event.equalsIgnoreCase("UndoSuccessful")) {
+			updateBoardUndoSuccessful();
 		} else if (event.equalsIgnoreCase("UpdateBoardBeforeAggressiveSharkCapture")) {
 			updateBoardBeforeCapture((AbilityController) evt.getNewValue(), PieceType.AGGRESSIVESHARK);
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterAggressiveSharkCapture")) {
 			updateBoardAfterCapture((AbstractButton) evt.getNewValue(), PieceType.AGGRESSIVESHARK);
+		} else if (event.equalsIgnoreCase("UndoFail")) {
+			updateBoardUndoFail((String) evt.getNewValue());
 		}
+	}
+
+	private void updateBoardUndoFail(String failMsg) {
+		MessageDialog.notifyUndoFail(this, failMsg);
 	}
 
 	private void updateBoardAfterCapture(AbstractButton btnClicked, PieceType pieceName) {
@@ -219,8 +225,34 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
-	private void confirmUndoSuccessful() {
+	private void updateBoardUndoSuccessful() {
+		refreshBoardColorAndState();
+		deleteAllIconsAndCommands();
+		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
+
+		for (PieceInterface pieces : activeSharks) {
+			AbstractButton pieceBtn = buttons.get(pieces.getPosition().get("y")).get(pieces.getPosition().get("x"));
+			pieceBtn.setActionCommand(pieces.toString());
+			updateIcon(pieceBtn, PieceType.parsePieceType(pieces.toString()));
+		}
+		List<PieceInterface> activeEagles = engine.pieceOperator().getActiveEagles();
+		System.out.println(activeEagles);
+		for (PieceInterface pieces : activeEagles) {
+			AbstractButton pieceBtn = buttons.get(pieces.getPosition().get("y")).get(pieces.getPosition().get("x"));
+			pieceBtn.setActionCommand(pieces.toString());
+			updateIcon(pieceBtn, PieceType.parsePieceType(pieces.toString()));
+		}
+
 		MessageDialog.notifyUndoSuccessful(this);
+	}
+
+	private void deleteAllIconsAndCommands() {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				buttons.get(row).get(col).setIcon(null);
+				buttons.get(row).get(col).setActionCommand("NormalButton");
+			}
+		}
 	}
 
 	private void updateBoardFailToCaptureImmunity() {
@@ -412,8 +444,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 				buttons.get(moves.getY()).get(moves.getX()).setBackground(Color.blue);
 			}
 
-			ActionListener[] selectPieceListener = buttons.get(moves.getY()).get(moves.getX()).getActionListeners();
-			for (ActionListener listener : selectPieceListener) {
+			ActionListener[] listeners = buttons.get(moves.getY()).get(moves.getX()).getActionListeners();
+			for (ActionListener listener : listeners) {
 				buttons.get(moves.getY()).get(moves.getX()).removeActionListener(listener);
 			}
 			buttons.get(moves.getY()).get(moves.getX()).addActionListener(movePieceController);

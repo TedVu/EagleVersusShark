@@ -16,7 +16,7 @@ import model.enumtype.TeamType;
 import viewcontroller.contract.ViewControllerInterface;
 
 /**
- * @author kevin 7 ted
+ * @author kevin & ted
  *
  */
 public class ViewControllerFacade implements ViewControllerInterface {
@@ -127,8 +127,7 @@ public class ViewControllerFacade implements ViewControllerInterface {
 
 	@Override
 	public void confirmUndoSuccessful() {
-		// TODO Auto-generated method stub
-		pcs.firePropertyChange("ConfirmUndoSuccessful", null, null);
+		pcs.firePropertyChange("UndoSuccessful", null, null);
 
 	}
 
@@ -141,6 +140,11 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	public void updateBoardAfterAggressiveSharkCapture(AbstractButton btnClicked) {
 		pcs.firePropertyChange("UpdateBoardAfterAggressiveSharkCapture", null, btnClicked);
 
+	}
+
+	@Override
+	public void undoFail(String failMsg) {
+		pcs.firePropertyChange("UndoFail", null, failMsg);
 	}
 
 }

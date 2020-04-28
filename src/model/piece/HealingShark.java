@@ -67,6 +67,11 @@ public class HealingShark extends AbstractPiece  {
 		return null;
 
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s", "HealingShark");
+	}
 
 
 }

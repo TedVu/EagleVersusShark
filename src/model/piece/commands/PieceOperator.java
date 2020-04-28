@@ -142,12 +142,12 @@ public class PieceOperator {
 		}
 		return activeEagles;
 	}
-	
+
 	protected void replacePieceVersion(PieceInterface piece, PieceMemento prevState) {
 		piece.setActive(prevState.isActive());
 		piece.setImmune(prevState.isImmune());
-		piece.setPosition(prevState.getX() , prevState.getY());
-			
+		piece.setPosition(prevState.getX(), prevState.getY());
+
 	}
 
 	protected void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
@@ -155,10 +155,10 @@ public class PieceOperator {
 	}
 
 	protected void undo() {
-		
+
 		System.out.println("command stack size " + commandHistory.size());
 
-		if (commandHistory.empty() || commandHistory.size() <= 2)
+		if (commandHistory.size() < 2)
 			throw new RuntimeException("Nothing to undo");
 		else {
 			commandHistory.peek().undo();
