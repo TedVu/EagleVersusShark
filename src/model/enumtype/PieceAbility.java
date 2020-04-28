@@ -1,5 +1,5 @@
 package model.enumtype;
 
 public enum PieceAbility {
-	CAPTURE, SWAP, PROTECT
+	CAPTURE, SWAP, PROTECT, HEAL
 }
