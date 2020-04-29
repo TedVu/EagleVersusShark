@@ -5,13 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import view.mainframe.AppMainFrame;
-import view.mainframe.StartingGameFrame;
+import view.mainframe.StartGameMainFrame;
 
 public class StartDefaultGameController implements ActionListener {
 
-	private StartingGameFrame startFrame;
+	private StartGameMainFrame startFrame;
 
-	public StartDefaultGameController(StartingGameFrame startFrame) {
+	public StartDefaultGameController(StartGameMainFrame startFrame) {
 		this.startFrame = startFrame;
 	}
 

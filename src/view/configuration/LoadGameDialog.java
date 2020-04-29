@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.startgamecontroller.LoadGameController;
-import view.mainframe.StartingGameFrame;
+import view.mainframe.StartGameMainFrame;
 
 /**
  * @author kevin & ted
@@ -31,7 +31,7 @@ public class LoadGameDialog extends JDialog {
 	/**
 	 * @see
 	 */
-	public LoadGameDialog(StartingGameFrame startFrame) {
+	public LoadGameDialog(StartGameMainFrame startFrame) {
 		fileNameField = new JTextField(15);
 		loadGameButton = new JButton("Load");
 

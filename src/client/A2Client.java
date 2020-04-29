@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.UIManager;
 
-import view.mainframe.StartingGameFrame;
+import view.mainframe.StartGameMainFrame;
 
 public class A2Client {
 	public static void main(final String[] args) {
@@ -17,7 +17,7 @@ public class A2Client {
 			@Override
 			public void run() {
 				try {
-					final StartingGameFrame configFrame = new StartingGameFrame();
+					final StartGameMainFrame configFrame = new StartGameMainFrame();
 					configFrame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

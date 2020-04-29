@@ -4,13 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import view.configuration.LoadGameDialog;
-import view.mainframe.StartingGameFrame;
+import view.mainframe.StartGameMainFrame;
 
 public class InvokeLoadGameDialogController implements ActionListener {
 
-	private StartingGameFrame startFrame;
+	private StartGameMainFrame startFrame;
 
-	public InvokeLoadGameDialogController(StartingGameFrame startFrame) {
+	public InvokeLoadGameDialogController(StartGameMainFrame startFrame) {
 		this.startFrame = startFrame;
 	}
 

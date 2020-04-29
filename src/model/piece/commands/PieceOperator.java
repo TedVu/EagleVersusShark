@@ -150,9 +150,7 @@ public class PieceOperator {
 	}
 
 	protected void undo(int undoNum) {
-
 		int availableUndo = commandHistory.size() / 2;
-
 		if (availableUndo < 1)
 			throw new RuntimeException("Nothing to undo");
 		else if (availableUndo < undoNum) {

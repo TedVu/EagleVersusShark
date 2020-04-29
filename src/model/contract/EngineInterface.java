@@ -94,5 +94,10 @@ public interface EngineInterface {
 	public boolean getGameCurrentlyRunning();
 
 	public void setResumeGame();
+	
+	// Board Set up
+	
+	public void configBoardSize(int boardSize);
 
+	public void configNumPiece(int pieceNumberSelection);
 }

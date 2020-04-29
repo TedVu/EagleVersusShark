@@ -20,7 +20,7 @@ import controller.startgamecontroller.StartDefaultGameController;
 /**
  * @author kevin & ted
  */
-public class StartingGameFrame extends JFrame {
+public class StartGameMainFrame extends JFrame {
 	/**
 	 * @serial -8454047695594084099L
 	 */
@@ -33,12 +33,12 @@ public class StartingGameFrame extends JFrame {
 	private JButton loadButton;
 	private JButton exitButton;
 
-	private StartingGameFrame startGameFrame = this; // for exitaction to reference
+	private StartGameMainFrame startGameFrame = this; // for exitaction to reference
 
 	/**
 	 * @see
 	 */
-	public StartingGameFrame() {
+	public StartGameMainFrame() {
 		startButton = new JButton("   START GAME   ");
 		configBtn = new JButton("GAME SETTINGS");
 		loadButton = new JButton("    LOAD GAME    ");

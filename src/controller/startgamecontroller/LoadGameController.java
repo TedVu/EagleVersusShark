@@ -6,14 +6,14 @@ import java.awt.event.ActionListener;
 
 import view.configuration.LoadGameDialog;
 import view.mainframe.AppMainFrame;
-import view.mainframe.StartingGameFrame;
+import view.mainframe.StartGameMainFrame;
 
 public class LoadGameController implements ActionListener {
 
-	private StartingGameFrame startFrame;
+	private StartGameMainFrame startFrame;
 	private LoadGameDialog loadGameDialog;
 
-	public LoadGameController(StartingGameFrame startFrame, LoadGameDialog loadGameDialog) {
+	public LoadGameController(StartGameMainFrame startFrame, LoadGameDialog loadGameDialog) {
 		this.startFrame = startFrame;
 		this.loadGameDialog = loadGameDialog;
 	}

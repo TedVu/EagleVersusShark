@@ -1,5 +1,6 @@
 package model.engine;
 
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Timer;
 
@@ -9,6 +10,7 @@ import controller.playinggamecontroller.MakingMovePropertyChangeListener;
 import controller.playinggamecontroller.TimerPropertyChangeListener;
 import model.board.Board;
 import model.contract.EngineInterface;
+import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import model.piece.commands.PieceOperator;
 import model.player.Player;
@@ -166,7 +168,6 @@ public class EngineImpl implements EngineInterface {
 	@Override
 	@Requires({ "playerType != null" })
 	public void setActivePlayerTimer(TeamType playerType) {
-
 		gameTimer = new java.util.Timer();
 		gameTimer.schedule(new java.util.TimerTask() {
 			@Override
@@ -180,7 +181,6 @@ public class EngineImpl implements EngineInterface {
 
 	@Override
 	public PieceOperator pieceOperator() {
-
 		return pieceOperator;
 	}
 
@@ -226,6 +226,50 @@ public class EngineImpl implements EngineInterface {
 	@Override
 	public void setResumeGame() {
 		gameRunning = true;
+	}
+
+	@Override
+	public void configBoardSize(int boardSize) {
+		board = new Board(boardSize);
+		pieceOperator.initializePiece();
+	}
+
+	@Override
+	public void configNumPiece(int numPiece) {
+		if (numPiece == 4) {
+			pieces = new HashMap<String, Piece>();
+
+			Piece attackingEagle = pieceFactory.generatePiece(PieceType.ATTACKINGEAGLE.toString(),
+					(board.getCol() / 2 - 1), 0);
+			Piece visionaryEagle = pieceFactory.generatePiece(PieceType.VISIONARYEAGLE.toString(),
+					board.getCol() / 2 + 1, 0);
+
+			Piece aggressiveShark = pieceFactory.generatePiece(PieceType.AGGRESSIVESHARK.toString(),
+					board.getCol() / 2 - 1, board.getRow() - 1);
+			Piece healingShark = pieceFactory.generatePiece(PieceType.HEALINGSHARK.toString(), board.getCol() / 2 + 1,
+					board.getRow() - 1);
+			board.addPiece(attackingEagle.getPosition().get("x"), attackingEagle.getPosition().get("y"));
+			board.addPiece(visionaryEagle.getPosition().get("x"), visionaryEagle.getPosition().get("y"));
+			board.addPiece(aggressiveShark.getPosition().get("x"), aggressiveShark.getPosition().get("y"));
+			board.addPiece(healingShark.getPosition().get("x"), healingShark.getPosition().get("y"));
+
+			pieces.put(PieceType.ATTACKINGEAGLE.toString(), attackingEagle);
+			pieces.put(PieceType.VISIONARYEAGLE.toString(), visionaryEagle);
+
+			pieces.put(PieceType.AGGRESSIVESHARK.toString(), aggressiveShark);
+			pieces.put(PieceType.HEALINGSHARK.toString(), healingShark);
+
+		} else if (numPiece == 2) {
+			pieces = new HashMap<String, Piece>();
+
+			Piece leadershipEagle = pieceFactory.generatePiece(PieceType.LEADERSHIPEAGLE.toString(), board.getCol() / 2,
+					1);
+			Piece defensiveShark = pieceFactory.generatePiece(PieceType.DEFENSIVESHARK.toString(), board.getCol() / 2,
+					board.getRow() - 2);
+			pieces.put(PieceType.LEADERSHIPEAGLE.toString(), leadershipEagle);
+			pieces.put(PieceType.DEFENSIVESHARK.toString(), defensiveShark);
+
+		}
 	}
 
 }

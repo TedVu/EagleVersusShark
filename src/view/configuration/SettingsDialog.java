@@ -11,6 +11,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controller.startgamecontroller.ApplyConfigurationController;
+
 /**
  * @author kevin & ted
  */
@@ -73,6 +75,8 @@ public class SettingsDialog extends JDialog {
 
 		this.setModal(true);
 		setVisible(true);
+		
+		applyButton.addActionListener(new ApplyConfigurationController(this));
 	}
 
 	/**

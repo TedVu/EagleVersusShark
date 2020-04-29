@@ -26,7 +26,7 @@ public class AggressiveShark extends AbstractPiece {
 	public Set<Cell> getValidMove() {
 		Cell currentPos = EngineImpl.getSingletonInstance().getBoard().getCell(this.getPosition().get("x"),
 				this.getPosition().get("y"));
-		if (!currentPos.getIsWaterCell()) {
+		if (!currentPos.isWaterCell()) {
 			return new BasicMove().getValidMove(this, 1);
 		} else {
 			return new BasicMove().getValidMove(this, 2);
@@ -54,11 +54,11 @@ public class AggressiveShark extends AbstractPiece {
 					piece.getPosition().get("y"));
 			Cell opponentPos = EngineImpl.getSingletonInstance().getBoard()
 					.getCell(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
-			if (currentPos.getIsWaterCell()) {
-				if (!opponentPos.getIsWaterCell() && affectedPiece.isImmune()) {
+			if (currentPos.isWaterCell()) {
+				if (!opponentPos.isWaterCell() && affectedPiece.isImmune()) {
 					throw new IllegalArgumentException("The piece is immune");
 				}
-			} else if (!currentPos.getIsWaterCell()) {
+			} else if (!currentPos.isWaterCell()) {
 				if (affectedPiece.isImmune()) {
 					throw new IllegalArgumentException("The piece is immune");
 				}
@@ -80,7 +80,7 @@ public class AggressiveShark extends AbstractPiece {
 		int distance = 0;
 		Cell currentPos = EngineImpl.getSingletonInstance().getBoard().getCell(this.getPosition().get("x"),
 				this.getPosition().get("y"));
-		if (!currentPos.getIsWaterCell()) {
+		if (!currentPos.isWaterCell()) {
 			distance = 1;
 		} else {
 			distance = 2;
