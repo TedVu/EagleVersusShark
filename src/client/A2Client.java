@@ -6,7 +6,7 @@ import javax.swing.UIManager;
 
 import view.configuration.StartingGameFrame;
 
-public class TestConfigurationView {
+public class A2Client {
 	public static void main(final String[] args) {
 		try {
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
