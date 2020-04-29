@@ -31,13 +31,14 @@ public class ConfirmUndoController implements ActionListener {
 
 		try {
 			commandExecutor.executeCommand(new Undo(currentTeamEnum, numUndo));
-			
+
 		} catch (RuntimeException ex) {
 			undoSuccess = false;
 			viewControllerFacade.undoFail(ex.getMessage());
 		}
 
 		if (undoSuccess) {
+			EngineImpl.getSingletonInstance().getCurrentActivePlayer().setAlreadyUndo();
 			undoMovePanel.setVisible(false);
 			viewControllerFacade.confirmUndoSuccessful();
 		}

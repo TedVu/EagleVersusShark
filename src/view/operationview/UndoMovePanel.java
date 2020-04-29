@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -22,7 +23,7 @@ public class UndoMovePanel extends JDialog {
 
 	private JButton confirmBtn;
 
-	public UndoMovePanel(ViewControllerInterface viewControllerFacade) {
+	public UndoMovePanel(ViewControllerInterface viewControllerFacade,AbstractButton undoBtn) {
 
 		setTitle("Undo Panel");
 
@@ -48,6 +49,8 @@ public class UndoMovePanel extends JDialog {
 
 		setVisible(true);
 	}
+	
+	
 
 	public String getNumUndo() {
 		return (String) undoBox.getSelectedItem();

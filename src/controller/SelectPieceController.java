@@ -50,13 +50,13 @@ public class SelectPieceController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		this.buttonClicked = (AbstractButton) e.getSource();
 
-		if (EngineImpl.getSingletonInstance().getStartGame()) {
+		if (EngineImpl.getSingletonInstance().getGameCurrentlyRunning()) {
 			if (!buttonClicked.getActionCommand().equalsIgnoreCase("NormalButton")) {
 				viewControllerFacade.updateBoardSelectAnotherPiece(buttonClicked);
 				checkCorrectPieceButtonClicked();
 			}
 		} else {
-			viewControllerFacade.notifyNotStartGame();
+			viewControllerFacade.notifyGameNotRunning();
 		}
 	}
 

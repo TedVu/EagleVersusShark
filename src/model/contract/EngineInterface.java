@@ -52,7 +52,6 @@ public interface EngineInterface {
 	 * 
 	 * @return
 	 */
-	public boolean getStartGame();
 
 	/**
 	 * @param piece
@@ -89,15 +88,18 @@ public interface EngineInterface {
 	 */
 	// public boolean setPieceActiveStatus(PieceInterface piece, boolean isActive);
 
-	public void setStartGame();
 
 	public PieceOperator pieceOperator();
 
 	// TED
 	public void cancelTimerPauseGame();
-	
+
 	public boolean ableToUndo(TeamType teamType);
-	
+
 	public void incrementUndo(TeamType teamType);
+
+	public boolean getGameCurrentlyRunning();
+
+	public void setResumeGame();
 
 }

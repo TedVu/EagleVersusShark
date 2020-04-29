@@ -23,6 +23,8 @@ public class PlayerImpl implements Player {
 	private int undoCount = 0;
 	private int prevUndoRound = -1;
 
+	private boolean ableToUndo = true;
+
 	public PlayerImpl(TeamType playerType) {
 		this.playerType = playerType;
 	}
@@ -50,56 +52,31 @@ public class PlayerImpl implements Player {
 	public String toString() {
 		return String.format("%s", playerType.toString());
 	}
-	
+
 	@Override
 	public void undoCounter(int round) {
-//		System.out.println("-----in undocounter");
-//		System.out.println(undoDict);
-		if(!undoDict.containsKey(round)) {
+		// System.out.println("-----in undocounter");
+		// System.out.println(undoDict);
+		if (!undoDict.containsKey(round)) {
 			undoCount++;
 			prevUndoRound = round;
 			undoDict.put(round, 1);
-			
-//			System.out.println("------ overall undo Count undo counter = " + undoCount);
-		}
-		else {
+
+			// System.out.println("------ overall undo Count undo counter = " + undoCount);
+		} else {
 			int newCount = undoDict.get(round) + 1;
-			undoDict.replace(round, newCount) ;
+			undoDict.replace(round, newCount);
 		}
 	}
 
 	@Override
 	public boolean ableToUndo(int round) {
-		
-		boolean keyExist = undoDict.containsKey(round);
-		
-//		System.out.println("overall undo Countdww = " + undoCount);
-//		System.out.println("undo round " + round);
-//		System.out.println("prev undo round " + prevUndoRound);
-//		
-//		if(keyExist) {
-//			System.out.println("prev undo round");
-//			System.out.println("undo times this round = " + undoDict.get(round));
-//			
-//			
-//		}
-		
-		boolean neverUndo =  prevUndoRound == -1;
-		
-		boolean hasUndo =  prevUndoRound != -1;
-		
-		boolean sameRound = round == prevUndoRound;
-		
-		boolean validateSameRound = keyExist && undoDict.get(round) < 3 ;
-		
-		
-		
-		if(neverUndo || (hasUndo && sameRound && validateSameRound)) {
-			
-			return true;
-			
-		}
-		
-		return false;
+
+		return ableToUndo;
+	}
+
+	@Override
+	public void setAlreadyUndo() {
+		ableToUndo = false;
 	}
 }

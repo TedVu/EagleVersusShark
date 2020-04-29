@@ -1,5 +1,6 @@
 package view.operationview;
 
+import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -10,9 +11,12 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import controller.ItemChangeController;
+import controller.MakingMovePropertyChangeListener;
 import controller.PlayerAction;
 import controller.ResumeGameController;
 import controller.UndoMoveController;
+import model.engine.EngineImpl;
+import model.enumtype.TeamType;
 import viewcontroller.contract.ViewControllerInterface;
 
 /**
@@ -23,25 +27,31 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 	/**
 	 * @serial 4010321472922982018L
 	 */
+
 	private static final long serialVersionUID = 4010321472922982018L;
+
 	private JComboBox<String> modeBox;
+	String[] allModes = { "MOVE", "USEABILITY", "SKYMODE", "PROTECTIONMODE" };
+	private String[] eagleModes = { "MOVE", "USEABILITY", "SKYMODE" };
+	private String[] sharkModes = { "MOVE", "USEABILITY", "PROTECTIONMODE" };
+
 	private JButton undoBtn;
 	private JButton resumeBtn;
-	private ViewControllerInterface viewControllerFacade;
 
 	/**
 	 * @see
 	 */
 	public ModePanel(ViewControllerInterface viewControllerFacade) {
-		this.viewControllerFacade = viewControllerFacade;
 
-		String[] modes = { "MOVE", "USEABILITY", "SKYMODE", "PROTECTIONMODE" };
-		modeBox = new JComboBox<String>(modes);
+		modeBox = new JComboBox<String>(allModes);
+		modeBox.setPreferredSize(new Dimension(130, 30));
+
 		modeBox.addItemListener(new ItemChangeController(viewControllerFacade));
 		resumeBtn = new JButton("RESUME");
+		undoBtn = new JButton("UNDO");
+
 		resumeBtn.addActionListener(new ResumeGameController(viewControllerFacade));
 		resumeBtn.setEnabled(false);
-		undoBtn = new JButton("UNDO");
 		undoBtn.addActionListener(new UndoMoveController(viewControllerFacade, resumeBtn));
 
 		setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Mode Panel"));
@@ -56,11 +66,44 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 		undoBtnPanel.add(resumeBtn);
 		add(undoBtnPanel);
 
+		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getGameEngineCallback()
+				.getPropertyChangeListener();
+		for (PropertyChangeListener listener : listeners) {
+			if (listener instanceof MakingMovePropertyChangeListener) {
+				((MakingMovePropertyChangeListener) listener).injectModePanel(this);
+			}
+		}
+
 	}
 
+	public void updateAvailableMode(TeamType team) {
+		if (team == TeamType.EAGLE) {
+			modeBox.removeAllItems();
+			for (int i = 0; i < eagleModes.length; ++i) {
+				modeBox.insertItemAt(eagleModes[i], i);
+			}
+			modeBox.setSelectedIndex(0);
+
+		} else if (team == TeamType.SHARK) {
+			modeBox.removeAllItems();
+			for (int i = 0; i < sharkModes.length; ++i) {
+				modeBox.insertItemAt(sharkModes[i], i);
+			}
+			modeBox.setSelectedIndex(0);
+
+		} else {
+			throw new IllegalArgumentException("Invalid Argument");
+		}
+
+	}
+
+	/*
+	 * Listen to ViewControllerFacade attachment is done in MainAppFrame
+	 * 
+	 * @see MainAppFrame
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
 		if (evt.getPropertyName().equalsIgnoreCase("GetMode")) {
 			PlayerAction playerAction = (PlayerAction) evt.getOldValue();
 			playerAction.setPlayerAction(modeBox.getSelectedItem().toString());

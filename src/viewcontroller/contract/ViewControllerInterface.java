@@ -31,7 +31,7 @@ public interface ViewControllerInterface {
 	/**
 	 * 
 	 */
-	public void notifyNotStartGame();
+	public void notifyGameNotRunning();
 
 	/**
 	 * 

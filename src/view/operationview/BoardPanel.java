@@ -151,8 +151,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			locateNewPos((AbstractButton) evt.getOldValue(), (Map<String, Integer>) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("RollbackSelectedPiece")) {
 			refreshBoardColorAndState();
-		} else if (event.equalsIgnoreCase("NotifyNotStartGame")) {
-			MessageDialog.notifyNotStartGame(this);
+		} else if (event.equalsIgnoreCase("NotifyGameNotRunning")) {
+			MessageDialog.notifyGameNotRunning(this);
 		} else if (event.equalsIgnoreCase("NotifySelectWrongTeam")) {
 			MessageDialog.notifySelectWrongTeam(this);
 		} else if (event.equalsIgnoreCase("UpdateBoardBeforeMovingPiece")) {

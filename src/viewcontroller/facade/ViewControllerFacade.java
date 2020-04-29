@@ -36,8 +36,8 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void notifyNotStartGame() {
-		pcs.firePropertyChange("NotifyNotStartGame", null, null);
+	public void notifyGameNotRunning() {
+		pcs.firePropertyChange("NotifyGameNotRunning", null, null);
 	}
 
 	@Override
@@ -53,7 +53,6 @@ public class ViewControllerFacade implements ViewControllerInterface {
 
 	@Override
 	public void updateBoardBeforeMovePiece(AbstractButton buttonClicked, MovePieceController movePieceController) {
-		// TODO Auto-generated method stub
 		pcs.firePropertyChange("UpdateBoardBeforeMovingPiece", buttonClicked, movePieceController);
 
 	}
@@ -66,7 +65,6 @@ public class ViewControllerFacade implements ViewControllerInterface {
 
 	@Override
 	public void getPlayerAction(PlayerAction playerAction) {
-		// TODO Auto-generated method stub
 		pcs.firePropertyChange("GetMode", playerAction, null);
 
 	}
@@ -146,5 +144,6 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	public void undoFail(String failMsg) {
 		pcs.firePropertyChange("UndoFail", null, failMsg);
 	}
+
 
 }

@@ -9,14 +9,7 @@ import controller.MakingMovePropertyChangeListener;
 import controller.TimerPropertyChangeListener;
 import model.board.Board;
 import model.contract.EngineInterface;
-import model.contract.PieceInterface;
 import model.enumtype.TeamType;
-import model.piece.AggressiveShark;
-import model.piece.AttackingEagle;
-import model.piece.DefensiveShark;
-import model.piece.HealingShark;
-import model.piece.LeadershipEagle;
-import model.piece.VisionaryEagle;
 import model.piece.commands.PieceOperator;
 import model.player.Player;
 import model.player.PlayerImpl;
@@ -41,8 +34,6 @@ public class EngineImpl implements EngineInterface {
 		return engine;
 	}
 
-	private boolean startGame = false;
-
 	private Player eaglePlayer = new PlayerImpl(TeamType.EAGLE);
 
 	private Player sharkPlayer = new PlayerImpl(TeamType.SHARK);
@@ -54,10 +45,12 @@ public class EngineImpl implements EngineInterface {
 	private Board board;
 
 	private PieceOperator pieceOperator;
-	
+
 	private int turn = 1;
-	
-	private int round ;
+
+	private int round;
+
+	private boolean gameRunning = false;
 
 	/**
 	 * @return the singleton instance of the engine
@@ -116,7 +109,7 @@ public class EngineImpl implements EngineInterface {
 	@Requires({ "eaglePlayer!= null", "sharkPlayer != null" })
 	@Override
 	public Player getInitialPlayerActivePlayer() {
-		startGame = true;
+		gameRunning = true;
 		Player activePlayer;
 		Random rand = new Random();
 		int randomValue = rand.nextInt() % 2;
@@ -132,11 +125,6 @@ public class EngineImpl implements EngineInterface {
 		return activePlayer;
 	}
 
-	@Override
-	public boolean getStartGame() {
-		return startGame;
-	}
-
 	/**
 	 * set the turn to the specified team in parameter
 	 * 
@@ -148,14 +136,14 @@ public class EngineImpl implements EngineInterface {
 	@Override
 	@Requires({ "playerType != null", "turnOnTimer == true || turnOnTimer == false" })
 	public void setActivePlayer(TeamType playerType, boolean turnOnTimer) {
-		
+
 		TeamType nextPlayer;
-		turn ++;
+		turn++;
 		round = turn / 2;
-		
-//		System.out.println("turn: " + turn);
+
+		// System.out.println("turn: " + turn);
 		System.out.println("round: " + round);
-		
+
 		if (playerType == TeamType.EAGLE) {
 			this.eaglePlayer.setActive(true);
 			this.sharkPlayer.setActive(false);
@@ -194,11 +182,6 @@ public class EngineImpl implements EngineInterface {
 	}
 
 	@Override
-	public void setStartGame() {
-		startGame = true;
-	}
-
-	@Override
 	public PieceOperator pieceOperator() {
 
 		return pieceOperator;
@@ -206,41 +189,46 @@ public class EngineImpl implements EngineInterface {
 
 	@Override
 	public void cancelTimerPauseGame() {
+		gameRunning = false;
 		gameTimer.cancel();
 	}
-	
 
-	
 	@Override
 	public void incrementUndo(TeamType teamType) {
-				
+
 		Player player = playerType(teamType);
-		
+
 		player.undoCounter(round);
 	}
-	
+
 	@Override
 	public boolean ableToUndo(TeamType teamType) {
-		
+
 		Player player = playerType(teamType);
-		
+
 		return player.ableToUndo(round);
 	}
-	
-	
+
 	private Player playerType(TeamType teamType) {
-		
-		if(teamType.equals(TeamType.EAGLE)) {
+
+		if (teamType.equals(TeamType.EAGLE)) {
 			return eaglePlayer;
-		}
-		else if(teamType.equals(TeamType.SHARK)) {
+		} else if (teamType.equals(TeamType.SHARK)) {
 			return sharkPlayer;
-		}
-		else {
+		} else {
 			throw new IllegalArgumentException("Invalid team type");
 		}
-		
+
 	}
 
+	@Override
+	public boolean getGameCurrentlyRunning() {
+		return gameRunning;
+	}
+
+	@Override
+	public void setResumeGame() {
+		gameRunning = true;
+	}
 
 }

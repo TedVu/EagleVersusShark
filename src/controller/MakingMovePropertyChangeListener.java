@@ -6,6 +6,7 @@ import java.beans.PropertyChangeListener;
 import com.google.java.contract.Requires;
 
 import model.enumtype.TeamType;
+import view.operationview.ModePanel;
 import view.operationview.StatusPanel;
 
 /**
@@ -17,11 +18,10 @@ import view.operationview.StatusPanel;
  * @author ted &#38; kevin
  *
  */
-public class MakingMovePropertyChangeListener
-		implements
-			PropertyChangeListener {
+public class MakingMovePropertyChangeListener implements PropertyChangeListener {
 
 	private StatusPanel statusPanel;
+	private ModePanel modePanel;
 
 	/**
 	 * @param statusPanel
@@ -32,9 +32,13 @@ public class MakingMovePropertyChangeListener
 		this.statusPanel = statusPanel;
 	}
 
+	public void injectModePanel(ModePanel modePanel) {
+		this.modePanel = modePanel;
+	}
+
 	/**
-	 * Check Player Making Move or Switch Turn to update the Turn label, and
-	 * Start the count down of the timer again.
+	 * Check Player Making Move or Switch Turn to update the Turn label, and Start
+	 * the count down of the timer again.
 	 */
 	@Override
 	@Requires("evt != null")
@@ -43,6 +47,7 @@ public class MakingMovePropertyChangeListener
 				|| evt.getPropertyName().equalsIgnoreCase("SwitchTurn")) {
 			statusPanel.updateTurnLabel((TeamType) evt.getNewValue());
 			statusPanel.startCountDown();
+			modePanel.updateAvailableMode((TeamType) evt.getNewValue());
 		}
 	}
 }

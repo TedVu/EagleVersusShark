@@ -22,8 +22,8 @@ public class RightPanel extends JPanel {
 	 * @see
 	 */
 	public RightPanel(ViewControllerInterface viewControllerFacade) {
-		statusPanel = new StatusPanel();
 		modePanel = new ModePanel(viewControllerFacade);
+		statusPanel = new StatusPanel(modePanel);
 
 		setLayout(new GridLayout(2, 1));
 

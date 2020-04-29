@@ -14,8 +14,8 @@ public class MessageDialog {
 	/**
 	 * @param boardView
 	 */
-	public static void notifyNotStartGame(BoardPanel boardView) {
-		JOptionPane.showMessageDialog(boardView, "You have not started the game yet");
+	public static void notifyGameNotRunning(BoardPanel boardView) {
+		JOptionPane.showMessageDialog(boardView, "Game is not started or is paused");
 	}
 
 	/**

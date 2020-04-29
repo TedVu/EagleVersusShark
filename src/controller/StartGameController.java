@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import model.engine.EngineImpl;
 import model.enumtype.TeamType;
 import model.player.Player;
+import view.operationview.ModePanel;
 import view.operationview.StatusPanel;
 
 /**
@@ -17,12 +18,14 @@ import view.operationview.StatusPanel;
 public class StartGameController implements ActionListener {
 
 	private StatusPanel statusPanel;
+	private ModePanel modePanel;
 
 	/**
 	 * @param statusPanel
 	 */
-	public StartGameController(StatusPanel statusPanel) {
+	public StartGameController(StatusPanel statusPanel, ModePanel modePanel) {
 		this.statusPanel = statusPanel;
+		this.modePanel = modePanel;
 	}
 
 	/**
@@ -30,17 +33,16 @@ public class StartGameController implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Player initialPlayer = EngineImpl.getSingletonInstance()
-				.getInitialPlayerActivePlayer();
+		Player initialPlayer = EngineImpl.getSingletonInstance().getInitialPlayerActivePlayer();
 		statusPanel.updateTurnLabel(initialPlayer.getPlayerType());
+
 		statusPanel.startCountDown();
+		modePanel.updateAvailableMode(initialPlayer.getPlayerType());
 
 		if (initialPlayer.getPlayerType() == TeamType.SHARK) {
-			EngineImpl.getSingletonInstance()
-					.setActivePlayerTimer(TeamType.EAGLE);
+			EngineImpl.getSingletonInstance().setActivePlayerTimer(TeamType.EAGLE);
 		} else if (initialPlayer.getPlayerType() == TeamType.EAGLE) {
-			EngineImpl.getSingletonInstance()
-					.setActivePlayerTimer(TeamType.SHARK);
+			EngineImpl.getSingletonInstance().setActivePlayerTimer(TeamType.SHARK);
 		}
 		JButton startButton = (JButton) e.getSource();
 		startButton.setEnabled(false);

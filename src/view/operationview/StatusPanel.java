@@ -37,7 +37,7 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 	/**
 	 * @see
 	 */
-	public StatusPanel() {
+	public StatusPanel(ModePanel modePanel) {
 		startButton = new JButton("START");
 		turnLabel = new JLabel("Turn:");
 		turnTextField = new JTextField(10);
@@ -51,7 +51,7 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 		setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Status Panel"));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-		startButton.addActionListener(new StartGameController(this));
+		startButton.addActionListener(new StartGameController(this, modePanel));
 
 		JPanel turnLabelPanel = new JPanel();
 		turnLabelPanel.add(turnLabel);
