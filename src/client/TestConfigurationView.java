@@ -1,8 +1,10 @@
-package view.configuration;
+package client;
 
 import java.awt.EventQueue;
 
 import javax.swing.UIManager;
+
+import view.configuration.StartingGameFrame;
 
 public class TestConfigurationView {
 	public static void main(final String[] args) {
