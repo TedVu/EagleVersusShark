@@ -24,15 +24,15 @@ public class LoadGameDialog extends JDialog {
 	private static final int FRAME_HEIGHT = 100;
 
 	private JTextField fileNameField;
- 
+
 	private JButton loadGameButton;
 
 	/**
 	 * @see
 	 */
 	public LoadGameDialog(StartingGameFrame startFrame) {
-		fileNameField = new JTextField(15); 
-		loadGameButton = new JButton("Load"); 
+		fileNameField = new JTextField(15);
+		loadGameButton = new JButton("Load");
 
 		setTitle("Load Game");
 
@@ -41,7 +41,7 @@ public class LoadGameDialog extends JDialog {
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setResizable(false);
 
-		 loadGameButton.addActionListener(new LoadGameController(startFrame, this));
+		loadGameButton.addActionListener(new LoadGameController(startFrame, this));
 
 		JPanel textfiledPanel = new JPanel();
 		textfiledPanel.add(new JLabel("File name:"));

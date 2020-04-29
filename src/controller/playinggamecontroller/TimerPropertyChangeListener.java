@@ -5,7 +5,6 @@ import java.beans.PropertyChangeListener;
 
 import com.google.java.contract.Requires;
 
-import model.engine.EngineImpl;
 import view.operationview.BoardPanel;
 
 /**

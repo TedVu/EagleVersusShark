@@ -19,14 +19,12 @@ public interface Player {
 	public TeamType getPlayerType();
 
 	/**
-	 * @param isActive
-	 *            - set the player active status
+	 * @param isActive - set the player active status
 	 */
 	public void setActive(boolean isActive);
 
 	/**
-	 * @param isActive
-	 *            - set the player active status
+	 * @param isActive - set the player active status
 	 */
 	public boolean ableToUndo(int round);
 

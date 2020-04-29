@@ -54,30 +54,24 @@ public interface EngineInterface {
 	 */
 
 	/**
-	 * @param piece
-	 *            - the piece to be moved
-	 * @param newX
-	 *            - new x position
-	 * @param newY
-	 *            - new y position Generate the pieces and put them on the board
+	 * @param piece - the piece to be moved
+	 * @param newX  - new x position
+	 * @param newY  - new y position Generate the pieces and put them on the board
 	 */
 	// public void movePiece(PieceInterface piece, int newX, int newY);
 
 	/**
 	 * set the turn to the specified team in parameter
 	 * 
-	 * @param playerType
-	 *            - the player to be activated
-	 * @param turnOnTimer
-	 *            - whether to begin countdown or not
+	 * @param playerType  - the player to be activated
+	 * @param turnOnTimer - whether to begin countdown or not
 	 */
 	public void setActivePlayer(TeamType playerType, boolean turnOnTimer);
 
 	/**
 	 * turn on the timer and loop call setActivePlayer to change every interval
 	 * 
-	 * @param playerType
-	 *            - the player to be activated next
+	 * @param playerType - the player to be activated next
 	 */
 	public void setActivePlayerTimer(TeamType playerType);
 
@@ -87,7 +81,6 @@ public interface EngineInterface {
 	 * @return boolean
 	 */
 	// public boolean setPieceActiveStatus(PieceInterface piece, boolean isActive);
-
 
 	public PieceOperator pieceOperator();
 

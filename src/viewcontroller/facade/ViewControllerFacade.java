@@ -145,5 +145,4 @@ public class ViewControllerFacade implements ViewControllerInterface {
 		pcs.firePropertyChange("UndoFail", null, failMsg);
 	}
 
-
 }

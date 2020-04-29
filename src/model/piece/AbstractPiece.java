@@ -12,7 +12,7 @@ import model.contract.PieceInterface;
  * @author sefira & chanboth
  *
  */
-public abstract class AbstractPiece implements PieceInterface{
+public abstract class AbstractPiece implements PieceInterface {
 
 	private Map<String, Integer> position = new HashMap<String, Integer>();
 	private boolean isActive = true;
@@ -23,31 +23,26 @@ public abstract class AbstractPiece implements PieceInterface{
 		position.put("y", y);
 		isActive = true;
 	}
-	
-	
 
 	@Override
 	public void setImmune(boolean isImmune) {
 		this.isImmune = isImmune;
 	}
 
-
 	@Override
 	public boolean isImmune() {
 		return this.isImmune;
 	}
 
-
-
 	@Override
-	@Requires({"position.get(\"x\") != null && position.get(\"y\") != null"})
+	@Requires({ "position.get(\"x\") != null && position.get(\"y\") != null" })
 	@Ensures("getPosition() != null")
 	public Map<String, Integer> getPosition() {
 		return this.position;
 	}
 
 	@Override
-	@Requires({"this.isActive  == true || this.isActive == false"})
+	@Requires({ "this.isActive  == true || this.isActive == false" })
 	public boolean isActive() {
 		return this.isActive;
 	}
@@ -58,15 +53,15 @@ public abstract class AbstractPiece implements PieceInterface{
 	}
 
 	@Override
-	@Requires({"x>=0", "y>=0"})
-	@Ensures({"position.get(\"x\")==x", "position.get(\"y\")==y"})
+	@Requires({ "x>=0", "y>=0" })
+	@Ensures({ "position.get(\"x\")==x", "position.get(\"y\")==y" })
 	public void setPosition(int x, int y) {
 		this.position.replace("x", x);
 		this.position.replace("y", y);
 	}
 
 	public PieceMemento pieceMemento() {
-		PieceMemento memento =  new PieceMemento(isActive, isImmune, position.get("x"), position.get("y"));
+		PieceMemento memento = new PieceMemento(isActive, isImmune, position.get("x"), position.get("y"));
 		return memento.getState();
 	}
 
@@ -81,6 +76,5 @@ public abstract class AbstractPiece implements PieceInterface{
 //		return clone;
 //	}
 //	
-	
 
 }

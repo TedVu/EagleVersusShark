@@ -31,19 +31,18 @@ public class DefensiveShark extends AbstractPiece {
 	@Override
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public Set<Cell> abilityCells() {
 		return null;
-		
+
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("%s", "DefensiveShark");
 	}
-	
-	
+
 }

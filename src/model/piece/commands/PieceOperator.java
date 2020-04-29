@@ -10,11 +10,9 @@ import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.board.Board;
-import model.board.Cell;
 import model.contract.CommandInterface;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
-import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.enumtype.PieceType;
 import model.piece.AggressiveShark;
@@ -85,12 +83,9 @@ public class PieceOperator {
 	}
 
 	/**
-	 * @param piece
-	 *            - the piece to be moved
-	 * @param newX
-	 *            - new x position
-	 * @param newY
-	 *            - new y position Generate the pieces and put them on the board
+	 * @param piece - the piece to be moved
+	 * @param newX  - new x position
+	 * @param newY  - new y position Generate the pieces and put them on the board
 	 */
 	@Requires({ "piece != null", "x>=0", "y>=0" })
 	@Ensures({ "piece.getPosition().get(\"x\") != null && piece.getPosition().get(\"y\") != null" })
@@ -156,18 +151,17 @@ public class PieceOperator {
 
 	protected void undo(int undoNum) {
 
-		int availableUndo = commandHistory.size() /2 ;
-		
+		int availableUndo = commandHistory.size() / 2;
+
 		if (availableUndo < 1)
 			throw new RuntimeException("Nothing to undo");
-		else if(availableUndo < undoNum) {
+		else if (availableUndo < undoNum) {
 			throw new IllegalArgumentException("Only able to undo " + availableUndo + " time(s)");
-		}
-		else {
-			for(int i = 0 ; i< undoNum * 2 ; i++) {
+		} else {
+			for (int i = 0; i < undoNum * 2; i++) {
 				commandHistory.peek().undo();
 				commandHistory.pop();
-				
+
 			}
 		}
 	}

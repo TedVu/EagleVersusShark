@@ -10,8 +10,7 @@ import model.enumtype.PieceType;
  */
 public class PieceFactory {
 
-	public static PieceInterface generatePiece(PieceType pieceType,
-			int boardSize, EngineInterface engine) {
+	public static PieceInterface generatePiece(PieceType pieceType, int boardSize, EngineInterface engine) {
 		if (pieceType == PieceType.ATTACKINGEAGLE) {
 			return createAttackingEagle(boardSize, engine);
 		} else if (pieceType == PieceType.LEADERSHIPEAGLE) {
@@ -30,20 +29,17 @@ public class PieceFactory {
 	}
 
 	private static PieceInterface createAggressiveShark(int boardSize) {
-		return new AggressiveShark(
-				PieceType.AGGRESSIVESHARK.xCoordinate(boardSize),
+		return new AggressiveShark(PieceType.AGGRESSIVESHARK.xCoordinate(boardSize),
 				PieceType.AGGRESSIVESHARK.yCoordinate(boardSize));
 	}
 
 	private static PieceInterface createAttackingEagle(int boardSize, EngineInterface engine) {
-		return new AttackingEagle(
-				PieceType.ATTACKINGEAGLE.xCoordinate(boardSize),
+		return new AttackingEagle(PieceType.ATTACKINGEAGLE.xCoordinate(boardSize),
 				PieceType.ATTACKINGEAGLE.yCoordinate(boardSize), engine);
 	}
 
 	private static PieceInterface createDesensiveShark(int boardSize) {
-		return new DefensiveShark(
-				PieceType.DEFENSIVESHARK.xCoordinate(boardSize),
+		return new DefensiveShark(PieceType.DEFENSIVESHARK.xCoordinate(boardSize),
 				PieceType.DEFENSIVESHARK.yCoordinate(boardSize));
 	}
 
@@ -53,14 +49,12 @@ public class PieceFactory {
 	}
 
 	private static PieceInterface createLeadershipEagle(int boardSize) {
-		return new LeadershipEagle(
-				PieceType.LEADERSHIPEAGLE.xCoordinate(boardSize),
+		return new LeadershipEagle(PieceType.LEADERSHIPEAGLE.xCoordinate(boardSize),
 				PieceType.LEADERSHIPEAGLE.yCoordinate(boardSize));
 	}
 
 	private static PieceInterface createVisionaryEagle(int boardSize, EngineInterface engine) {
-		return new VisionaryEagle(
-				PieceType.VISIONARYEAGLE.xCoordinate(boardSize),
+		return new VisionaryEagle(PieceType.VISIONARYEAGLE.xCoordinate(boardSize),
 				PieceType.VISIONARYEAGLE.yCoordinate(boardSize), engine);
 	}
 

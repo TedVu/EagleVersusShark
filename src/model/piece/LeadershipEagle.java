@@ -114,11 +114,10 @@ public class LeadershipEagle extends AbstractPiece {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("%s", "LeadershipEagle");
 	}
-	
 
 }

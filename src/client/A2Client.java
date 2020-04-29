@@ -11,7 +11,7 @@ public class A2Client {
 		try {
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (Throwable e) {
-			e.printStackTrace(); 
+			e.printStackTrace();
 		}
 		EventQueue.invokeLater(new Runnable() {
 			@Override

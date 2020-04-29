@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.contract.EngineInterface;
-import model.engine.*;
 import model.contract.PieceInterface;
+import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;

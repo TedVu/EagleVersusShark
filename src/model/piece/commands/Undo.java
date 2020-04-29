@@ -28,9 +28,9 @@ public class Undo implements CommandInterface {
 		// team type to check undoability
 		if (engine.ableToUndo(teamType)) {
 			try {
-				pieceOperator.undo(undoNum);	
+				pieceOperator.undo(undoNum);
 				engine.incrementUndo(teamType);
-				
+
 			} catch (Exception e) {
 				throw e;
 			}

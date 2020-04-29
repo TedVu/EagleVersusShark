@@ -6,17 +6,17 @@ import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 
 /**
-*
-* @author Sefira
-*
-*/
+ *
+ * @author Sefira
+ *
+ */
 public class MovePiece implements CommandInterface {
-	
+
 	private int newX, newY, oldX, oldY;
 	private PieceInterface piece;
 	private EngineInterface engine = EngineImpl.getSingletonInstance();
 	private PieceOperator pieceOperator = engine.pieceOperator();
-	
+
 	public MovePiece(int newX, int newY, PieceInterface piece) {
 		this.newX = newX;
 		this.newY = newY;

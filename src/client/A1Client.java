@@ -22,8 +22,7 @@ public class A1Client {
 	 */
 	public static void main(final String[] args) {
 		try {
-			UIManager.setLookAndFeel(
-					"javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -37,6 +36,6 @@ public class A1Client {
 					e.printStackTrace();
 				}
 			}
-		}); 
+		});
 	}
 }
