@@ -1,4 +1,4 @@
-package view.configuration;
+package view.mainframe;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -26,7 +26,7 @@ public class StartingGameFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = -8454047695594084099L;
 	private static final int FRAME_WIDTH = 550;
-	private static final int FRAME_HEIGHT = 270;
+	private static final int FRAME_HEIGHT = 250;
 
 	private JButton startButton;
 	private JButton configBtn;
@@ -39,10 +39,10 @@ public class StartingGameFrame extends JFrame {
 	 * @see
 	 */
 	public StartingGameFrame() {
-		startButton = new JButton("START GAME");
+		startButton = new JButton("   START GAME   ");
 		configBtn = new JButton("GAME SETTINGS");
-		loadButton = new JButton("LOAD GAME");
-		exitButton = new JButton("EXIT");
+		loadButton = new JButton("    LOAD GAME    ");
+		exitButton = new JButton("           EXIT           ");
 
 		startButton.setAlignmentX(CENTER_ALIGNMENT);
 		configBtn.setAlignmentX(CENTER_ALIGNMENT);
@@ -58,18 +58,18 @@ public class StartingGameFrame extends JFrame {
 		setResizable(false);
 
 		JPanel headingPanel = new JPanel();
-		headingPanel.add(new JLabel("<html><h1><strong><i>Eagle versus Shark Game</i></strong><hr></h1></html>"));
+		headingPanel.add(new JLabel("<html><h1><strong><i>Eagle versus Shark</i></strong><hr></h1></html>"));
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));
 		buttonPanel.add(startButton);
-		buttonPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		buttonPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 		buttonPanel.add(configBtn);
-		buttonPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		buttonPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 		buttonPanel.add(loadButton);
-		buttonPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+		buttonPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 		buttonPanel.add(exitButton);
-		//
+
 		startButton.addActionListener(new StartDefaultGameController(this));
 		configBtn.addActionListener(new InvokeGameSettingController());
 		loadButton.addActionListener(new InvokeLoadGameDialogController(this));

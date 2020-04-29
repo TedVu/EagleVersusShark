@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.UIManager;
 
-import view.configuration.StartingGameFrame;
+import view.mainframe.StartingGameFrame;
 
 public class A2Client {
 	public static void main(final String[] args) {

@@ -42,7 +42,7 @@ public class AppMainFrame extends JFrame {
 
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		// setResizable(false);
+		 setResizable(false);
 
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));

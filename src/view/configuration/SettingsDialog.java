@@ -20,7 +20,7 @@ public class SettingsDialog extends JDialog {
 	 */
 	private static final long serialVersionUID = -4920890146910758833L;
 	private static final int FRAME_WIDTH = 350;
-	private static final int FRAME_HEIGHT = 250;
+	private static final int FRAME_HEIGHT = 180;
 
 	private JComboBox<String> boardSizeMenu;
 	private JComboBox<String> numPieceMenu;
@@ -32,7 +32,7 @@ public class SettingsDialog extends JDialog {
 	 * @see
 	 */
 	public SettingsDialog() {
-		String[] boardSize = { "9 x 9", "11 x 11", "13 x 13", "15 x 15" };
+		String[] boardSize = { " 9 x 9 ", "11 x 11", "13 x 13", "15 x 15" };
 		String[] numPieces = { "   6   ", "   4   ", "   2   " };
 		String[] obstacles = { "NO", "YES" };
 
@@ -48,9 +48,6 @@ public class SettingsDialog extends JDialog {
 		setLocation(dimension.width / 2 - FRAME_WIDTH / 2, dimension.height / 2 - FRAME_HEIGHT / 2);
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setResizable(false);
-
-		// applyButton.addActionListener(new ApplyConfigurationController(startFrame,
-		// this));
 
 		JPanel selectionPanel = new JPanel();
 		selectionPanel.setLayout(new BoxLayout(selectionPanel, BoxLayout.Y_AXIS));

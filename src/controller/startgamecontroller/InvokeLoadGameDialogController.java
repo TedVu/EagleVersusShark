@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import view.configuration.LoadGameDialog;
-import view.configuration.StartingGameFrame;
+import view.mainframe.StartingGameFrame;
 
 public class InvokeLoadGameDialogController implements ActionListener {
 

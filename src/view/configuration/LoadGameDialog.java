@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.startgamecontroller.LoadGameController;
+import view.mainframe.StartingGameFrame;
 
 /**
  * @author kevin & ted
