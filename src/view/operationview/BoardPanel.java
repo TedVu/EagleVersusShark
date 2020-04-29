@@ -25,10 +25,10 @@ import javax.swing.JPanel;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
-import controller.MovePieceController;
-import controller.SelectPieceController;
-import controller.TimerPropertyChangeListener;
 import controller.abstractfactory.AbilityController;
+import controller.playinggamecontroller.MovePieceController;
+import controller.playinggamecontroller.SelectPieceController;
+import controller.playinggamecontroller.TimerPropertyChangeListener;
 import model.board.Cell;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;

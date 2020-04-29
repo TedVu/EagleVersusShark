@@ -5,8 +5,8 @@ import java.util.Timer;
 
 import com.google.java.contract.Requires;
 
-import controller.MakingMovePropertyChangeListener;
-import controller.TimerPropertyChangeListener;
+import controller.playinggamecontroller.MakingMovePropertyChangeListener;
+import controller.playinggamecontroller.TimerPropertyChangeListener;
 import model.board.Board;
 import model.contract.EngineInterface;
 import model.enumtype.TeamType;

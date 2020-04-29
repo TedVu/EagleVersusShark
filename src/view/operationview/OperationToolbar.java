@@ -4,7 +4,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import controller.playinggamecontroller.SaveGameController;
 import view.mainframe.AppMainFrame;
+import viewcontroller.contract.ViewControllerInterface;
 
 /**
  * @author ted &#38; kevin
@@ -22,8 +24,8 @@ public class OperationToolbar extends JMenuBar {
 	/**
 	 * @see
 	 */
-	public OperationToolbar(AppMainFrame mainFrame) {
-		String[] options = new String[]{"File", "Edit", "Help"};
+	public OperationToolbar(AppMainFrame mainFrame, ViewControllerInterface viewControllerFacade) {
+		String[] options = new String[] { "File", "Edit", "Help" };
 		menus = new JMenu[options.length];
 
 		for (int i = 0; i < options.length; i++) {
@@ -32,6 +34,8 @@ public class OperationToolbar extends JMenuBar {
 		}
 
 		save = new JMenuItem("Save");
+		save.addActionListener(new SaveGameController(viewControllerFacade,
+				mainFrame.getRightPanel().getModePanel().getResumeButton()));
 		exit = new JMenuItem("Exit");
 		menus[0].add(save);
 		menus[0].addSeparator();

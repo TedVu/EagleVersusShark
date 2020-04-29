@@ -11,7 +11,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controller.ConfirmUndoController;
+import controller.playinggamecontroller.ConfirmUndoController;
 import viewcontroller.contract.ViewControllerInterface;
 
 public class UndoMovePanel extends JDialog {
@@ -23,7 +23,7 @@ public class UndoMovePanel extends JDialog {
 
 	private JButton confirmBtn;
 
-	public UndoMovePanel(ViewControllerInterface viewControllerFacade,AbstractButton undoBtn) {
+	public UndoMovePanel(ViewControllerInterface viewControllerFacade, AbstractButton undoBtn) {
 
 		setTitle("Undo Panel");
 
@@ -47,10 +47,9 @@ public class UndoMovePanel extends JDialog {
 		btnPanel.add(confirmBtn);
 		add(btnPanel, BorderLayout.SOUTH);
 
+		setModal(true);
 		setVisible(true);
 	}
-	
-	
 
 	public String getNumUndo() {
 		return (String) undoBox.getSelectedItem();

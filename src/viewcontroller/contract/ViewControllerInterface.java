@@ -5,9 +5,9 @@ import java.util.Map;
 
 import javax.swing.AbstractButton;
 
-import controller.MovePieceController;
-import controller.PlayerAction;
 import controller.abstractfactory.AbilityController;
+import controller.playinggamecontroller.MovePieceController;
+import controller.playinggamecontroller.PlayerAction;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 

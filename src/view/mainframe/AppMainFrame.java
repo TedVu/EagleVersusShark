@@ -32,8 +32,8 @@ public class AppMainFrame extends JFrame {
 	 */
 	public AppMainFrame() {
 		boardPanel = new BoardPanel();
-		operationToolbar = new OperationToolbar(this);
 		rightPanel = new RightPanel(boardPanel.getFacade());
+		operationToolbar = new OperationToolbar(this, boardPanel.getFacade());
 
 		setTitle("Eagle vs Shark");
 
@@ -55,5 +55,9 @@ public class AppMainFrame extends JFrame {
 		boardPanel.getFacade().addPropertyChangeListener(rightPanel.getModePanel());
 		boardPanel.getFacade().addPropertyChangeListener(rightPanel.getStatusPanel());
 
+	}
+
+	public RightPanel getRightPanel() {
+		return rightPanel;
 	}
 }

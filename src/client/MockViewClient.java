@@ -37,6 +37,6 @@ public class MockViewClient {
 					e.printStackTrace();
 				}
 			}
-		});
+		}); 
 	}
 }
