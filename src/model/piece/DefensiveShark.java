@@ -1,8 +1,6 @@
 package model.piece;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
@@ -20,7 +18,7 @@ import model.piece.movement.DiagonalMove;
 public class DefensiveShark extends AbstractPiece {
 
 	final int DISTANCE = 1;
-	private EngineInterface engine;
+	private final EngineInterface engine;
 
 	public DefensiveShark(int x, int y, EngineInterface engine) {
 		super(x, y);
@@ -93,22 +91,27 @@ public class DefensiveShark extends AbstractPiece {
 				int y = shark.getPosition().get("y");
 
 				// All the neighbour cells around a shark
-				// Initial implementation only, MUST undergo code review and refactor
-				Cell topLeft = new Cell(x - 1, y - 1);
-				Cell top = new Cell(x, y - 1);
-				Cell topRight = new Cell(x + 1, y - 1);
-				Cell right = new Cell(x + 1, y);
-				Cell bottomRight = new Cell(x + 1, y + 1);
-				Cell bottom = new Cell(x, y + 1);
-				Cell bottomLeft = new Cell(x - 1, y + 1);
+				// Undergoing further code review and refactoring..
+				LinkedList<Cell> surroundingEightCell = new LinkedList<>();
+				surroundingEightCell.add(engine.getBoard().getCell(x - 1, y - 1));
+				surroundingEightCell.add(engine.getBoard().getCell(x, y - 1));
+				surroundingEightCell.add(engine.getBoard().getCell(x + 1, y - 1));
+				surroundingEightCell.add(engine.getBoard().getCell(x + 1, y));
+				surroundingEightCell.add(engine.getBoard().getCell(x + 1, y + 1));
+				surroundingEightCell.add(engine.getBoard().getCell(x, y + 1));
+				surroundingEightCell.add(engine.getBoard().getCell(x - 1, y + 1));
+				surroundingEightCell.add(engine.getBoard().getCell(x-1,y));
 
-				neighbourCells.add(topLeft);
-				neighbourCells.add(top);
-				neighbourCells.add(topRight);
-				neighbourCells.add(right);
-				neighbourCells.add(bottomRight);
-				neighbourCells.add(bottom);
-				neighbourCells.add(bottomLeft);
+				// Add the cell to the return list if it has not been occupied by any other piece AND is within boardSize
+				for (Cell possibleCell : surroundingEightCell){
+					if(!possibleCell.getOccupied() &&
+						possibleCell.getY()<engine.getBoard().getSize()-1 &&
+						possibleCell.getY()>=0 &&
+						possibleCell.getX()>=0 &&
+						possibleCell.getX()<engine.getBoard().getSize()-1){
+						neighbourCells.add(possibleCell);
+					}
+				}
 			}
 		}
 
