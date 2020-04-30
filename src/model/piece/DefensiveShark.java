@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
 import model.board.Cell;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
@@ -26,12 +28,14 @@ public class DefensiveShark extends AbstractPiece {
 	}
 
 	@Override
+	@Requires({ "getPosition() != null" })
+	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
 		return new DiagonalMove().getValidMove(this, 2);
-
 	}
 
 	@Override
+	@Requires({ "x>=0", "y>=0" })
 	public void movePiece(int x, int y) {
 		setPosition(x, y);
 	}
@@ -61,31 +65,39 @@ public class DefensiveShark extends AbstractPiece {
 	}
 
 	@Override
+	@Ensures("abilityCells() != null")
 	public Set<Cell> abilityCells() {
-		//Unsure with the purpose of this method since the shark can heal ANY shark from ANYWHERE
-		//Maybe for the second ability? quickly move to any shark's neighbouring cell?
-		return null;
-	}
+		Set<Cell> neighbourCells = new HashSet<>();
+		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
 
-//	private int neighbourCellDistance(int pieceX, int pieceY) {
-//		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
-//
-//		for (PieceInterface activePiece : activeSharks) {
-//			int x = activePiece.getPosition().get("x");
-//			int y = activePiece.getPosition().get("y");
-//
-//			//TODO return a list of ALL possible moves surrounding all the other sharks?
-//		}
-//
-//		return 0;
-//	}
-//
-//	private boolean isSurrounding(int x1, int x2, int y1, int y2, int distance) {
-//		if (x2 > x1 + distance || y2 > y1 + distance || x2 < x1 - distance || y2 < y1 - distance) {
-//			return false;
-//		}
-//		return true;
-//	}
+		// Return all the neighbouring cells around other sharks
+		for (PieceInterface shark : activeSharks) {
+			if(!(shark instanceof DefensiveShark)) {
+				int x = shark.getPosition().get("x");
+				int y = shark.getPosition().get("y");
+
+				// All the neighbour cells around a shark
+				// Initial implementation only, MUST undergo code review and refactor
+				Cell topLeft = new Cell(x - 1, y - 1);
+				Cell top = new Cell(x, y - 1);
+				Cell topRight = new Cell(x + 1, y - 1);
+				Cell right = new Cell(x + 1, y);
+				Cell bottomRight = new Cell(x + 1, y + 1);
+				Cell bottom = new Cell(x, y + 1);
+				Cell bottomLeft = new Cell(x - 1, y + 1);
+
+				neighbourCells.add(topLeft);
+				neighbourCells.add(top);
+				neighbourCells.add(topRight);
+				neighbourCells.add(right);
+				neighbourCells.add(bottomRight);
+				neighbourCells.add(bottom);
+				neighbourCells.add(bottomLeft);
+			}
+		}
+
+		return neighbourCells;
+	}
 	
 	@Override
 	public String toString() {
