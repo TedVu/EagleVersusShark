@@ -44,10 +44,26 @@ public class DefensiveShark extends AbstractPiece {
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.PROTECT)) {
 			defend(affectedPiece);
-		} else if (pieceAbility.equals(PieceAbility.QUICKMOVE)){
-			//TODO quick move to neighbouring cell of selected shark
 		} else{
 			throw new IllegalArgumentException("Invalid ability");
+		}
+	}
+
+	// Overload method for second ability
+	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, Cell surroundingCell){
+		if(pieceAbility.equals(PieceAbility.QUICKMOVE)){
+			quickMove(piece,surroundingCell);
+		} else {
+			throw new IllegalArgumentException("Invalid ability");
+		}
+	}
+
+	private void quickMove(PieceInterface piece, Cell surroundingCell){
+		Set<Cell> neighbourCells = abilityCells();
+		if(neighbourCells.contains(surroundingCell)){
+			piece.movePiece(surroundingCell.getX(),surroundingCell.getY());
+		} else {
+			throw new IllegalArgumentException("Invalid move");
 		}
 	}
 
