@@ -1,10 +1,13 @@
 package model.piece;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 import model.board.Cell;
+import model.contract.EngineInterface;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
@@ -16,9 +19,11 @@ import model.piece.movement.DiagonalMove;
  *
  */
 public class HealingShark extends AbstractPiece  {
+	private EngineInterface engine;
 
-	public HealingShark(int x, int y) {
+	public HealingShark(int x, int y, EngineInterface engine) {
 		super(x, y);
+		this.engine = engine;
 	}
 
 	@Override
@@ -63,9 +68,17 @@ public class HealingShark extends AbstractPiece  {
 	
 	@Override
 	public Set<Cell> abilityCells() {
-		//Unsure with the purpose of this method since the shark can heal ANY shark from ANYWHERE
-		return null;
+		Set<Cell> capturedSharks = new HashSet<>();
+		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
 
+		for(PieceInterface shark : activeSharks){
+			if(!(shark instanceof HealingShark)){
+				if (!shark.isActive()){
+					capturedSharks.add(new Cell(shark.getPosition().get("x"),shark.getPosition().get("y")));
+				}
+			}
+		}
+		return capturedSharks;
 	}
 	
 	@Override
