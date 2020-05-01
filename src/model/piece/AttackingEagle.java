@@ -53,15 +53,15 @@ public class AttackingEagle extends AbstractPiece {
 
 	private void capture(PieceInterface piece, PieceInterface affectedPiece) {
 		try {
+			if (affectedPiece.isImmune())
+				throw new IllegalArgumentException("The piece is immune");
+
 			Cell currentPos = EngineImpl.getSingletonInstance().getBoard().getCell(piece.getPosition().get("x"),
 					piece.getPosition().get("y"));
 			Cell opponentPos = EngineImpl.getSingletonInstance().getBoard()
 					.getCell(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
 
 			EngineImpl.getSingletonInstance().getBoard().removePiece(currentPos.getX(), currentPos.getY());
-
-			if (affectedPiece.isImmune())
-				throw new IllegalArgumentException("The piece is immune");
 
 			movePiece(opponentPos.getX(), opponentPos.getY());
 			affectedPiece.setActive(false);

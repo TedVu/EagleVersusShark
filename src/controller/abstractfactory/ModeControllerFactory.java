@@ -1,6 +1,8 @@
 package controller.abstractfactory;
 
+import model.enumtype.TeamType;
+
 public interface ModeControllerFactory {
-	public AbilityController createAbilityController(String ability);
+	public ModeController createModeController(TeamType team);
 
 }

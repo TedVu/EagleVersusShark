@@ -14,8 +14,11 @@ public class LeadershipEagleAbilityController extends AbstractAbilityController 
 		AbstractButton btnClicked = (AbstractButton) e.getSource();
 		PieceType affectedPieceEnum = PieceType.parsePieceType(btnClicked.getActionCommand());
 		viewControllerFacade.updateBoardAfterLeadershipProtect();
+
 		super.controllerModelFacade.updateModelStateProtectLeadership(affectedPieceEnum);
+
 		super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
+
 	}
 
 	@Override
