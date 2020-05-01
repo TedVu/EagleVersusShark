@@ -40,9 +40,11 @@ public class DefensiveShark extends AbstractPiece {
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.PROTECT)) {
 			defend(affectedPiece);
-		} else if (pieceAbility.equals(PieceAbility.QUICKMOVE)){
-			//TODO quick move to neighbouring cell of selected shark
-		} else{
+		} else if (pieceAbility.equals(PieceAbility.QUICKMOVE)) {
+			// QUICKMOVE = a normal move piece action see what needs to be updated when
+			// moving a piece for more information, no affectedPiece required
+
+		} else {
 			throw new IllegalArgumentException("Invalid ability");
 		}
 	}
@@ -62,35 +64,37 @@ public class DefensiveShark extends AbstractPiece {
 
 	@Override
 	public Set<Cell> abilityCells() {
-		//Unsure with the purpose of this method since the shark can heal ANY shark from ANYWHERE
-		//Maybe for the second ability? quickly move to any shark's neighbouring cell?
+		// Return the unoccupied nearby cells of the other two active sharks
+		// Return the cell of the other two active sharks
+		// nearbyCell = 8 cells surrounding, this forms a square => similar to
+		// aggressive shark can reference aggressiveShark for more information
 		return null;
 	}
 
-//	private int neighbourCellDistance(int pieceX, int pieceY) {
-//		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
-//
-//		for (PieceInterface activePiece : activeSharks) {
-//			int x = activePiece.getPosition().get("x");
-//			int y = activePiece.getPosition().get("y");
-//
-//			//TODO return a list of ALL possible moves surrounding all the other sharks?
-//		}
-//
-//		return 0;
-//	}
-//
-//	private boolean isSurrounding(int x1, int x2, int y1, int y2, int distance) {
-//		if (x2 > x1 + distance || y2 > y1 + distance || x2 < x1 - distance || y2 < y1 - distance) {
-//			return false;
-//		}
-//		return true;
-//	}
-	
+	// private int neighbourCellDistance(int pieceX, int pieceY) {
+	// List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
+	//
+	// for (PieceInterface activePiece : activeSharks) {
+	// int x = activePiece.getPosition().get("x");
+	// int y = activePiece.getPosition().get("y");
+	//
+	// //TODO return a list of ALL possible moves surrounding all the other sharks?
+	// }
+	//
+	// return 0;
+	// }
+	//
+	// private boolean isSurrounding(int x1, int x2, int y1, int y2, int distance) {
+	// if (x2 > x1 + distance || y2 > y1 + distance || x2 < x1 - distance || y2 < y1
+	// - distance) {
+	// return false;
+	// }
+	// return true;
+	// }
+
 	@Override
 	public String toString() {
 		return String.format("%s", "DefensiveShark");
 	}
-	
-	
+
 }

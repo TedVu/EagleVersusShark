@@ -15,7 +15,7 @@ import model.piece.movement.DiagonalMove;
  * @author chanboth
  *
  */
-public class HealingShark extends AbstractPiece  {
+public class HealingShark extends AbstractPiece {
 
 	public HealingShark(int x, int y) {
 		super(x, y);
@@ -47,10 +47,15 @@ public class HealingShark extends AbstractPiece  {
 
 	private void heal(PieceInterface affectedPiece) {
 		try {
+			// movepiece to its orginal position action here => take into account the board
+			// occupational state => see what a move piece action involves
+			// edge case where the original position of that piece is already occupied
+			// => find an alternative cell any cell near the shark starting position is ok
 
-			// Move selected shark piece to its original cell (upon initialization) and set it to active
+			// Move selected shark piece to its original cell (upon initialization) and set
+			// it to active
 			movePiece(PieceType.HEALINGSHARK.xCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize()),
-					  PieceType.HEALINGSHARK.yCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize()));
+					PieceType.HEALINGSHARK.yCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize()));
 			affectedPiece.setActive(true);
 
 			// TODO set the healing shark to inactive for one turn
@@ -60,18 +65,18 @@ public class HealingShark extends AbstractPiece  {
 		}
 
 	}
-	
+
 	@Override
 	public Set<Cell> abilityCells() {
-		//Unsure with the purpose of this method since the shark can heal ANY shark from ANYWHERE
+		// no need to implement as view-controller can filter from activeSharks
+		// refactor later on as not a good practice to return null
 		return null;
 
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("%s", "HealingShark");
 	}
-
 
 }

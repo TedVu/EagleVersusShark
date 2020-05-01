@@ -166,7 +166,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		} else if (event.equalsIgnoreCase("UpdateBoardBeforeLeadershipProtect")) {
 			updateBoardBeforeUseAbility((AbilityController) evt.getNewValue(), PieceType.LEADERSHIPEAGLE);
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterLeadershipProtect")) {
-			updateBoardAfterLeadershipProtect();
+			updateBoardAfterProtectSuccess(PieceType.LEADERSHIPEAGLE);
 		} else if (event.equalsIgnoreCase("UpdateBoardBeforeAttackingEagleCapture")) {
 			updateBoardBeforeCapture((AbilityController) evt.getNewValue(), PieceType.ATTACKINGEAGLE);
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterAttackingEagleCapture")) {
@@ -181,9 +181,50 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			updateBoardBeforeCapture((AbilityController) evt.getNewValue(), PieceType.AGGRESSIVESHARK);
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterAggressiveSharkCapture")) {
 			updateBoardAfterCapture((AbstractButton) evt.getNewValue(), PieceType.AGGRESSIVESHARK);
+		} else if (event.equalsIgnoreCase("UpdateBoardBeforeDefensiveSharkAbility")) {
+			updateBoardBeforeDefensiveSharkAbility((AbilityController) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardAfterDefensiveSharkProtectAbility")) {
+			updateBoardAfterProtectSuccess(PieceType.DEFENSIVESHARK);
+		} else if (event.equalsIgnoreCase("UpdateBoardAfterDefensiveSharkMoveAbility")) {
+			updateBoardAfterDefensiveSharkMoveAbility((AbstractButton) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UndoFail")) {
 			updateBoardUndoFail((String) evt.getNewValue());
 		}
+	}
+
+	private void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked) {
+		PieceInterface defensivePiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.DEFENSIVESHARK);
+		AbstractButton oldBtn = buttons.get(defensivePiece.getPosition().get("y"))
+				.get(defensivePiece.getPosition().get("x"));
+
+		oldBtn.setIcon(null);
+		oldBtn.setActionCommand("NormalButton");
+		updateIcon(btnClicked, PieceType.DEFENSIVESHARK);
+		btnClicked.setActionCommand("DefensiveShark");
+		refreshBoardColorAndState();
+
+	}
+
+	private void updateBoardBeforeDefensiveSharkAbility(AbilityController defensiveController) {
+		PieceInterface defensiveShark = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.DEFENSIVESHARK);
+		Set<Cell> abilityCells = defensiveShark.abilityCells();
+
+		for (Cell c : abilityCells) {
+
+			AbstractButton btn = buttons.get(c.getY()).get(c.getX());
+
+			btn.setBackground(Color.BLUE);
+
+			ActionListener[] listeners = btn.getActionListeners();
+
+			for (ActionListener l : listeners) {
+				btn.removeActionListener(l);
+			}
+			btn.addActionListener(defensiveController);
+		}
+
 	}
 
 	private void updateBoardUndoFail(String failMsg) {
@@ -260,8 +301,13 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		refreshBoardColorAndState();
 	}
 
-	private void updateBoardAfterLeadershipProtect() {
-		MessageDialog.notifyProtectSuccessLeadership(this);
+	private void updateBoardAfterProtectSuccess(PieceType pieceType) {
+		if (pieceType == PieceType.LEADERSHIPEAGLE) {
+			MessageDialog.notifyProtectSuccess(this);
+		} else if (pieceType == PieceType.DEFENSIVESHARK) {
+			MessageDialog.notifyProtectSuccess(this);
+
+		}
 		refreshBoardColorAndState();
 	}
 

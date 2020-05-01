@@ -145,5 +145,19 @@ public class ViewControllerFacade implements ViewControllerInterface {
 		pcs.firePropertyChange("UndoFail", null, failMsg);
 	}
 
+	@Override
+	public void updateBoardBeforeDefensiveSharkAbility(AbilityController defensiveController) {
+		pcs.firePropertyChange("UpdateBoardBeforeDefensiveSharkAbility", null, defensiveController);
+	}
+
+	@Override
+	public void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked) {
+		pcs.firePropertyChange("UpdateBoardAfterDefensiveSharkMoveAbility", null, btnClicked);
+	}
+
+	@Override
+	public void updateBoardAfterDefensiveSharkProtectAbility() {
+		pcs.firePropertyChange("updateBoardAfterDefensiveSharkProtectAbility", null, null);
+	}
 
 }

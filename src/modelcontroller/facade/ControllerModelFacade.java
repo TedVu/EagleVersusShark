@@ -76,4 +76,21 @@ public class ControllerModelFacade implements ControllerModelInterface {
 		commandExecutor.executeCommand(new UseAbility(PieceAbility.CAPTURE, aggressivePiece, affectedPiece));
 
 	}
+
+	@Override
+	public void updateModelStateDefensiveSharkMove() {
+		PieceInterface defensivePiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.DEFENSIVESHARK);
+		commandExecutor.executeCommand(new UseAbility(PieceAbility.QUICKMOVE, defensivePiece, null));
+	}
+
+	@Override
+	public void updateModelStateDefensiveSharkProtect(PieceType affectedPieceEnum) {
+		PieceInterface defensivePiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.DEFENSIVESHARK);
+		PieceInterface affectedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(affectedPieceEnum);
+		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, defensivePiece, affectedPiece));
+
+	}
 }

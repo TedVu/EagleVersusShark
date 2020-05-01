@@ -79,6 +79,12 @@ public interface ViewControllerInterface {
 
 	public void updateBoardAfterAggressiveSharkCapture(AbstractButton btnClicked);
 
+	public void updateBoardBeforeDefensiveSharkAbility(AbilityController defensiveController);
+
+	public void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked);
+
+	public void updateBoardAfterDefensiveSharkProtectAbility();
+
 	public void undoFail(String failMsg);
 
 }

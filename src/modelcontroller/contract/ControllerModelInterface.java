@@ -29,4 +29,8 @@ public interface ControllerModelInterface {
 	public void updateModelStateAttackingEagle(PieceType affectedPieceEnum);
 
 	public void updateModelStateAggressiveSharkCapture(PieceType affectedPieceEnum);
+
+	public void updateModelStateDefensiveSharkMove();
+
+	public void updateModelStateDefensiveSharkProtect(PieceType affectedPieceEnum);
 }

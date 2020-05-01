@@ -29,8 +29,8 @@ public class MessageDialog {
 		JOptionPane.showMessageDialog(boardView, "Cannot use ability because there is no allies eagle around");
 	}
 
-	public static void notifyProtectSuccessLeadership(BoardPanel boardView) {
-		JOptionPane.showMessageDialog(boardView, "Leadership give protection successfull");
+	public static void notifyProtectSuccess(BoardPanel boardView) {
+		JOptionPane.showMessageDialog(boardView, "Give protection successful");
 	}
 
 	public static void notifyNoPieceNearbyToCapture(BoardPanel boardView) {
