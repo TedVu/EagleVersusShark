@@ -1,9 +1,9 @@
 package model.piece;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import com.google.java.contract.Ensures;
+import com.google.java.contract.Requires;
 import model.board.Cell;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
@@ -18,7 +18,7 @@ import model.piece.movement.DiagonalMove;
 public class DefensiveShark extends AbstractPiece {
 
 	final int DISTANCE = 1;
-	private EngineInterface engine;
+	private final EngineInterface engine;
 
 	public DefensiveShark(int x, int y, EngineInterface engine) {
 		super(x, y);
@@ -26,12 +26,14 @@ public class DefensiveShark extends AbstractPiece {
 	}
 
 	@Override
+	@Requires({ "getPosition() != null" })
+	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
 		return new DiagonalMove().getValidMove(this, 2);
-
 	}
 
 	@Override
+	@Requires({ "x>=0", "y>=0" })
 	public void movePiece(int x, int y) {
 		setPosition(x, y);
 	}
@@ -45,7 +47,26 @@ public class DefensiveShark extends AbstractPiece {
 			// moving a piece for more information, no affectedPiece required
 
 		} else {
+
 			throw new IllegalArgumentException("Invalid ability");
+		}
+	}
+
+	// Overload method for second ability
+	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, Cell surroundingCell){
+		if(pieceAbility.equals(PieceAbility.QUICKMOVE)){
+			quickMove(piece,surroundingCell);
+		} else {
+			throw new IllegalArgumentException("Invalid ability");
+		}
+	}
+
+	private void quickMove(PieceInterface piece, Cell surroundingCell){
+		Set<Cell> neighbourCells = abilityCells();
+		if(neighbourCells.contains(surroundingCell)){
+			piece.movePiece(surroundingCell.getX(),surroundingCell.getY());
+		} else {
+			throw new IllegalArgumentException("Invalid move");
 		}
 	}
 
@@ -63,35 +84,45 @@ public class DefensiveShark extends AbstractPiece {
 	}
 
 	@Override
+	@Ensures("abilityCells() != null")
 	public Set<Cell> abilityCells() {
-		// Return the unoccupied nearby cells of the other two active sharks
-		// Return the cell of the other two active sharks
-		// nearbyCell = 8 cells surrounding, this forms a square => similar to
-		// aggressive shark can reference aggressiveShark for more information
-		return null;
+		Set<Cell> neighbourCells = new HashSet<>();
+		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
+
+		// Return all the neighbouring cells around other sharks
+		for (PieceInterface shark : activeSharks) {
+			if(!(shark instanceof DefensiveShark)) {
+				int x = shark.getPosition().get("x");
+				int y = shark.getPosition().get("y");
+
+				// All the neighbour cells around a shark
+				// Undergoing further code review and refactoring..
+				LinkedList<Cell> surroundingEightCell = new LinkedList<>();
+				surroundingEightCell.add(engine.getBoard().getCell(x - 1, y - 1));
+				surroundingEightCell.add(engine.getBoard().getCell(x, y - 1));
+				surroundingEightCell.add(engine.getBoard().getCell(x + 1, y - 1));
+				surroundingEightCell.add(engine.getBoard().getCell(x + 1, y));
+				surroundingEightCell.add(engine.getBoard().getCell(x + 1, y + 1));
+				surroundingEightCell.add(engine.getBoard().getCell(x, y + 1));
+				surroundingEightCell.add(engine.getBoard().getCell(x - 1, y + 1));
+				surroundingEightCell.add(engine.getBoard().getCell(x-1,y));
+
+				// Add the cell to the return list if it has not been occupied by any other piece AND is within boardSize
+				for (Cell possibleCell : surroundingEightCell){
+					if(!possibleCell.getOccupied() &&
+						possibleCell.getY()<engine.getBoard().getSize()-1 &&
+						possibleCell.getY()>=0 &&
+						possibleCell.getX()>=0 &&
+						possibleCell.getX()<engine.getBoard().getSize()-1){
+						neighbourCells.add(possibleCell);
+					}
+				}
+			}
+		}
+
+		return neighbourCells;
 	}
-
-	// private int neighbourCellDistance(int pieceX, int pieceY) {
-	// List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
-	//
-	// for (PieceInterface activePiece : activeSharks) {
-	// int x = activePiece.getPosition().get("x");
-	// int y = activePiece.getPosition().get("y");
-	//
-	// //TODO return a list of ALL possible moves surrounding all the other sharks?
-	// }
-	//
-	// return 0;
-	// }
-	//
-	// private boolean isSurrounding(int x1, int x2, int y1, int y2, int distance) {
-	// if (x2 > x1 + distance || y2 > y1 + distance || x2 < x1 - distance || y2 < y1
-	// - distance) {
-	// return false;
-	// }
-	// return true;
-	// }
-
+	
 	@Override
 	public String toString() {
 		return String.format("%s", "DefensiveShark");

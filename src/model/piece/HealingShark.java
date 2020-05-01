@@ -1,10 +1,13 @@
 package model.piece;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 import model.board.Cell;
+import model.contract.EngineInterface;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
@@ -15,10 +18,13 @@ import model.piece.movement.DiagonalMove;
  * @author chanboth
  *
  */
-public class HealingShark extends AbstractPiece {
 
-	public HealingShark(int x, int y) {
+public class HealingShark extends AbstractPiece  {
+	private final EngineInterface engine;
+
+	public HealingShark(int x, int y, EngineInterface engine) {
 		super(x, y);
+		this.engine = engine;
 	}
 
 	@Override
@@ -71,6 +77,7 @@ public class HealingShark extends AbstractPiece {
 		// no need to implement as view-controller can filter from activeSharks
 		// refactor later on as not a good practice to return null
 		return null;
+
 
 	}
 

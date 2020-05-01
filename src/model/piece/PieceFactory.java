@@ -23,7 +23,7 @@ public class PieceFactory {
 		} else if (pieceType == PieceType.DEFENSIVESHARK) {
 			return createDesensiveShark(boardSize,engine);
 		} else if (pieceType == PieceType.HEALINGSHARK) {
-			return createHealingShark(boardSize);
+			return createHealingShark(boardSize,engine);
 		} else {
 			return null;
 		}
@@ -47,9 +47,9 @@ public class PieceFactory {
 				PieceType.DEFENSIVESHARK.yCoordinate(boardSize), engine);
 	}
 
-	private static PieceInterface createHealingShark(int boardSize) {
+	private static PieceInterface createHealingShark(int boardSize, EngineInterface engine) {
 		return new HealingShark(PieceType.HEALINGSHARK.xCoordinate(boardSize),
-				PieceType.HEALINGSHARK.yCoordinate(boardSize));
+				PieceType.HEALINGSHARK.yCoordinate(boardSize), engine);
 	}
 
 	private static PieceInterface createLeadershipEagle(int boardSize) {
