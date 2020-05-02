@@ -53,33 +53,33 @@ public class HealingShark extends AbstractPiece  {
 
 	private void heal(PieceInterface affectedPiece) {
 		try {
+			if(engine.getHealingAbilityCounter() == 0){
+				// Move selected shark piece to its original cell (upon initialization) and set it to active
+				boolean cellOccupied = false;
+				int initialX = PieceType.HEALINGSHARK.xCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
+				int initialY = PieceType.HEALINGSHARK.yCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
+				Cell initialCell = engine.getBoard().getCell(initialX,initialY);
 
-			// Move selected shark piece to its original cell (upon initialization) and set
-			// it to active
-			boolean cellOccupied = false;
-			int initialX = PieceType.HEALINGSHARK.xCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
-			int initialY = PieceType.HEALINGSHARK.yCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
-			Cell initialCell = engine.getBoard().getCell(initialX,initialY);
-
-			// Will keep changing initial cell until the cell is found != occupied
-			while(!cellOccupied){
-				if(initialCell.getOccupied()){
-					// AggressiveShark will move 1 unit north-west
-					if(affectedPiece instanceof AggressiveShark)
-						--initialX;
-						--initialY;
-					// DefensiveShark will move 1 unit up
-					if(affectedPiece instanceof DefensiveShark)
-						--initialY;
-					if(!engine.getBoard().getCell(initialX,initialY).getOccupied())
-						cellOccupied = true;
+				// Will keep changing initial cell until the cell is found != occupied
+				while(!cellOccupied){
+					if(initialCell.getOccupied()){
+						// AggressiveShark will move 1 unit north-west
+						if(affectedPiece instanceof AggressiveShark)
+							--initialX;
+							--initialY;
+						// DefensiveShark will move 1 unit up
+						if(affectedPiece instanceof DefensiveShark)
+							--initialY;
+						if(!engine.getBoard().getCell(initialX,initialY).getOccupied())
+							cellOccupied = true;
+					}
 				}
+				movePiece(initialX,initialY);
+				affectedPiece.setActive(true);
+				engine.incrementHealingAbilityCounter();
+			} else {
+				// Do something, because unable to perform ability
 			}
-			movePiece(initialX,initialY);
-			affectedPiece.setActive(true);
-
-			// TODO set the healing shark to inactive for one turn
-
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

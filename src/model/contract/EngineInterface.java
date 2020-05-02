@@ -102,4 +102,19 @@ public interface EngineInterface {
 
 	public void setResumeGame();
 
+	/**
+	 * Intention: to keep track of whether the HealingShark can use healing ability or not
+	 * 0 = HealingShark can perform healing ability
+	 * 1 && 2 = HealingShark unable to perform healing ability
+	 * @return 0 || 1 || 2
+	 * @author Chanboth Som
+	 */
+	public int getHealingAbilityCounter();
+
+	/**
+	 * Intention: increment the counter when the HealingShark has performed a healing ability
+	 * @author Chanboth Som
+	 */
+	public void incrementHealingAbilityCounter();
+
 }
