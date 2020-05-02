@@ -189,7 +189,33 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			updateBoardAfterDefensiveSharkMoveAbility((AbstractButton) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UndoFail")) {
 			updateBoardUndoFail((String) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardNoSharkToRevive")) {
+			updateBoardNoSharkToRevive();
+		} else if (event.equalsIgnoreCase("UpdateBoardReviveSharkSuccessful")) {
+			updateBoardReviveSharkSuccessful((PieceType) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardNotCorrectTurnToRevive")) {
+			updateBoardNotCorrectTurnToRevive();
 		}
+	}
+
+	private void updateBoardNotCorrectTurnToRevive() {
+		MessageDialog.notifyNotCorrectTurnToRevive(this);
+	}
+
+	private void updateBoardReviveSharkSuccessful(PieceType revivedPieceEnum) {
+		PieceInterface revivedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(revivedPieceEnum);
+		AbstractButton revivedBtn = buttons.get(revivedPiece.getPosition().get("y"))
+				.get(revivedPiece.getPosition().get("x"));
+
+		updateIcon(revivedBtn, revivedPieceEnum);
+		revivedBtn.setActionCommand(revivedPiece.toString());
+		revivedBtn.addActionListener(new SelectPieceController(facade));
+
+	}
+
+	private void updateBoardNoSharkToRevive() {
+		MessageDialog.notifyNoSharkToRevive(this);
 	}
 
 	private void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked) {

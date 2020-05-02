@@ -71,7 +71,6 @@ public class ViewControllerFacade implements ViewControllerInterface {
 
 	@Override
 	public void updateBoardBeforeSwap(AbilityController visionController) {
-		// TODO Auto-generated method stub
 		pcs.firePropertyChange("UpdateBoardBeforeSwap", null, visionController);
 	}
 
@@ -82,14 +81,12 @@ public class ViewControllerFacade implements ViewControllerInterface {
 
 	@Override
 	public void updateBoardChangeAction() {
-		// TODO Auto-generated method stub
 		pcs.firePropertyChange("UpdateBoardChangeAction", null, null);
 
 	}
 
 	@Override
 	public void updateBoardBeforeLeadershipProtect(AbilityController leadershipController) {
-		// TODO Auto-generated method stub
 		pcs.firePropertyChange("UpdateBoardBeforeLeadershipProtect", null, leadershipController);
 	}
 
@@ -158,6 +155,21 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	@Override
 	public void updateBoardAfterDefensiveSharkProtectAbility() {
 		pcs.firePropertyChange("updateBoardAfterDefensiveSharkProtectAbility", null, null);
+	}
+
+	@Override
+	public void updateBoardNoSharkToRevive() {
+		pcs.firePropertyChange("UpdateBoardNoSharkToRevive", null, null);
+	}
+
+	@Override
+	public void updateBoardReviveSharkSuccessful(PieceType revivedPiece) {
+		pcs.firePropertyChange("UpdateBoardReviveSharkSuccessful", null, revivedPiece);
+	}
+
+	@Override
+	public void updateBoardNotCorrectTurnToRevive() {
+		pcs.firePropertyChange("UpdateBoardNotCorrectTurnToRevive", null, null);
 	}
 
 }

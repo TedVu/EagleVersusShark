@@ -33,4 +33,6 @@ public interface ControllerModelInterface {
 	public void updateModelStateDefensiveSharkMove();
 
 	public void updateModelStateDefensiveSharkProtect(PieceType affectedPieceEnum);
+
+	public void updateModelStateHealingSharkRevive(PieceType affectedPieceEnum);
 }

@@ -93,4 +93,14 @@ public class ControllerModelFacade implements ControllerModelInterface {
 		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, defensivePiece, affectedPiece));
 
 	}
+
+	@Override
+	public void updateModelStateHealingSharkRevive(PieceType affectedPieceEnum) {
+		PieceInterface healingPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.HEALINGSHARK);
+		PieceInterface affectedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(affectedPieceEnum);
+
+		commandExecutor.executeCommand(new UseAbility(PieceAbility.HEAL, healingPiece, affectedPiece));
+	}
 }

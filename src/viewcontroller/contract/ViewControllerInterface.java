@@ -85,6 +85,12 @@ public interface ViewControllerInterface {
 
 	public void updateBoardAfterDefensiveSharkProtectAbility();
 
+	public void updateBoardNoSharkToRevive();
+
+	public void updateBoardReviveSharkSuccessful(PieceType revivedPiece);
+
 	public void undoFail(String failMsg);
+
+	public void updateBoardNotCorrectTurnToRevive();
 
 }

@@ -47,7 +47,18 @@ public class MessageDialog {
 
 	public static void notifyUndoFail(BoardPanel boardView, String failMsg) {
 		JOptionPane.showMessageDialog(boardView, failMsg);
+	}
 
+	public static void notifyNoSharkToRevive(BoardPanel boardView) {
+		JOptionPane.showMessageDialog(boardView, "No shark to revive");
+	}
+
+	public static void notifyReviveSuccessful(BoardPanel boardView) {
+		JOptionPane.showMessageDialog(boardView, "Revive successful");
+	}
+
+	public static void notifyNotCorrectTurnToRevive(BoardPanel boardView) {
+		JOptionPane.showMessageDialog(boardView, "Eagle turn now, cannot revive");
 	}
 
 }
