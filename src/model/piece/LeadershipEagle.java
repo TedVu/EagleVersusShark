@@ -45,10 +45,13 @@ public class LeadershipEagle extends AbstractPiece {
 	@Override
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 
-		if (pieceAbility.equals(PieceAbility.PROTECT))
+		if (pieceAbility.equals(PieceAbility.PROTECT)) {
 			protect(piece, affectedPiece);
 
-		else {
+			// Chanboth (Remove these comments upon submission)
+			// Integrate HealingShark's healing ability tracker
+			engine.eagleCheckingHealingSharkAbility();
+		} else {
 			throw new IllegalArgumentException("Invalid ability");
 		}
 

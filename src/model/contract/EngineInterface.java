@@ -117,4 +117,17 @@ public interface EngineInterface {
 	 */
 	public void incrementHealingAbilityCounter();
 
+	/**
+	 * Intention: reset the counter back to 0 to allow the HealingShark to perform
+	 * 			  the ability in the future
+	 * @author Chanboth Som
+	 */
+	public void resetHealingAbilityCounter();
+
+	/**
+	 * Intention: to be used across all 3 eagles.
+	 * To keep track when to give Healing Shark the ability to heal on its turn.
+	 * @author Chanboth Som
+	 */
+	public void eagleCheckingHealingSharkAbility();
 }

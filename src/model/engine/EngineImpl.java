@@ -210,7 +210,21 @@ public class EngineImpl implements EngineInterface {
 
 	@Override
 	public void incrementHealingAbilityCounter(){
-		this.healingAbilityCounter++;
+		if(this.healingAbilityCounter == 0)
+			this.healingAbilityCounter++;
+	}
+
+	@Override
+	public void resetHealingAbilityCounter() {
+		this.healingAbilityCounter = 0;
+	}
+
+	@Override
+	public void eagleCheckingHealingSharkAbility() {
+		if(engine.getHealingAbilityCounter() == 1)
+			engine.incrementHealingAbilityCounter();
+		else if(engine.getHealingAbilityCounter() == 2)
+			engine.resetHealingAbilityCounter();
 	}
 
 	@Override

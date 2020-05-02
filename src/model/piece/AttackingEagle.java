@@ -46,6 +46,10 @@ public class AttackingEagle extends AbstractPiece {
 		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
 			capture(piece, affectedPiece);
 			// move piece + update board occupation here
+
+			// Chanboth (Remove these comments upon submission)
+			// Integrate HealingShark's healing ability tracker
+			engine.eagleCheckingHealingSharkAbility();
 		} else {
 			throw new IllegalArgumentException("Invalid ability");
 		}

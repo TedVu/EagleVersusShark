@@ -47,13 +47,15 @@ public class VisionaryEagle extends AbstractPiece {
 
 	@Override
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
-		if (pieceAbility.equals(PieceAbility.SWAP))
+		if (pieceAbility.equals(PieceAbility.SWAP)) {
 			swap(piece, affectedPiece);
 
-		else {
+			// Chanboth (Remove these comments upon submission)
+			// Integrate HealingShark's healing ability tracker
+			engine.eagleCheckingHealingSharkAbility();
+		} else {
 			throw new IllegalArgumentException("Invalid ability");
 		}
-
 	}
 
 	public void swap(PieceInterface piece, PieceInterface affectedPiece) {
