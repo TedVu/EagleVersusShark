@@ -53,15 +53,29 @@ public class HealingShark extends AbstractPiece  {
 
 	private void heal(PieceInterface affectedPiece) {
 		try {
-			// movepiece to its orginal position action here => take into account the board
-			// occupational state => see what a move piece action involves
-			// edge case where the original position of that piece is already occupied
-			// => find an alternative cell any cell near the shark starting position is ok
 
 			// Move selected shark piece to its original cell (upon initialization) and set
 			// it to active
-			movePiece(PieceType.HEALINGSHARK.xCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize()),
-					PieceType.HEALINGSHARK.yCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize()));
+			boolean cellOccupied = false;
+			int initialX = PieceType.HEALINGSHARK.xCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
+			int initialY = PieceType.HEALINGSHARK.yCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
+			Cell initialCell = engine.getBoard().getCell(initialX,initialY);
+
+			// Will keep changing initial cell until the cell is found != occupied
+			while(!cellOccupied){
+				if(initialCell.getOccupied()){
+					// AggressiveShark will move 1 unit north-west
+					if(affectedPiece instanceof AggressiveShark)
+						--initialX;
+						--initialY;
+					// DefensiveShark will move 1 unit up
+					if(affectedPiece instanceof DefensiveShark)
+						--initialY;
+					if(!engine.getBoard().getCell(initialX,initialY).getOccupied())
+						cellOccupied = true;
+				}
+			}
+			movePiece(initialX,initialY);
 			affectedPiece.setActive(true);
 
 			// TODO set the healing shark to inactive for one turn
@@ -74,11 +88,9 @@ public class HealingShark extends AbstractPiece  {
 
 	@Override
 	public Set<Cell> abilityCells() {
-		// no need to implement as view-controller can filter from activeSharks
+
 		// refactor later on as not a good practice to return null
 		return null;
-
-
 	}
 
 	@Override
