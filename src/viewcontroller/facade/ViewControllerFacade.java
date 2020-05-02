@@ -71,7 +71,6 @@ public class ViewControllerFacade implements ViewControllerInterface {
 
 	@Override
 	public void updateBoardBeforeSwap(AbilityController visionController) {
-		// TODO Auto-generated method stub
 		pcs.firePropertyChange("UpdateBoardBeforeSwap", null, visionController);
 	}
 
@@ -82,14 +81,12 @@ public class ViewControllerFacade implements ViewControllerInterface {
 
 	@Override
 	public void updateBoardChangeAction() {
-		// TODO Auto-generated method stub
 		pcs.firePropertyChange("UpdateBoardChangeAction", null, null);
 
 	}
 
 	@Override
 	public void updateBoardBeforeLeadershipProtect(AbilityController leadershipController) {
-		// TODO Auto-generated method stub
 		pcs.firePropertyChange("UpdateBoardBeforeLeadershipProtect", null, leadershipController);
 	}
 
