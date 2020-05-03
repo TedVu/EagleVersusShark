@@ -93,6 +93,8 @@ public class DefensiveShark extends AbstractPiece {
 
 				// All the neighbour cells around a shark - to be traversed
 				surroundingEightCells.addAll(new DiagonalMove().getValidMove(shark,NEIGHBOURING_DISTANCE));
+				Cell sharkPosition = new Cell(shark.getPosition().get("x"),shark.getPosition().get("y"));
+				surroundingEightCells.add(sharkPosition);
 			}
 		}
 
@@ -104,8 +106,8 @@ public class DefensiveShark extends AbstractPiece {
 		 */
 		for (Cell possibleCell : surroundingEightCells){
 			if(!possibleCell.getOccupied() && !possibleCell.getIsMasterCell() &&
-					possibleCell.getY()<engine.getBoard().getSize()-1 && possibleCell.getY()>=0 &&
-					possibleCell.getX()<engine.getBoard().getSize()-1 && possibleCell.getX()>=0 ){
+				possibleCell.getY()<engine.getBoard().getSize() && possibleCell.getY()>=0 &&
+				possibleCell.getX()<engine.getBoard().getSize() && possibleCell.getX()>=0 ){
 				neighbourCells.add(possibleCell);
 			}
 		}
