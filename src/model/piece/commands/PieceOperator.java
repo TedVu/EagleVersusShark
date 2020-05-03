@@ -33,6 +33,10 @@ import model.piece.VisionaryEagle;
  */
 public class PieceOperator {
 
+	private final int DEFAULT_HEALING_SHARK = 0;
+	private final int EAGLE_TURN = 1;
+	private final int SHARK_TURN = 2;
+
 	public PieceOperator(Board board, EngineInterface engine) {
 		this.board = board;
 		this.engine = engine;
@@ -213,10 +217,10 @@ public class PieceOperator {
 	 * @author Chanboth Som
 	 */
 	public void eagleCheckingHealingSharkAbility() {
-		if(this.getHealingAbilityCounter() == 1)
-			this.incrementHealingAbilityCounter();
-		else if(this.getHealingAbilityCounter() == 2)
-			this.resetHealingAbilityCounter();
+		if(this.healingAbilityCounter == 1)
+			healingAbilityCounter++;
+		else if(healingAbilityCounter == 2)
+			healingAbilityCounter = 0;
 	}
 
 }

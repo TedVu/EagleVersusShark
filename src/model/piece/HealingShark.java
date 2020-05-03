@@ -45,7 +45,12 @@ public class HealingShark extends AbstractPiece  {
 	@Override
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.HEAL)) {
-			if(EngineImpl.getSingletonInstance().pieceOperator().getHealingAbilityCounter() != 0){
+			int counter = EngineImpl.getSingletonInstance().pieceOperator().getHealingAbilityCounter();
+			System.out.println(counter);
+			if(counter != 0){
+				if (counter == 2){
+					EngineImpl.getSingletonInstance().pieceOperator().resetHealingAbilityCounter();
+				}
 				throw new RuntimeException("You just used the ability last round!");
 			} else {
 				heal(affectedPiece);
@@ -73,10 +78,9 @@ public class HealingShark extends AbstractPiece  {
 						EngineImpl.getSingletonInstance().getBoard().getSize());
 			}
 
-			System.out.printf("X: %d, Y: %d%n",initialX,initialY);
 			Cell initialCell = engine.getBoard().getCell(initialX,initialY);
-			System.out.println(initialCell.getOccupied());
 			boolean cellOccupied = false;
+
 			// Will keep changing initial cell until the cell is found != occupied
 			while(!cellOccupied){
 				if(initialCell.getOccupied()){
