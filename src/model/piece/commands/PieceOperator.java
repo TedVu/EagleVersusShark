@@ -198,7 +198,6 @@ public class PieceOperator {
 	 * @author Chanboth Som
 	 */
 	public void incrementHealingAbilityCounter(){
-		if(this.healingAbilityCounter == 0)
 			this.healingAbilityCounter++;
 	}
 
@@ -208,7 +207,7 @@ public class PieceOperator {
 	 * @author Chanboth Som
 	 */
 	public void resetHealingAbilityCounter() {
-		this.healingAbilityCounter = 0;
+		this.healingAbilityCounter = DEFAULT_HEALING_SHARK;
 	}
 
 	/**
@@ -217,10 +216,10 @@ public class PieceOperator {
 	 * @author Chanboth Som
 	 */
 	public void eagleCheckingHealingSharkAbility() {
-		if(this.healingAbilityCounter == 1)
-			healingAbilityCounter++;
-		else if(healingAbilityCounter == 2)
-			healingAbilityCounter = 0;
+		if(this.getHealingAbilityCounter() == EAGLE_TURN)
+			incrementHealingAbilityCounter();
+		else if(this.getHealingAbilityCounter() == SHARK_TURN)
+			resetHealingAbilityCounter();
 	}
 
 }
