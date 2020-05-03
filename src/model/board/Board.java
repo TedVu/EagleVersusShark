@@ -15,6 +15,7 @@ public class Board {
 	// Fix row and col for A1
 	private int size = 9;
 	private List<List<Cell>> cells;
+	private Cell sharkMasterCell = null;
 
 	/**
 	 * 
@@ -38,6 +39,15 @@ public class Board {
 
 		cells.get(0).get(mid).setMasterCell();
 		cells.get(size - 1).get(mid).setMasterCell();
+		sharkMasterCell = cells.get(size - 1).get(mid);
+	}
+
+	/**
+	 * Return shark's master cell
+	 * @author Chanboth
+	 */
+	public Cell getSharkMasterCell(){
+		return this.sharkMasterCell;
 	}
 
 	/**

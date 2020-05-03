@@ -58,27 +58,45 @@ public class HealingShark extends AbstractPiece  {
 	private void heal(PieceInterface affectedPiece) {
 		try {
 			// Move selected shark piece to its original cell (upon initialization) and set it to active
-			boolean cellOccupied = false;
-			int initialX = PieceType.HEALINGSHARK.xCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
-			int initialY = PieceType.HEALINGSHARK.yCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
-			Cell initialCell = engine.getBoard().getCell(initialX,initialY);
+			int initialX = 0;
+			int initialY = 0;
+			if(affectedPiece instanceof AggressiveShark){
+				initialX = PieceType.AGGRESSIVESHARK.xCoordinate(
+						EngineImpl.getSingletonInstance().getBoard().getSize());
+				initialY = PieceType.AGGRESSIVESHARK.yCoordinate(
+						EngineImpl.getSingletonInstance().getBoard().getSize());
 
+			} else if (affectedPiece instanceof DefensiveShark){
+				initialX = PieceType.DEFENSIVESHARK.xCoordinate(
+						EngineImpl.getSingletonInstance().getBoard().getSize());
+				initialY = PieceType.DEFENSIVESHARK.yCoordinate(
+						EngineImpl.getSingletonInstance().getBoard().getSize());
+			}
+
+			System.out.printf("X: %d, Y: %d%n",initialX,initialY);
+			Cell initialCell = engine.getBoard().getCell(initialX,initialY);
+			System.out.println(initialCell.getOccupied());
+			boolean cellOccupied = false;
 			// Will keep changing initial cell until the cell is found != occupied
 			while(!cellOccupied){
 				if(initialCell.getOccupied()){
 					// AggressiveShark will move 1 unit north-west
-					if(affectedPiece instanceof AggressiveShark)
+					if(affectedPiece instanceof AggressiveShark) {
 						--initialX;
 						--initialY;
+					}
 					// DefensiveShark will move 1 unit up
 					if(affectedPiece instanceof DefensiveShark)
 						--initialY;
 					if(!engine.getBoard().getCell(initialX,initialY).getOccupied())
 						cellOccupied = true;
+				} else {
+					cellOccupied = true;
 				}
 			}
-			movePiece(initialX,initialY);
-			affectedPiece.setActive(true);
+			EngineImpl.getSingletonInstance().pieceOperator().movePiece(affectedPiece,initialX,initialY);
+			engine.getBoard().getCell(initialX,initialY).setOccupied();
+			EngineImpl.getSingletonInstance().pieceOperator().setPieceActiveStatus(affectedPiece,true);
 			EngineImpl.getSingletonInstance().pieceOperator().incrementHealingAbilityCounter();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
