@@ -13,6 +13,7 @@ import com.google.java.contract.Requires;
 import model.board.Cell;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
+import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.DiagonalMove;
 
@@ -52,7 +53,7 @@ public class VisionaryEagle extends AbstractPiece {
 
 			// Chanboth (Remove these comments upon submission)
 			// Integrate HealingShark's healing ability tracker
-			engine.eagleCheckingHealingSharkAbility();
+			EngineImpl.getSingletonInstance().pieceOperator().eagleCheckingHealingSharkAbility();
 		} else {
 			throw new IllegalArgumentException("Invalid ability");
 		}

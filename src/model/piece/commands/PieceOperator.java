@@ -49,6 +49,8 @@ public class PieceOperator {
 
 	private Stack<CommandInterface> commandHistory = new Stack<CommandInterface>();
 
+	private int healingAbilityCounter = 0;
+
 	/**
 	 * @param occupiedPieceType
 	 * @return true if the piece is occupied, else false
@@ -174,6 +176,47 @@ public class PieceOperator {
 
 	protected void addEvt(CommandInterface command) {
 		commandHistory.push(command);
+	}
+
+	/**
+	 * Intention: to keep track of whether the HealingShark can use healing ability or not
+	 * 0 = HealingShark can perform healing ability
+	 * 1 && 2 = HealingShark unable to perform healing ability
+	 * @return 0 || 1 || 2
+	 * @author Chanboth Som
+	 */
+	public int getHealingAbilityCounter(){
+		return this.healingAbilityCounter;
+	}
+
+	/**
+	 * Intention: increment the counter when the HealingShark has performed a healing ability
+	 * @author Chanboth Som
+	 */
+	public void incrementHealingAbilityCounter(){
+		if(this.healingAbilityCounter == 0)
+			this.healingAbilityCounter++;
+	}
+
+	/**
+	 * Intention: reset the counter back to 0 to allow the HealingShark to perform
+	 * 			  the ability in the future
+	 * @author Chanboth Som
+	 */
+	public void resetHealingAbilityCounter() {
+		this.healingAbilityCounter = 0;
+	}
+
+	/**
+	 * Intention: to be used across all 3 eagles.
+	 * To keep track when to give Healing Shark the ability to heal on its turn.
+	 * @author Chanboth Som
+	 */
+	public void eagleCheckingHealingSharkAbility() {
+		if(this.getHealingAbilityCounter() == 1)
+			this.incrementHealingAbilityCounter();
+		else if(this.getHealingAbilityCounter() == 2)
+			this.resetHealingAbilityCounter();
 	}
 
 }

@@ -52,8 +52,6 @@ public class EngineImpl implements EngineInterface {
 
 	private boolean gameRunning = false;
 
-	private int healingAbilityCounter = 0;
-
 	/**
 	 * @return the singleton instance of the engine
 	 */
@@ -201,30 +199,6 @@ public class EngineImpl implements EngineInterface {
 		Player player = playerType(teamType);
 
 		player.undoCounter(round);
-	}
-
-	@Override
-	public int getHealingAbilityCounter(){
-		return this.healingAbilityCounter;
-	}
-
-	@Override
-	public void incrementHealingAbilityCounter(){
-		if(this.healingAbilityCounter == 0)
-			this.healingAbilityCounter++;
-	}
-
-	@Override
-	public void resetHealingAbilityCounter() {
-		this.healingAbilityCounter = 0;
-	}
-
-	@Override
-	public void eagleCheckingHealingSharkAbility() {
-		if(engine.getHealingAbilityCounter() == 1)
-			engine.incrementHealingAbilityCounter();
-		else if(engine.getHealingAbilityCounter() == 2)
-			engine.resetHealingAbilityCounter();
 	}
 
 	@Override

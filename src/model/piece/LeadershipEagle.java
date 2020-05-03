@@ -50,7 +50,7 @@ public class LeadershipEagle extends AbstractPiece {
 
 			// Chanboth (Remove these comments upon submission)
 			// Integrate HealingShark's healing ability tracker
-			engine.eagleCheckingHealingSharkAbility();
+			EngineImpl.getSingletonInstance().pieceOperator().eagleCheckingHealingSharkAbility();
 		} else {
 			throw new IllegalArgumentException("Invalid ability");
 		}

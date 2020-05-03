@@ -45,7 +45,7 @@ public class HealingShark extends AbstractPiece  {
 	@Override
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.HEAL)) {
-			if(engine.getHealingAbilityCounter() != 0){
+			if(EngineImpl.getSingletonInstance().pieceOperator().getHealingAbilityCounter() != 0){
 				throw new RuntimeException("You just used the ability last round!");
 			} else {
 				heal(affectedPiece);
@@ -79,7 +79,7 @@ public class HealingShark extends AbstractPiece  {
 			}
 			movePiece(initialX,initialY);
 			affectedPiece.setActive(true);
-			engine.incrementHealingAbilityCounter();
+			EngineImpl.getSingletonInstance().pieceOperator().incrementHealingAbilityCounter();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
