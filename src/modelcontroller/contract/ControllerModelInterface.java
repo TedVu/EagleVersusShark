@@ -2,6 +2,7 @@ package modelcontroller.contract;
 
 import java.util.Map;
 
+import model.board.Cell;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
@@ -30,7 +31,7 @@ public interface ControllerModelInterface {
 
 	public void updateModelStateAggressiveSharkCapture(PieceType affectedPieceEnum);
 
-	public void updateModelStateDefensiveSharkMove();
+	public void updateModelStateDefensiveSharkMove(Cell newPos);
 
 	public void updateModelStateDefensiveSharkProtect(PieceType affectedPieceEnum);
 

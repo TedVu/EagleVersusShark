@@ -11,6 +11,7 @@ import com.google.java.contract.Requires;
 import controller.MovePieceController;
 import controller.PlayerAction;
 import controller.abstractfactory.AbilityController;
+import model.board.Cell;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import viewcontroller.contract.ViewControllerInterface;
@@ -148,8 +149,8 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked) {
-		pcs.firePropertyChange("UpdateBoardAfterDefensiveSharkMoveAbility", null, btnClicked);
+	public void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked, Cell newPos) {
+		pcs.firePropertyChange("UpdateBoardAfterDefensiveSharkMoveAbility", newPos, btnClicked);
 	}
 
 	@Override

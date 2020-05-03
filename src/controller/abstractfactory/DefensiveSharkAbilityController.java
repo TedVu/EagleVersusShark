@@ -4,15 +4,20 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractButton;
 
+import model.board.Cell;
 import model.enumtype.PieceType;
+import model.enumtype.TeamType;
 
 public class DefensiveSharkAbilityController extends AbstractAbilityController {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		AbstractButton btnClicked = (AbstractButton) e.getSource();
+		// move nearby action
 		if (btnClicked.getActionCommand().equalsIgnoreCase("NormalButton")) {
-			super.viewControllerFacade.updateBoardAfterDefensiveSharkMoveAbility(btnClicked);
-			super.controllerModelFacade.updateModelStateDefensiveSharkMove();
+			Cell newPos = new Cell(0, 0);
+			super.viewControllerFacade.updateBoardAfterDefensiveSharkMoveAbility(btnClicked, newPos);
+			super.controllerModelFacade.updateModelStateDefensiveSharkMove(newPos);
+			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.EAGLE);
 		} else {
 
 			PieceType affectedPieceEnum = PieceType.parsePieceType(btnClicked.getActionCommand());

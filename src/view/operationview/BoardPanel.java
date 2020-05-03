@@ -186,7 +186,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterDefensiveSharkProtectAbility")) {
 			updateBoardAfterProtectSuccess(PieceType.DEFENSIVESHARK);
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterDefensiveSharkMoveAbility")) {
-			updateBoardAfterDefensiveSharkMoveAbility((AbstractButton) evt.getNewValue());
+			updateBoardAfterDefensiveSharkMoveAbility((AbstractButton) evt.getNewValue(), (Cell) evt.getOldValue());
 		} else if (event.equalsIgnoreCase("UndoFail")) {
 			updateBoardUndoFail((String) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardNoSharkToRevive")) {
@@ -218,7 +218,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		MessageDialog.notifyNoSharkToRevive(this);
 	}
 
-	private void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked) {
+	private void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked, Cell cell) {
 		PieceInterface defensivePiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(PieceType.DEFENSIVESHARK);
 		AbstractButton oldBtn = buttons.get(defensivePiece.getPosition().get("y"))
@@ -228,6 +228,16 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		oldBtn.setActionCommand("NormalButton");
 		updateIcon(btnClicked, PieceType.DEFENSIVESHARK);
 		btnClicked.setActionCommand("DefensiveShark");
+		
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				if (buttons.get(row).get(col).getActionCommand().equalsIgnoreCase("DefensiveShark")) {
+					cell.setY(row);
+					cell.setX(col);
+					break;
+				}
+			}
+		}
 		refreshBoardColorAndState();
 
 	}

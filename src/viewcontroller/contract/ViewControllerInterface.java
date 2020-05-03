@@ -8,6 +8,7 @@ import javax.swing.AbstractButton;
 import controller.MovePieceController;
 import controller.PlayerAction;
 import controller.abstractfactory.AbilityController;
+import model.board.Cell;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
@@ -81,7 +82,7 @@ public interface ViewControllerInterface {
 
 	public void updateBoardBeforeDefensiveSharkAbility(AbilityController defensiveController);
 
-	public void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked);
+	public void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked,Cell newPos);
 
 	public void updateBoardAfterDefensiveSharkProtectAbility();
 

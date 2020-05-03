@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.google.java.contract.Requires;
 
+import model.board.Cell;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
@@ -78,10 +79,10 @@ public class ControllerModelFacade implements ControllerModelInterface {
 	}
 
 	@Override
-	public void updateModelStateDefensiveSharkMove() {
+	public void updateModelStateDefensiveSharkMove(Cell cell) {
 		PieceInterface defensivePiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(PieceType.DEFENSIVESHARK);
-		commandExecutor.executeCommand(new UseAbility(PieceAbility.QUICKMOVE, defensivePiece, null));
+		commandExecutor.executeCommand(new MovePiece(cell.getX(), cell.getY(), defensivePiece));
 	}
 
 	@Override
