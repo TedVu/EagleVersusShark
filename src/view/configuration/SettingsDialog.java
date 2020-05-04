@@ -75,7 +75,7 @@ public class SettingsDialog extends JDialog {
 
 		this.setModal(true);
 		setVisible(true);
-		
+
 		applyButton.addActionListener(new ApplyConfigurationController(this));
 	}
 

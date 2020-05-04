@@ -1,5 +1,6 @@
 package model.piece.commands;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -29,7 +30,9 @@ import model.piece.VisionaryEagle;
  * @author Sefira
  *
  */
-public class PieceOperator {
+public class PieceOperator implements Serializable {
+
+	private static final long serialVersionUID = 1385438527092098873L;
 
 	public PieceOperator(Board board, EngineInterface engine) {
 		this.board = board;

@@ -1,5 +1,6 @@
 package model.piece;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,8 +13,9 @@ import model.contract.PieceInterface;
  * @author sefira & chanboth
  *
  */
-public abstract class AbstractPiece implements PieceInterface {
+public abstract class AbstractPiece implements PieceInterface, Serializable {
 
+	private static final long serialVersionUID = -564937938237634780L;
 	private Map<String, Integer> position = new HashMap<String, Integer>();
 	private boolean isActive = true;
 	private boolean isImmune = false;

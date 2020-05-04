@@ -22,6 +22,10 @@ import model.piece.movement.DiagonalMove;
  */
 public class VisionaryEagle extends AbstractPiece {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6390595106558376146L;
 	EngineInterface engine;
 
 	public VisionaryEagle(int x, int y, EngineInterface engine) {

@@ -1,5 +1,6 @@
 package model.board;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +11,9 @@ import com.google.java.contract.Requires;
  * @author ted &#38; kevin
  *
  */
-public class Board {
+public class Board implements Serializable {
 
+	private static final long serialVersionUID = 5510738805489933149L;
 	// Fix row and col for A1
 	private int size = 9;
 	private List<List<Cell>> cells;

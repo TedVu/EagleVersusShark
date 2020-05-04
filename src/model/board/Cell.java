@@ -1,11 +1,14 @@
 package model.board;
 
+import java.io.Serializable;
+
 /**
  * @author ted &#38; kevin
  *
  */
-public class Cell {
+public class Cell implements Serializable {
 
+	private static final long serialVersionUID = -906734890234310442L;
 	private int x;
 	private int y;
 	private int ID;

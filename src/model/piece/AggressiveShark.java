@@ -18,6 +18,8 @@ import model.piece.movement.BasicMove;
  */
 public class AggressiveShark extends AbstractPiece {
 
+	private static final long serialVersionUID = 7717531522291318350L;
+
 	public AggressiveShark(int x, int y) {
 		super(x, y);
 	}

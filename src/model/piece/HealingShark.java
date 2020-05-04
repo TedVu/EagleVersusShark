@@ -18,6 +18,8 @@ import model.piece.movement.DiagonalMove;
  */
 public class HealingShark extends AbstractPiece {
 
+	private static final long serialVersionUID = -7746905541941458353L;
+
 	public HealingShark(int x, int y) {
 		super(x, y);
 	}

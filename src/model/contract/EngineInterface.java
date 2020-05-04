@@ -1,6 +1,7 @@
 package model.contract;
 
 import model.board.Board;
+import model.engine.EngineImpl;
 import model.enumtype.TeamType;
 import model.piece.commands.PieceOperator;
 import model.player.Player;
@@ -94,10 +95,12 @@ public interface EngineInterface {
 	public boolean getGameCurrentlyRunning();
 
 	public void setResumeGame();
-	
+
 	// Board Set up
-	
+
 	public void configBoardSize(int boardSize);
 
 	public void configNumPiece(int pieceNumberSelection);
+
+	public void loadGame(EngineImpl e);
 }

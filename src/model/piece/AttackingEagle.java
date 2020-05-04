@@ -20,6 +20,7 @@ import model.piece.movement.DiagonalMove;
  */
 public class AttackingEagle extends AbstractPiece {
 
+	private static final long serialVersionUID = -1967226729710111595L;
 	private EngineInterface engine;
 
 	public AttackingEagle(int x, int y, EngineInterface engine) {

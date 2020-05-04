@@ -1,5 +1,7 @@
 package model.piece.commands;
 
+import java.io.Serializable;
+
 import model.contract.CommandInterface;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
@@ -10,8 +12,12 @@ import model.engine.EngineImpl;
  * @author Sefira
  *
  */
-public class MovePiece implements CommandInterface {
+public class MovePiece implements CommandInterface, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5608224361103079900L;
 	private int newX, newY, oldX, oldY;
 	private PieceInterface piece;
 	private EngineInterface engine = EngineImpl.getSingletonInstance();

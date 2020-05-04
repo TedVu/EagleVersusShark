@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controller.startgamecontroller.SaveGameBtnController;
+
 /**
  * @author kevin & ted
  */
@@ -38,7 +40,7 @@ public class SaveGameDialog extends JDialog {
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setResizable(false);
 
-		// saveGameButton.addActionListener(new SaveGameController(this));
+		saveGameButton.addActionListener(new SaveGameBtnController());
 		// save game => initiate pause game
 		JPanel textFieldPanel = new JPanel();
 		textFieldPanel.add(new JLabel("File name:"));

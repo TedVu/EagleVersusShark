@@ -1,5 +1,6 @@
 package model.engine;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.Timer;
 
@@ -21,7 +22,10 @@ import view.contract.GameEngineCallbackInterface;
  * @author Sefira
  *
  */
-public class EngineImpl implements EngineInterface {
+public class EngineImpl implements EngineInterface, Serializable {
+
+	private static final long serialVersionUID = -5482363859150486331L;
+
 	private static EngineInterface engine = null;
 
 	/**
@@ -38,7 +42,7 @@ public class EngineImpl implements EngineInterface {
 
 	private Player sharkPlayer = new PlayerImpl(TeamType.SHARK);
 
-	private Timer gameTimer;
+	private transient Timer gameTimer;
 
 	private GameEngineCallbackInterface geCallback = new GameEngineCallbackImpl();
 
@@ -61,6 +65,11 @@ public class EngineImpl implements EngineInterface {
 		pieceOperator.initializePiece();
 		geCallback.addProperytChangeListener(new TimerPropertyChangeListener());
 		geCallback.addProperytChangeListener(new MakingMovePropertyChangeListener());
+	}
+	
+	@Override
+	public void loadGame(EngineImpl e) {
+		engine = e;
 	}
 
 	/**
@@ -88,7 +97,6 @@ public class EngineImpl implements EngineInterface {
 	 */
 	@Override
 	public Player getCurrentActivePlayer() {
-
 		if (eaglePlayer.getActive())
 			return eaglePlayer;
 		else

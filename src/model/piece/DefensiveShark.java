@@ -13,6 +13,8 @@ import model.piece.movement.DiagonalMove;
  */
 public class DefensiveShark extends AbstractPiece {
 
+	private static final long serialVersionUID = -3824904265692727849L;
+
 	public DefensiveShark(int x, int y) {
 		super(x, y);
 	}
