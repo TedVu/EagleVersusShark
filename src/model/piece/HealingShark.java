@@ -11,6 +11,8 @@ import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.enumtype.PieceType;
+import model.piece.commands.CommandExecutor;
+import model.piece.commands.MovePiece;
 import model.piece.movement.DiagonalMove;
 
 /**
@@ -98,8 +100,8 @@ public class HealingShark extends AbstractPiece {
 					cellOccupied = true;
 				}
 			}
-			EngineImpl.getSingletonInstance().pieceOperator().movePiece(affectedPiece, initialX, initialY);
-			engine.getBoard().getCell(initialX, initialY).setOccupied();
+			CommandExecutor commandExecutor = new CommandExecutor();
+			commandExecutor.executeCommand(new MovePiece(initialX, initialY, affectedPiece));
 			EngineImpl.getSingletonInstance().pieceOperator().setPieceActiveStatus(affectedPiece, true);
 			EngineImpl.getSingletonInstance().pieceOperator().incrementHealingAbilityCounter();
 		} catch (Exception e) {

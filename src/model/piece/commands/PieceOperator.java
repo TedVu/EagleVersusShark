@@ -10,11 +10,9 @@ import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.board.Board;
-import model.board.Cell;
 import model.contract.CommandInterface;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
-import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.enumtype.PieceType;
 import model.piece.AggressiveShark;
@@ -55,7 +53,7 @@ public class PieceOperator {
 
 	private int healingAbilityCounter = 0;
 
-	/**
+	/** 
 	 * @param occupiedPieceType
 	 * @return true if the piece is occupied, else false
 	 */
@@ -162,18 +160,17 @@ public class PieceOperator {
 
 	protected void undo(int undoNum) {
 
-		int availableUndo = commandHistory.size() /2 ;
-		
+		int availableUndo = commandHistory.size() / 2;
+
 		if (availableUndo < 1)
 			throw new RuntimeException("Nothing to undo");
-		else if(availableUndo < undoNum) {
+		else if (availableUndo < undoNum) {
 			throw new IllegalArgumentException("Only able to undo " + availableUndo + " time(s)");
-		}
-		else {
-			for(int i = 0 ; i< undoNum * 2 ; i++) {
+		} else {
+			for (int i = 0; i < undoNum * 2; i++) {
 				commandHistory.peek().undo();
 				commandHistory.pop();
-				
+
 			}
 		}
 	}
@@ -183,27 +180,31 @@ public class PieceOperator {
 	}
 
 	/**
-	 * Intention: to keep track of whether the HealingShark can use healing ability or not
-	 * 0 = HealingShark can perform healing ability
-	 * 1 && 2 = HealingShark unable to perform healing ability
+	 * Intention: to keep track of whether the HealingShark can use healing ability
+	 * or not 0 = HealingShark can perform healing ability 1 && 2 = HealingShark
+	 * unable to perform healing ability
+	 * 
 	 * @return 0 || 1 || 2
 	 * @author Chanboth Som
 	 */
-	public int getHealingAbilityCounter(){
+	public int getHealingAbilityCounter() {
 		return this.healingAbilityCounter;
 	}
 
 	/**
-	 * Intention: increment the counter when the HealingShark has performed a healing ability
+	 * Intention: increment the counter when the HealingShark has performed a
+	 * healing ability
+	 * 
 	 * @author Chanboth Som
 	 */
-	public void incrementHealingAbilityCounter(){
-			this.healingAbilityCounter++;
+	public void incrementHealingAbilityCounter() {
+		this.healingAbilityCounter++;
 	}
 
 	/**
 	 * Intention: reset the counter back to 0 to allow the HealingShark to perform
-	 * 			  the ability in the future
+	 * the ability in the future
+	 * 
 	 * @author Chanboth Som
 	 */
 	public void resetHealingAbilityCounter() {
@@ -211,14 +212,15 @@ public class PieceOperator {
 	}
 
 	/**
-	 * Intention: to be used across all 3 eagles.
-	 * To keep track when to give Healing Shark the ability to heal on its turn.
+	 * Intention: to be used across all 3 eagles. To keep track when to give Healing
+	 * Shark the ability to heal on its turn.
+	 * 
 	 * @author Chanboth Som
 	 */
 	public void eagleCheckingHealingSharkAbility() {
-		if(this.getHealingAbilityCounter() == EAGLE_TURN)
+		if (this.getHealingAbilityCounter() == EAGLE_TURN)
 			incrementHealingAbilityCounter();
-		else if(this.getHealingAbilityCounter() == SHARK_TURN)
+		else if (this.getHealingAbilityCounter() == SHARK_TURN)
 			resetHealingAbilityCounter();
 	}
 

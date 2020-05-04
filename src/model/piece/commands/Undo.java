@@ -1,4 +1,4 @@
-package model.piece.commands;
+ package model.piece.commands;
 
 import model.contract.CommandInterface;
 import model.contract.EngineInterface;
