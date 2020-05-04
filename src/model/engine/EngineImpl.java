@@ -66,7 +66,7 @@ public class EngineImpl implements EngineInterface, Serializable {
 		geCallback.addProperytChangeListener(new TimerPropertyChangeListener());
 		geCallback.addProperytChangeListener(new MakingMovePropertyChangeListener());
 	}
-	
+
 	@Override
 	public void loadGame(EngineImpl e) {
 		engine = e;
