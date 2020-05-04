@@ -20,7 +20,7 @@ import model.piece.movement.DiagonalMove;
  *
  */
 
-public class HealingShark extends AbstractPiece {
+public class HealingShark extends AbstractShark {
 	private final EngineInterface engine;
 
 	public HealingShark(int x, int y, EngineInterface engine) {

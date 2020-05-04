@@ -16,7 +16,7 @@ import model.piece.movement.BasicMove;
  * @author chanboth
  *
  */
-public class AggressiveShark extends AbstractPiece  {
+public class AggressiveShark extends AbstractShark  {
 
 	public AggressiveShark(int x, int y) {
 		super(x, y);

@@ -21,7 +21,7 @@ import model.piece.movement.BasicMove;
  * @author sefira & kevin
  *
  */
-public class LeadershipEagle extends AbstractPiece {
+public class LeadershipEagle extends AbstractEagle {
 	EngineInterface engine;
 
 	public LeadershipEagle(int x, int y) {

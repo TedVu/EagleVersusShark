@@ -223,5 +223,13 @@ public class PieceOperator {
 		else if (this.getHealingAbilityCounter() == SHARK_TURN)
 			resetHealingAbilityCounter();
 	}
+	
+
+	
+	public void useMode(PieceInterface piece, int x, int y) {
+		piece.useMode(x, y);
+		board.removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+		board.addPiece(x, y);
+	}
 
 }

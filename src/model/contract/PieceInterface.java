@@ -66,4 +66,8 @@ public interface PieceInterface {
 	public boolean isImmune();
 
 	public PieceMemento pieceMemento();
+	
+	public Set<Cell> modeCells();
+	
+	public void useMode(int x, int y);
 }

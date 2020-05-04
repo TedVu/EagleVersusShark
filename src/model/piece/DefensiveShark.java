@@ -18,7 +18,7 @@ import model.piece.movement.DiagonalMove;
  * @author chanboth
  *
  */
-public class DefensiveShark extends AbstractPiece {
+public class DefensiveShark extends AbstractShark {
 
 	final int NEIGHBOURING_DISTANCE = 1;
 	private final EngineInterface engine;

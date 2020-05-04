@@ -18,7 +18,7 @@ import model.piece.movement.DiagonalMove;
  * @author sefira
  *
  */
-public class AttackingEagle extends AbstractPiece {
+public class AttackingEagle extends AbstractEagle {
 
 	private EngineInterface engine;
 
