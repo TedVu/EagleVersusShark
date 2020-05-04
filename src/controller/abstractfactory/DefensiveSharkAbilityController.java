@@ -12,9 +12,11 @@ public class DefensiveSharkAbilityController extends AbstractAbilityController {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		AbstractButton btnClicked = (AbstractButton) e.getSource();
-		// move nearby action
+
 		if (btnClicked.getActionCommand().equalsIgnoreCase("NormalButton")) {
 			Cell newPos = new Cell(0, 0);
+
+			// manipulate cell
 			super.viewControllerFacade.updateBoardAfterDefensiveSharkMoveAbility(btnClicked, newPos);
 			super.controllerModelFacade.updateModelStateDefensiveSharkMove(newPos);
 			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.EAGLE);

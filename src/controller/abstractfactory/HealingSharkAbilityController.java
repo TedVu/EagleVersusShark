@@ -39,6 +39,6 @@ public class HealingSharkAbilityController extends AbstractAbilityController {
 	}
 
 	public void injectHealingDialog(HealingSharkDialog healingDialog) {
-		this.healingDialog=healingDialog;
+		this.healingDialog = healingDialog;
 	}
 }

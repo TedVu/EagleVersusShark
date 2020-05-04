@@ -205,6 +205,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	private void updateBoardReviveSharkSuccessful(PieceType revivedPieceEnum) {
 		PieceInterface revivedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(revivedPieceEnum);
+		
 		AbstractButton revivedBtn = buttons.get(revivedPiece.getPosition().get("y"))
 				.get(revivedPiece.getPosition().get("x"));
 
