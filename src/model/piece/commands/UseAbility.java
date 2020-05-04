@@ -1,5 +1,7 @@
 package model.piece.commands;
 
+import java.io.Serializable;
+
 import model.contract.CommandInterface;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
@@ -12,8 +14,9 @@ import model.piece.PieceMemento;
  * @author Sefira
  *
  */
-public class UseAbility implements CommandInterface {
+public class UseAbility implements CommandInterface, Serializable {
 
+	private static final long serialVersionUID = 6907153654562703481L;
 	PieceAbility pieceAbility;
 	private PieceInterface piece, affectedPiece;
 	private EngineInterface engine = EngineImpl.getSingletonInstance();

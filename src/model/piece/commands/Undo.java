@@ -1,5 +1,7 @@
 package model.piece.commands;
 
+import java.io.Serializable;
+
 import model.contract.CommandInterface;
 import model.contract.EngineInterface;
 import model.engine.EngineImpl;
@@ -10,8 +12,9 @@ import model.enumtype.TeamType;
  * @author Sefira
  *
  */
-public class Undo implements CommandInterface {
+public class Undo implements CommandInterface, Serializable  {
 
+	private static final long serialVersionUID = -1824704997694754116L;
 	private EngineInterface engine = EngineImpl.getSingletonInstance();
 	private PieceOperator pieceOperator = engine.pieceOperator();
 	private TeamType teamType;

@@ -14,9 +14,6 @@ import model.engine.EngineImpl;
  */
 public class MovePiece implements CommandInterface, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5608224361103079900L;
 	private int newX, newY, oldX, oldY;
 	private PieceInterface piece;
