@@ -25,7 +25,7 @@ public class DefensiveShark extends AbstractShark {
 
 	private static final long serialVersionUID = -3824904265692727849L;
 
-	public DefensiveShark(int x, int y) {
+	public DefensiveShark(int x, int y, EngineInterface engine) {
 		super(x, y);
 		this.engine = engine;
 	}

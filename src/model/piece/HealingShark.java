@@ -23,7 +23,6 @@ public class HealingShark extends AbstractPiece {
 
 	private static final long serialVersionUID = -7746905541941458353L;
 
-public class HealingShark extends AbstractShark {
 	private final EngineInterface engine;
 
 	public HealingShark(int x, int y, EngineInterface engine) {
@@ -123,6 +122,18 @@ public class HealingShark extends AbstractShark {
 	@Override
 	public String toString() {
 		return String.format("%s", "HealingShark");
+	}
+
+	@Override
+	public Set<Cell> modeCells() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void useMode(int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -117,4 +117,16 @@ public class AggressiveShark extends AbstractPiece {
 		return String.format("%s", "AggressiveShark");
 	}
 
+	@Override
+	public Set<Cell> modeCells() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void useMode(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
