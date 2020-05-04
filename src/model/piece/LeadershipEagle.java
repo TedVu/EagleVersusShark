@@ -21,7 +21,9 @@ import model.piece.movement.BasicMove;
  * @author sefira & kevin
  *
  */
-public class LeadershipEagle extends AbstractEagle {
+public class LeadershipEagle extends AbstractPiece {
+
+	private static final long serialVersionUID = -6579315280240148680L;
 	EngineInterface engine;
 
 	public LeadershipEagle(int x, int y) {
@@ -117,11 +119,10 @@ public class LeadershipEagle extends AbstractEagle {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("%s", "LeadershipEagle");
 	}
-	
 
 }

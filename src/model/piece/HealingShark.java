@@ -19,6 +19,9 @@ import model.piece.movement.DiagonalMove;
  * @author chanboth
  *
  */
+public class HealingShark extends AbstractPiece {
+
+	private static final long serialVersionUID = -7746905541941458353L;
 
 public class HealingShark extends AbstractShark {
 	private final EngineInterface engine;

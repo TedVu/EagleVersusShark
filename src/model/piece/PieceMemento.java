@@ -1,8 +1,7 @@
 package model.piece;
 
-
 public class PieceMemento {
-	
+
 	boolean isActive;
 	boolean isImmune;
 	int x, y;
@@ -14,7 +13,7 @@ public class PieceMemento {
 		this.x = x;
 		this.y = y;
 	};
-	
+
 	public PieceMemento getState() {
 		return this;
 	}
@@ -34,7 +33,5 @@ public class PieceMemento {
 	public int getY() {
 		return y;
 	}
-	
-	
 
 }

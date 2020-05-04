@@ -20,6 +20,7 @@ import model.piece.movement.DiagonalMove;
  */
 public class AttackingEagle extends AbstractEagle {
 
+	private static final long serialVersionUID = -1967226729710111595L;
 	private EngineInterface engine;
 
 	public AttackingEagle(int x, int y, EngineInterface engine) {
@@ -57,16 +58,16 @@ public class AttackingEagle extends AbstractEagle {
 
 	private void capture(PieceInterface piece, PieceInterface affectedPiece) {
 		try {
+			if (affectedPiece.isImmune())
+				throw new IllegalArgumentException("The piece is immune");
+
 			Cell currentPos = EngineImpl.getSingletonInstance().getBoard().getCell(piece.getPosition().get("x"),
 					piece.getPosition().get("y"));
 			Cell opponentPos = EngineImpl.getSingletonInstance().getBoard()
 					.getCell(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
 
 			EngineImpl.getSingletonInstance().getBoard().removePiece(currentPos.getX(), currentPos.getY());
-			
-			if (affectedPiece.isImmune())
-				throw new IllegalArgumentException("The piece is immune");
-			
+
 			movePiece(opponentPos.getX(), opponentPos.getY());
 			affectedPiece.setActive(false);
 

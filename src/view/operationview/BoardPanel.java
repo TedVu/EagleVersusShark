@@ -25,10 +25,10 @@ import javax.swing.JPanel;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
-import controller.MovePieceController;
-import controller.SelectPieceController;
-import controller.TimerPropertyChangeListener;
 import controller.abstractfactory.AbilityController;
+import controller.playinggamecontroller.MovePieceController;
+import controller.playinggamecontroller.SelectPieceController;
+import controller.playinggamecontroller.TimerPropertyChangeListener;
 import model.board.Cell;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
@@ -68,7 +68,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @see
 	 */
 	public BoardPanel() {
-		int boardSize = EngineImpl.getSingletonInstance().getBoard().getSize();
+		int boardSize = engine.getBoard().getSize();
 
 		ButtonGroup group = new ButtonGroup();
 
@@ -90,12 +90,12 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 				currentButton.setBackground(Color.WHITE);
 
 				// water cell
-				if (EngineImpl.getSingletonInstance().getBoard().getCell(col, row).getIsWaterCell()) {
+				if (engine.getBoard().getCell(col, row).isWaterCell()) {
 					Color color = new Color(178, 221, 247);
 					currentButton.setBackground(color);
 				}
 
-				if (EngineImpl.getSingletonInstance().getBoard().getCell(col, row).getIsMasterCell()) {
+				if (engine.getBoard().getCell(col, row).isMasterCell()) {
 					Color color = new Color(7, 6, 0);
 					currentButton.setBackground(color);
 
@@ -117,10 +117,9 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		setMaximumSize(new Dimension(800, 800));
 		setMinimumSize(new Dimension(800, 800));
 
-		populatePieces(boardSize);
+		populatePieces();
 
-		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getGameEngineCallback()
-				.getPropertyChangeListener();
+		PropertyChangeListener[] listeners = engine.getGameEngineCallback().getPropertyChangeListener();
 
 		for (PropertyChangeListener listener : listeners) {
 			if (listener instanceof TimerPropertyChangeListener) {
@@ -296,7 +295,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	private void updateBoardBeforeCapture(AbilityController captureController, PieceType pieceName) {
-		PieceInterface animalCapture = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces().get(pieceName);
+		PieceInterface animalCapture = engine.pieceOperator().getAllPieces().get(pieceName);
 		Set<Cell> abilityCell = animalCapture.abilityCells();
 		if (abilityCell.size() > 0) {
 			for (Cell cell : abilityCell) {
@@ -369,8 +368,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @param buttonClicked
 	 */
 	private void updateBoardAfterSwap(AbstractButton buttonClicked) {
-		PieceInterface visionaryEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
-				.get(PieceType.VISIONARYEAGLE);
+		PieceInterface visionaryEagle = engine.pieceOperator().getAllPieces().get(PieceType.VISIONARYEAGLE);
 
 		AbstractButton visionButton = buttons.get(visionaryEagle.getPosition().get("y"))
 				.get(visionaryEagle.getPosition().get("x"));
@@ -391,13 +389,13 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
 				AbstractButton btn = buttons.get(row).get(col);
-				if (!engine.getBoard().getCell(col, row).getIsWaterCell()
-						&& !engine.getBoard().getCell(col, row).getIsMasterCell()) {
+				if (!engine.getBoard().getCell(col, row).isWaterCell()
+						&& !engine.getBoard().getCell(col, row).isMasterCell()) {
 					btn.setBackground(Color.WHITE);
-				} else if (engine.getBoard().getCell(col, row).getIsWaterCell()) {
+				} else if (engine.getBoard().getCell(col, row).isWaterCell()) {
 					Color color = new Color(178, 221, 247);
 					btn.setBackground(color);
-				} else if (engine.getBoard().getCell(col, row).getIsMasterCell()) {
+				} else if (engine.getBoard().getCell(col, row).isMasterCell()) {
 					Color color = new Color(7, 6, 0);
 					btn.setBackground(color);
 				}
@@ -419,8 +417,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @param swapController
 	 */
 	private void updateBoardBeforeUseAbility(AbilityController abilityController, PieceType pieceUseAbility) {
-		PieceInterface visionaryEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
-				.get(pieceUseAbility);
+		PieceInterface visionaryEagle = engine.pieceOperator().getAllPieces().get(pieceUseAbility);
 		Set<Cell> abilityCells = visionaryEagle.abilityCells();
 		if (abilityCells.size() > 0) {
 			for (Cell cell : abilityCells) {
@@ -503,11 +500,11 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		buttons.get(positionX).get(positionY).setActionCommand(pieceType.toString());
 	}
 
-	@Requires("boardSize > 0")
-	private void populatePieces(int boardSize) {
-		for (PieceType pt : PieceType.values()) {
-			populateCustomPiece(pt.yCoordinate(boardSize), pt.xCoordinate(boardSize), pt);
-
+	private void populatePieces() {
+		Map<PieceType, PieceInterface> pieces = engine.pieceOperator().getAllPieces();
+		Set<PieceType> pts = pieces.keySet();
+		for (PieceType pt : pts) {
+			populateCustomPiece(pieces.get(pt).getPosition().get("y"), pieces.get(pt).getPosition().get("x"), pt);
 		}
 	}
 

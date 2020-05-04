@@ -19,6 +19,4 @@ public abstract class AbstractAbilityController implements AbilityController {
 
 	}
 
-	
-
 }

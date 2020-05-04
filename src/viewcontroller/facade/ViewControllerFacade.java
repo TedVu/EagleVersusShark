@@ -8,10 +8,10 @@ import javax.swing.AbstractButton;
 
 import com.google.java.contract.Requires;
 
-import controller.MovePieceController;
-import controller.PlayerAction;
 import controller.abstractfactory.AbilityController;
 import model.board.Cell;
+import controller.playinggamecontroller.MovePieceController;
+import controller.playinggamecontroller.PlayerAction;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import viewcontroller.contract.ViewControllerInterface;

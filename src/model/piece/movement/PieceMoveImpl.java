@@ -28,7 +28,7 @@ public class PieceMoveImpl implements PieceMovementInterface {
 	 * 
 	 * @return the set of valid coordinate
 	 */
-	@Requires({"piece != null", "distance == 1 || distance ==2"})
+	@Requires({ "piece != null", "distance == 1 || distance ==2" })
 	@Ensures("validMoves != null")
 	@Override
 	public Set<Cell> getValidMove(PieceInterface piece, int distance) {
@@ -50,14 +50,13 @@ public class PieceMoveImpl implements PieceMovementInterface {
 	 * 
 	 * @return the set of valid coordinate for east direction
 	 */
-	@Requires({"x>=0", "y>=0", "step== 1 || step==2"})
+	@Requires({ "x>=0", "y>=0", "step== 1 || step==2" })
 	@Ensures("validMoves != null")
 	private Set<Cell> validMovesEast(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
 			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
-					&& !EngineImpl.getSingletonInstance().getBoard()
-							.getOccupationState(x + i, y)) {
+					&& !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x + i, y)) {
 				Cell validMove = new Cell(x + i, y);
 				validMoves.add(validMove);
 			} else {
@@ -75,13 +74,12 @@ public class PieceMoveImpl implements PieceMovementInterface {
 	 * 
 	 * @return the set of valid coordinate for north direction
 	 */
-	@Requires({"x>=0", "y>=0", "step== 1 || step==2"})
+	@Requires({ "x>=0", "y>=0", "step== 1 || step==2" })
 	@Ensures("validMoves != null")
 	private Set<Cell> validMovesNorth(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
-			if (y - i >= 0 && !EngineImpl.getSingletonInstance().getBoard()
-					.getOccupationState(x, y - i)) {
+			if (y - i >= 0 && !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x, y - i)) {
 				Cell validMove = new Cell(x, y - i);
 				validMoves.add(validMove);
 			} else {
@@ -99,14 +97,13 @@ public class PieceMoveImpl implements PieceMovementInterface {
 	 * 
 	 * @return the set of valid coordinate for south direction
 	 */
-	@Requires({"x>=0", "y>=0", "step== 1 || step==2"})
+	@Requires({ "x>=0", "y>=0", "step== 1 || step==2" })
 	@Ensures("validMoves != null")
 	private Set<Cell> validMovesSouth(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<Cell>();
 		for (int i = 1; i <= step; i++) {
 			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize()
-					&& !EngineImpl.getSingletonInstance().getBoard()
-							.getOccupationState(x, y + i)) {
+					&& !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x, y + i)) {
 				Cell validMove = new Cell(x, y + i);
 				validMoves.add(validMove);
 			} else {
@@ -123,13 +120,12 @@ public class PieceMoveImpl implements PieceMovementInterface {
 	 * 
 	 * @return the set of valid coordinate for west direction
 	 */
-	@Requires({"x>=0", "y>=0", "step== 1 || step==2"})
+	@Requires({ "x>=0", "y>=0", "step== 1 || step==2" })
 	@Ensures("validMoves != null")
 	private Set<Cell> validMovesWest(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
-			if (x - i >= 0 && !EngineImpl.getSingletonInstance().getBoard()
-					.getOccupationState(x - i, y)) {
+			if (x - i >= 0 && !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x - i, y)) {
 				Cell validMove = new Cell(x - i, y);
 				validMoves.add(validMove);
 			} else {

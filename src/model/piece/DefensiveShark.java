@@ -23,7 +23,9 @@ public class DefensiveShark extends AbstractShark {
 	final int NEIGHBOURING_DISTANCE = 1;
 	private final EngineInterface engine;
 
-	public DefensiveShark(int x, int y, EngineInterface engine) {
+	private static final long serialVersionUID = -3824904265692727849L;
+
+	public DefensiveShark(int x, int y) {
 		super(x, y);
 		this.engine = engine;
 	}

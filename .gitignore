@@ -38,3 +38,4 @@ hs_err_pid*
 doc/
 /.apt_generated/
 .run/A1-Final.run.xml
+*.ser

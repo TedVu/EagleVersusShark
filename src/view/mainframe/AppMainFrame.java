@@ -8,6 +8,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import model.engine.EngineImpl;
 import view.operationview.BoardPanel;
 import view.operationview.OperationToolbar;
 import view.operationview.RightPanel;
@@ -32,8 +33,8 @@ public class AppMainFrame extends JFrame {
 	 */
 	public AppMainFrame() {
 		boardPanel = new BoardPanel();
-		operationToolbar = new OperationToolbar(this);
 		rightPanel = new RightPanel(boardPanel.getFacade());
+		operationToolbar = new OperationToolbar(this, boardPanel.getFacade());
 
 		setTitle("Eagle vs Shark");
 
@@ -42,7 +43,7 @@ public class AppMainFrame extends JFrame {
 
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		// setResizable(false);
+		setResizable(false);
 
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
@@ -55,5 +56,9 @@ public class AppMainFrame extends JFrame {
 		boardPanel.getFacade().addPropertyChangeListener(rightPanel.getModePanel());
 		boardPanel.getFacade().addPropertyChangeListener(rightPanel.getStatusPanel());
 
+	}
+
+	public RightPanel getRightPanel() {
+		return rightPanel;
 	}
 }

@@ -22,7 +22,7 @@ public class BasicMove extends PieceMoveImpl {
 	 * 
 	 * @return the set of valid coordinate
 	 */
-	@Requires({"piece.getPosition().get(\"x\") != null && piece.getPosition().get(\"y\") != null"})
+	@Requires({ "piece.getPosition().get(\"x\") != null && piece.getPosition().get(\"y\") != null" })
 	@Ensures("piece.getValidMove() != null")
 	@Override
 	public Set<Cell> getValidMove(PieceInterface piece, int distance) {

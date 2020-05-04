@@ -1,5 +1,7 @@
 package model.piece.commands;
 
+import java.io.Serializable;
+
 import model.contract.CommandInterface;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
@@ -8,32 +10,32 @@ import model.enumtype.PieceAbility;
 import model.piece.PieceMemento;
 
 /**
-*
-* @author Sefira
-*
-*/
-public class UseAbility implements CommandInterface {
-	
+ *
+ * @author Sefira
+ *
+ */
+public class UseAbility implements CommandInterface, Serializable {
+
+	private static final long serialVersionUID = 6907153654562703481L;
 	PieceAbility pieceAbility;
 	private PieceInterface piece, affectedPiece;
 	private EngineInterface engine = EngineImpl.getSingletonInstance();
 	private PieceOperator pieceOperator = engine.pieceOperator();
 	private PieceMemento pieceMemento, affectedPieceMemento;
-	
+
 	public UseAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		this.affectedPiece = affectedPiece;
 		this.piece = piece;
 		this.pieceMemento = piece.pieceMemento();
 		this.affectedPieceMemento = affectedPiece.pieceMemento();
 		this.pieceAbility = pieceAbility;
-		
+
 	}
 
 	@Override
 	public void execute() {
 		pieceOperator.addEvt(this);
 		pieceOperator.useAbility(pieceAbility, piece, affectedPiece);
-		
 
 	}
 

@@ -10,7 +10,7 @@ import model.enumtype.TeamType;
 
 public class DefensiveSharkAbilityController extends AbstractAbilityController {
 	@Override
-	public void actionPerformed(ActionEvent e) { 
+	public void actionPerformed(ActionEvent e) {
 		AbstractButton btnClicked = (AbstractButton) e.getSource();
 
 		if (btnClicked.getActionCommand().equalsIgnoreCase("NormalButton")) {

@@ -1,4 +1,4 @@
-package controller;
+package controller.playinggamecontroller;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -24,8 +24,7 @@ public class MakingMovePropertyChangeListener implements PropertyChangeListener 
 	private ModePanel modePanel;
 
 	/**
-	 * @param statusPanel
-	 *            Reference from view-status panel.
+	 * @param statusPanel Reference from view-status panel.
 	 */
 	@Requires("statusPanel != null")
 	public void injectStatusPanel(StatusPanel statusPanel) {

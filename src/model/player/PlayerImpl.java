@@ -1,5 +1,6 @@
 package model.player;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,8 +16,9 @@ import model.enumtype.TeamType;
  *         will also control whether the player can undo
  *
  */
-public class PlayerImpl implements Player {
+public class PlayerImpl implements Player, Serializable {
 
+	private static final long serialVersionUID = -9214708606518227867L;
 	private boolean isActive;
 	private TeamType playerType;
 	private Map<Integer, Integer> undoDict = new HashMap<Integer, Integer>();

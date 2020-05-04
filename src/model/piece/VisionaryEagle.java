@@ -23,7 +23,10 @@ import model.piece.movement.DiagonalMove;
  */
 public class VisionaryEagle extends AbstractEagle {
 
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6390595106558376146L;
 	EngineInterface engine;
 
 	public VisionaryEagle(int x, int y, EngineInterface engine) {
@@ -93,11 +96,10 @@ public class VisionaryEagle extends AbstractEagle {
 
 		return swapPositions;
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("%s", "VisionaryEagle");
 	}
-	
-	
+
 }

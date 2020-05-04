@@ -1,5 +1,6 @@
 package model.piece.commands;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -29,7 +30,9 @@ import model.piece.VisionaryEagle;
  * @author Sefira
  *
  */
-public class PieceOperator {
+public class PieceOperator implements Serializable {
+
+	private static final long serialVersionUID = 1385438527092098873L;
 
 	private final int DEFAULT_HEALING_SHARK = 0;
 	private final int EAGLE_TURN = 1;
@@ -53,7 +56,7 @@ public class PieceOperator {
 
 	private int healingAbilityCounter = 0;
 
-	/** 
+	/**
 	 * @param occupiedPieceType
 	 * @return true if the piece is occupied, else false
 	 */
@@ -89,12 +92,9 @@ public class PieceOperator {
 	}
 
 	/**
-	 * @param piece
-	 *            - the piece to be moved
-	 * @param newX
-	 *            - new x position
-	 * @param newY
-	 *            - new y position Generate the pieces and put them on the board
+	 * @param piece - the piece to be moved
+	 * @param newX  - new x position
+	 * @param newY  - new y position Generate the pieces and put them on the board
 	 */
 	@Requires({ "piece != null", "x>=0", "y>=0" })
 	@Ensures({ "piece.getPosition().get(\"x\") != null && piece.getPosition().get(\"y\") != null" })
@@ -159,9 +159,7 @@ public class PieceOperator {
 	}
 
 	protected void undo(int undoNum) {
-
 		int availableUndo = commandHistory.size() / 2;
-
 		if (availableUndo < 1)
 			throw new RuntimeException("Nothing to undo");
 		else if (availableUndo < undoNum) {
@@ -223,9 +221,7 @@ public class PieceOperator {
 		else if (this.getHealingAbilityCounter() == SHARK_TURN)
 			resetHealingAbilityCounter();
 	}
-	
 
-	
 	public void useMode(PieceInterface piece, int x, int y) {
 		piece.useMode(x, y);
 		board.removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));

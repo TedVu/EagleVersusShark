@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
-import controller.MakingMovePropertyChangeListener;
-import controller.StartGameController;
+import controller.playinggamecontroller.MakingMovePropertyChangeListener;
+import controller.playinggamecontroller.StartGameController;
 import model.engine.EngineImpl;
 import model.enumtype.TeamType;
 

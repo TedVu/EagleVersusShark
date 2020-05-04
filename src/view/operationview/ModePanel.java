@@ -4,17 +4,18 @@ import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import controller.ItemChangeController;
-import controller.MakingMovePropertyChangeListener;
-import controller.PlayerAction;
-import controller.ResumeGameController;
-import controller.UndoMoveController;
+import controller.playinggamecontroller.ItemChangeController;
+import controller.playinggamecontroller.MakingMovePropertyChangeListener;
+import controller.playinggamecontroller.PlayerAction;
+import controller.playinggamecontroller.ResumeGameController;
+import controller.playinggamecontroller.UndoMoveController;
 import model.engine.EngineImpl;
 import model.enumtype.TeamType;
 import viewcontroller.contract.ViewControllerInterface;
@@ -108,6 +109,9 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 			PlayerAction playerAction = (PlayerAction) evt.getOldValue();
 			playerAction.setPlayerAction(modeBox.getSelectedItem().toString());
 		}
+	}
 
+	public AbstractButton getResumeButton() {
+		return resumeBtn;
 	}
 }

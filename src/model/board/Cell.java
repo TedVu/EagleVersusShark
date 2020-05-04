@@ -1,14 +1,17 @@
 package model.board;
 
+import java.io.Serializable;
+
 /**
  * @author ted &#38; kevin
  *
  */
-public class Cell {
+public class Cell implements Serializable {
 
-	private int ID;
+	private static final long serialVersionUID = -906734890234310442L;
 	private int x;
 	private int y;
+	private int ID;
 	private boolean occupied = false;
 	private boolean isWaterCell = false;
 	private boolean isMasterCell = false;
@@ -20,9 +23,7 @@ public class Cell {
 	public Cell(int x, int y) {
 		this.x = x;
 		this.y = y;
-		Integer X = x;
-		Integer Y = y;
-		ID = Integer.parseInt(X.toString() + Y.toString());
+		ID = Integer.parseInt((new Integer(x)).toString() + (new Integer(y)).toString());
 	}
 
 	/**
@@ -46,11 +47,11 @@ public class Cell {
 		return y;
 	}
 
-	public boolean getIsWaterCell() {
+	public boolean isWaterCell() {
 		return isWaterCell;
 	}
 
-	public boolean getIsMasterCell() {
+	public boolean isMasterCell() {
 		return isMasterCell;
 	}
 
