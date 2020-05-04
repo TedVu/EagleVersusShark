@@ -13,6 +13,7 @@ import com.google.java.contract.Requires;
 import model.board.Cell;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
+import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.DiagonalMove;
 
@@ -43,16 +44,16 @@ public class VisionaryEagle extends AbstractPiece {
 	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
 	public void movePiece(int x, int y) {
 		setPosition(x, y);
+
+		// Chanboth (Remove these comments upon submission)
+		// Integrate HealingShark's healing ability tracker
+		EngineImpl.getSingletonInstance().pieceOperator().eagleCheckingHealingSharkAbility();
 	}
 
 	@Override
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.SWAP)) {
 			swap(piece, affectedPiece);
-
-			// Chanboth (Remove these comments upon submission)
-			// Integrate HealingShark's healing ability tracker
-			engine.eagleCheckingHealingSharkAbility();
 		} else {
 			throw new IllegalArgumentException("Invalid ability");
 		}

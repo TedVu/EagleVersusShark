@@ -82,7 +82,7 @@ public interface ViewControllerInterface {
 
 	public void updateBoardBeforeDefensiveSharkAbility(AbilityController defensiveController);
 
-	public void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked,Cell newPos);
+	public void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked, Cell newPos);
 
 	public void updateBoardAfterDefensiveSharkProtectAbility();
 
@@ -93,5 +93,7 @@ public interface ViewControllerInterface {
 	public void undoFail(String failMsg);
 
 	public void updateBoardNotCorrectTurnToRevive();
+
+	public void updateBoardAlreadyUseReviveLastRound(String msg);
 
 }

@@ -1,9 +1,12 @@
 package model.piece;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
+
 import model.board.Cell;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
@@ -42,37 +45,16 @@ public class DefensiveShark extends AbstractPiece {
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.PROTECT)) {
 			defend(affectedPiece);
+			if (EngineImpl.getSingletonInstance().pieceOperator().getHealingAbilityCounter() == 2) {
+				EngineImpl.getSingletonInstance().pieceOperator().resetHealingAbilityCounter();
+			}
 		} else {
 			throw new IllegalArgumentException("Invalid ability");
 		}
 	}
 
-	// Overload method for second ability
-	// public void useAbility(PieceAbility pieceAbility, PieceInterface piece, Cell
-	// surroundingCell){
-	// if(pieceAbility.equals(PieceAbility.QUICKMOVE)){
-	// quickMove(piece,surroundingCell);
-	// } else {
-	// throw new IllegalArgumentException("Invalid ability");
-	// }
-	// }
-	//
-	// private void quickMove(PieceInterface piece, Cell surroundingCell){
-	// Set<Cell> neighbourCells = abilityCells();
-	// if(neighbourCells.contains(surroundingCell)){
-	// piece.movePiece(surroundingCell.getX(),surroundingCell.getY());
-	// } else {
-	// throw new IllegalArgumentException("Invalid move");
-	// }
-	// }
-
 	private void defend(PieceInterface targetPiece) {
-		try {
-			targetPiece.setImmune(true);
-
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		targetPiece.setImmune(true);
 
 	}
 
@@ -86,22 +68,25 @@ public class DefensiveShark extends AbstractPiece {
 		// Return all the neighbouring cells around other sharks
 		for (PieceInterface shark : activeSharks) {
 			if (!(shark instanceof DefensiveShark)) {
-				int x = shark.getPosition().get("x");
-				int y = shark.getPosition().get("y");
 
 				// All the neighbour cells around a shark - to be traversed
+
 				surroundingEightCells.addAll(new DiagonalMove().getValidMove(shark, NEIGHBOURING_DISTANCE));
+				Cell sharkPosition = new Cell(shark.getPosition().get("x"), shark.getPosition().get("y"));
+				surroundingEightCells.add(sharkPosition);
 			}
 		}
+		// Remove master cell
+		surroundingEightCells.remove(EngineImpl.getSingletonInstance().getBoard().getSharkMasterCell());
 
-		/*
-		 * Add the cell to the return list if the following are true: Cell is not
-		 * occupied Cell is not the master cell Cell is within the board
-		 */
+		// * Add the cell to the return list if the following are true:
+		// * Cell is not occupied
+		// * Cell is within the board
+		// *
 		for (Cell possibleCell : surroundingEightCells) {
-			if (!possibleCell.getOccupied() && !possibleCell.getIsMasterCell()
-					&& possibleCell.getY() < engine.getBoard().getSize() - 1 && possibleCell.getY() >= 0
-					&& possibleCell.getX() < engine.getBoard().getSize() - 1 && possibleCell.getX() >= 0) {
+			if (!possibleCell.getOccupied() && possibleCell.getY() < engine.getBoard().getSize()
+					&& possibleCell.getY() >= 0 && possibleCell.getX() < engine.getBoard().getSize()
+					&& possibleCell.getX() >= 0) {
 				neighbourCells.add(possibleCell);
 			}
 		}

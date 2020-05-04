@@ -43,6 +43,9 @@ public class AggressiveShark extends AbstractPiece  {
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
 			capture(piece, affectedPiece);
+			if (EngineImpl.getSingletonInstance().pieceOperator().getHealingAbilityCounter() == 2){
+				EngineImpl.getSingletonInstance().pieceOperator().resetHealingAbilityCounter();
+			}
 		} else {
 			throw new IllegalArgumentException("Invalid ability");
 		}

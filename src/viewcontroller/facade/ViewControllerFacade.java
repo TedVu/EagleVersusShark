@@ -173,4 +173,9 @@ public class ViewControllerFacade implements ViewControllerInterface {
 		pcs.firePropertyChange("UpdateBoardNotCorrectTurnToRevive", null, null);
 	}
 
+	@Override
+	public void updateBoardAlreadyUseReviveLastRound(String msg) {
+		pcs.firePropertyChange("UpdateBoardAlreadyUseReviveLastRound", null, msg);
+	}
+
 }

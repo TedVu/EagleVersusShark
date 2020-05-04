@@ -33,6 +33,10 @@ import model.piece.VisionaryEagle;
  */
 public class PieceOperator {
 
+	private final int DEFAULT_HEALING_SHARK = 0;
+	private final int EAGLE_TURN = 1;
+	private final int SHARK_TURN = 2;
+
 	public PieceOperator(Board board, EngineInterface engine) {
 		this.board = board;
 		this.engine = engine;
@@ -48,6 +52,8 @@ public class PieceOperator {
 	private Map<PieceType, PieceInterface> pieces = new EnumMap<PieceType, PieceInterface>(PieceType.class);
 
 	private Stack<CommandInterface> commandHistory = new Stack<CommandInterface>();
+
+	private int healingAbilityCounter = 0;
 
 	/**
 	 * @param occupiedPieceType
@@ -174,6 +180,46 @@ public class PieceOperator {
 
 	protected void addEvt(CommandInterface command) {
 		commandHistory.push(command);
+	}
+
+	/**
+	 * Intention: to keep track of whether the HealingShark can use healing ability or not
+	 * 0 = HealingShark can perform healing ability
+	 * 1 && 2 = HealingShark unable to perform healing ability
+	 * @return 0 || 1 || 2
+	 * @author Chanboth Som
+	 */
+	public int getHealingAbilityCounter(){
+		return this.healingAbilityCounter;
+	}
+
+	/**
+	 * Intention: increment the counter when the HealingShark has performed a healing ability
+	 * @author Chanboth Som
+	 */
+	public void incrementHealingAbilityCounter(){
+			this.healingAbilityCounter++;
+	}
+
+	/**
+	 * Intention: reset the counter back to 0 to allow the HealingShark to perform
+	 * 			  the ability in the future
+	 * @author Chanboth Som
+	 */
+	public void resetHealingAbilityCounter() {
+		this.healingAbilityCounter = DEFAULT_HEALING_SHARK;
+	}
+
+	/**
+	 * Intention: to be used across all 3 eagles.
+	 * To keep track when to give Healing Shark the ability to heal on its turn.
+	 * @author Chanboth Som
+	 */
+	public void eagleCheckingHealingSharkAbility() {
+		if(this.getHealingAbilityCounter() == EAGLE_TURN)
+			incrementHealingAbilityCounter();
+		else if(this.getHealingAbilityCounter() == SHARK_TURN)
+			resetHealingAbilityCounter();
 	}
 
 }

@@ -195,7 +195,13 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			updateBoardReviveSharkSuccessful((PieceType) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardNotCorrectTurnToRevive")) {
 			updateBoardNotCorrectTurnToRevive();
+		} else if (event.equalsIgnoreCase("UpdateBoardAlreadyUseReviveLastRound")) {
+			updateBoardAlreadyUseReviveLastRound((String) evt.getNewValue());
 		}
+	}
+
+	private void updateBoardAlreadyUseReviveLastRound(String msg) {
+		MessageDialog.notifyReviveFailUsedAlready(this, msg);
 	}
 
 	private void updateBoardNotCorrectTurnToRevive() {
@@ -205,7 +211,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	private void updateBoardReviveSharkSuccessful(PieceType revivedPieceEnum) {
 		PieceInterface revivedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(revivedPieceEnum);
-		
+
 		AbstractButton revivedBtn = buttons.get(revivedPiece.getPosition().get("y"))
 				.get(revivedPiece.getPosition().get("x"));
 
@@ -229,7 +235,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		oldBtn.setActionCommand("NormalButton");
 		updateIcon(btnClicked, PieceType.DEFENSIVESHARK);
 		btnClicked.setActionCommand("DefensiveShark");
-		
+
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
 				if (buttons.get(row).get(col).getActionCommand().equalsIgnoreCase("DefensiveShark")) {
@@ -252,7 +258,12 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 			AbstractButton btn = buttons.get(c.getY()).get(c.getX());
 
-			btn.setBackground(Color.BLUE);
+			if (!EngineImpl.getSingletonInstance().getBoard().getOccupationState(c.getX(), c.getY())) {
+				btn.setBackground(Color.BLUE);
+			} else {
+				Color color = new Color(40, 80, 46);
+				btn.setBackground(color);
+			}
 
 			ActionListener[] listeners = btn.getActionListeners();
 

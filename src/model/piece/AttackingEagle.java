@@ -39,6 +39,10 @@ public class AttackingEagle extends AbstractPiece {
 	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
 	public void movePiece(int x, int y) {
 		setPosition(x, y);
+
+		// Chanboth (Remove these comments upon submission)
+		// Integrate HealingShark's healing ability tracker
+		EngineImpl.getSingletonInstance().pieceOperator().eagleCheckingHealingSharkAbility();
 	}
 
 	@Override
@@ -46,10 +50,6 @@ public class AttackingEagle extends AbstractPiece {
 		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
 			capture(piece, affectedPiece);
 			// move piece + update board occupation here
-
-			// Chanboth (Remove these comments upon submission)
-			// Integrate HealingShark's healing ability tracker
-			engine.eagleCheckingHealingSharkAbility();
 		} else {
 			throw new IllegalArgumentException("Invalid ability");
 		}

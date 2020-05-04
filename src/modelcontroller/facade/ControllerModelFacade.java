@@ -84,7 +84,7 @@ public class ControllerModelFacade implements ControllerModelInterface {
 				.get(PieceType.DEFENSIVESHARK);
 		commandExecutor.executeCommand(new MovePiece(cell.getX(), cell.getY(), defensivePiece));
 	}
-
+ 
 	@Override
 	public void updateModelStateDefensiveSharkProtect(PieceType affectedPieceEnum) {
 		PieceInterface defensivePiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()

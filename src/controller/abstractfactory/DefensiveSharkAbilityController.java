@@ -10,7 +10,7 @@ import model.enumtype.TeamType;
 
 public class DefensiveSharkAbilityController extends AbstractAbilityController {
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) { 
 		AbstractButton btnClicked = (AbstractButton) e.getSource();
 
 		if (btnClicked.getActionCommand().equalsIgnoreCase("NormalButton")) {
@@ -24,6 +24,8 @@ public class DefensiveSharkAbilityController extends AbstractAbilityController {
 
 			PieceType affectedPieceEnum = PieceType.parsePieceType(btnClicked.getActionCommand());
 			super.controllerModelFacade.updateModelStateDefensiveSharkProtect(affectedPieceEnum);
+			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.EAGLE);
+
 			super.viewControllerFacade.updateBoardAfterDefensiveSharkProtectAbility();
 
 		}

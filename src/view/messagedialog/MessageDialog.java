@@ -34,7 +34,7 @@ public class MessageDialog {
 	}
 
 	public static void notifyNoPieceNearbyToCapture(BoardPanel boardView) {
-		JOptionPane.showMessageDialog(boardView, "No shark nearby to capture");
+		JOptionPane.showMessageDialog(boardView, "No enemy nearby to capture");
 	}
 
 	public static void notifyFailToCaptureAttacking(BoardPanel boardView) {
@@ -59,6 +59,11 @@ public class MessageDialog {
 
 	public static void notifyNotCorrectTurnToRevive(BoardPanel boardView) {
 		JOptionPane.showMessageDialog(boardView, "Eagle turn now, cannot revive");
+	}
+
+	public static void notifyReviveFailUsedAlready(BoardPanel boardView, String msg) {
+		JOptionPane.showMessageDialog(boardView, msg);
+
 	}
 
 }

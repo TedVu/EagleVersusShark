@@ -8,6 +8,7 @@ import com.google.java.contract.Requires;
 import model.board.Cell;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
+import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.enumtype.PieceType;
 import model.piece.movement.DiagonalMove;
@@ -43,7 +44,13 @@ public class HealingShark extends AbstractPiece {
 	@Override
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.HEAL)) {
-			if (engine.getHealingAbilityCounter() != 0) {
+
+			int counter = EngineImpl.getSingletonInstance().pieceOperator().getHealingAbilityCounter();
+			System.out.println(counter);
+			if (counter != 0) {
+				if (counter == 2) {
+					EngineImpl.getSingletonInstance().pieceOperator().resetHealingAbilityCounter();
+				}
 				throw new RuntimeException("You just used the ability last round!");
 			} else {
 				heal(affectedPiece);
@@ -55,15 +62,46 @@ public class HealingShark extends AbstractPiece {
 
 	private void heal(PieceInterface affectedPiece) {
 		try {
+
 			// Move selected shark piece to its original cell (upon initialization) and set
 			// it to active
-			PieceType affectedPieceEnum = PieceType.parsePieceType(affectedPiece.toString());
+			int initialX = 0;
+			int initialY = 0;
+			if (affectedPiece instanceof AggressiveShark) {
+				initialX = PieceType.AGGRESSIVESHARK
+						.xCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
+				initialY = PieceType.AGGRESSIVESHARK
+						.yCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
 
-			int boardSize = engine.getBoard().getSize();
-			engine.pieceOperator().movePiece(affectedPiece, affectedPieceEnum.xCoordinate(boardSize),
-					affectedPieceEnum.yCoordinate(boardSize));
-			affectedPiece.setActive(true);
-			engine.incrementHealingAbilityCounter();
+			} else if (affectedPiece instanceof DefensiveShark) {
+				initialX = PieceType.DEFENSIVESHARK.xCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
+				initialY = PieceType.DEFENSIVESHARK.yCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
+			}
+
+			Cell initialCell = engine.getBoard().getCell(initialX, initialY);
+			boolean cellOccupied = false;
+
+			// Will keep changing initial cell until the cell is found != occupied
+			while (!cellOccupied) {
+				if (initialCell.getOccupied()) {
+					// AggressiveShark will move 1 unit north-west
+					if (affectedPiece instanceof AggressiveShark) {
+						--initialX;
+						--initialY;
+					}
+					// DefensiveShark will move 1 unit up
+					if (affectedPiece instanceof DefensiveShark)
+						--initialY;
+					if (!engine.getBoard().getCell(initialX, initialY).getOccupied())
+						cellOccupied = true;
+				} else {
+					cellOccupied = true;
+				}
+			}
+			EngineImpl.getSingletonInstance().pieceOperator().movePiece(affectedPiece, initialX, initialY);
+			engine.getBoard().getCell(initialX, initialY).setOccupied();
+			EngineImpl.getSingletonInstance().pieceOperator().setPieceActiveStatus(affectedPiece, true);
+			EngineImpl.getSingletonInstance().pieceOperator().incrementHealingAbilityCounter();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

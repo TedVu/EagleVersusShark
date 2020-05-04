@@ -101,33 +101,4 @@ public interface EngineInterface {
 	public boolean getGameCurrentlyRunning();
 
 	public void setResumeGame();
-
-	/**
-	 * Intention: to keep track of whether the HealingShark can use healing ability or not
-	 * 0 = HealingShark can perform healing ability
-	 * 1 && 2 = HealingShark unable to perform healing ability
-	 * @return 0 || 1 || 2
-	 * @author Chanboth Som
-	 */
-	public int getHealingAbilityCounter();
-
-	/**
-	 * Intention: increment the counter when the HealingShark has performed a healing ability
-	 * @author Chanboth Som
-	 */
-	public void incrementHealingAbilityCounter();
-
-	/**
-	 * Intention: reset the counter back to 0 to allow the HealingShark to perform
-	 * 			  the ability in the future
-	 * @author Chanboth Som
-	 */
-	public void resetHealingAbilityCounter();
-
-	/**
-	 * Intention: to be used across all 3 eagles.
-	 * To keep track when to give Healing Shark the ability to heal on its turn.
-	 * @author Chanboth Som
-	 */
-	public void eagleCheckingHealingSharkAbility();
 }

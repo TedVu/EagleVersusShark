@@ -16,11 +16,22 @@ public class HealingSharkAbilityController extends AbstractAbilityController {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (EngineImpl.getSingletonInstance().getCurrentActivePlayer().getPlayerType() == TeamType.SHARK) {
+
 			healingDialog.dispose();
+
+			boolean reviveSuccess = true;
 			PieceType affectedPieceEnum = PieceType.parsePieceType(healingDialog.getSharkRevived());
-			super.controllerModelFacade.updateModelStateHealingSharkRevive(affectedPieceEnum);
-			super.viewControllerFacade.updateBoardReviveSharkSuccessful(affectedPieceEnum);
-			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.EAGLE);
+
+			try {
+				super.controllerModelFacade.updateModelStateHealingSharkRevive(affectedPieceEnum);
+			} catch (RuntimeException ex) {
+				reviveSuccess = false;
+				super.viewControllerFacade.updateBoardAlreadyUseReviveLastRound(ex.getMessage());
+			}
+			if (reviveSuccess) {
+				super.viewControllerFacade.updateBoardReviveSharkSuccessful(affectedPieceEnum);
+				super.controllerModelFacade.updateModelStateForNextTurn(TeamType.EAGLE);
+			}
 		} else {
 			healingDialog.dispose();
 			super.viewControllerFacade.updateBoardNotCorrectTurnToRevive();
