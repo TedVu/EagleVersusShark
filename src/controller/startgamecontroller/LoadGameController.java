@@ -24,22 +24,21 @@ public class LoadGameController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String filename = "file.ser";
+		String s = loadGameDialog.getFileNameInput();
 
-		// perform validation file exist
-		// calling methods to set up model
+		String filename = nameCheck(s);
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					FileInputStream file = new FileInputStream(filename);
 					ObjectInputStream in = new ObjectInputStream(file);
 
-					// Method for deserialization of object
 					EngineImpl engine = (EngineImpl) in.readObject();
 
 					in.close();
 					file.close();
-					
+
 					EngineImpl.getSingletonInstance().loadGame(engine);
 					final AppMainFrame window = new AppMainFrame();
 					window.setVisible(true);
@@ -56,4 +55,17 @@ public class LoadGameController implements ActionListener {
 		loadGameDialog.dispose();
 	}
 
+	private String nameCheck(String s) {
+		if (s.length() == 3) {
+			return s.concat(".ser");
+		} else if (s.length() > 3) {
+			if (s.substring(s.length() - 3).equals("ser")) {
+				return s.substring(s.length() - 3);
+			} else {
+				return s.substring(s.length() - 3).concat(".ser");
+			}
+		} else {
+			return s.concat(".ser");
+		}
+	}
 }
