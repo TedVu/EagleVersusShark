@@ -69,7 +69,12 @@ public class EngineImpl implements EngineInterface, Serializable {
 
 	@Override
 	public void loadGame(EngineImpl e) {
-		engine = e;
+		board = e.getBoard();
+		pieceOperator = e.getPieceOperator();
+	}
+
+	public PieceOperator getPieceOperator() {
+		return pieceOperator;
 	}
 
 	/**
@@ -120,7 +125,14 @@ public class EngineImpl implements EngineInterface, Serializable {
 		gameRunning = true;
 		Player activePlayer;
 		Random rand = new Random();
-		int randomValue = rand.nextInt() % 2;
+		int randomValue = 0;
+		if (eaglePlayer.getActive() == true) {
+			randomValue = 0;
+		} else if (sharkPlayer.getActive() == true) {
+			randomValue = 1;
+		} else {
+			randomValue = rand.nextInt() % 2;
+		}
 		if (randomValue == 0) {
 			this.eaglePlayer.setActive(true);
 			this.sharkPlayer.setActive(false);
