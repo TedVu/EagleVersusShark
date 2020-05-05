@@ -8,8 +8,7 @@ public class SharkSpecialBehaviourControllerFactory extends SpecialBehaviourCont
 
 	@Override
 	public ModeControllerFactory createModeControllerFactory() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SharkModeControllerFactory();
 	}
 
 }

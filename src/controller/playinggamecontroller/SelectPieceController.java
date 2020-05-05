@@ -9,6 +9,8 @@ import com.google.java.contract.Requires;
 
 import controller.abstractfactory.AbilityController;
 import controller.abstractfactory.AbilityControllerFactory;
+import controller.abstractfactory.ModeController;
+import controller.abstractfactory.ModeControllerFactory;
 import controller.abstractfactory.SpecialBehaviourControllerFactory;
 import model.contract.EngineInterface;
 import model.engine.EngineImpl;
@@ -43,9 +45,6 @@ public class SelectPieceController implements ActionListener {
 		playerAction = new PlayerAction();
 	}
 
-	/**
-	 *
-	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.buttonClicked = (AbstractButton) e.getSource();
@@ -82,10 +81,20 @@ public class SelectPieceController implements ActionListener {
 			useAbilityViewController(teamType);
 
 		} else if (playerActionType == PlayerActionType.SKYMODE) {
-
+			useModeViewController(teamType);
 		} else if (playerActionType == PlayerActionType.PROTECTIONMODE) {
-
+			useModeViewController(teamType);
 		}
+	}
+
+	private void useModeViewController(TeamType teamType) {
+		ModeControllerFactory modeFactory = SpecialBehaviourControllerFactory
+				.getSpecialBehaviourControllerFactory(teamType).createModeControllerFactory();
+
+		ModeController modeController = modeFactory
+				.createModeController(PieceType.parsePieceType(buttonClicked.getActionCommand()));
+		modeController.setState(viewControllerFacade);
+		modeController.setUpView();
 	}
 
 	private void useAbilityViewController(TeamType teamType) {
