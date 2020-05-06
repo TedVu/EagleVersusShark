@@ -35,7 +35,7 @@ public class DefensiveShark extends AbstractShark {
 	@Requires({ "getPosition() != null" })
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
-		return new PieceMoveImpl().getValidMove(this, 2);
+		return new PieceMoveDecorator().getValidMove(this, 2);
 	}
 
 	@Override

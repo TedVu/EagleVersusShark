@@ -19,7 +19,7 @@ import model.engine.EngineImpl;
 
 public class PieceMoveImpl implements PieceMovementInterface {
 
-	protected Set<Cell> validMoves = new HashSet<>();
+	private Set<Cell> validMoves = new HashSet<>();
 
 	/*
 	 * @param piece - selected piece
