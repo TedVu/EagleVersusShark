@@ -12,7 +12,7 @@ import model.contract.EngineInterface;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
-import model.piece.movement.DiagonalMove;
+import model.piece.movement.PieceMoveDecorator;
 
 /**
  * @author sefira
@@ -32,7 +32,7 @@ public class AttackingEagle extends AbstractEagle {
 	@Requires({ "getPosition() != null" })
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
-		return new DiagonalMove().getValidMove(this, 1);
+		return new PieceMoveDecorator().getValidMove(this, 1);
 	}
 
 	@Override

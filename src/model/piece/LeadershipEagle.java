@@ -15,7 +15,7 @@ import model.contract.EngineInterface;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
-import model.piece.movement.BasicMove;
+import model.piece.movement.PieceMoveImpl;
 
 /**
  * @author sefira & kevin
@@ -34,7 +34,7 @@ public class LeadershipEagle extends AbstractPiece {
 	@Requires({ "getPosition() != null" })
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
-		return new BasicMove().getValidMove(this, 2);
+		return new PieceMoveImpl().getValidMove(this, 2);
 	}
 
 	@Override

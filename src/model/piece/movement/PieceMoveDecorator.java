@@ -9,6 +9,7 @@ import com.google.java.contract.Requires;
 
 import model.board.Cell;
 import model.contract.PieceInterface;
+import model.contract.PieceMovementInterface;
 import model.engine.EngineImpl;
 
 /**
@@ -16,7 +17,10 @@ import model.engine.EngineImpl;
  *
  */
 
-public class DiagonalMove extends PieceMoveImpl {
+public class PieceMoveDecorator implements PieceMovementInterface {
+
+	private Set<Cell> validMoves = new HashSet<>();
+	private PieceMovementInterface pieceMove = new PieceMoveImpl();
 
 	/*
 	 * @param piece - selected piece
@@ -25,21 +29,22 @@ public class DiagonalMove extends PieceMoveImpl {
 	 * 
 	 * @return the set of valid coordinate
 	 */
+	@Requires({ "piece != null", "distance == 1 || distance ==2" })
+	@Ensures("validMoves != null")
 	@Override
-	@Requires({ "piece.getPosition().get(\"x\") != null && piece.getPosition().get(\"y\") != null" })
-	@Ensures("piece.getValidMove() != null")
 	public Set<Cell> getValidMove(PieceInterface piece, int distance) {
-
-		validMoves = super.getValidMove(piece, distance);
-
+		
+		validMoves = pieceMove.getValidMove(piece, distance);
+		
 		Map<String, Integer> currentPosition = piece.getPosition();
 		int currentX = currentPosition.get("x");
 		int currentY = currentPosition.get("y");
-
+		
 		validMoves.addAll(validDiaNorthEast(currentX, currentY, distance));
 		validMoves.addAll(validDiaSouthWest(currentX, currentY, distance));
 		validMoves.addAll(validDiaSouthEast(currentX, currentY, distance));
 		validMoves.addAll(validDiaNorthWest(currentX, currentY, distance));
+
 
 		return validMoves;
 	}
@@ -139,5 +144,4 @@ public class DiagonalMove extends PieceMoveImpl {
 
 		return validMoves;
 	}
-
 }
