@@ -13,6 +13,8 @@ import model.enumtype.PieceAbility;
 import model.enumtype.PieceType;
 import model.piece.commands.CommandExecutor;
 import model.piece.commands.MovePiece;
+import model.piece.movement.BasicMove;
+import model.piece.movement.DiagonalDecorator;
 import model.piece.movement.PieceMoveDecorator;
 
 /**
@@ -34,7 +36,7 @@ public class HealingShark extends AbstractPiece {
 	@Requires({ "getPosition() != null" })
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
-		return new PieceMoveDecorator().getValidMove(this, 1);
+		return new PieceMoveDecorator(new DiagonalDecorator(new BasicMove())).getValidMove(this, 1);
 
 	}
 

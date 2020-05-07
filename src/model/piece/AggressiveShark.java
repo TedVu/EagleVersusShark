@@ -10,7 +10,9 @@ import model.board.Cell;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
-import model.piece.movement.PieceMoveImpl;
+import model.piece.movement.BasicMove;
+import model.piece.movement.DiagonalDecorator;
+import model.piece.movement.PieceMoveDecorator;
 
 /**
  * @author chanboth
@@ -29,9 +31,9 @@ public class AggressiveShark extends AbstractPiece {
 		Cell currentPos = EngineImpl.getSingletonInstance().getBoard().getCell(this.getPosition().get("x"),
 				this.getPosition().get("y"));
 		if (!currentPos.isWaterCell()) {
-			return new PieceMoveImpl().getValidMove(this, 1);
+			return new DiagonalDecorator(new BasicMove()).getValidMove(this, 1);
 		} else {
-			return new PieceMoveImpl().getValidMove(this, 2);
+			return new DiagonalDecorator(new BasicMove()).getValidMove(this, 2);
 		}
 	}
 

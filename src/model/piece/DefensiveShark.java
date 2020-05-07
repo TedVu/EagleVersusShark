@@ -12,14 +12,15 @@ import model.contract.EngineInterface;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
+import model.piece.movement.BasicMove;
+import model.piece.movement.DiagonalDecorator;
 import model.piece.movement.PieceMoveDecorator;
-import model.piece.movement.PieceMoveImpl;
 
 /**
  * @author chanboth
  *
  */
-public class DefensiveShark extends AbstractShark {
+public class DefensiveShark extends AbstractPiece {
 
 	final int NEIGHBOURING_DISTANCE = 1;
 	private final EngineInterface engine;
@@ -35,7 +36,7 @@ public class DefensiveShark extends AbstractShark {
 	@Requires({ "getPosition() != null" })
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
-		return new PieceMoveDecorator().getValidMove(this, 2);
+		return new PieceMoveDecorator(new DiagonalDecorator(new BasicMove())).getValidMove(this, 2);
 	}
 
 	@Override
@@ -74,7 +75,7 @@ public class DefensiveShark extends AbstractShark {
 
 				// All the neighbour cells around a shark - to be traversed
 
-				surroundingEightCells.addAll(new PieceMoveDecorator().getValidMove(shark, NEIGHBOURING_DISTANCE));
+				surroundingEightCells.addAll(new DiagonalDecorator(new BasicMove()).getValidMove(shark, NEIGHBOURING_DISTANCE));
 				Cell sharkPosition = new Cell(shark.getPosition().get("x"), shark.getPosition().get("y"));
 				surroundingEightCells.add(sharkPosition);
 			}
@@ -95,6 +96,18 @@ public class DefensiveShark extends AbstractShark {
 		}
 
 		return neighbourCells;
+	}
+	
+	@Override
+	public Set<Cell> modeCells() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void useMode(int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

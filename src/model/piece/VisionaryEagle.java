@@ -15,13 +15,15 @@ import model.contract.EngineInterface;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
+import model.piece.movement.BasicMove;
+import model.piece.movement.DiagonalDecorator;
 import model.piece.movement.PieceMoveDecorator;
 
 /**
  * @author sefira
  *
  */
-public class VisionaryEagle extends AbstractEagle {
+public class VisionaryEagle extends AbstractPiece {
 
 	/**
 	 * 
@@ -38,7 +40,7 @@ public class VisionaryEagle extends AbstractEagle {
 	@Requires({ "getPosition() != null" })
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
-		return new PieceMoveDecorator().getValidMove(this, 2);
+		return new DiagonalDecorator(new BasicMove()).getValidMove(this, 2);
 
 	}
 
@@ -95,6 +97,18 @@ public class VisionaryEagle extends AbstractEagle {
 		}
 
 		return swapPositions;
+	}
+	
+	@Override
+	public Set<Cell> modeCells() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void useMode(int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
