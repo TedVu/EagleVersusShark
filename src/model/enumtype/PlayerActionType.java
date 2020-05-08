@@ -7,10 +7,10 @@ public enum PlayerActionType {
 	USEABILITY {
 
 	},
-	SKYMODE {
+	EAGLEMODE {
 
 	},
-	PROTECTIONMODE {
+	SHARKMODE {
 
 	};
 
@@ -21,10 +21,10 @@ public enum PlayerActionType {
 			actionType = PlayerActionType.MOVE;
 		} else if (playerActionString.equalsIgnoreCase(USEABILITY.toString())) {
 			actionType = PlayerActionType.USEABILITY;
-		} else if (playerActionString.equalsIgnoreCase(SKYMODE.toString())) {
-			actionType = PlayerActionType.SKYMODE;
-		} else if (playerActionString.equalsIgnoreCase(PROTECTIONMODE.toString())) {
-			actionType = PlayerActionType.PROTECTIONMODE;
+		} else if (playerActionString.equalsIgnoreCase(EAGLEMODE.toString())) {
+			actionType = PlayerActionType.EAGLEMODE;
+		} else if (playerActionString.equalsIgnoreCase(SHARKMODE.toString())) {
+			actionType = PlayerActionType.SHARKMODE;
 		}
 
 		return actionType;

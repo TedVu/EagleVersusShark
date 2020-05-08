@@ -7,7 +7,7 @@ public class LeadershipEagleModeController extends AbstractModeController {
 	@Override
 	public void setUpView() {
 		// TODO Auto-generated method stub
-		
+		System.out.println("LeadershipEagleMode");
 	}
 
 	@Override

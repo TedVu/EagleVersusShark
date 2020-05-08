@@ -80,10 +80,10 @@ public class SelectPieceController implements ActionListener {
 		} else if (playerActionType == PlayerActionType.USEABILITY) {
 			useAbilityViewController(teamType);
 
-		} else if (playerActionType == PlayerActionType.SKYMODE) {
-			useModeViewController(teamType);
-		} else if (playerActionType == PlayerActionType.PROTECTIONMODE) {
-			useModeViewController(teamType);
+		} else if (playerActionType == PlayerActionType.EAGLEMODE) {
+			useModeViewController(TeamType.EAGLE);
+		} else if (playerActionType == PlayerActionType.SHARKMODE) {
+			useModeViewController(TeamType.SHARK);
 		}
 	}
 

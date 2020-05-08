@@ -7,7 +7,7 @@ public class VisionaryEagleModeController extends AbstractModeController {
 	@Override
 	public void setUpView() {
 		// TODO Auto-generated method stub
-		
+		System.out.println("VisionaryEagleMode");
 	}
 
 	@Override

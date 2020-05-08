@@ -32,9 +32,9 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 	private static final long serialVersionUID = 4010321472922982018L;
 
 	private JComboBox<String> modeBox;
-	String[] allModes = { "MOVE", "USEABILITY", "SKYMODE", "PROTECTIONMODE" };
-	private String[] eagleModes = { "MOVE", "USEABILITY", "SKYMODE" };
-	private String[] sharkModes = { "MOVE", "USEABILITY", "PROTECTIONMODE" };
+	String[] allModes = { "MOVE", "USEABILITY", "EAGLEMODE", "SHARKMODE" };
+	private String[] eagleActions = { "MOVE", "USEABILITY", "EAGLEMODE" };
+	private String[] sharkActions = { "MOVE", "USEABILITY", "SHARKMODE" };
 
 	private JButton undoBtn;
 	private JButton resumeBtn;
@@ -80,15 +80,15 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 	public void updateAvailableMode(TeamType team) {
 		if (team == TeamType.EAGLE) {
 			modeBox.removeAllItems();
-			for (int i = 0; i < eagleModes.length; ++i) {
-				modeBox.insertItemAt(eagleModes[i], i);
+			for (int i = 0; i < eagleActions.length; ++i) {
+				modeBox.insertItemAt(eagleActions[i], i);
 			}
 			modeBox.setSelectedIndex(0);
 
 		} else if (team == TeamType.SHARK) {
 			modeBox.removeAllItems();
-			for (int i = 0; i < sharkModes.length; ++i) {
-				modeBox.insertItemAt(sharkModes[i], i);
+			for (int i = 0; i < sharkActions.length; ++i) {
+				modeBox.insertItemAt(sharkActions[i], i);
 			}
 			modeBox.setSelectedIndex(0);
 

@@ -7,6 +7,7 @@ public class AttackingEagleModeController extends AbstractModeController {
 	@Override
 	public void setUpView() {
 		// TODO Auto-generated method stub
+		System.out.println("AttackingEagleMode");
 		
 	}
 
