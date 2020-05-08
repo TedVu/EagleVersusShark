@@ -34,7 +34,7 @@ public class AttackingEagle extends AbstractPiece {
 	@Requires({ "getPosition() != null" })
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
-		return new PieceMoveDecorator(new DiagonalDecorator(new BasicMove())).getValidMove(this, 1);
+		return new DiagonalDecorator(new BasicMove()).getValidMove(this, 1);
 	}
 
 	@Override

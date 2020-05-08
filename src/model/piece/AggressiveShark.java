@@ -31,9 +31,9 @@ public class AggressiveShark extends AbstractPiece {
 		Cell currentPos = EngineImpl.getSingletonInstance().getBoard().getCell(this.getPosition().get("x"),
 				this.getPosition().get("y"));
 		if (!currentPos.isWaterCell()) {
-			return new DiagonalDecorator(new BasicMove()).getValidMove(this, 1);
+			return new BasicMove().getValidMove(this, 1);
 		} else {
-			return new DiagonalDecorator(new BasicMove()).getValidMove(this, 2);
+			return new BasicMove().getValidMove(this, 2);
 		}
 	}
 
