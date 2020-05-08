@@ -242,53 +242,7 @@ public class EngineImpl implements EngineInterface, Serializable {
 
 	@Override
 	public void configNumPiece(int numPiece) {
-		// if (numPiece == 4) {
-		// pieces = new HashMap<String, Piece>();
-		//
-		// Piece attackingEagle =
-		// pieceFactory.generatePiece(PieceType.ATTACKINGEAGLE.toString(),
-		// (board.getCol() / 2 - 1), 0);
-		// Piece visionaryEagle =
-		// pieceFactory.generatePiece(PieceType.VISIONARYEAGLE.toString(),
-		// board.getCol() / 2 + 1, 0);
-		//
-		// Piece aggressiveShark =
-		// pieceFactory.generatePiece(PieceType.AGGRESSIVESHARK.toString(),
-		// board.getCol() / 2 - 1, board.getRow() - 1);
-		// Piece healingShark =
-		// pieceFactory.generatePiece(PieceType.HEALINGSHARK.toString(), board.getCol()
-		// / 2 + 1,
-		// board.getRow() - 1);
-		// board.addPiece(attackingEagle.getPosition().get("x"),
-		// attackingEagle.getPosition().get("y"));
-		// board.addPiece(visionaryEagle.getPosition().get("x"),
-		// visionaryEagle.getPosition().get("y"));
-		// board.addPiece(aggressiveShark.getPosition().get("x"),
-		// aggressiveShark.getPosition().get("y"));
-		// board.addPiece(healingShark.getPosition().get("x"),
-		// healingShark.getPosition().get("y"));
-		//
-		// pieces.put(PieceType.ATTACKINGEAGLE.toString(), attackingEagle);
-		// pieces.put(PieceType.VISIONARYEAGLE.toString(), visionaryEagle);
-		//
-		// pieces.put(PieceType.AGGRESSIVESHARK.toString(), aggressiveShark);
-		// pieces.put(PieceType.HEALINGSHARK.toString(), healingShark);
-		//
-		// } else if (numPiece == 2) {
-		// pieces = new HashMap<String, Piece>();
-		//
-		// Piece leadershipEagle =
-		// pieceFactory.generatePiece(PieceType.LEADERSHIPEAGLE.toString(),
-		// board.getCol() / 2,
-		// 1);
-		// Piece defensiveShark =
-		// pieceFactory.generatePiece(PieceType.DEFENSIVESHARK.toString(),
-		// board.getCol() / 2,
-		// board.getRow() - 2);
-		// pieces.put(PieceType.LEADERSHIPEAGLE.toString(), leadershipEagle);
-		// pieces.put(PieceType.DEFENSIVESHARK.toString(), defensiveShark);
-		//
-		// }
+
 	}
 
 }

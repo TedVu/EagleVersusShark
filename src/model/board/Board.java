@@ -43,24 +43,7 @@ public class Board implements Serializable {
 	}
 
 	public Board(int boardSize) {
-		size = boardSize;
-		for (int row = 0; row < size; ++row) {
-			cells.add(new ArrayList<Cell>());
-			for (int col = 0; col < size; ++col) {
-				cells.get(row).add(new Cell(col, row));
-			}
-		}
 
-		// water cell
-		int mid = (cells.size() - 1) / 2;
-		for (int row = mid - 1; row <= mid + 1; ++row) {
-			for (int col = 0; col < size; ++col) {
-				cells.get(row).get(col).setWaterCell();
-			}
-		}
-
-		cells.get(0).get(mid).setMasterCell();
-		cells.get(size - 1).get(mid).setMasterCell();
 	}
 
 	/**

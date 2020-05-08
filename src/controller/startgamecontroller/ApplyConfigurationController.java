@@ -21,6 +21,7 @@ public class ApplyConfigurationController implements ActionListener {
 		settingGameDialog.setVisible(false);
 		EngineImpl.getSingletonInstance().configBoardSize(settingGameDialog.getBoardSizeSelection());
 		EngineImpl.getSingletonInstance().configNumPiece(settingGameDialog.getPieceNumberSelection());
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
