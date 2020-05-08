@@ -15,13 +15,14 @@ public class Board implements Serializable {
 
 	private static final long serialVersionUID = 5510738805489933149L;
 	// Fix row and col for A1
-	private int size = 9;
+	private int size;
 	private List<List<Cell>> cells;
 
 	/**
 	 * 
 	 */
-	public Board() {
+	public Board(int boardSize) {
+		size = boardSize;
 		cells = new ArrayList<>();
 		for (int row = 0; row < size; ++row) {
 			cells.add(new ArrayList<Cell>());
@@ -40,10 +41,6 @@ public class Board implements Serializable {
 
 		cells.get(0).get(mid).setMasterCell();
 		cells.get(size - 1).get(mid).setMasterCell();
-	}
-
-	public Board(int boardSize) {
-
 	}
 
 	/**

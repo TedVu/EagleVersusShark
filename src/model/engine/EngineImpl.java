@@ -60,11 +60,28 @@ public class EngineImpl implements EngineInterface, Serializable {
 	 * @return the singleton instance of the engine
 	 */
 	private EngineImpl() {
-		board = new Board();
+		board = new Board(9);
 		pieceOperator = new PieceOperator(board, this);
-		pieceOperator.initializePiece();
+		pieceOperator.initializeDefaultPiece();
 		geCallback.addProperytChangeListener(new TimerPropertyChangeListener());
 		geCallback.addProperytChangeListener(new MakingMovePropertyChangeListener());
+	}
+
+	@Override
+	public void configBoardSize(int boardSize) {
+		board = new Board(boardSize);
+	}
+
+	@Override
+	public void configNumPiece(int numPiece) {
+		pieceOperator = new PieceOperator(board, this);
+
+		if (numPiece == 6)
+			pieceOperator.initializeDefaultPiece();
+		else if (numPiece == 4)
+			pieceOperator.initialize4Piece();
+		else if (numPiece == 2)
+			pieceOperator.initialize2Piece();
 	}
 
 	@Override
@@ -233,16 +250,4 @@ public class EngineImpl implements EngineInterface, Serializable {
 	public void setResumeGame() {
 		gameRunning = true;
 	}
-
-	@Override
-	public void configBoardSize(int boardSize) {
-		board = new Board(boardSize);
-		pieceOperator.initializePiece();
-	}
-
-	@Override
-	public void configNumPiece(int numPiece) {
-
-	}
-
 }
