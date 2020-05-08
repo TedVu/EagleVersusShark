@@ -121,14 +121,9 @@ public class AggressiveShark extends AbstractPiece {
 
 	@Override
 	public Set<Cell> modeCells() {
-		// TODO Auto-generated method stub
+		// return a random cell
 		return null;
 	}
 
-	@Override
-	public void useMode(int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -98,10 +98,15 @@ public class PieceOperator implements Serializable {
 	 */
 	@Requires({ "piece != null", "x>=0", "y>=0" })
 	@Ensures({ "piece.getPosition().get(\"x\") != null && piece.getPosition().get(\"y\") != null" })
-	public void movePiece(PieceInterface piece, int x, int y) {
+	public void movePiece(PieceInterface piece, int x, int y, boolean isMode) {
+		if(isMode && piece instanceof HealingShark && piece.getModeCount() > 0) {
+			throw new IllegalArgumentException("Mode is already used");
+		}
 		board.removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 		board.addPiece(x, y);
 		piece.movePiece(x, y);
+		if(isMode)
+			piece.modeUsed();
 	}
 
 	/*
@@ -151,11 +156,16 @@ public class PieceOperator implements Serializable {
 		piece.setActive(prevState.isActive());
 		piece.setImmune(prevState.isImmune());
 		piece.setPosition(prevState.getX(), prevState.getY());
-
+		piece.setModeCount(prevState.getModeCount());
 	}
 
-	protected void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
+	protected void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece, boolean isMode) {
+		if(isMode && piece instanceof AttackingEagle && piece.getModeCount() > 0) {
+			throw new IllegalArgumentException("Mode is already used");
+		}
 		piece.useAbility(pieceAbility, piece, affectedPiece);
+		if(isMode)
+			piece.modeUsed();
 	}
 
 	protected void undo(int undoNum) {
@@ -222,10 +232,5 @@ public class PieceOperator implements Serializable {
 			resetHealingAbilityCounter();
 	}
 
-	public void useMode(PieceInterface piece, int x, int y) {
-		piece.useMode(x, y);
-		board.removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
-		board.addPiece(x, y);
-	}
 
 }

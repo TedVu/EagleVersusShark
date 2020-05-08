@@ -22,20 +22,21 @@ public class UseAbility implements CommandInterface, Serializable {
 	private EngineInterface engine = EngineImpl.getSingletonInstance();
 	private PieceOperator pieceOperator = engine.pieceOperator();
 	private PieceMemento pieceMemento, affectedPieceMemento;
+	private boolean isMode;
 
-	public UseAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
+	public UseAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece, boolean isMode) {
 		this.affectedPiece = affectedPiece;
 		this.piece = piece;
 		this.pieceMemento = piece.pieceMemento();
 		this.affectedPieceMemento = affectedPiece.pieceMemento();
 		this.pieceAbility = pieceAbility;
-
+		this.isMode = isMode;
 	}
 
 	@Override
 	public void execute() {
 		pieceOperator.addEvt(this);
-		pieceOperator.useAbility(pieceAbility, piece, affectedPiece);
+		pieceOperator.useAbility(pieceAbility, piece, affectedPiece, isMode);
 
 	}
 

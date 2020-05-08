@@ -59,12 +59,15 @@ public class VisionaryEagle extends AbstractPiece {
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.SWAP)) {
 			swap(piece, affectedPiece);
-		} else {
+		} 
+	
+		else {
 			throw new IllegalArgumentException("Invalid ability");
 		}
 	}
 
-	public void swap(PieceInterface piece, PieceInterface affectedPiece) {
+
+	private void swap(PieceInterface piece, PieceInterface affectedPiece) {
 
 		try {
 			Map<String, Integer> position1 = new HashMap<String, Integer>();
@@ -99,17 +102,23 @@ public class VisionaryEagle extends AbstractPiece {
 		return swapPositions;
 	}
 	
+	
 	@Override
 	public Set<Cell> modeCells() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Set<Cell> swapPositions = new HashSet<>();
+		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
+		for (PieceInterface activeShark : activeSharks) {
+			
+			int x = activeShark.getPosition().get("x");
+			int y = activeShark.getPosition().get("y");
+
+			swapPositions.add(new Cell(x, y));
+		}
+
+		return swapPositions;
 	}
 
-	@Override
-	public void useMode(int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public String toString() {

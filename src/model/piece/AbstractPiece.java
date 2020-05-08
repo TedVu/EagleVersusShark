@@ -19,6 +19,7 @@ public abstract class AbstractPiece implements PieceInterface, Serializable {
 	private Map<String, Integer> position = new HashMap<String, Integer>();
 	private boolean isActive = true;
 	private boolean isImmune = false;
+	private int modeUsageCount = 0;
 
 	public AbstractPiece(int x, int y) {
 		position.put("x", x);
@@ -63,20 +64,24 @@ public abstract class AbstractPiece implements PieceInterface, Serializable {
 	}
 
 	public PieceMemento pieceMemento() {
-		PieceMemento memento = new PieceMemento(isActive, isImmune, position.get("x"), position.get("y"));
+		PieceMemento memento = new PieceMemento(isActive, isImmune, position.get("x"), position.get("y"), modeUsageCount);
 		return memento.getState();
 	}
 
-//	@Override
-//	protected Object clone() throws CloneNotSupportedException {
-//		PieceInterface clone = (PieceInterface)super.clone();
-//		
-//		Map<String, Integer> position = new HashMap<String, Integer>();
-//		position.put("x", clone.getPosition().get("x"));
-//		position.put("y", clone.getPosition().get("y"));
-//		clone.setPosition(position.get("x"), position.get("y"));
-//		return clone;
-//	}
-//	
+	@Override
+	public void modeUsed() {
+		modeUsageCount += 1;
+	}
 
+	@Override
+	public void setModeCount(int modeCount) {
+		this.modeUsageCount = modeCount;
+	}
+
+	@Override
+	public int getModeCount() {
+		return modeUsageCount;
+	}
+	
+	
 }

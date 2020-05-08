@@ -1,5 +1,7 @@
 package model.piece;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.google.java.contract.Ensures;
@@ -26,6 +28,8 @@ public class HealingShark extends AbstractPiece {
 	private static final long serialVersionUID = -7746905541941458353L;
 
 	private final EngineInterface engine;
+	
+	private boolean isModeAvailable = true;
 
 	public HealingShark(int x, int y, EngineInterface engine) {
 		super(x, y);
@@ -104,8 +108,7 @@ public class HealingShark extends AbstractPiece {
 					cellOccupied = true;
 				}
 			}
-			CommandExecutor commandExecutor = new CommandExecutor();
-			commandExecutor.executeCommand(new MovePiece(initialX, initialY, affectedPiece));
+			affectedPiece.setPosition(initialX, initialY);
 			EngineImpl.getSingletonInstance().pieceOperator().setPieceActiveStatus(affectedPiece, true);
 			EngineImpl.getSingletonInstance().pieceOperator().incrementHealingAbilityCounter();
 		} catch (Exception e) {
@@ -128,14 +131,25 @@ public class HealingShark extends AbstractPiece {
 
 	@Override
 	public Set<Cell> modeCells() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		
+		//return current eagle positions so user can choose the eagle
+		
+		if(isModeAvailable) {
+			Set<Cell> currentEaglePositions = new HashSet<>();
+			List<PieceInterface> activeEagles = engine.pieceOperator().getActiveEagles();
+			for (PieceInterface activeEagle : activeEagles) {
+				int x = activeEagle.getPosition().get("x");
+				int y = activeEagle.getPosition().get("y");
 
-	@Override
-	public void useMode(int x, int y) {
-		// TODO Auto-generated method stub
+				currentEaglePositions.add(new Cell(x, y));
+			}
+
+			return currentEaglePositions;
+		}
+		else
+			throw new IllegalArgumentException("Mode is already used");
 		
 	}
+
 
 }

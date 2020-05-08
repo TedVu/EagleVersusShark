@@ -35,6 +35,8 @@ import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
+import model.piece.commands.CommandExecutor;
+import model.piece.commands.MovePiece;
 import view.messagedialog.MessageDialog;
 import viewcontroller.contract.ViewControllerInterface;
 import viewcontroller.facade.ViewControllerFacade;
@@ -210,9 +212,11 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	private void updateBoardReviveSharkSuccessful(PieceType revivedPieceEnum) {
 		PieceInterface revivedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(revivedPieceEnum);
+		
 
 		AbstractButton revivedBtn = buttons.get(revivedPiece.getPosition().get("y"))
 				.get(revivedPiece.getPosition().get("x"));
+		
 
 		updateIcon(revivedBtn, revivedPieceEnum);
 		revivedBtn.setActionCommand(revivedPiece.toString());

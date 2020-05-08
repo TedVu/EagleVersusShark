@@ -52,8 +52,9 @@ public class AttackingEagle extends AbstractPiece {
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
 			capture(piece, affectedPiece);
-			// move piece + update board occupation here
-		} else {
+		} 
+	
+		else {
 			throw new IllegalArgumentException("Invalid ability");
 		}
 	}
@@ -126,17 +127,34 @@ public class AttackingEagle extends AbstractPiece {
 		return distance;
 	}
 	
+	private Boolean validateModePosition(){
+		//return true if there's a shark / sharks stands alone on the eagle side from the river
+		
+		return true;
+	}
+	
 	@Override
 	public Set<Cell> modeCells() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		//fill in this method 1st
+		if(validateModePosition()) {
+			Set<Cell> swapPositions = new HashSet<>();
+			List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
+			for (PieceInterface activeShark : activeSharks) {
+				
+				int x = activeShark.getPosition().get("x");
+				int y = activeShark.getPosition().get("y");
+
+				swapPositions.add(new Cell(x, y));
+			}
+
+			return swapPositions;
+		}
+		
+		else
+			throw new IllegalArgumentException("No available sharks in this teritory");
 	}
 
-	@Override
-	public void useMode(int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public String toString() {

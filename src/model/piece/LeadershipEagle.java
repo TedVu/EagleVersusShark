@@ -124,17 +124,24 @@ public class LeadershipEagle extends AbstractPiece {
 	public String toString() {
 		return String.format("%s", "LeadershipEagle");
 	}
+	
+	private Boolean isNextToRiver(){
+		//check if eagle is next to river
+		return true;
+	}
 
 	@Override
 	public Set<Cell> modeCells() {
-		// TODO Auto-generated method stub
-		return null;
+		if(isNextToRiver()) {
+			
+			//fill this with the cell accross the river
+			Set<Cell> crossingCell = new HashSet<>();
+			
+			return crossingCell;
+		}
+		else
+			throw new IllegalArgumentException("Invalid position to cross the river");
 	}
 
-	@Override
-	public void useMode(int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

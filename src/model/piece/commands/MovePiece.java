@@ -19,25 +19,27 @@ public class MovePiece implements CommandInterface, Serializable {
 	private PieceInterface piece;
 	private EngineInterface engine = EngineImpl.getSingletonInstance();
 	private PieceOperator pieceOperator = engine.pieceOperator();
+	private boolean isMode;
 
-	public MovePiece(int newX, int newY, PieceInterface piece) {
+	public MovePiece(int newX, int newY, PieceInterface piece, boolean isMode) {
 		this.newX = newX;
 		this.newY = newY;
 		this.oldX = piece.getPosition().get("x");
 		this.oldY = piece.getPosition().get("y");
 		this.piece = piece;
+		this.isMode = isMode;
 	}
 
 	@Override
 	public void execute() {
-		pieceOperator.movePiece(piece, newX, newY);
+		pieceOperator.movePiece(piece, newX, newY, isMode);
 		pieceOperator.addEvt(this);
 	}
 
 	@Override
 	public void undo() {
 
-		pieceOperator.movePiece(piece, oldX, oldY);
+		pieceOperator.movePiece(piece, oldX, oldY, isMode);
 		engine.getBoard().removePiece(newX, newY);
 		engine.getBoard().addPiece(oldX, oldY);
 	}
