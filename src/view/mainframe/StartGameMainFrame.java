@@ -71,7 +71,7 @@ public class StartGameMainFrame extends JFrame {
 		buttonPanel.add(exitButton);
 
 		startButton.addActionListener(new StartDefaultGameController(this));
-		configBtn.addActionListener(new InvokeGameSettingController());
+		configBtn.addActionListener(new InvokeGameSettingController(this));
 		loadButton.addActionListener(new InvokeLoadGameDialogController(this));
 		exitButton.addActionListener(new ActionListener() {
 			@Override

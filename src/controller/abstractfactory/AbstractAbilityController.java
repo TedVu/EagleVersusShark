@@ -14,9 +14,7 @@ public abstract class AbstractAbilityController implements AbilityController {
 
 	@Override
 	public void setState(ViewControllerInterface viewControllerFacade) {
-		// TODO Auto-generated method stub
 		this.viewControllerFacade = viewControllerFacade;
-
 	}
 
 }

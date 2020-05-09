@@ -67,8 +67,9 @@ public class AttackingEagle extends AbstractEagle {
 					.getCell(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
 
 			EngineImpl.getSingletonInstance().getBoard().removePiece(currentPos.getX(), currentPos.getY());
-
+			EngineImpl.getSingletonInstance().getBoard().addPiece(opponentPos.getX(), opponentPos.getY());
 			movePiece(opponentPos.getX(), opponentPos.getY());
+			
 			affectedPiece.setActive(false);
 
 		} catch (Exception e) {

@@ -56,15 +56,37 @@ public class EngineImpl implements EngineInterface, Serializable {
 
 	private boolean gameRunning = false;
 
+	private int totalNumPiece;
+
 	/**
 	 * @return the singleton instance of the engine
 	 */
 	private EngineImpl() {
-		board = new Board();
+		
+		//default game when hitting start without config
+		totalNumPiece = 6;
+		board = new Board(9);
 		pieceOperator = new PieceOperator(board, this);
-		pieceOperator.initializePiece();
+		pieceOperator.initializeDefaultPiece();
 		geCallback.addProperytChangeListener(new TimerPropertyChangeListener());
 		geCallback.addProperytChangeListener(new MakingMovePropertyChangeListener());
+	}
+
+	@Override
+	public void configBoardSize(int boardSize) {
+		board = new Board(boardSize);
+	}
+
+	@Override
+	public void configNumPiece(int numPiece) {
+		pieceOperator = new PieceOperator(board, this);
+
+		if (numPiece == 6)
+			pieceOperator.initializeDefaultPiece();
+		else if (numPiece == 4)
+			pieceOperator.initialize4Piece();
+		else if (numPiece == 2)
+			pieceOperator.initialize2Piece();
 	}
 
 	@Override
@@ -148,8 +170,10 @@ public class EngineImpl implements EngineInterface, Serializable {
 	/**
 	 * set the turn to the specified team in parameter
 	 * 
-	 * @param playerType  - the player to be activated
-	 * @param turnOnTimer - whether to begin countdown or not
+	 * @param playerType
+	 *            - the player to be activated
+	 * @param turnOnTimer
+	 *            - whether to begin countdown or not
 	 */
 	@Override
 	@Requires({ "playerType != null", "turnOnTimer == true || turnOnTimer == false" })
@@ -181,7 +205,8 @@ public class EngineImpl implements EngineInterface, Serializable {
 	/**
 	 * turn on the timer and loop call setActivePlayer to change every interval
 	 * 
-	 * @param playerType - the player to be activated next
+	 * @param playerType
+	 *            - the player to be activated next
 	 */
 	@Override
 	@Requires({ "playerType != null" })
@@ -247,60 +272,7 @@ public class EngineImpl implements EngineInterface, Serializable {
 	}
 
 	@Override
-	public void configBoardSize(int boardSize) {
-		board = new Board(boardSize);
-		pieceOperator.initializePiece();
+	public int getTotalNumPiece() {
+		return this.totalNumPiece;
 	}
-
-	@Override
-	public void configNumPiece(int numPiece) {
-		// if (numPiece == 4) {
-		// pieces = new HashMap<String, Piece>();
-		//
-		// Piece attackingEagle =
-		// pieceFactory.generatePiece(PieceType.ATTACKINGEAGLE.toString(),
-		// (board.getCol() / 2 - 1), 0);
-		// Piece visionaryEagle =
-		// pieceFactory.generatePiece(PieceType.VISIONARYEAGLE.toString(),
-		// board.getCol() / 2 + 1, 0);
-		//
-		// Piece aggressiveShark =
-		// pieceFactory.generatePiece(PieceType.AGGRESSIVESHARK.toString(),
-		// board.getCol() / 2 - 1, board.getRow() - 1);
-		// Piece healingShark =
-		// pieceFactory.generatePiece(PieceType.HEALINGSHARK.toString(), board.getCol()
-		// / 2 + 1,
-		// board.getRow() - 1);
-		// board.addPiece(attackingEagle.getPosition().get("x"),
-		// attackingEagle.getPosition().get("y"));
-		// board.addPiece(visionaryEagle.getPosition().get("x"),
-		// visionaryEagle.getPosition().get("y"));
-		// board.addPiece(aggressiveShark.getPosition().get("x"),
-		// aggressiveShark.getPosition().get("y"));
-		// board.addPiece(healingShark.getPosition().get("x"),
-		// healingShark.getPosition().get("y"));
-		//
-		// pieces.put(PieceType.ATTACKINGEAGLE.toString(), attackingEagle);
-		// pieces.put(PieceType.VISIONARYEAGLE.toString(), visionaryEagle);
-		//
-		// pieces.put(PieceType.AGGRESSIVESHARK.toString(), aggressiveShark);
-		// pieces.put(PieceType.HEALINGSHARK.toString(), healingShark);
-		//
-		// } else if (numPiece == 2) {
-		// pieces = new HashMap<String, Piece>();
-		//
-		// Piece leadershipEagle =
-		// pieceFactory.generatePiece(PieceType.LEADERSHIPEAGLE.toString(),
-		// board.getCol() / 2,
-		// 1);
-		// Piece defensiveShark =
-		// pieceFactory.generatePiece(PieceType.DEFENSIVESHARK.toString(),
-		// board.getCol() / 2,
-		// board.getRow() - 2);
-		// pieces.put(PieceType.LEADERSHIPEAGLE.toString(), leadershipEagle);
-		// pieces.put(PieceType.DEFENSIVESHARK.toString(), defensiveShark);
-		//
-		// }
-	}
-
 }

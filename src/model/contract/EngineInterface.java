@@ -95,6 +95,10 @@ public interface EngineInterface {
 	public boolean getGameCurrentlyRunning();
 
 	public void setResumeGame();
+	
+	
+	//total num piece for 
+	public int getTotalNumPiece();
 
 	// Board Set up
 
@@ -103,4 +107,6 @@ public interface EngineInterface {
 	public void configNumPiece(int pieceNumberSelection);
 
 	public void loadGame(EngineImpl e);
+	
+	
 }

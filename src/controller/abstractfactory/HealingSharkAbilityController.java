@@ -42,7 +42,7 @@ public class HealingSharkAbilityController extends AbstractAbilityController {
 	public void setUpView() {
 		List<PieceInterface> activeSharks = EngineImpl.getSingletonInstance().pieceOperator().getActiveSharks();
 
-		if (activeSharks.size() == 3) {
+		if (activeSharks.size() == EngineImpl.getSingletonInstance().getTotalNumPiece() / 2) {
 			super.viewControllerFacade.updateBoardNoSharkToRevive();
 		} else {
 			healingDialog = new HealingSharkDialog(this);

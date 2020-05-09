@@ -6,7 +6,6 @@ public class DefensiveSharkModeController extends AbstractModeController {
 
 	@Override
 	public void setUpView() {
-		// TODO Auto-generated method stub
 		System.out.println("DefensiveSharkMode");
 	}
 

@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.startgamecontroller.ApplyConfigurationController;
+import view.mainframe.StartGameMainFrame;
 
 /**
  * @author kevin & ted
@@ -33,7 +34,7 @@ public class SettingsDialog extends JDialog {
 	/**
 	 * @see
 	 */
-	public SettingsDialog() {
+	public SettingsDialog(StartGameMainFrame startGameMainFrame) {
 		String[] boardSize = { " 9 x 9 ", "11 x 11", "13 x 13", "15 x 15" };
 		String[] numPieces = { "   6   ", "   4   ", "   2   " };
 		String[] obstacles = { "NO", "YES" };
@@ -72,16 +73,13 @@ public class SettingsDialog extends JDialog {
 
 		add(buttonPanel, BorderLayout.SOUTH);
 		add(selectionPanel, BorderLayout.CENTER);
+		
+		applyButton.addActionListener(new ApplyConfigurationController(this, startGameMainFrame));
 
-		this.setModal(true);
+		setModal(true);
 		setVisible(true);
-
-		applyButton.addActionListener(new ApplyConfigurationController(this));
 	}
 
-	/**
-	 * @return
-	 */
 	public int getBoardSizeSelection() {
 		int select = boardSizeMenu.getSelectedIndex();
 		if (select == 0) {
@@ -95,9 +93,6 @@ public class SettingsDialog extends JDialog {
 		}
 	}
 
-	/**
-	 * @return
-	 */
 	public int getPieceNumberSelection() {
 		int select = numPieceMenu.getSelectedIndex();
 		if (select == 0) {

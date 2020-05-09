@@ -82,12 +82,34 @@ public class PieceOperator implements Serializable {
 	 */
 	// @Requires({"pieces.size() < 1"})
 	// @Ensures({"pieces.size()>0"})
-	public void initializePiece() {
+	public void initializeDefaultPiece() {
 		int boardSize = board.getSize();
 		for (PieceType pt : PieceType.values()) {
 			PieceInterface piece = PieceFactory.generatePiece(pt, boardSize, engine);
 			board.addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 			pieces.put(pt, piece);
+		}
+	}
+
+	public void initialize2Piece() {
+		int boardSize = board.getSize();
+		for (PieceType pt : PieceType.values()) {
+			if (pt == PieceType.DEFENSIVESHARK || pt == PieceType.LEADERSHIPEAGLE) {
+				PieceInterface piece = PieceFactory.generatePiece(pt, boardSize, engine);
+				board.addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+				pieces.put(pt, piece);
+			}
+		}
+	}
+
+	public void initialize4Piece() {
+		int boardSize = board.getSize();
+		for (PieceType pt : PieceType.values()) {
+			if (pt != PieceType.DEFENSIVESHARK && pt != PieceType.LEADERSHIPEAGLE) {
+				PieceInterface piece = PieceFactory.generatePiece(pt, boardSize, engine);
+				board.addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+				pieces.put(pt, piece);
+			}
 		}
 	}
 
