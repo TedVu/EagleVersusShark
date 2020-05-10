@@ -21,7 +21,7 @@ import model.piece.movement.DiagonalMove;
  * @author sefira
  *
  */
-public class VisionaryEagle extends AbstractEagle {
+public class VisionaryEagle extends AbstractPiece {
 
 	/**
 	 * 
@@ -100,6 +100,28 @@ public class VisionaryEagle extends AbstractEagle {
 	@Override
 	public String toString() {
 		return String.format("%s", "VisionaryEagle");
+	}
+
+	@Override
+	public Set<Cell> modeCells() {
+		Set<Cell> swapPositions = new HashSet<>();
+		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
+		for (PieceInterface activeShark : activeSharks) {
+
+			int x = activeShark.getPosition().get("x");
+			int y = activeShark.getPosition().get("y");
+
+			swapPositions.add(new Cell(x, y));
+
+		}
+
+		return swapPositions;
+	}
+
+	@Override
+	public void useMode(int x, int y) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

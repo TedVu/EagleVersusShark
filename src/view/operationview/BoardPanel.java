@@ -26,6 +26,7 @@ import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import controller.abstractfactory.AbilityController;
+import controller.abstractfactory.ModeController;
 import controller.playinggamecontroller.MovePieceController;
 import controller.playinggamecontroller.SelectPieceController;
 import controller.playinggamecontroller.TimerPropertyChangeListener;
@@ -196,6 +197,90 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			updateBoardNotCorrectTurnToRevive();
 		} else if (event.equalsIgnoreCase("UpdateBoardAlreadyUseReviveLastRound")) {
 			updateBoardAlreadyUseReviveLastRound((String) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardBeforeLeadershipUseMode")) {
+			updateBoardBeforeLeadershipUseMode((Set<Cell>) evt.getNewValue(), (ModeController) evt.getOldValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardFailToUseLeadershipMode")) {
+			updateBoardFailToUseLeadershipMode((String) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardAfterLeadershipUseMode")) {
+			updateBoardAfterLeadershipUseMode((Set<Cell>) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardBeforeVisionaryUseMode")) {
+			updateBoardBeforeVisionaryUseMode((ModeController) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardAfterVisionaryUseMode")) {
+			updateBoardAfterSwap((AbstractButton) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardBeforeAttackingEagleUseMode")) {
+			updateBoardBeforeAttackingEagleUseMode((ModeController) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardFailAttackingEagleUseMode")) {
+			updateBoardFailAttackingEagleUseMode((String) evt.getNewValue());
+		}
+	}
+
+	private void updateBoardFailAttackingEagleUseMode(String errMsg) {
+		MessageDialog.notifyFailAttackingEagleUseMode(this, errMsg);
+	}
+
+	private void updateBoardBeforeAttackingEagleUseMode(ModeController attackingController) {
+		PieceInterface attackingEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.ATTACKINGEAGLE);
+		Set<Cell> modePos = attackingEagle.modeCells();
+		for (Cell cell : modePos) {
+			AbstractButton affectedBtn = buttons.get(cell.getY()).get(cell.getX());
+			affectedBtn.setBackground(Color.red);
+			ActionListener[] listeners = affectedBtn.getActionListeners();
+			for (ActionListener listener : listeners) {
+				affectedBtn.removeActionListener(listener);
+			}
+
+			affectedBtn.addActionListener(attackingController);
+		}
+	}
+
+	private void updateBoardBeforeVisionaryUseMode(ModeController visionaryController) {
+		PieceInterface visionaryEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.VISIONARYEAGLE);
+		Set<Cell> modePos = visionaryEagle.modeCells();
+		for (Cell cell : modePos) {
+			AbstractButton affectedBtn = buttons.get(cell.getY()).get(cell.getX());
+			affectedBtn.setBackground(Color.YELLOW);
+			ActionListener[] listeners = affectedBtn.getActionListeners();
+			for (ActionListener listener : listeners) {
+				affectedBtn.removeActionListener(listener);
+			}
+			affectedBtn.addActionListener(visionaryController);
+		}
+
+	}
+
+	private void updateBoardAfterLeadershipUseMode(Set<Cell> leapPos) {
+		PieceInterface leadershipPos = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.LEADERSHIPEAGLE);
+
+		AbstractButton oldBtn = buttons.get(leadershipPos.getPosition().get("y"))
+				.get(leadershipPos.getPosition().get("x"));
+
+		oldBtn.setIcon(null);
+		oldBtn.setActionCommand("NormalButton");
+		for (Cell cell : leapPos) {
+			AbstractButton btnAffected = buttons.get(cell.getY()).get(cell.getX());
+			updateIcon(btnAffected, PieceType.LEADERSHIPEAGLE);
+			btnAffected.setActionCommand("LeadershipEagle");
+		}
+		refreshBoardColorAndState();
+	}
+
+	private void updateBoardFailToUseLeadershipMode(String errMsg) {
+		MessageDialog.notifyFailToUseLeadershipMode(this, errMsg);
+		refreshBoardColorAndState();
+	}
+
+	private void updateBoardBeforeLeadershipUseMode(Set<Cell> leapPos, ModeController leadershipModeController) {
+		for (Cell cell : leapPos) {
+			AbstractButton btnAffected = buttons.get(cell.getY()).get(cell.getX());
+			btnAffected.setBackground(Color.yellow);
+			ActionListener[] listeners = btnAffected.getActionListeners();
+			for (ActionListener listener : listeners) {
+				btnAffected.removeActionListener(listener);
+			}
+			btnAffected.addActionListener(leadershipModeController);
 		}
 	}
 

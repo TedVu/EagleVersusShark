@@ -2,13 +2,15 @@ package viewcontroller.contract;
 
 import java.beans.PropertyChangeListener;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.AbstractButton;
 
 import controller.abstractfactory.AbilityController;
-import model.board.Cell;
+import controller.abstractfactory.ModeController;
 import controller.playinggamecontroller.MovePieceController;
 import controller.playinggamecontroller.PlayerAction;
+import model.board.Cell;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
@@ -96,4 +98,15 @@ public interface ViewControllerInterface {
 
 	public void updateBoardAlreadyUseReviveLastRound(String msg);
 
+	public void updateBoardBeforeLeadershipUseMode(Set<Cell> cell, ModeController leadershipMode);
+
+	public void updateBoardFailToUseLeadershipMode(String errMsg);
+
+	public void updateBoardAfterLeadershipUseMode(Set<Cell> cell);
+
+	public void updateBoardBeforeVisionaryUseMode(ModeController visionaryController);
+
+	public void updateBoardBeforeAttackingEagleUseMode(ModeController attackingController);
+
+	public void updateBoardFailAttackingEagleUseMode(String errMsg);
 }

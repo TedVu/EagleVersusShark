@@ -1,6 +1,7 @@
 package modelcontroller.facade;
 
 import java.util.Map;
+import java.util.Set;
 
 import com.google.java.contract.Requires;
 
@@ -84,7 +85,7 @@ public class ControllerModelFacade implements ControllerModelInterface {
 				.get(PieceType.DEFENSIVESHARK);
 		commandExecutor.executeCommand(new MovePiece(cell.getX(), cell.getY(), defensivePiece));
 	}
- 
+
 	@Override
 	public void updateModelStateDefensiveSharkProtect(PieceType affectedPieceEnum) {
 		PieceInterface defensivePiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
@@ -103,5 +104,23 @@ public class ControllerModelFacade implements ControllerModelInterface {
 				.get(affectedPieceEnum);
 
 		commandExecutor.executeCommand(new UseAbility(PieceAbility.HEAL, healingPiece, affectedPiece));
+	}
+
+	@Override
+	public Set<Cell> updateBoardBeforeLeadershipUseMode() {
+
+		PieceInterface leadershipEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.LEADERSHIPEAGLE);
+
+		return leadershipEagle.modeCells();
+	}
+
+	@Override
+	public void updateBoardAfterLeadershipUseMode(Cell newPos) {
+
+		PieceInterface leadershipEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.LEADERSHIPEAGLE);
+		commandExecutor.executeCommand(new MovePiece(newPos.getX(), newPos.getY(), leadershipEagle));
+
 	}
 }

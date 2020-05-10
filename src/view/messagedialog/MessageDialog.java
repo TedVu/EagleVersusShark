@@ -63,6 +63,14 @@ public class MessageDialog {
 
 	public static void notifyReviveFailUsedAlready(BoardPanel boardView, String msg) {
 		JOptionPane.showMessageDialog(boardView, msg);
+	}
+
+	public static void notifyFailToUseLeadershipMode(BoardPanel boardView, String errMsg) {
+		JOptionPane.showMessageDialog(boardView, errMsg);
+	}
+	
+	public static void notifyFailAttackingEagleUseMode(BoardPanel boardView,String errMsg) {
+		JOptionPane.showMessageDialog(boardView, errMsg);
 
 	}
 

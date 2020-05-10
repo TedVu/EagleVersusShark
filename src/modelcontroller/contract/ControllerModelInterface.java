@@ -1,6 +1,7 @@
 package modelcontroller.contract;
 
 import java.util.Map;
+import java.util.Set;
 
 import model.board.Cell;
 import model.enumtype.PieceType;
@@ -36,4 +37,8 @@ public interface ControllerModelInterface {
 	public void updateModelStateDefensiveSharkProtect(PieceType affectedPieceEnum);
 
 	public void updateModelStateHealingSharkRevive(PieceType affectedPieceEnum);
+
+	public Set<Cell> updateBoardBeforeLeadershipUseMode();
+
+	public void updateBoardAfterLeadershipUseMode(Cell newPos);
 }

@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.management.RuntimeErrorException;
+
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
@@ -18,10 +20,11 @@ import model.piece.movement.DiagonalMove;
  * @author sefira
  *
  */
-public class AttackingEagle extends AbstractEagle {
+public class AttackingEagle extends AbstractPiece {
 
 	private static final long serialVersionUID = -1967226729710111595L;
 	private EngineInterface engine;
+	private boolean useModeAlready = false;
 
 	public AttackingEagle(int x, int y, EngineInterface engine) {
 		super(x, y);
@@ -69,7 +72,7 @@ public class AttackingEagle extends AbstractEagle {
 			EngineImpl.getSingletonInstance().getBoard().removePiece(currentPos.getX(), currentPos.getY());
 			EngineImpl.getSingletonInstance().getBoard().addPiece(opponentPos.getX(), opponentPos.getY());
 			movePiece(opponentPos.getX(), opponentPos.getY());
-			
+
 			affectedPiece.setActive(false);
 
 		} catch (Exception e) {
@@ -128,6 +131,37 @@ public class AttackingEagle extends AbstractEagle {
 	@Override
 	public String toString() {
 		return String.format("%s", "AttackingEagle");
+	}
+
+	@Override
+	public Set<Cell> modeCells() {
+		boolean existSharkInEagleSide = false;
+		engine = EngineImpl.getSingletonInstance();
+		Set<Cell> modePos = new HashSet<>();
+
+		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
+		for (PieceInterface shark : activeSharks) {
+			int midRiver = engine.getBoard().getSize() / 2;
+			int eagleSidePart = midRiver - 2;
+			if (shark.getPosition().get("y") <= eagleSidePart) {
+				existSharkInEagleSide = true;
+				modePos.add(engine.getBoard().getCell(shark.getPosition().get("x"), shark.getPosition().get("y")));
+			}
+		}
+		try {
+			if (!existSharkInEagleSide) {
+				throw new IllegalArgumentException("No shark in eagle side of the river to use mode");
+			}
+		} catch (Error e) {
+			throw new RuntimeErrorException(e);
+		}
+		return modePos;
+	}
+
+	@Override
+	public void useMode(int x, int y) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

@@ -3,15 +3,17 @@ package viewcontroller.facade;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.AbstractButton;
 
 import com.google.java.contract.Requires;
 
 import controller.abstractfactory.AbilityController;
-import model.board.Cell;
+import controller.abstractfactory.ModeController;
 import controller.playinggamecontroller.MovePieceController;
 import controller.playinggamecontroller.PlayerAction;
+import model.board.Cell;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import viewcontroller.contract.ViewControllerInterface;
@@ -176,6 +178,36 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	@Override
 	public void updateBoardAlreadyUseReviveLastRound(String msg) {
 		pcs.firePropertyChange("UpdateBoardAlreadyUseReviveLastRound", null, msg);
+	}
+
+	@Override
+	public void updateBoardBeforeLeadershipUseMode(Set<Cell> cell, ModeController leadershipModeController) {
+		pcs.firePropertyChange("UpdateBoardBeforeLeadershipUseMode", leadershipModeController, cell);
+	}
+
+	@Override
+	public void updateBoardFailToUseLeadershipMode(String errMsg) {
+		pcs.firePropertyChange("UpdateBoardFailToUseLeadershipMode", null, errMsg);
+	}
+
+	@Override
+	public void updateBoardAfterLeadershipUseMode(Set<Cell> cell) {
+		pcs.firePropertyChange("UpdateBoardAfterLeadershipUseMode", null, cell);
+	}
+
+	@Override
+	public void updateBoardBeforeVisionaryUseMode(ModeController visionaryController) {
+		pcs.firePropertyChange("updateBoardBeforeVisionaryUseMode", null, visionaryController);
+	}
+
+	@Override
+	public void updateBoardBeforeAttackingEagleUseMode(ModeController attackingController) {
+		pcs.firePropertyChange("UpdateBoardBeforeAttackingEagleUseMode", null, attackingController);
+	}
+
+	@Override
+	public void updateBoardFailAttackingEagleUseMode(String errMsg) {
+		pcs.firePropertyChange("UpdateBoardFailAttackingEagleUseMode", null, errMsg);
 	}
 
 }
