@@ -27,7 +27,7 @@ public class AttackingEagleModeController extends AbstractModeController {
 
 		try {
 			// will throw exception if capture immunity piece
-			super.controllerModelFacade.updateModelStateAttackingEagle(affectedPieceEnum);
+			super.controllerModelFacade.updateModelStateAttackingEagle(affectedPieceEnum,true);
 		} catch (RuntimeException ex) {
 			captureSuccess = false;
 			super.viewControllerFacade.updateBoardFailToCaptureImmunity();

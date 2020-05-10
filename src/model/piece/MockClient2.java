@@ -63,7 +63,7 @@ public class MockClient2 {
 
 		System.out.println("\nMOVE 1");
 		System.out.println("moving attacking eagle to (4,0)");
-		commandExecutor.executeCommand(new MovePiece(4, 0, attackerPiece));
+		commandExecutor.executeCommand(new MovePiece(4, 0, attackerPiece, false));
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
 		System.out.println();
 		//
@@ -74,7 +74,7 @@ public class MockClient2 {
 
 		System.out.println("\nMOVE 2");
 		System.out.println("swapping attacking eagle & visionary position");
-		commandExecutor.executeCommand(new UseAbility(PieceAbility.SWAP, visionPiece, attackerPiece));
+		commandExecutor.executeCommand(new UseAbility(PieceAbility.SWAP, visionPiece, attackerPiece, false));
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
 		System.out.println("vision eagle loc: " + visionPiece.getPosition());
 		System.out.println();
@@ -82,11 +82,11 @@ public class MockClient2 {
 		System.out.println("\nMOVE 3");
 		System.out.println("visionary eagle has immunity: " + visionPiece.isImmune());
 		System.out.println("leader eagle give immunity to visionary");
-		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, leaderPiece, visionPiece));
+		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, leaderPiece, visionPiece, false));
 		System.out.println("visionary eagle has immunity: " + visionPiece.isImmune());
 		System.out.println("try to give immunity again");
 		try {
-			commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, leaderPiece, visionPiece));
+			commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, leaderPiece, visionPiece, false));
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -96,7 +96,7 @@ public class MockClient2 {
 		System.out.println("defence shark loc: " + defenceShark.getPosition());
 		System.out.println("capture defence shark");
 		try {
-			commandExecutor.executeCommand(new UseAbility(PieceAbility.CAPTURE, attackerPiece, defenceShark));
+			commandExecutor.executeCommand(new UseAbility(PieceAbility.CAPTURE, attackerPiece, defenceShark,false));
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -106,12 +106,12 @@ public class MockClient2 {
 		// move 4
 		System.out.println("\nMOVE 4");
 		System.out.println("moving defence shark to be close to attack eagle");
-		commandExecutor.executeCommand(new MovePiece(4, 0, defenceShark));
+		commandExecutor.executeCommand(new MovePiece(4, 0, defenceShark, false));
 		System.out.println("defence shark loc: " + defenceShark.getPosition());
 
 		System.out.println("\nMOVE 5");
 		System.out.println("capture defensive shark");
-		commandExecutor.executeCommand(new UseAbility(PieceAbility.CAPTURE, attackerPiece, defenceShark));
+		commandExecutor.executeCommand(new UseAbility(PieceAbility.CAPTURE, attackerPiece, defenceShark, false));
 		System.out.println("defence shark active status: " + defenceShark.isActive());
 		System.out.println();
 
@@ -134,14 +134,14 @@ public class MockClient2 {
 		System.out.println("vision eagle loc: " + visionPiece.getPosition());
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
 		System.out.println("swapping attacking eagle & visionary position");
-		commandExecutor.executeCommand(new UseAbility(PieceAbility.SWAP, visionPiece, attackerPiece));
+		commandExecutor.executeCommand(new UseAbility(PieceAbility.SWAP, visionPiece, attackerPiece, false));
 		System.out.println("vision eagle loc: " + visionPiece.getPosition());
 		System.out.println("attack eagle loc: " + attackerPiece.getPosition());
 		System.out.println();
 
 		System.out.println("attack eagle has immunity: " + attackerPiece.isImmune());
 		System.out.println("leader eagle give immunity to attacker");
-		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, leaderPiece, attackerPiece));
+		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, leaderPiece, attackerPiece, false));
 		System.out.println("attacker eagle has immunity: " + attackerPiece.isImmune());
 
 		System.out.println();

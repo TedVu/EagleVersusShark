@@ -17,7 +17,7 @@ public class AttackingEagleAbilityController extends AbstractAbilityController {
 
 		try {
 			// will throw exception if capture immunity piece
-			super.controllerModelFacade.updateModelStateAttackingEagle(affectedPieceEnum);
+			super.controllerModelFacade.updateModelStateAttackingEagle(affectedPieceEnum,false);
 		} catch (RuntimeException ex) {
 			captureSuccess = false;
 			super.viewControllerFacade.updateBoardFailToCaptureImmunity();

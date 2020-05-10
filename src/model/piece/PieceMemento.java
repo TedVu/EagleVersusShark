@@ -7,14 +7,15 @@ public class PieceMemento implements Serializable {
 	private static final long serialVersionUID = -2210167835452781626L;
 	boolean isActive;
 	boolean isImmune;
-	int x, y;
+	int x, y, modeUsageCount;
 
-	public PieceMemento(boolean isActive, boolean isImmune, int x, int y) {
+	public PieceMemento(boolean isActive, boolean isImmune, int x, int y, int modeUsageCount) {
 		super();
 		this.isActive = isActive;
 		this.isImmune = isImmune;
 		this.x = x;
 		this.y = y;
+		this.modeUsageCount = modeUsageCount;
 	};
 
 	public PieceMemento getState() {
@@ -35,6 +36,10 @@ public class PieceMemento implements Serializable {
 
 	public int getY() {
 		return y;
+	}
+
+	public int getModeCount() {
+		return modeUsageCount;
 	}
 
 }

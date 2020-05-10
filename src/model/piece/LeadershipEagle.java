@@ -124,6 +124,8 @@ public class LeadershipEagle extends AbstractPiece {
 	public String toString() {
 		return String.format("%s", "LeadershipEagle");
 	}
+	
+	
 
 	@Override
 	public Set<Cell> modeCells() {
@@ -170,10 +172,6 @@ public class LeadershipEagle extends AbstractPiece {
 		return finalMode;
 	}
 
-	@Override
-	public void useMode(int x, int y) {
-		// TODO Auto-generated method stub
 
-	}
 
 }

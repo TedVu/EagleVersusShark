@@ -14,7 +14,9 @@ import model.contract.EngineInterface;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
-import model.piece.movement.DiagonalMove;
+import model.piece.movement.BasicMove;
+import model.piece.movement.DiagonalDecorator;
+import model.piece.movement.PieceMoveDecorator;
 
 /**
  * @author sefira
@@ -35,7 +37,7 @@ public class AttackingEagle extends AbstractPiece {
 	@Requires({ "getPosition() != null" })
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
-		return new DiagonalMove().getValidMove(this, 1);
+		return new DiagonalDecorator(new BasicMove()).getValidMove(this, 1);
 	}
 
 	@Override
@@ -53,8 +55,9 @@ public class AttackingEagle extends AbstractPiece {
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
 			capture(piece, affectedPiece);
-			// move piece + update board occupation here
-		} else {
+		} 
+	
+		else {
 			throw new IllegalArgumentException("Invalid ability");
 		}
 	}
@@ -127,7 +130,8 @@ public class AttackingEagle extends AbstractPiece {
 
 		return distance;
 	}
-
+	
+	
 	@Override
 	public String toString() {
 		return String.format("%s", "AttackingEagle");
@@ -158,10 +162,7 @@ public class AttackingEagle extends AbstractPiece {
 		return modePos;
 	}
 
-	@Override
-	public void useMode(int x, int y) {
-		// TODO Auto-generated method stub
-
-	}
+	
+	
 
 }

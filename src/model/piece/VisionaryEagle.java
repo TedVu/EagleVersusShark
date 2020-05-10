@@ -15,7 +15,8 @@ import model.contract.EngineInterface;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
-import model.piece.movement.DiagonalMove;
+import model.piece.movement.BasicMove;
+import model.piece.movement.DiagonalDecorator;
 
 /**
  * @author sefira
@@ -38,7 +39,7 @@ public class VisionaryEagle extends AbstractPiece {
 	@Requires({ "getPosition() != null" })
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
-		return new DiagonalMove().getValidMove(this, 2);
+		return new DiagonalDecorator(new BasicMove()).getValidMove(this, 2);
 
 	}
 
@@ -57,12 +58,15 @@ public class VisionaryEagle extends AbstractPiece {
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.SWAP)) {
 			swap(piece, affectedPiece);
-		} else {
+		} 
+	
+		else {
 			throw new IllegalArgumentException("Invalid ability");
 		}
 	}
 
-	public void swap(PieceInterface piece, PieceInterface affectedPiece) {
+
+	private void swap(PieceInterface piece, PieceInterface affectedPiece) {
 
 		try {
 			Map<String, Integer> position1 = new HashMap<String, Integer>();
@@ -96,32 +100,30 @@ public class VisionaryEagle extends AbstractPiece {
 
 		return swapPositions;
 	}
+	
+	
+	@Override
+	public Set<Cell> modeCells() {
+		
+		Set<Cell> swapPositions = new HashSet<>();
+		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
+		for (PieceInterface activeShark : activeSharks) {
+			
+			int x = activeShark.getPosition().get("x");
+			int y = activeShark.getPosition().get("y");
+
+			swapPositions.add(new Cell(x, y));
+		}
+
+		return swapPositions;
+	}
+
 
 	@Override
 	public String toString() {
 		return String.format("%s", "VisionaryEagle");
 	}
 
-	@Override
-	public Set<Cell> modeCells() {
-		Set<Cell> swapPositions = new HashSet<>();
-		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
-		for (PieceInterface activeShark : activeSharks) {
-
-			int x = activeShark.getPosition().get("x");
-			int y = activeShark.getPosition().get("y");
-
-			swapPositions.add(new Cell(x, y));
-
-		}
-
-		return swapPositions;
-	}
-
-	@Override
-	public void useMode(int x, int y) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 }

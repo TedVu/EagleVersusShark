@@ -63,5 +63,10 @@ public interface PieceInterface {
 	
 	public Set<Cell> modeCells();
 	
-	public void useMode(int x, int y);
+	public void modeUsed();
+	
+	public void setModeCount(int modeCount);
+	
+	public int getModeCount();
+	
 }
