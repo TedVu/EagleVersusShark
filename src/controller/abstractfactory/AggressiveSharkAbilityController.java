@@ -29,7 +29,7 @@ public class AggressiveSharkAbilityController extends AbstractAbilityController 
 	}
 
 	@Override
-	public void setUpView() {
+	public void setUpViewForAbility() {
 		super.viewControllerFacade.updateBoardBeforeAggressiveSharkCapture(this);
 	}
 }

@@ -32,7 +32,7 @@ public class DefensiveSharkAbilityController extends AbstractAbilityController {
 	}
 
 	@Override
-	public void setUpView() {
+	public void setUpViewForAbility() {
 		super.viewControllerFacade.updateBoardBeforeDefensiveSharkAbility(this);
 	}
 }

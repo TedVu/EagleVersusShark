@@ -23,8 +23,7 @@ public class VisionaryEagleAbilityController extends AbstractAbilityController {
 	}
 
 	@Override
-	public void setUpView() {
-		// TODO Auto-generated method stub
+	public void setUpViewForAbility() {
 		viewControllerFacade.updateBoardBeforeSwap(this);
 
 	}

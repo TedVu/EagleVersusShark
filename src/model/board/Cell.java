@@ -15,6 +15,7 @@ public class Cell implements Serializable {
 	private boolean occupied = false;
 	private boolean isWaterCell = false;
 	private boolean isMasterCell = false;
+	private boolean isObstacle = false;
 
 	/**
 	 * @param x
@@ -75,6 +76,15 @@ public class Cell implements Serializable {
 
 	public void setMasterCell() {
 		isMasterCell = true;
+	}
+
+	public void setObstacle() {
+		occupied = true;
+		isObstacle = true;
+	}
+
+	public boolean isObstacle() {
+		return isObstacle;
 	}
 
 	@Override

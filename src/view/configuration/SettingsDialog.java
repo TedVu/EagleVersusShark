@@ -103,4 +103,8 @@ public class SettingsDialog extends JDialog {
 			return 2;
 		}
 	}
+	
+	public String getObstacleConfig() {
+		return (String) obstaclesMenu.getSelectedItem();
+	}
 }

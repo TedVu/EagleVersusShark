@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 public class DefensiveSharkModeController extends AbstractModeController {
 
 	@Override
-	public void setUpView() {
+	public void setUpViewForMode() {
 		System.out.println("DefensiveSharkMode");
 	}
 

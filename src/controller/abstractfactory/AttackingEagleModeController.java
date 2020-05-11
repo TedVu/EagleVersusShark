@@ -10,7 +10,7 @@ import model.enumtype.TeamType;
 public class AttackingEagleModeController extends AbstractModeController {
 
 	@Override
-	public void setUpView() {
+	public void setUpViewForMode() {
 		try {
 			super.viewControllerFacade.updateBoardBeforeAttackingEagleUseMode(this);
 
@@ -21,22 +21,18 @@ public class AttackingEagleModeController extends AbstractModeController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		boolean captureSuccess = true;
 		AbstractButton btnClicked = (AbstractButton) e.getSource();
 		PieceType affectedPieceEnum = PieceType.parsePieceType(btnClicked.getActionCommand());
 
 		try {
 			// will throw exception if capture immunity piece
-			super.controllerModelFacade.updateModelStateAttackingEagle(affectedPieceEnum,true);
-		} catch (RuntimeException ex) {
-			captureSuccess = false;
-			super.viewControllerFacade.updateBoardFailToCaptureImmunity();
-		}
-		if (captureSuccess) {
+			super.controllerModelFacade.updateModelAttackingEagleCapture(affectedPieceEnum, true);
 			super.viewControllerFacade.updateBoardAfterAttackingEagleCapture(btnClicked);
 			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
-
+		} catch (RuntimeException ex) {
+			super.viewControllerFacade.updateBoardFailToCaptureImmunity();
 		}
+
 	}
 
 }

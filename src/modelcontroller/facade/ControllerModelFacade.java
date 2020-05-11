@@ -60,7 +60,7 @@ public class ControllerModelFacade implements ControllerModelInterface {
 	}
 
 	@Override
-	public void updateModelStateAttackingEagle(PieceType affectedPieceEnum, boolean isMode) {
+	public void updateModelAttackingEagleCapture(PieceType affectedPieceEnum, boolean isMode) {
 		PieceInterface affectedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(affectedPieceEnum);
 		PieceInterface attackingPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
@@ -109,20 +109,13 @@ public class ControllerModelFacade implements ControllerModelInterface {
 	}
 
 	@Override
-	public Set<Cell> updateBoardBeforeLeadershipUseMode() {
+	public void updateModelAfterLeadershipUseMode() {
 
 		PieceInterface leadershipEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(PieceType.LEADERSHIPEAGLE);
-
-		return leadershipEagle.modeCells();
-	}
-
-	@Override
-	public void updateBoardAfterLeadershipUseMode(Cell newPos) {
-
-		PieceInterface leadershipEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
-				.get(PieceType.LEADERSHIPEAGLE);
-		commandExecutor.executeCommand(new MovePiece(newPos.getX(), newPos.getY(), leadershipEagle, false));
-
+		Set<Cell> leapPos = leadershipEagle.modeCells();
+		for (Cell newPos : leapPos) {
+			commandExecutor.executeCommand(new MovePiece(newPos.getX(), newPos.getY(), leadershipEagle, false));
+		}
 	}
 }

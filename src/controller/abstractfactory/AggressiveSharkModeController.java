@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 public class AggressiveSharkModeController extends AbstractModeController{
 
 	@Override
-	public void setUpView() {
+	public void setUpViewForMode() {
 		// TODO Auto-generated method stub
 		System.out.println("AggressiveSharkMode");
 	}

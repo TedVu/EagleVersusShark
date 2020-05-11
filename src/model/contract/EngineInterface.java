@@ -106,6 +106,8 @@ public interface EngineInterface {
 
 	public void configNumPiece(int pieceNumberSelection);
 
+	public void configObstacle(boolean hasObstacle);
+	
 	public void loadGame(EngineImpl e);
 	
 	

@@ -13,7 +13,7 @@ public class EagleModeControllerFactory implements ModeControllerFactory {
 		} else if (pieceType == PieceType.VISIONARYEAGLE) {
 			return new VisionaryEagleModeController();
 		} else {
-			throw new IllegalArgumentException("");
+			throw new IllegalArgumentException("Piece type not found");
 		}
 	}
 

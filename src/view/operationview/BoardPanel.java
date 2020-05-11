@@ -36,8 +36,6 @@ import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
-import model.piece.commands.CommandExecutor;
-import model.piece.commands.MovePiece;
 import view.messagedialog.MessageDialog;
 import viewcontroller.contract.ViewControllerInterface;
 import viewcontroller.facade.ViewControllerFacade;
@@ -101,9 +99,12 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 				if (engine.getBoard().getCell(col, row).isMasterCell()) {
 					Color color = new Color(7, 6, 0);
 					currentButton.setBackground(color);
-
 				}
 
+				if (engine.getBoard().getCell(col, row).isObstacle()) {
+					Color color = new Color(81, 79, 89);
+					currentButton.setBackground(color);
+				}
 				currentButton.setBorder(BorderFactory.createRaisedBevelBorder());
 
 				currentButton.setActionCommand("NormalButton");
@@ -200,11 +201,11 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		} else if (event.equalsIgnoreCase("UpdateBoardAlreadyUseReviveLastRound")) {
 			updateBoardAlreadyUseReviveLastRound((String) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardBeforeLeadershipUseMode")) {
-			updateBoardBeforeLeadershipUseMode((Set<Cell>) evt.getNewValue(), (ModeController) evt.getOldValue());
+			updateBoardBeforeLeadershipUseMode((ModeController) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardFailToUseLeadershipMode")) {
 			updateBoardFailToUseLeadershipMode((String) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterLeadershipUseMode")) {
-			updateBoardAfterLeadershipUseMode((Set<Cell>) evt.getNewValue());
+			updateBoardAfterLeadershipUseMode();
 		} else if (event.equalsIgnoreCase("UpdateBoardBeforeVisionaryUseMode")) {
 			updateBoardBeforeVisionaryUseMode((ModeController) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterVisionaryUseMode")) {
@@ -252,12 +253,13 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 	}
 
-	private void updateBoardAfterLeadershipUseMode(Set<Cell> leapPos) {
-		PieceInterface leadershipPos = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+	private void updateBoardAfterLeadershipUseMode() {
+		PieceInterface leadershipEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(PieceType.LEADERSHIPEAGLE);
+		Set<Cell> leapPos = leadershipEagle.modeCells();
 
-		AbstractButton oldBtn = buttons.get(leadershipPos.getPosition().get("y"))
-				.get(leadershipPos.getPosition().get("x"));
+		AbstractButton oldBtn = buttons.get(leadershipEagle.getPosition().get("y"))
+				.get(leadershipEagle.getPosition().get("x"));
 
 		oldBtn.setIcon(null);
 		oldBtn.setActionCommand("NormalButton");
@@ -274,7 +276,13 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		refreshBoardColorAndState();
 	}
 
-	private void updateBoardBeforeLeadershipUseMode(Set<Cell> leapPos, ModeController leadershipModeController) {
+	private void updateBoardBeforeLeadershipUseMode(ModeController leadershipModeController) {
+		PieceInterface leadershipEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.LEADERSHIPEAGLE);
+
+		// will throw exception
+		Set<Cell> leapPos = leadershipEagle.modeCells();
+
 		for (Cell cell : leapPos) {
 			AbstractButton btnAffected = buttons.get(cell.getY()).get(cell.getX());
 			btnAffected.setBackground(Color.yellow);
@@ -297,11 +305,9 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	private void updateBoardReviveSharkSuccessful(PieceType revivedPieceEnum) {
 		PieceInterface revivedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(revivedPieceEnum);
-		
 
 		AbstractButton revivedBtn = buttons.get(revivedPiece.getPosition().get("y"))
 				.get(revivedPiece.getPosition().get("x"));
-		
 
 		updateIcon(revivedBtn, revivedPieceEnum);
 		revivedBtn.setActionCommand(revivedPiece.toString());
@@ -479,9 +485,11 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
 				AbstractButton btn = buttons.get(row).get(col);
 				if (!engine.getBoard().getCell(col, row).isWaterCell()
-						&& !engine.getBoard().getCell(col, row).isMasterCell()) {
+						&& !engine.getBoard().getCell(col, row).isMasterCell()
+						&& !engine.getBoard().getCell(col, row).isObstacle()) {
 					btn.setBackground(Color.WHITE);
-				} else if (engine.getBoard().getCell(col, row).isWaterCell()) {
+				} else if (engine.getBoard().getCell(col, row).isWaterCell()
+						&& !engine.getBoard().getCell(col, row).isObstacle()) {
 					Color color = new Color(178, 221, 247);
 					btn.setBackground(color);
 				} else if (engine.getBoard().getCell(col, row).isMasterCell()) {

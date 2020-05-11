@@ -13,7 +13,7 @@ public abstract class AbstractAbilityController implements AbilityController {
 	protected ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
 
 	@Override
-	public void setState(ViewControllerInterface viewControllerFacade) {
+	public void setAbilityState(ViewControllerInterface viewControllerFacade) {
 		this.viewControllerFacade = viewControllerFacade;
 	}
 

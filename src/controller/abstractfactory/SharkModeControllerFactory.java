@@ -13,7 +13,7 @@ public class SharkModeControllerFactory implements ModeControllerFactory {
 		} else if (pieceType == PieceType.HEALINGSHARK) {
 			return new HealingSharkModeController();
 		} else {
-			throw new IllegalArgumentException("");
+			throw new IllegalArgumentException("Piece type not found");
 		}
 	}
 

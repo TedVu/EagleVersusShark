@@ -3,7 +3,6 @@ package viewcontroller.facade;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Map;
-import java.util.Set;
 
 import javax.swing.AbstractButton;
 
@@ -181,8 +180,8 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void updateBoardBeforeLeadershipUseMode(Set<Cell> cell, ModeController leadershipModeController) {
-		pcs.firePropertyChange("UpdateBoardBeforeLeadershipUseMode", leadershipModeController, cell);
+	public void updateBoardBeforeLeadershipUseMode(ModeController leadershipModeController) {
+		pcs.firePropertyChange("UpdateBoardBeforeLeadershipUseMode", null, leadershipModeController);
 	}
 
 	@Override
@@ -191,8 +190,8 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void updateBoardAfterLeadershipUseMode(Set<Cell> cell) {
-		pcs.firePropertyChange("UpdateBoardAfterLeadershipUseMode", null, cell);
+	public void updateBoardAfterLeadershipUseMode() {
+		pcs.firePropertyChange("UpdateBoardAfterLeadershipUseMode", null, null);
 	}
 
 	@Override

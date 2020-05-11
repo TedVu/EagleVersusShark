@@ -16,7 +16,6 @@ import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
 import model.piece.movement.DiagonalDecorator;
-import model.piece.movement.PieceMoveDecorator;
 
 /**
  * @author sefira
@@ -26,7 +25,6 @@ public class AttackingEagle extends AbstractPiece {
 
 	private static final long serialVersionUID = -1967226729710111595L;
 	private EngineInterface engine;
-	private boolean useModeAlready = false;
 
 	public AttackingEagle(int x, int y, EngineInterface engine) {
 		super(x, y);
@@ -55,8 +53,8 @@ public class AttackingEagle extends AbstractPiece {
 	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
 			capture(piece, affectedPiece);
-		} 
-	
+		}
+
 		else {
 			throw new IllegalArgumentException("Invalid ability");
 		}
@@ -130,8 +128,7 @@ public class AttackingEagle extends AbstractPiece {
 
 		return distance;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return String.format("%s", "AttackingEagle");
@@ -161,8 +158,5 @@ public class AttackingEagle extends AbstractPiece {
 		}
 		return modePos;
 	}
-
-	
-	
 
 }

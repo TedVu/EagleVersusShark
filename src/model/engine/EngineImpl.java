@@ -1,15 +1,20 @@
 package model.engine;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import java.util.Timer;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.google.java.contract.Requires;
 
 import controller.playinggamecontroller.MakingMovePropertyChangeListener;
 import controller.playinggamecontroller.TimerPropertyChangeListener;
 import model.board.Board;
+import model.board.Cell;
 import model.contract.EngineInterface;
+import model.contract.PieceInterface;
 import model.enumtype.TeamType;
 import model.piece.commands.PieceOperator;
 import model.player.Player;
@@ -62,8 +67,8 @@ public class EngineImpl implements EngineInterface, Serializable {
 	 * @return the singleton instance of the engine
 	 */
 	private EngineImpl() {
-		
-		//default game when hitting start without config
+
+		// default game when hitting start without config
 		totalNumPiece = 6;
 		board = new Board(9);
 		pieceOperator = new PieceOperator(board, this);
@@ -274,5 +279,35 @@ public class EngineImpl implements EngineInterface, Serializable {
 	@Override
 	public int getTotalNumPiece() {
 		return this.totalNumPiece;
+	}
+
+	@Override
+	public void configObstacle(boolean hasObstacle) {
+		if (hasObstacle) {
+			Set<Cell> specialPos = new HashSet<>();
+			for (PieceInterface pieces : this.pieceOperator.getAllPieces().values()) {
+				specialPos.add(board.getCell(pieces.getPosition().get("x"), pieces.getPosition().get("y")));
+			}
+			specialPos.add(board.getCell(board.getSize() / 2, 0));
+			specialPos.add(board.getCell(board.getSize() / 2, board.getSize() - 1));
+
+			int min = 0, max = board.getSize();
+			// 4 obstacles
+			int numObstacle = 1;
+			while (numObstacle <= 4) {
+				// exclusive the ceiling
+				int randomX = ThreadLocalRandom.current().nextInt(min, max);
+				int randomY = ThreadLocalRandom.current().nextInt(min, max);
+
+				// generate random until not either the special pos
+				if (!specialPos.contains(board.getCell(randomX, randomY))
+						&& !board.getCell(randomX, randomY).isObstacle()) {
+					board.getCell(randomX, randomY).setObstacle();
+					++numObstacle;
+				}
+
+			}
+
+		}
 	}
 }

@@ -93,8 +93,8 @@ public class SelectPieceController implements ActionListener {
 
 		ModeController modeController = modeFactory
 				.createModeController(PieceType.parsePieceType(buttonClicked.getActionCommand()));
-		modeController.setState(viewControllerFacade);
-		modeController.setUpView();
+		modeController.setModeState(viewControllerFacade);
+		modeController.setUpViewForMode();
 	}
 
 	private void useAbilityViewController(TeamType teamType) {
@@ -102,8 +102,8 @@ public class SelectPieceController implements ActionListener {
 				.getSpecialBehaviourControllerFactory(teamType).createAbilityControllerFactory();
 		AbilityController abilityController = abilityFactory
 				.createAbilityController(PieceType.parsePieceType(buttonClicked.getActionCommand()));
-		abilityController.setState(viewControllerFacade);
-		abilityController.setUpView();
+		abilityController.setAbilityState(viewControllerFacade);
+		abilityController.setUpViewForAbility();
 	}
 
 	@Requires("buttonClicked != null")

@@ -21,7 +21,7 @@ public class LeadershipEagleAbilityController extends AbstractAbilityController 
 	}
 
 	@Override
-	public void setUpView() {
+	public void setUpViewForAbility() {
 		super.viewControllerFacade.updateBoardBeforeLeadershipProtect(this);
 	}
 }

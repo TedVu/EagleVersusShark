@@ -11,8 +11,6 @@ import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
-import model.piece.movement.DiagonalDecorator;
-import model.piece.movement.PieceMoveDecorator;
 
 /**
  * @author chanboth

@@ -10,11 +10,6 @@ import model.enumtype.TeamType;
 public class VisionaryEagleModeController extends AbstractModeController {
 
 	@Override
-	public void setUpView() {
-		super.viewControllerFacade.updateBoardBeforeVisionaryUseMode(this);
-	}
-
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		buttonClicked = (AbstractButton) e.getSource();
 		String buttonClickedStr = buttonClicked.getActionCommand();
@@ -23,6 +18,11 @@ public class VisionaryEagleModeController extends AbstractModeController {
 
 		super.controllerModelFacade.updateModelStateSwapPiece(PieceType.parsePieceType(buttonClickedStr));
 		super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
+	}
+
+	@Override
+	public void setUpViewForMode() {
+		super.viewControllerFacade.updateBoardBeforeVisionaryUseMode(this);
 	}
 
 }

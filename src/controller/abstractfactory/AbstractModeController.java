@@ -13,7 +13,7 @@ public abstract class AbstractModeController implements ModeController {
 	protected ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
 
 	@Override
-	public void setState(ViewControllerInterface viewControllerFacade) {
+	public void setModeState(ViewControllerInterface viewControllerFacade) {
 		this.viewControllerFacade = viewControllerFacade;
 	}
 

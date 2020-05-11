@@ -25,9 +25,10 @@ public class Board implements Serializable {
 
 	/**
 	 * Return shark's master cell
+	 * 
 	 * @author Chanboth
 	 */
-	public Cell getSharkMasterCell(){
+	public Cell getSharkMasterCell() {
 		return this.sharkMasterCell;
 	}
 
@@ -51,8 +52,9 @@ public class Board implements Serializable {
 
 		cells.get(0).get(mid).setMasterCell();
 		cells.get(size - 1).get(mid).setMasterCell();
-	}
 
+	}
+ 
 	/**
 	 * @param x
 	 * @param y
