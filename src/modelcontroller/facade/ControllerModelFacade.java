@@ -118,4 +118,20 @@ public class ControllerModelFacade implements ControllerModelInterface {
 			commandExecutor.executeCommand(new MovePiece(newPos.getX(), newPos.getY(), leadershipEagle, false));
 		}
 	}
+
+	@Override
+	public void updateModelAfterAggressiveSharkUseMode(Cell newPos) {
+		PieceInterface aggressiveShark = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.AGGRESSIVESHARK);
+
+		commandExecutor.executeCommand(new MovePiece(newPos.getX(), newPos.getY(), aggressiveShark, false));
+	}
+
+	@Override
+	public void updateModelAfterHealingSharkUseMode(PieceType affectedPieceEnum) {
+		PieceInterface eagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces().get(affectedPieceEnum);
+		Cell eagleMasterCell = EngineImpl.getSingletonInstance().getBoard().getCell(4, 0);
+		commandExecutor.executeCommand(new MovePiece(eagleMasterCell.getX(), eagleMasterCell.getY(), eagle, false));
+
+	}
 }

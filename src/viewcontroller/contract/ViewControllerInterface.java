@@ -108,4 +108,12 @@ public interface ViewControllerInterface {
 	public void updateBoardBeforeAttackingEagleUseMode(ModeController attackingController);
 
 	public void updateBoardFailAttackingEagleUseMode(String errMsg);
+	
+	public void updateBoardBeforeAggressiveSharkUseMode(ModeController aggressiveController);
+	
+	public void updateBoardAfterAggressiveSharkUseMode(AbstractButton movedBtn,Cell newPos);
+
+	public void updateBoardBeforeHealingSharkUseMode(ModeController healingController);
+	
+	public void updateBoardAfterHealingSharkUseMode();
 }

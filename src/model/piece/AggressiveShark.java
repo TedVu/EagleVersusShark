@@ -119,9 +119,10 @@ public class AggressiveShark extends AbstractPiece {
 
 	@Override
 	public Set<Cell> modeCells() {
-		// return a random cell
+		// for now you can return a set of one cell, refactor will
+		// be made later on
+
 		return null;
 	}
-
 
 }

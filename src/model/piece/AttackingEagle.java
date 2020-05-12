@@ -134,9 +134,25 @@ public class AttackingEagle extends AbstractPiece {
 		return String.format("%s", "AttackingEagle");
 	}
 
+	private boolean existNearbyShark(PieceInterface shark) {
+		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
+		for (PieceInterface otherShark : activeSharks) {
+			if (otherShark.getPosition().get("x") == shark.getPosition().get("x")
+					&& otherShark.getPosition().get("y") == shark.getPosition().get("y")) {
+				continue;
+			} else {
+				if (Math.abs(otherShark.getPosition().get("x") - shark.getPosition().get("x")) <= 1
+						&& Math.abs(otherShark.getPosition().get("y") - shark.getPosition().get("y")) <= 1) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public Set<Cell> modeCells() {
-		boolean existSharkInEagleSide = false;
+		boolean ableToUseMode = false;
 		engine = EngineImpl.getSingletonInstance();
 		Set<Cell> modePos = new HashSet<>();
 
@@ -144,14 +160,15 @@ public class AttackingEagle extends AbstractPiece {
 		for (PieceInterface shark : activeSharks) {
 			int midRiver = engine.getBoard().getSize() / 2;
 			int eagleSidePart = midRiver - 2;
-			if (shark.getPosition().get("y") <= eagleSidePart) {
-				existSharkInEagleSide = true;
+			
+			if (shark.getPosition().get("y") <= eagleSidePart && !existNearbyShark(shark)) {
+				ableToUseMode = true;
 				modePos.add(engine.getBoard().getCell(shark.getPosition().get("x"), shark.getPosition().get("y")));
 			}
 		}
 		try {
-			if (!existSharkInEagleSide) {
-				throw new IllegalArgumentException("No shark in eagle side of the river to use mode");
+			if (!ableToUseMode) {
+				throw new IllegalArgumentException("No alone shark in eagle side of the river to use mode");
 			}
 		} catch (Error e) {
 			throw new RuntimeErrorException(e);

@@ -2,17 +2,26 @@ package controller.abstractfactory;
 
 import java.awt.event.ActionEvent;
 
+import javax.swing.AbstractButton;
+
+import model.board.Cell;
+import model.enumtype.TeamType;
+
 public class DefensiveSharkModeController extends AbstractModeController {
 
 	@Override
 	public void setUpViewForMode() {
-		System.out.println("DefensiveSharkMode");
+		super.viewControllerFacade.updateBoardBeforeAggressiveSharkUseMode(this);
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		AbstractButton movedBtn = (AbstractButton) e.getSource();
+		Cell newPos = new Cell(0, 0);
+		super.viewControllerFacade.updateBoardAfterAggressiveSharkUseMode(movedBtn, newPos);
+		super.controllerModelFacade.updateModelAfterAggressiveSharkUseMode(newPos);
+		super.controllerModelFacade.updateModelStateForNextTurn(TeamType.EAGLE);
 	}
 
 }

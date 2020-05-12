@@ -38,4 +38,8 @@ public interface ControllerModelInterface {
 	public void updateModelStateHealingSharkRevive(PieceType affectedPieceEnum);
 
 	public void updateModelAfterLeadershipUseMode();
+	
+	public void updateModelAfterAggressiveSharkUseMode(Cell newPos);
+	
+	public void updateModelAfterHealingSharkUseMode(PieceType affectedPieceEnum);
 }

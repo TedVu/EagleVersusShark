@@ -209,4 +209,25 @@ public class ViewControllerFacade implements ViewControllerInterface {
 		pcs.firePropertyChange("UpdateBoardFailAttackingEagleUseMode", null, errMsg);
 	}
 
+	@Override
+	public void updateBoardBeforeAggressiveSharkUseMode(ModeController aggressiveController) {
+		pcs.firePropertyChange("UpdateBoardBeforeAggressiveSharkUseMode", null, aggressiveController);
+	}
+
+	@Override
+	public void updateBoardAfterAggressiveSharkUseMode(AbstractButton movedBtn, Cell newPos) {
+		pcs.firePropertyChange("UpdateBoardAfterAggressiveSharkUseMode", newPos, movedBtn);
+	}
+
+	@Override
+	public void updateBoardAfterHealingSharkUseMode() {
+		pcs.firePropertyChange("UpdateBoardAfterHealingSharkUseMode", null, null);
+
+	}
+
+	@Override
+	public void updateBoardBeforeHealingSharkUseMode(ModeController healingController) {
+		pcs.firePropertyChange("UpdateBoardBeforeHealingSharkUseMode", null, healingController);
+	}
+
 }

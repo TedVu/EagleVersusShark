@@ -214,6 +214,92 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			updateBoardBeforeAttackingEagleUseMode((ModeController) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardFailAttackingEagleUseMode")) {
 			updateBoardFailAttackingEagleUseMode((String) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardBeforeAggressiveSharkUseMode")) {
+			updateBoardBeforeAggressiveSharkUseMode((ModeController) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardAfterAggressiveSharkUseMode")) {
+			updateBoardAfterAggressiveSharkUseMode((AbstractButton) evt.getNewValue(), (Cell) evt.getOldValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardAfterHealingSharkUseMode")) {
+			updateBoardAfterHealingSharkUseMode();
+		} else if (event.equalsIgnoreCase("UpdateBoardBeforeHealingSharkUseMode")) {
+			updateBoardBeforeHealingSharkUseMode((ModeController) evt.getNewValue());
+		}
+	}
+
+	private void updateBoardBeforeHealingSharkUseMode(ModeController healingController) {
+		List<PieceInterface> activeEagles = EngineImpl.getSingletonInstance().pieceOperator().getActiveEagles();
+
+		for (PieceInterface eagle : activeEagles) {
+			AbstractButton eagleBtn = buttons.get(eagle.getPosition().get("y")).get(eagle.getPosition().get("x"));
+			eagleBtn.setBackground(Color.RED);
+			ActionListener[] listeners = eagleBtn.getActionListeners();
+
+			for (ActionListener listener : listeners) {
+				eagleBtn.removeActionListener(listener);
+			}
+			eagleBtn.addActionListener(healingController);
+		}
+	}
+
+	private void updateBoardAfterHealingSharkUseMode() {
+
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				AbstractButton btn = buttons.get(row).get(col);
+				if (btn.getActionCommand().equalsIgnoreCase("AttackingEagle")
+						|| btn.getActionCommand().equalsIgnoreCase("LeadershipEagle")
+						|| btn.getActionCommand().equalsIgnoreCase("VisionaryEagle")) {
+					btn.setActionCommand("NormalButton");
+					btn.setIcon(null);
+				}
+			}
+		}
+
+		List<PieceInterface> activeEagles = EngineImpl.getSingletonInstance().pieceOperator().getActiveEagles();
+
+		for (PieceInterface eagle : activeEagles) {
+			AbstractButton eagleBtn = buttons.get(eagle.getPosition().get("y")).get(eagle.getPosition().get("x"));
+			eagleBtn.setActionCommand(eagle.toString());
+			updateIcon(eagleBtn, PieceType.parsePieceType(eagle.toString()));
+		}
+		refreshBoardColorAndState();
+
+	}
+
+	private void updateBoardAfterAggressiveSharkUseMode(AbstractButton movedBtn, Cell newPos) {
+		PieceInterface aggressiveShark = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.AGGRESSIVESHARK);
+		AbstractButton oldBtn = buttons.get(aggressiveShark.getPosition().get("y"))
+				.get(aggressiveShark.getPosition().get("x"));
+
+		oldBtn.setActionCommand("NormalButton");
+		movedBtn.setActionCommand("AggressiveShark");
+		oldBtn.setIcon(null);
+		updateIcon(movedBtn, PieceType.AGGRESSIVESHARK);
+		refreshBoardColorAndState();
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				if (buttons.get(row).get(col).equals(movedBtn)) {
+					newPos.setY(row);
+					newPos.setX(col);
+					break;
+				}
+			}
+		}
+	}
+
+	private void updateBoardBeforeAggressiveSharkUseMode(ModeController aggressiveController) {
+		PieceInterface aggressiveShark = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+				.get(PieceType.AGGRESSIVESHARK);
+		Set<Cell> modeCells = aggressiveShark.modeCells();
+
+		for (Cell cell : modeCells) {
+			AbstractButton affectedBtn = buttons.get(cell.getY()).get(cell.getX());
+			affectedBtn.setBackground(Color.BLUE);
+			ActionListener[] listeners = affectedBtn.getActionListeners();
+			for (ActionListener listener : listeners) {
+				affectedBtn.removeActionListener(listener);
+			}
+			affectedBtn.addActionListener(aggressiveController);
 		}
 	}
 
