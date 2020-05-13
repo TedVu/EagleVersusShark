@@ -1,4 +1,4 @@
-package model.piece.commands;
+package model.piece;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,14 +16,6 @@ import model.contract.EngineInterface;
 import model.contract.PieceInterface;
 import model.enumtype.PieceAbility;
 import model.enumtype.PieceType;
-import model.piece.AggressiveShark;
-import model.piece.AttackingEagle;
-import model.piece.DefensiveShark;
-import model.piece.HealingShark;
-import model.piece.LeadershipEagle;
-import model.piece.PieceFactory;
-import model.piece.PieceMemento;
-import model.piece.VisionaryEagle;
 
 /**
  *
@@ -38,10 +30,6 @@ public class PieceOperator implements Serializable {
 	private final int EAGLE_TURN = 1;
 	private final int SHARK_TURN = 2;
 
-	public PieceOperator(Board board, EngineInterface engine) {
-		this.board = board;
-		this.engine = engine;
-	}
 
 	private EngineInterface engine;
 
@@ -52,9 +40,13 @@ public class PieceOperator implements Serializable {
 
 	private Map<PieceType, PieceInterface> pieces = new EnumMap<PieceType, PieceInterface>(PieceType.class);
 
-	private Stack<CommandInterface> commandHistory = new Stack<CommandInterface>();
 
 	private int healingAbilityCounter = 0;
+	
+	public PieceOperator(EngineInterface engine) {
+		this.board = engine.getBoard();
+		this.engine = engine;
+	}
 
 	/**
 	 * @param occupiedPieceType
@@ -113,23 +105,6 @@ public class PieceOperator implements Serializable {
 		}
 	}
 
-	/**
-	 * @param piece - the piece to be moved
-	 * @param newX  - new x position
-	 * @param newY  - new y position Generate the pieces and put them on the board
-	 */
-	@Requires({ "piece != null", "x>=0", "y>=0" })
-	@Ensures({ "piece.getPosition().get(\"x\") != null && piece.getPosition().get(\"y\") != null" })
-	public void movePiece(PieceInterface piece, int x, int y, boolean isMode) {
-		if(isMode && piece instanceof HealingShark && piece.getModeCount() > 0) {
-			throw new IllegalArgumentException("Mode is already used");
-		}
-		board.removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
-		board.addPiece(x, y);
-		piece.movePiece(x, y);
-		if(isMode)
-			piece.modeUsed();
-	}
 
 	/*
 	 * Set the selected piece status to active
@@ -174,40 +149,6 @@ public class PieceOperator implements Serializable {
 		return activeEagles;
 	}
 
-	protected void replacePieceVersion(PieceInterface piece, PieceMemento prevState) {
-		piece.setActive(prevState.isActive());
-		piece.setImmune(prevState.isImmune());
-		piece.setPosition(prevState.getX(), prevState.getY());
-		piece.setModeCount(prevState.getModeCount());
-	}
-
-	protected void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece, boolean isMode) {
-		if(isMode && piece instanceof AttackingEagle && piece.getModeCount() > 0) {
-			throw new IllegalArgumentException("Mode is already used");
-		}
-		piece.useAbility(pieceAbility, piece, affectedPiece);
-		if(isMode)
-			piece.modeUsed();
-	}
-
-	protected void undo(int undoNum) {
-		int availableUndo = commandHistory.size() / 2;
-		if (availableUndo < 1)
-			throw new RuntimeException("Nothing to undo");
-		else if (availableUndo < undoNum) {
-			throw new IllegalArgumentException("Only able to undo " + availableUndo + " time(s)");
-		} else {
-			for (int i = 0; i < undoNum * 2; i++) {
-				commandHistory.peek().undo();
-				commandHistory.pop();
-
-			}
-		}
-	}
-
-	protected void addEvt(CommandInterface command) {
-		commandHistory.push(command);
-	}
 
 	/**
 	 * Intention: to keep track of whether the HealingShark can use healing ability
