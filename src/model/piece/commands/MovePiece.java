@@ -41,8 +41,8 @@ public class MovePiece implements CommandInterface, Serializable {
 	public void undo() {
 
 		pieceCommands.movePiece(piece, oldX, oldY, isMode);
-		engine.getBoard().removePiece(newX, newY);
-		engine.getBoard().addPiece(oldX, oldY);
+//		engine.getBoard().removePiece(newX, newY);
+//		engine.getBoard().addPiece(oldX, oldY);
 	}
 
 }
