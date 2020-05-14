@@ -108,9 +108,6 @@ public class AggressiveShark extends AbstractPiece {
 				}
 			}
 		}
-		if (abilityCell.size() == 0) {
-			throw new RuntimeException("No enemy nearby to capture");
-		}
 
 		return abilityCell;
 	}

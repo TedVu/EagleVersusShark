@@ -1,9 +1,5 @@
-package controller.abstractfactory.factory;
+package controller.abstractfactory;
 
-import controller.abstractfactory.AbilityController;
-import controller.abstractfactory.sharkability.AggressiveSharkAbilityController;
-import controller.abstractfactory.sharkability.DefensiveSharkAbilityController;
-import controller.abstractfactory.sharkability.HealingSharkAbilityController;
 import model.enumtype.PieceType;
 
 public class SharkAbilityControllerFactory implements AbilityControllerFactory {

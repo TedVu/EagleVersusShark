@@ -1,9 +1,8 @@
-package controller.abstractfactory.sharkability;
+package controller.abstractfactory;
 
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-import controller.abstractfactory.AbstractAbilityController;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
@@ -27,7 +26,7 @@ public class HealingSharkAbilityController extends AbstractAbilityController {
 				super.controllerModelFacade.updateModelStateHealingSharkRevive(affectedPieceEnum);
 			} catch (RuntimeException ex) {
 				reviveSuccess = false;
-				super.viewControllerFacade.updateBoardErrorAction(ex.getMessage());
+				super.viewControllerFacade.updateBoardAlreadyUseReviveLastRound(ex.getMessage());
 			}
 			if (reviveSuccess) {
 				super.viewControllerFacade.updateBoardReviveSharkSuccessful(affectedPieceEnum);
@@ -35,7 +34,7 @@ public class HealingSharkAbilityController extends AbstractAbilityController {
 			}
 		} else {
 			healingDialog.dispose();
-			super.viewControllerFacade.updateBoardErrorAction("Not correct turn to revive");
+			super.viewControllerFacade.updateBoardNotCorrectTurnToRevive();
 		}
 	}
 
@@ -44,7 +43,7 @@ public class HealingSharkAbilityController extends AbstractAbilityController {
 		List<PieceInterface> activeSharks = EngineImpl.getSingletonInstance().pieceOperator().getActiveSharks();
 
 		if (activeSharks.size() == EngineImpl.getSingletonInstance().getTotalNumPiece() / 2) {
-			super.viewControllerFacade.updateBoardErrorAction("No shark to revive");
+			super.viewControllerFacade.updateBoardNoSharkToRevive();
 		} else {
 			healingDialog = new HealingSharkDialog(this);
 		}

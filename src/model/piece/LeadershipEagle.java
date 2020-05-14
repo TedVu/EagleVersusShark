@@ -83,9 +83,6 @@ public class LeadershipEagle extends AbstractPiece {
 				validCells.add(c);
 			}
 		}
-		if (validCells.size() == 0) {
-			throw new IllegalArgumentException("No allies nearby to use this ability");
-		}
 
 		return validCells;
 
@@ -127,6 +124,8 @@ public class LeadershipEagle extends AbstractPiece {
 	public String toString() {
 		return String.format("%s", "LeadershipEagle");
 	}
+	
+	
 
 	@Override
 	public Set<Cell> modeCells() {
@@ -172,5 +171,7 @@ public class LeadershipEagle extends AbstractPiece {
 		}
 		return finalMode;
 	}
+
+
 
 }

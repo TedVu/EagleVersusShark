@@ -34,7 +34,7 @@ public class ConfirmUndoController implements ActionListener {
 
 		} catch (RuntimeException ex) {
 			undoSuccess = false;
-			viewControllerFacade.updateBoardErrorAction(ex.getMessage());
+			viewControllerFacade.undoFail(ex.getMessage());
 		}
 
 		if (undoSuccess) {

@@ -1,6 +1,5 @@
-package controller.abstractfactory.factory;
+package controller.abstractfactory;
 
-import controller.abstractfactory.ModeController;
 import model.enumtype.PieceType;
 
 public interface ModeControllerFactory {

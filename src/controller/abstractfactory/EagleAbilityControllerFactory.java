@@ -1,9 +1,5 @@
-package controller.abstractfactory.factory;
+package controller.abstractfactory;
 
-import controller.abstractfactory.AbilityController;
-import controller.abstractfactory.eagleability.AttackingEagleAbilityController;
-import controller.abstractfactory.eagleability.LeadershipEagleAbilityController;
-import controller.abstractfactory.eagleability.VisionaryEagleAbilityController;
 import model.enumtype.PieceType;
 
 public class EagleAbilityControllerFactory implements AbilityControllerFactory {

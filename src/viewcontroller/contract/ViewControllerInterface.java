@@ -1,11 +1,12 @@
 package viewcontroller.contract;
 
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
 
 import javax.swing.AbstractButton;
 
+import controller.abstractfactory.AbilityController;
+import controller.abstractfactory.ModeController;
 import controller.playinggamecontroller.MovePieceController;
 import controller.playinggamecontroller.PlayerAction;
 import model.board.Cell;
@@ -30,6 +31,16 @@ public interface ViewControllerInterface {
 	public void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos);
 
 	/**
+	 * 
+	 */
+	public void notifyGameNotRunning();
+
+	/**
+	 * 
+	 */
+	public void notifySelectWrongTeam();
+
+	/**
 	 * @param buttonClicked
 	 * @param pieceType
 	 */
@@ -42,13 +53,23 @@ public interface ViewControllerInterface {
 	 */
 	public void updateBoardSelectAnotherPiece(AbstractButton buttonClicked);
 
+	public void updateBoardBeforeSwap(AbilityController visionController);
+
 	public void getPlayerAction(PlayerAction playerAction);
 
 	public void updateBoardAfterSwap(AbstractButton buttonClicked);
 
 	public void updateBoardChangeAction();
 
-	public void updateBoardAfterCapture(AbstractButton btnClicked, PieceType pieceCapture);
+	public void updateBoardBeforeLeadershipProtect(AbilityController leadershipController);
+
+	public void updateBoardAfterLeadershipProtect();
+
+	public void updateBoardBeforeAttackingEagleCapture(AbilityController attackingController);
+
+	public void updateBoardAfterAttackingEagleCapture(AbstractButton btnClicked);
+
+	public void updateBoardFailToCaptureImmunity();
 
 	public void undoMoveCancelTimer();
 
@@ -56,20 +77,43 @@ public interface ViewControllerInterface {
 
 	public void confirmUndoSuccessful();
 
+	public void updateBoardBeforeAggressiveSharkCapture(AbilityController aggressiveController);
+
+	public void updateBoardAfterAggressiveSharkCapture(AbstractButton btnClicked);
+
+	public void updateBoardBeforeDefensiveSharkAbility(AbilityController defensiveController);
+
 	public void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked, Cell newPos);
+
+	public void updateBoardAfterDefensiveSharkProtectAbility();
+
+	public void updateBoardNoSharkToRevive();
 
 	public void updateBoardReviveSharkSuccessful(PieceType revivedPiece);
 
+	public void undoFail(String failMsg);
+
+	public void updateBoardNotCorrectTurnToRevive();
+
+	public void updateBoardAlreadyUseReviveLastRound(String msg);
+
+	public void updateBoardBeforeLeadershipUseMode(ModeController leadershipMode);
+
+	public void updateBoardFailToUseLeadershipMode(String errMsg);
+
 	public void updateBoardAfterLeadershipUseMode();
 
-	public void updateBoardAfterAggressiveSharkUseMode(AbstractButton movedBtn, Cell newPos);
+	public void updateBoardBeforeVisionaryUseMode(ModeController visionaryController);
 
+	public void updateBoardBeforeAttackingEagleUseMode(ModeController attackingController);
+
+	public void updateBoardFailAttackingEagleUseMode(String errMsg);
+	
+	public void updateBoardBeforeAggressiveSharkUseMode(ModeController aggressiveController);
+	
+	public void updateBoardAfterAggressiveSharkUseMode(AbstractButton movedBtn,Cell newPos);
+
+	public void updateBoardBeforeHealingSharkUseMode(ModeController healingController);
+	
 	public void updateBoardAfterHealingSharkUseMode();
-
-	// rework
-	public void updateBoardBeforeUseSpecialBehaviour(ActionListener abilityController, PieceType animalType);
-
-	public void updateBoardAfterProtect();
-
-	public void updateBoardErrorAction(String errMsg);
 }

@@ -13,7 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controller.abstractfactory.sharkability.HealingSharkAbilityController;
+import controller.abstractfactory.HealingSharkAbilityController;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 
@@ -29,7 +29,7 @@ public class HealingSharkDialog extends JDialog {
 	public HealingSharkDialog(HealingSharkAbilityController healingController) {
 
 		healingController.injectHealingDialog(this);
-
+		
 		setTitle("Undo Panel");
 
 		reviveBtn = new JButton("Revive");

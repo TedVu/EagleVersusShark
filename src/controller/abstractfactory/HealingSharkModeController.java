@@ -1,10 +1,9 @@
-package controller.abstractfactory.sharkmode;
+package controller.abstractfactory;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractButton;
 
-import controller.abstractfactory.AbstractModeController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
@@ -12,7 +11,7 @@ public class HealingSharkModeController extends AbstractModeController {
 
 	@Override
 	public void setUpViewForMode() {
-		super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.HEALINGSHARK);
+		super.viewControllerFacade.updateBoardBeforeHealingSharkUseMode(this);
 	}
 
 	@Override

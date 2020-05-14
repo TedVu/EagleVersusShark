@@ -1,10 +1,9 @@
-package controller.abstractfactory.eaglemode;
+package controller.abstractfactory;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractButton;
 
-import controller.abstractfactory.AbstractModeController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
@@ -13,9 +12,10 @@ public class AttackingEagleModeController extends AbstractModeController {
 	@Override
 	public void setUpViewForMode() {
 		try {
-			super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.ATTACKINGEAGLE);
+			super.viewControllerFacade.updateBoardBeforeAttackingEagleUseMode(this);
+
 		} catch (RuntimeException e) {
-			super.viewControllerFacade.updateBoardErrorAction(e.getMessage());
+			super.viewControllerFacade.updateBoardFailAttackingEagleUseMode(e.getMessage());
 		}
 	}
 
@@ -25,11 +25,12 @@ public class AttackingEagleModeController extends AbstractModeController {
 		PieceType affectedPieceEnum = PieceType.parsePieceType(btnClicked.getActionCommand());
 
 		try {
+			// will throw exception if capture immunity piece
 			super.controllerModelFacade.updateModelAttackingEagleCapture(affectedPieceEnum, true);
-			super.viewControllerFacade.updateBoardAfterCapture(btnClicked, PieceType.ATTACKINGEAGLE);
+			super.viewControllerFacade.updateBoardAfterAttackingEagleCapture(btnClicked);
 			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
 		} catch (RuntimeException ex) {
-			super.viewControllerFacade.updateBoardErrorAction(ex.getMessage());
+			super.viewControllerFacade.updateBoardFailToCaptureImmunity();
 		}
 
 	}

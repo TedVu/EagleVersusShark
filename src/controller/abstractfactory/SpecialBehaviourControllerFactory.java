@@ -1,7 +1,5 @@
 package controller.abstractfactory;
 
-import controller.abstractfactory.factory.AbilityControllerFactory;
-import controller.abstractfactory.factory.ModeControllerFactory;
 import model.enumtype.TeamType;
 
 public abstract class SpecialBehaviourControllerFactory {
@@ -12,7 +10,7 @@ public abstract class SpecialBehaviourControllerFactory {
 		} else if (teamType == TeamType.SHARK) {
 			return new SharkSpecialBehaviourControllerFactory();
 		} else {
-			throw new IllegalArgumentException("No team found");
+			throw new IllegalArgumentException("");
 		}
 	}
 
