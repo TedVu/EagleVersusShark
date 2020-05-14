@@ -3,7 +3,8 @@ package model.contract;
 import model.board.Board;
 import model.engine.EngineImpl;
 import model.enumtype.TeamType;
-import model.piece.commands.PieceOperator;
+import model.piece.PieceOperator;
+import model.piece.commands.PieceCommands;
 import model.player.Player;
 import view.contract.GameEngineCallbackInterface;
 
@@ -109,6 +110,8 @@ public interface EngineInterface {
 	public void configObstacle(boolean hasObstacle);
 	
 	public void loadGame(EngineImpl e);
+	
+	public PieceCommands pieceCommands();
 	
 	
 }
