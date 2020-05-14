@@ -17,7 +17,7 @@ public class Undo implements CommandInterface, Serializable  {
 
 	private static final long serialVersionUID = -1824704997694754116L;
 	private EngineInterface engine = EngineImpl.getSingletonInstance();
-	private PieceCommands pieceCommands = engine.pieceCommands();
+	private PieceCommands pieceCommands = engine.getPieceCommands();
 	private TeamType teamType;
 	private int undoNum;
 

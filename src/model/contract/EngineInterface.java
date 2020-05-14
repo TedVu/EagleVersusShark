@@ -111,7 +111,7 @@ public interface EngineInterface {
 	
 	public void loadGame(EngineImpl e);
 	
-	public PieceCommands pieceCommands();
+	public PieceCommands getPieceCommands();
 	
 	
 }

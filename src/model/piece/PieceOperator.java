@@ -5,16 +5,12 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 
-import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.board.Board;
-import model.contract.CommandInterface;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
-import model.enumtype.PieceAbility;
 import model.enumtype.PieceType;
 
 /**
@@ -30,7 +26,6 @@ public class PieceOperator implements Serializable {
 	private final int EAGLE_TURN = 1;
 	private final int SHARK_TURN = 2;
 
-
 	private EngineInterface engine;
 
 	private List<PieceInterface> activeEagles = new ArrayList<PieceInterface>();
@@ -40,9 +35,8 @@ public class PieceOperator implements Serializable {
 
 	private Map<PieceType, PieceInterface> pieces = new EnumMap<PieceType, PieceInterface>(PieceType.class);
 
-
 	private int healingAbilityCounter = 0;
-	
+
 	public PieceOperator(EngineInterface engine) {
 		this.board = engine.getBoard();
 		this.engine = engine;
@@ -105,7 +99,6 @@ public class PieceOperator implements Serializable {
 		}
 	}
 
-
 	/*
 	 * Set the selected piece status to active
 	 * 
@@ -148,7 +141,6 @@ public class PieceOperator implements Serializable {
 		}
 		return activeEagles;
 	}
-
 
 	/**
 	 * Intention: to keep track of whether the HealingShark can use healing ability
@@ -195,5 +187,8 @@ public class PieceOperator implements Serializable {
 			resetHealingAbilityCounter();
 	}
 
+	public void setBoard(Board board) {
+		this.board = board;
+	}
 
 }

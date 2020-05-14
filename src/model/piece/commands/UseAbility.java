@@ -21,7 +21,7 @@ public class UseAbility implements CommandInterface, Serializable {
 	PieceAbility pieceAbility;
 	private PieceInterface piece, affectedPiece;
 	private EngineInterface engine = EngineImpl.getSingletonInstance();
-	private PieceCommands pieceCommands = engine.pieceCommands();
+	private PieceCommands pieceCommands = engine.getPieceCommands();
 	private PieceMemento pieceMemento, affectedPieceMemento;
 	private boolean isMode;
 

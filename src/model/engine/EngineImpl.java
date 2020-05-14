@@ -63,7 +63,7 @@ public class EngineImpl implements EngineInterface, Serializable {
 	private boolean gameRunning = false;
 
 	private int totalNumPiece;
-	
+
 	private PieceCommands pieceCommands;
 
 	/**
@@ -80,19 +80,18 @@ public class EngineImpl implements EngineInterface, Serializable {
 		geCallback.addProperytChangeListener(new TimerPropertyChangeListener());
 		geCallback.addProperytChangeListener(new MakingMovePropertyChangeListener());
 	}
-	
-	
 
 	@Override
-	public PieceCommands pieceCommands() {
+	public PieceCommands getPieceCommands() {
 		return pieceCommands;
 	}
-
-
 
 	@Override
 	public void configBoardSize(int boardSize) {
 		board = new Board(boardSize);
+		pieceOperator.setBoard(board);
+		pieceCommands.setBoard(board);
+
 	}
 
 	@Override
@@ -111,6 +110,7 @@ public class EngineImpl implements EngineInterface, Serializable {
 	public void loadGame(EngineImpl e) {
 		board = e.getBoard();
 		pieceOperator = e.getPieceOperator();
+		pieceCommands =e.getPieceCommands();
 	}
 
 	public PieceOperator getPieceOperator() {
