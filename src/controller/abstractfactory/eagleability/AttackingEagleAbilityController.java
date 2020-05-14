@@ -1,9 +1,10 @@
-package controller.abstractfactory;
+package controller.abstractfactory.eagleability;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractButton;
 
+import controller.abstractfactory.AbstractAbilityController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
@@ -17,16 +18,20 @@ public class AttackingEagleAbilityController extends AbstractAbilityController {
 		try {
 			// will throw exception if capture immunity piece
 			super.controllerModelFacade.updateModelAttackingEagleCapture(affectedPieceEnum, false);
-			super.viewControllerFacade.updateBoardAfterAttackingEagleCapture(btnClicked);
+			super.viewControllerFacade.updateBoardAfterCapture(btnClicked, PieceType.ATTACKINGEAGLE);
 			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
 		} catch (RuntimeException ex) {
-			super.viewControllerFacade.updateBoardFailToCaptureImmunity();
+			super.viewControllerFacade.updateBoardErrorAction("This piece has immunity. Cannot capture");
 		}
 
 	}
 
 	@Override
 	public void setUpViewForAbility() {
-		super.viewControllerFacade.updateBoardBeforeAttackingEagleCapture(this);
+		try {
+			super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.ATTACKINGEAGLE);
+		} catch (RuntimeException ex) {
+			super.viewControllerFacade.updateBoardErrorAction(ex.getMessage());
+		}
 	}
 }

@@ -1,9 +1,10 @@
-package controller.abstractfactory;
+package controller.abstractfactory.eagleability;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractButton;
 
+import controller.abstractfactory.AbstractAbilityController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
@@ -16,12 +17,16 @@ public class LeadershipEagleAbilityController extends AbstractAbilityController 
 		super.controllerModelFacade.updateModelStateProtectLeadership(affectedPieceEnum);
 
 		super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
-		viewControllerFacade.updateBoardAfterLeadershipProtect();
+		viewControllerFacade.updateBoardAfterProtect();
 
 	}
 
 	@Override
 	public void setUpViewForAbility() {
-		super.viewControllerFacade.updateBoardBeforeLeadershipProtect(this);
+		try {
+			super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.LEADERSHIPEAGLE);
+		} catch (RuntimeException e) {
+			super.viewControllerFacade.updateBoardErrorAction(e.getMessage());
+		}
 	}
 }

@@ -8,10 +8,10 @@ import javax.swing.AbstractButton;
 import com.google.java.contract.Requires;
 
 import controller.abstractfactory.AbilityController;
-import controller.abstractfactory.AbilityControllerFactory;
 import controller.abstractfactory.ModeController;
-import controller.abstractfactory.ModeControllerFactory;
 import controller.abstractfactory.SpecialBehaviourControllerFactory;
+import controller.abstractfactory.factory.AbilityControllerFactory;
+import controller.abstractfactory.factory.ModeControllerFactory;
 import model.contract.EngineInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
@@ -55,7 +55,7 @@ public class SelectPieceController implements ActionListener {
 				checkCorrectPieceButtonClicked();
 			}
 		} else {
-			viewControllerFacade.notifyGameNotRunning();
+			viewControllerFacade.updateBoardErrorAction("Game not running");
 		}
 	}
 
@@ -68,7 +68,7 @@ public class SelectPieceController implements ActionListener {
 
 			routePlayerAction(playerActionType, teamType);
 		} else {
-			viewControllerFacade.notifySelectWrongTeam();
+			viewControllerFacade.updateBoardErrorAction("Select wrong team");
 		}
 	}
 

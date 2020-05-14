@@ -1,9 +1,10 @@
-package controller.abstractfactory;
+package controller.abstractfactory.eagleability;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractButton;
 
+import controller.abstractfactory.AbstractAbilityController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
@@ -24,7 +25,7 @@ public class VisionaryEagleAbilityController extends AbstractAbilityController {
 
 	@Override
 	public void setUpViewForAbility() {
-		viewControllerFacade.updateBoardBeforeSwap(this);
+		viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.VISIONARYEAGLE);
 
 	}
 

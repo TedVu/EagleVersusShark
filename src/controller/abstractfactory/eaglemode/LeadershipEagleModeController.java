@@ -1,7 +1,9 @@
-package controller.abstractfactory;
+package controller.abstractfactory.eaglemode;
 
 import java.awt.event.ActionEvent;
 
+import controller.abstractfactory.AbstractModeController;
+import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
 public class LeadershipEagleModeController extends AbstractModeController {
@@ -9,9 +11,9 @@ public class LeadershipEagleModeController extends AbstractModeController {
 	@Override
 	public void setUpViewForMode() {
 		try {
-			super.viewControllerFacade.updateBoardBeforeLeadershipUseMode(this);
+			super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.LEADERSHIPEAGLE);
 		} catch (RuntimeException e) {
-			super.viewControllerFacade.updateBoardFailToUseLeadershipMode(e.getMessage());
+			super.viewControllerFacade.updateBoardErrorAction(e.getMessage());
 		}
 	}
 

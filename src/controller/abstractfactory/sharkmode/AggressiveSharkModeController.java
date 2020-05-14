@@ -1,17 +1,19 @@
-package controller.abstractfactory;
+package controller.abstractfactory.sharkmode;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractButton;
 
+import controller.abstractfactory.AbstractModeController;
 import model.board.Cell;
+import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
-public class DefensiveSharkModeController extends AbstractModeController {
+public class AggressiveSharkModeController extends AbstractModeController {
 
 	@Override
 	public void setUpViewForMode() {
-		super.viewControllerFacade.updateBoardBeforeAggressiveSharkUseMode(this);
+		super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.AGGRESSIVESHARK);
 
 	}
 

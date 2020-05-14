@@ -1,9 +1,10 @@
-package controller.abstractfactory;
+package controller.abstractfactory.sharkability;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractButton;
 
+import controller.abstractfactory.AbstractAbilityController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
@@ -19,10 +20,10 @@ public class AggressiveSharkAbilityController extends AbstractAbilityController 
 			super.controllerModelFacade.updateModelStateAggressiveSharkCapture(affectedPieceEnum);
 		} catch (RuntimeException ex) {
 			captureSuccess = false;
-			super.viewControllerFacade.updateBoardFailToCaptureImmunity();
+			super.viewControllerFacade.updateBoardErrorAction("This piece has immunity. Cannot capture");
 		}
 		if (captureSuccess) {
-			super.viewControllerFacade.updateBoardAfterAggressiveSharkCapture(btnClicked);
+			super.viewControllerFacade.updateBoardAfterCapture(btnClicked, PieceType.AGGRESSIVESHARK);
 			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.EAGLE);
 
 		}
@@ -30,6 +31,10 @@ public class AggressiveSharkAbilityController extends AbstractAbilityController 
 
 	@Override
 	public void setUpViewForAbility() {
-		super.viewControllerFacade.updateBoardBeforeAggressiveSharkCapture(this);
+		try {
+			super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.AGGRESSIVESHARK);
+		} catch (RuntimeException ex) {
+			super.viewControllerFacade.updateBoardErrorAction(ex.getMessage());
+		}
 	}
 }

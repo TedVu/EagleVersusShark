@@ -1,9 +1,10 @@
-package controller.abstractfactory;
+package controller.abstractfactory.sharkability;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractButton;
 
+import controller.abstractfactory.AbstractAbilityController;
 import model.board.Cell;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
@@ -26,13 +27,13 @@ public class DefensiveSharkAbilityController extends AbstractAbilityController {
 			super.controllerModelFacade.updateModelStateDefensiveSharkProtect(affectedPieceEnum);
 			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.EAGLE);
 
-			super.viewControllerFacade.updateBoardAfterDefensiveSharkProtectAbility();
+			super.viewControllerFacade.updateBoardAfterProtect();
 
 		}
 	}
 
 	@Override
 	public void setUpViewForAbility() {
-		super.viewControllerFacade.updateBoardBeforeDefensiveSharkAbility(this);
+		super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.DEFENSIVESHARK);
 	}
 }

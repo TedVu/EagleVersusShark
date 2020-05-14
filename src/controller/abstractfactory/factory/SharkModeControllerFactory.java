@@ -1,5 +1,9 @@
-package controller.abstractfactory;
+package controller.abstractfactory.factory;
 
+import controller.abstractfactory.ModeController;
+import controller.abstractfactory.sharkmode.AggressiveSharkModeController;
+import controller.abstractfactory.sharkmode.DefensiveSharkModeController;
+import controller.abstractfactory.sharkmode.HealingSharkModeController;
 import model.enumtype.PieceType;
 
 public class SharkModeControllerFactory implements ModeControllerFactory {

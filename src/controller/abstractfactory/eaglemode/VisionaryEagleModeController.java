@@ -1,9 +1,10 @@
-package controller.abstractfactory;
+package controller.abstractfactory.eaglemode;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractButton;
 
+import controller.abstractfactory.AbstractModeController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
@@ -22,7 +23,7 @@ public class VisionaryEagleModeController extends AbstractModeController {
 
 	@Override
 	public void setUpViewForMode() {
-		super.viewControllerFacade.updateBoardBeforeVisionaryUseMode(this);
+		super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.VISIONARYEAGLE);
 	}
 
 }

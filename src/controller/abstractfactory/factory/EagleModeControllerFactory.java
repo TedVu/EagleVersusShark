@@ -1,5 +1,9 @@
-package controller.abstractfactory;
+package controller.abstractfactory.factory;
 
+import controller.abstractfactory.ModeController;
+import controller.abstractfactory.eaglemode.AttackingEagleModeController;
+import controller.abstractfactory.eaglemode.LeadershipEagleModeController;
+import controller.abstractfactory.eaglemode.VisionaryEagleModeController;
 import model.enumtype.PieceType;
 
 public class EagleModeControllerFactory implements ModeControllerFactory {
