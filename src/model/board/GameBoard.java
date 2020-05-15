@@ -7,11 +7,13 @@ import java.util.List;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
+import model.contract.Engine;
+
 /**
  * @author ted &#38; kevin
  *
  */
-public class Board implements Serializable {
+public class GameBoard implements Serializable {
 
 	private static final long serialVersionUID = 5510738805489933149L;
 	// Fix row and col for A1
@@ -19,9 +21,16 @@ public class Board implements Serializable {
 	private List<List<Cell>> cells;
 	private Cell sharkMasterCell = null;
 
-	/**
-	 * 
-	 */
+	private Engine engine;
+	
+	
+	
+	
+
+	public GameBoard(Engine engine) {
+		super();
+		this.engine = engine;
+	}
 
 	/**
 	 * Return shark's master cell
@@ -32,7 +41,7 @@ public class Board implements Serializable {
 		return this.sharkMasterCell;
 	}
 
-	public Board(int boardSize) {
+	public GameBoard(int boardSize) {
 		size = boardSize;
 		cells = new ArrayList<>();
 		for (int row = 0; row < size; ++row) {

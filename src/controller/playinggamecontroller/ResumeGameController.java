@@ -20,13 +20,13 @@ public class ResumeGameController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Player currentPlayer = EngineImpl.getSingletonInstance().getCurrentActivePlayer();
+		Player currentPlayer = EngineImpl.getSingletonInstance().gameTurn().getCurrentActivePlayer();
 		if (currentPlayer.getPlayerType() == TeamType.SHARK) {
-			EngineImpl.getSingletonInstance().setActivePlayerTimer(TeamType.EAGLE);
+			EngineImpl.getSingletonInstance().gameTurn().setActivePlayerTimer(TeamType.EAGLE);
 		} else if (currentPlayer.getPlayerType() == TeamType.EAGLE) {
-			EngineImpl.getSingletonInstance().setActivePlayerTimer(TeamType.SHARK);
+			EngineImpl.getSingletonInstance().gameTurn().setActivePlayerTimer(TeamType.SHARK);
 		}
-		EngineImpl.getSingletonInstance().setResumeGame();
+		EngineImpl.getSingletonInstance().gameTurn().setResumeGame();
 		viewControllerFacade.resumeGame(currentPlayer.getPlayerType());
 		AbstractButton buttonClicked = (AbstractButton) e.getSource();
 		buttonClicked.setEnabled(false);

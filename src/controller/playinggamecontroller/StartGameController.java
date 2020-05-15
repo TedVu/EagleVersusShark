@@ -33,16 +33,16 @@ public class StartGameController implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Player initialPlayer = EngineImpl.getSingletonInstance().getInitialPlayerActivePlayer();
+		Player initialPlayer = EngineImpl.getSingletonInstance().gameTurn().getInitialPlayerActivePlayer();
 		statusPanel.updateTurnLabel(initialPlayer.getPlayerType());
 
 		statusPanel.startCountDown();
 		modePanel.updateAvailableMode(initialPlayer.getPlayerType());
 
 		if (initialPlayer.getPlayerType() == TeamType.SHARK) {
-			EngineImpl.getSingletonInstance().setActivePlayerTimer(TeamType.EAGLE);
+			EngineImpl.getSingletonInstance().gameTurn().setActivePlayerTimer(TeamType.EAGLE);
 		} else if (initialPlayer.getPlayerType() == TeamType.EAGLE) {
-			EngineImpl.getSingletonInstance().setActivePlayerTimer(TeamType.SHARK);
+			EngineImpl.getSingletonInstance().gameTurn().setActivePlayerTimer(TeamType.SHARK);
 		}
 		JButton startButton = (JButton) e.getSource();
 		startButton.setEnabled(false);

@@ -5,7 +5,7 @@ package model.contract;
  * @author Sefira
  *
  */
-public interface CommandInterface {
+public interface Command {
 	public void execute();
 
 	public void undo();

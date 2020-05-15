@@ -9,7 +9,7 @@ import java.util.Set;
 
 import model.board.Cell;
 
-public interface PieceMovementInterface {
+public interface PieceMovement {
 
 	/*
 	 * @param piece - selected piece
@@ -18,6 +18,6 @@ public interface PieceMovementInterface {
 	 * 
 	 * @return the set of valid coordinate
 	 */
-	public Set<Cell> getValidMove(PieceInterface piece, int distance);
+	public Set<Cell> getValidMove(Piece piece, int distance);
 
 }

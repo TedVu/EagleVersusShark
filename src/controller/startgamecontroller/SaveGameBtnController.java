@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import model.contract.EngineInterface;
+import model.contract.Engine;
 import model.engine.EngineImpl;
 import view.configuration.SaveGameDialog;
 
@@ -24,7 +24,7 @@ public class SaveGameBtnController implements ActionListener {
 
 		String filename = nameCheck(s);
 
-		EngineInterface engine = EngineImpl.getSingletonInstance();
+		Engine engine = EngineImpl.getSingletonInstance();
 
 		// Serialization
 		try {

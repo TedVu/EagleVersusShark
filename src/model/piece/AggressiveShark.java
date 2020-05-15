@@ -7,7 +7,7 @@ import java.util.Set;
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
-import model.contract.PieceInterface;
+import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
@@ -42,7 +42,7 @@ public class AggressiveShark extends AbstractPiece {
 	}
 
 	@Override
-	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
+	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
 			capture(piece, affectedPiece);
 			if (EngineImpl.getSingletonInstance().pieceOperator().getHealingAbilityCounter() == 2) {
@@ -53,7 +53,7 @@ public class AggressiveShark extends AbstractPiece {
 		}
 	}
 
-	private void capture(PieceInterface piece, PieceInterface affectedPiece) {
+	private void capture(Piece piece, Piece affectedPiece) {
 		try {
 			Cell currentPos = EngineImpl.getSingletonInstance().getBoard().getCell(piece.getPosition().get("x"),
 					piece.getPosition().get("y"));
@@ -90,9 +90,9 @@ public class AggressiveShark extends AbstractPiece {
 		} else {
 			distance = 2;
 		}
-		List<PieceInterface> activeEagles = EngineImpl.getSingletonInstance().pieceOperator().getActiveEagles();
+		List<Piece> activeEagles = EngineImpl.getSingletonInstance().pieceOperator().getActiveEagles();
 		Set<Cell> activeEaglePos = new HashSet<>();
-		for (PieceInterface activeEagle : activeEagles) {
+		for (Piece activeEagle : activeEagles) {
 			Cell cell = EngineImpl.getSingletonInstance().getBoard().getCell(activeEagle.getPosition().get("x"),
 					activeEagle.getPosition().get("y"));
 			activeEaglePos.add(cell);

@@ -11,8 +11,8 @@ import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
-import model.contract.EngineInterface;
-import model.contract.PieceInterface;
+import model.contract.Engine;
+import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
@@ -24,7 +24,7 @@ import model.piece.movement.BasicMove;
 public class LeadershipEagle extends AbstractPiece {
 
 	private static final long serialVersionUID = -6579315280240148680L;
-	EngineInterface engine;
+	Engine engine;
 
 	public LeadershipEagle(int x, int y) {
 		super(x, y);
@@ -49,7 +49,7 @@ public class LeadershipEagle extends AbstractPiece {
 	}
 
 	@Override
-	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
+	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 
 		if (pieceAbility.equals(PieceAbility.PROTECT)) {
 			protect(piece, affectedPiece);
@@ -63,9 +63,9 @@ public class LeadershipEagle extends AbstractPiece {
 	public Set<Cell> abilityCells() {
 		Set<Cell> otherEagleCells = new HashSet<Cell>();
 		engine = EngineImpl.getSingletonInstance();
-		List<PieceInterface> activeEagles = engine.pieceOperator().getActiveEagles();
+		List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
 
-		for (PieceInterface activeEagle : activeEagles) {
+		for (Piece activeEagle : activeEagles) {
 			if (!(activeEagle instanceof LeadershipEagle)) {
 
 				int x = activeEagle.getPosition().get("x");
@@ -88,7 +88,7 @@ public class LeadershipEagle extends AbstractPiece {
 
 	}
 
-	private void protect(PieceInterface piece, PieceInterface affectedPiece) {
+	private void protect(Piece piece, Piece affectedPiece) {
 
 		try {
 

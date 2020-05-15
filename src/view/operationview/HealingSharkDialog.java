@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.abstractfactory.sharkability.HealingSharkAbilityController;
-import model.contract.PieceInterface;
+import model.contract.Piece;
 import model.engine.EngineImpl;
 
 public class HealingSharkDialog extends JDialog {
@@ -35,12 +35,12 @@ public class HealingSharkDialog extends JDialog {
 		reviveBtn = new JButton("Revive");
 		reviveBtn.addActionListener(healingController);
 
-		List<PieceInterface> activeSharks = EngineImpl.getSingletonInstance().pieceOperator().getActiveSharks();
+		List<Piece> activeSharks = EngineImpl.getSingletonInstance().pieceOperator().getActiveSharks();
 		Set<String> inactiveSharks = new HashSet<>();
 		inactiveSharks.add("DefensiveShark");
 		inactiveSharks.add("AggressiveShark");
 
-		for (PieceInterface piece : activeSharks) {
+		for (Piece piece : activeSharks) {
 			if (inactiveSharks.contains(piece.toString())) {
 				inactiveSharks.remove(piece.toString());
 			}

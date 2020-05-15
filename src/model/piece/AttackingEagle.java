@@ -10,8 +10,8 @@ import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
-import model.contract.EngineInterface;
-import model.contract.PieceInterface;
+import model.contract.Engine;
+import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
@@ -24,9 +24,9 @@ import model.piece.movement.DiagonalDecorator;
 public class AttackingEagle extends AbstractPiece {
 
 	private static final long serialVersionUID = -1967226729710111595L;
-	private EngineInterface engine;
+	private Engine engine;
 
-	public AttackingEagle(int x, int y, EngineInterface engine) {
+	public AttackingEagle(int x, int y, Engine engine) {
 		super(x, y);
 		this.engine = engine;
 	}
@@ -50,7 +50,7 @@ public class AttackingEagle extends AbstractPiece {
 	}
 
 	@Override
-	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
+	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
 			capture(piece, affectedPiece);
 		}
@@ -60,7 +60,7 @@ public class AttackingEagle extends AbstractPiece {
 		}
 	}
 
-	private void capture(PieceInterface piece, PieceInterface affectedPiece) {
+	private void capture(Piece piece, Piece affectedPiece) {
 		try {
 			if (affectedPiece.isImmune())
 				throw new IllegalArgumentException("The piece is immune");
@@ -85,12 +85,12 @@ public class AttackingEagle extends AbstractPiece {
 	@Override
 	public Set<Cell> abilityCells() {
 		Set<Cell> enemyPositions = new HashSet<>();
-		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
+		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
 		int pieceX = getPosition().get("x");
 		int pieceY = getPosition().get("y");
 		int distance = captureDistance(pieceX, pieceY);
 
-		for (PieceInterface activeShark : activeSharks) {
+		for (Piece activeShark : activeSharks) {
 			int sharkX = activeShark.getPosition().get("x");
 			int sharkY = activeShark.getPosition().get("y");
 
@@ -111,11 +111,11 @@ public class AttackingEagle extends AbstractPiece {
 
 	private int captureDistance(int pieceX, int pieceY) {
 
-		List<PieceInterface> activeEagles = engine.pieceOperator().getActiveEagles();
+		List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
 
 		int distance = 1;
 
-		for (PieceInterface activePiece : activeEagles) {
+		for (Piece activePiece : activeEagles) {
 			if (activePiece instanceof LeadershipEagle) {
 				int x = activePiece.getPosition().get("x");
 				int y = activePiece.getPosition().get("y");
@@ -134,9 +134,9 @@ public class AttackingEagle extends AbstractPiece {
 		return String.format("%s", "AttackingEagle");
 	}
 
-	private boolean existNearbyShark(PieceInterface shark) {
-		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
-		for (PieceInterface otherShark : activeSharks) {
+	private boolean existNearbyShark(Piece shark) {
+		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
+		for (Piece otherShark : activeSharks) {
 			if (otherShark.getPosition().get("x") == shark.getPosition().get("x")
 					&& otherShark.getPosition().get("y") == shark.getPosition().get("y")) {
 				continue;
@@ -156,8 +156,8 @@ public class AttackingEagle extends AbstractPiece {
 		engine = EngineImpl.getSingletonInstance();
 		Set<Cell> modePos = new HashSet<>();
 
-		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
-		for (PieceInterface shark : activeSharks) {
+		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
+		for (Piece shark : activeSharks) {
 			int midRiver = engine.getBoard().getSize() / 2;
 			int eagleSidePart = midRiver - 2;
 			

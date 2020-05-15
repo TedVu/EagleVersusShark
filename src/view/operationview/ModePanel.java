@@ -67,7 +67,7 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 		undoBtnPanel.add(resumeBtn);
 		add(undoBtnPanel);
 
-		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getGameEngineCallback()
+		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().gameTurn().getGameEngineCallback()
 				.getPropertyChangeListener();
 		for (PropertyChangeListener listener : listeners) {
 			if (listener instanceof MakingMovePropertyChangeListener) {

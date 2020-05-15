@@ -8,9 +8,9 @@ import java.util.Map;
 
 import com.google.java.contract.Requires;
 
-import model.board.Board;
-import model.contract.EngineInterface;
-import model.contract.PieceInterface;
+import model.board.GameBoard;
+import model.contract.Engine;
+import model.contract.Piece;
 import model.enumtype.PieceType;
 
 /**
@@ -18,7 +18,7 @@ import model.enumtype.PieceType;
  * @author Sefira
  *
  */
-public class PieceOperator implements Serializable {
+public class GamePiece implements Serializable {
 
 	private static final long serialVersionUID = 1385438527092098873L;
 
@@ -26,20 +26,21 @@ public class PieceOperator implements Serializable {
 	private final int EAGLE_TURN = 1;
 	private final int SHARK_TURN = 2;
 
-	private EngineInterface engine;
+	private Engine engine;
 
-	private List<PieceInterface> activeEagles = new ArrayList<PieceInterface>();
-	private List<PieceInterface> activeSharks = new ArrayList<PieceInterface>();
+	private List<Piece> activeEagles = new ArrayList<Piece>();
+	private List<Piece> activeSharks = new ArrayList<Piece>();
 
-	private Board board;
+	private GameBoard board;
 
-	private Map<PieceType, PieceInterface> pieces = new EnumMap<PieceType, PieceInterface>(PieceType.class);
+	private Map<PieceType, Piece> pieces = new EnumMap<PieceType, Piece>(PieceType.class);
 
 	private int healingAbilityCounter = 0;
 
-	public PieceOperator(EngineInterface engine) {
+	public GamePiece(Engine engine) {
 		this.board = engine.getBoard();
 		this.engine = engine;
+		initializeDefaultPiece();
 	}
 
 	/**
@@ -58,7 +59,7 @@ public class PieceOperator implements Serializable {
 	 * @return all pieces
 	 */
 	@Requires({ "pieces.size()>0" })
-	public Map<PieceType, PieceInterface> getAllPieces() {
+	public Map<PieceType, Piece> getAllPieces() {
 		return pieces;
 
 	}
@@ -71,7 +72,7 @@ public class PieceOperator implements Serializable {
 	public void initializeDefaultPiece() {
 		int boardSize = board.getSize();
 		for (PieceType pt : PieceType.values()) {
-			PieceInterface piece = PieceFactory.generatePiece(pt, boardSize, engine);
+			Piece piece = PieceFactory.generatePiece(pt, boardSize, engine);
 			board.addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 			pieces.put(pt, piece);
 		}
@@ -81,7 +82,7 @@ public class PieceOperator implements Serializable {
 		int boardSize = board.getSize();
 		for (PieceType pt : PieceType.values()) {
 			if (pt == PieceType.DEFENSIVESHARK || pt == PieceType.LEADERSHIPEAGLE) {
-				PieceInterface piece = PieceFactory.generatePiece(pt, boardSize, engine);
+				Piece piece = PieceFactory.generatePiece(pt, boardSize, engine);
 				board.addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 				pieces.put(pt, piece);
 			}
@@ -92,7 +93,7 @@ public class PieceOperator implements Serializable {
 		int boardSize = board.getSize();
 		for (PieceType pt : PieceType.values()) {
 			if (pt != PieceType.DEFENSIVESHARK && pt != PieceType.LEADERSHIPEAGLE) {
-				PieceInterface piece = PieceFactory.generatePiece(pt, boardSize, engine);
+				Piece piece = PieceFactory.generatePiece(pt, boardSize, engine);
 				board.addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 				pieces.put(pt, piece);
 			}
@@ -105,7 +106,7 @@ public class PieceOperator implements Serializable {
 	 * @return boolean
 	 */
 	@Requires({ "piece != null", " isActive  == true|| isActive == false" })
-	public boolean setPieceActiveStatus(PieceInterface piece, boolean isActive) {
+	public boolean setPieceActiveStatus(Piece piece, boolean isActive) {
 		try {
 			piece.setActive(isActive);
 		} catch (Exception e) {
@@ -117,9 +118,9 @@ public class PieceOperator implements Serializable {
 	/*
 	 * @return List<Piece> - all active sharks
 	 */
-	public List<PieceInterface> getActiveSharks() {
+	public List<Piece> getActiveSharks() {
 		activeSharks = new ArrayList<>();
-		for (PieceInterface piece : pieces.values()) {
+		for (Piece piece : pieces.values()) {
 			if (piece != null && piece.isActive() && (piece instanceof AggressiveShark || piece instanceof HealingShark
 					|| piece instanceof DefensiveShark)) {
 				activeSharks.add(piece);
@@ -131,9 +132,9 @@ public class PieceOperator implements Serializable {
 	/*
 	 * @return List<Piece> all active eagles
 	 */
-	public List<PieceInterface> getActiveEagles() {
+	public List<Piece> getActiveEagles() {
 		activeEagles = new ArrayList<>();
-		for (PieceInterface piece : pieces.values()) {
+		for (Piece piece : pieces.values()) {
 			if (piece != null && piece.isActive() && (piece instanceof AttackingEagle
 					|| piece instanceof LeadershipEagle || piece instanceof VisionaryEagle)) {
 				activeEagles.add(piece);
@@ -187,7 +188,7 @@ public class PieceOperator implements Serializable {
 			resetHealingAbilityCounter();
 	}
 
-	public void setBoard(Board board) {
+	public void setBoard(GameBoard board) {
 		this.board = board;
 	}
 

@@ -3,8 +3,8 @@ package model.piece;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.contract.EngineInterface;
-import model.contract.PieceInterface;
+import model.contract.Engine;
+import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.enumtype.PieceType;
@@ -18,19 +18,19 @@ public class MockClient2 {
 
 	public static void main(String[] args) {
 
-		EngineInterface engine = EngineImpl.getSingletonInstance();
-		Map<PieceType, PieceInterface> pieces = new HashMap<PieceType, PieceInterface>();
+		Engine engine = EngineImpl.getSingletonInstance();
+		Map<PieceType, Piece> pieces = new HashMap<PieceType, Piece>();
 		CommandExecutor commandExecutor = new CommandExecutor();
 		//
 		pieces = engine.pieceOperator().getAllPieces();
 		// // System.out.println(engine.getInitialPlayerActivePlayer().getPlayerType());
 		//
-		PieceInterface attackerPiece = null;
-		PieceInterface visionPiece = null;
-		PieceInterface leaderPiece = null;
-		PieceInterface defenceShark = null;
+		Piece attackerPiece = null;
+		Piece visionPiece = null;
+		Piece leaderPiece = null;
+		Piece defenceShark = null;
 		//
-		for (PieceInterface piece : pieces.values()) {
+		for (Piece piece : pieces.values()) {
 
 			if (piece instanceof AttackingEagle) {
 				attackerPiece = piece;

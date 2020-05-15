@@ -8,8 +8,8 @@ import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
-import model.contract.EngineInterface;
-import model.contract.PieceInterface;
+import model.contract.Engine;
+import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
@@ -23,11 +23,11 @@ import model.piece.movement.PieceMoveDecorator;
 public class DefensiveShark extends AbstractPiece {
 
 	final int NEIGHBOURING_DISTANCE = 1;
-	private final EngineInterface engine;
+	private final Engine engine;
 
 	private static final long serialVersionUID = -3824904265692727849L;
 
-	public DefensiveShark(int x, int y, EngineInterface engine) {
+	public DefensiveShark(int x, int y, Engine engine) {
 		super(x, y);
 		this.engine = engine;
 	}
@@ -46,7 +46,7 @@ public class DefensiveShark extends AbstractPiece {
 	}
 
 	@Override
-	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
+	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.PROTECT)) {
 			defend(affectedPiece);
 			if (EngineImpl.getSingletonInstance().pieceOperator().getHealingAbilityCounter() == 2) {
@@ -57,7 +57,7 @@ public class DefensiveShark extends AbstractPiece {
 		}
 	}
 
-	private void defend(PieceInterface targetPiece) {
+	private void defend(Piece targetPiece) {
 		targetPiece.setImmune(true);
 
 	}
@@ -67,10 +67,10 @@ public class DefensiveShark extends AbstractPiece {
 	public Set<Cell> abilityCells() {
 		Set<Cell> neighbourCells = new HashSet<>();
 		Set<Cell> surroundingEightCells = new HashSet<>();
-		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
+		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
 
 		// Return all the neighbouring cells around other sharks
-		for (PieceInterface shark : activeSharks) {
+		for (Piece shark : activeSharks) {
 			if (!(shark instanceof DefensiveShark)) {
 
 				// All the neighbour cells around a shark - to be traversed

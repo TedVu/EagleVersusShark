@@ -8,8 +8,8 @@ import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
-import model.contract.EngineInterface;
-import model.contract.PieceInterface;
+import model.contract.Engine;
+import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.enumtype.PieceType;
@@ -27,11 +27,11 @@ public class HealingShark extends AbstractPiece {
 
 	private static final long serialVersionUID = -7746905541941458353L;
 
-	private final EngineInterface engine;
+	private final Engine engine;
 	
 	private boolean isModeAvailable = true;
 
-	public HealingShark(int x, int y, EngineInterface engine) {
+	public HealingShark(int x, int y, Engine engine) {
 		super(x, y);
 		this.engine = engine;
 	}
@@ -52,7 +52,7 @@ public class HealingShark extends AbstractPiece {
 	}
 
 	@Override
-	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
+	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.HEAL)) {
 
 			int counter = EngineImpl.getSingletonInstance().pieceOperator().getHealingAbilityCounter();
@@ -70,7 +70,7 @@ public class HealingShark extends AbstractPiece {
 		}
 	}
 
-	private void heal(PieceInterface affectedPiece) {
+	private void heal(Piece affectedPiece) {
 		try {
 
 			// Move selected shark piece to its original cell (upon initialization) and set
@@ -136,8 +136,8 @@ public class HealingShark extends AbstractPiece {
 		
 		if(isModeAvailable) {
 			Set<Cell> currentEaglePositions = new HashSet<>();
-			List<PieceInterface> activeEagles = engine.pieceOperator().getActiveEagles();
-			for (PieceInterface activeEagle : activeEagles) {
+			List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
+			for (Piece activeEagle : activeEagles) {
 				int x = activeEagle.getPosition().get("x");
 				int y = activeEagle.getPosition().get("y");
 

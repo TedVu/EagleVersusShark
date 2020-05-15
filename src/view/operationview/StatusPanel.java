@@ -67,7 +67,7 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 		startButtonPanel.add(startButton);
 		add(startButtonPanel);
 
-		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().getGameEngineCallback()
+		PropertyChangeListener[] listeners = EngineImpl.getSingletonInstance().gameTurn().getGameEngineCallback()
 				.getPropertyChangeListener();
 		for (PropertyChangeListener listener : listeners) {
 			if (listener instanceof MakingMovePropertyChangeListener) {

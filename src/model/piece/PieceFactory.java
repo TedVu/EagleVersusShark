@@ -1,7 +1,7 @@
 package model.piece;
 
-import model.contract.EngineInterface;
-import model.contract.PieceInterface;
+import model.contract.Engine;
+import model.contract.Piece;
 import model.enumtype.PieceType;
 
 /**
@@ -10,7 +10,7 @@ import model.enumtype.PieceType;
  */
 public class PieceFactory {
 
-	public static PieceInterface generatePiece(PieceType pieceType, int boardSize, EngineInterface engine) {
+	public static Piece generatePiece(PieceType pieceType, int boardSize, Engine engine) {
 		if (pieceType == PieceType.ATTACKINGEAGLE) {
 			return createAttackingEagle(boardSize, engine);
 		} else if (pieceType == PieceType.LEADERSHIPEAGLE) {
@@ -28,32 +28,32 @@ public class PieceFactory {
 		}
 	}
 
-	private static PieceInterface createAggressiveShark(int boardSize) {
+	private static Piece createAggressiveShark(int boardSize) {
 		return new AggressiveShark(PieceType.AGGRESSIVESHARK.xCoordinate(boardSize),
 				PieceType.AGGRESSIVESHARK.yCoordinate(boardSize));
 	}
 
-	private static PieceInterface createAttackingEagle(int boardSize, EngineInterface engine) {
+	private static Piece createAttackingEagle(int boardSize, Engine engine) {
 		return new AttackingEagle(PieceType.ATTACKINGEAGLE.xCoordinate(boardSize),
 				PieceType.ATTACKINGEAGLE.yCoordinate(boardSize), engine);
 	}
 
-	private static PieceInterface createDesensiveShark(int boardSize, EngineInterface engine) {
+	private static Piece createDesensiveShark(int boardSize, Engine engine) {
 		return new DefensiveShark(PieceType.DEFENSIVESHARK.xCoordinate(boardSize),
 				PieceType.DEFENSIVESHARK.yCoordinate(boardSize), engine);
 	}
 
-	private static PieceInterface createHealingShark(int boardSize, EngineInterface engine) {
+	private static Piece createHealingShark(int boardSize, Engine engine) {
 		return new HealingShark(PieceType.HEALINGSHARK.xCoordinate(boardSize),
 				PieceType.HEALINGSHARK.yCoordinate(boardSize), engine);
 	}
 
-	private static PieceInterface createLeadershipEagle(int boardSize) {
+	private static Piece createLeadershipEagle(int boardSize) {
 		return new LeadershipEagle(PieceType.LEADERSHIPEAGLE.xCoordinate(boardSize),
 				PieceType.LEADERSHIPEAGLE.yCoordinate(boardSize));
 	}
 
-	private static PieceInterface createVisionaryEagle(int boardSize, EngineInterface engine) {
+	private static Piece createVisionaryEagle(int boardSize, Engine engine) {
 		return new VisionaryEagle(PieceType.VISIONARYEAGLE.xCoordinate(boardSize),
 				PieceType.VISIONARYEAGLE.yCoordinate(boardSize), engine);
 	}

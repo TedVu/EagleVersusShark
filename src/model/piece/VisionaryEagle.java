@@ -11,8 +11,8 @@ import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
-import model.contract.EngineInterface;
-import model.contract.PieceInterface;
+import model.contract.Engine;
+import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
@@ -28,9 +28,9 @@ public class VisionaryEagle extends AbstractPiece {
 	 * 
 	 */
 	private static final long serialVersionUID = -6390595106558376146L;
-	EngineInterface engine;
+	Engine engine;
 
-	public VisionaryEagle(int x, int y, EngineInterface engine) {
+	public VisionaryEagle(int x, int y, Engine engine) {
 		super(x, y);
 		this.engine = engine;
 	}
@@ -55,7 +55,7 @@ public class VisionaryEagle extends AbstractPiece {
 	}
 
 	@Override
-	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece) {
+	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.SWAP)) {
 			swap(piece, affectedPiece);
 		} 
@@ -66,7 +66,7 @@ public class VisionaryEagle extends AbstractPiece {
 	}
 
 
-	private void swap(PieceInterface piece, PieceInterface affectedPiece) {
+	private void swap(Piece piece, Piece affectedPiece) {
 
 		try {
 			Map<String, Integer> position1 = new HashMap<String, Integer>();
@@ -87,8 +87,8 @@ public class VisionaryEagle extends AbstractPiece {
 	public Set<Cell> abilityCells() {
 
 		Set<Cell> swapPositions = new HashSet<>();
-		List<PieceInterface> activeEagles = engine.pieceOperator().getActiveEagles();
-		for (PieceInterface activeEagle : activeEagles) {
+		List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
+		for (Piece activeEagle : activeEagles) {
 			if (!(activeEagle instanceof VisionaryEagle)) {
 
 				int x = activeEagle.getPosition().get("x");
@@ -106,8 +106,8 @@ public class VisionaryEagle extends AbstractPiece {
 	public Set<Cell> modeCells() {
 		
 		Set<Cell> swapPositions = new HashSet<>();
-		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
-		for (PieceInterface activeShark : activeSharks) {
+		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
+		for (Piece activeShark : activeSharks) {
 			
 			int x = activeShark.getPosition().get("x");
 			int y = activeShark.getPosition().get("y");

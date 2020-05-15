@@ -7,13 +7,13 @@ import java.util.Map;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
-import model.contract.PieceInterface;
+import model.contract.Piece;
 
 /**
  * @author sefira & chanboth
  *
  */
-public abstract class AbstractPiece implements PieceInterface, Serializable {
+public abstract class AbstractPiece implements Piece, Serializable {
 
 	private static final long serialVersionUID = -564937938237634780L;
 	private Map<String, Integer> position = new HashMap<String, Integer>();

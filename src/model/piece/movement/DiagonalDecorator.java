@@ -8,8 +8,8 @@ import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
-import model.contract.PieceInterface;
-import model.contract.PieceMovementInterface;
+import model.contract.Piece;
+import model.contract.PieceMovement;
 import model.engine.EngineImpl;
 
 /**
@@ -23,7 +23,7 @@ public class DiagonalDecorator extends PieceMoveDecorator {
 	private Set<Cell> validMoves = new HashSet<>();
 	
 	
-	public DiagonalDecorator(PieceMovementInterface pieceMove) {
+	public DiagonalDecorator(PieceMovement pieceMove) {
 		super(pieceMove);
 		// TODO Auto-generated constructor stub
 	}
@@ -39,7 +39,7 @@ public class DiagonalDecorator extends PieceMoveDecorator {
 	@Requires({ "piece != null", "distance == 1 || distance ==2" })
 	@Ensures("validMoves != null")
 	@Override
-	public Set<Cell> getValidMove(PieceInterface piece, int distance) {
+	public Set<Cell> getValidMove(Piece piece, int distance) {
 		
 		validMoves = pieceMove.getValidMove(piece, distance);
 		

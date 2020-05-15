@@ -1,6 +1,6 @@
 package model.piece.commands;
 
-import model.contract.CommandInterface;
+import model.contract.Command;
 
 /**
  *
@@ -9,7 +9,7 @@ import model.contract.CommandInterface;
  */
 public class CommandExecutor {
 
-	public void executeCommand(CommandInterface command) {
+	public void executeCommand(Command command) {
 		command.execute();
 	}
 }

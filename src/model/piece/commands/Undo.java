@@ -2,21 +2,21 @@
 
 import java.io.Serializable;
 
-import model.contract.CommandInterface;
-import model.contract.EngineInterface;
+import model.contract.Command;
+import model.contract.Engine;
 import model.engine.EngineImpl;
 import model.enumtype.TeamType;
-import model.piece.PieceOperator;
+import model.piece.GamePiece;
 
 /**
  *
  * @author Sefira
  *
  */
-public class Undo implements CommandInterface, Serializable  {
+public class Undo implements Command, Serializable  {
 
 	private static final long serialVersionUID = -1824704997694754116L;
-	private EngineInterface engine = EngineImpl.getSingletonInstance();
+	private Engine engine = EngineImpl.getSingletonInstance();
 	private PieceCommands pieceCommands = engine.getPieceCommands();
 	private TeamType teamType;
 	private int undoNum;

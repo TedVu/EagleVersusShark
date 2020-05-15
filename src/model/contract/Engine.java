@@ -1,10 +1,11 @@
 package model.contract;
 
-import model.board.Board;
+import model.board.GameBoard;
 import model.engine.EngineImpl;
 import model.enumtype.TeamType;
-import model.piece.PieceOperator;
+import model.piece.GamePiece;
 import model.piece.commands.PieceCommands;
+import model.player.GameTurn;
 import model.player.Player;
 import view.contract.GameEngineCallbackInterface;
 
@@ -12,12 +13,14 @@ import view.contract.GameEngineCallbackInterface;
  * @author sefira
  *
  */
-public interface EngineInterface {
+public interface Engine {
+	
+	public GameTurn gameTurn();
 
 	/**
 	 * stop the timer of the game
 	 */
-	public void cancelTimer();
+//	public void cancelTimer();
 
 	// /**
 	// * @param occupiedPieceType
@@ -30,23 +33,23 @@ public interface EngineInterface {
 	 */
 	// public Map<PieceType, PieceInterface> getAllPieces();
 
-	public Board getBoard();
+	public GameBoard getBoard();
 
 	/**
 	 * get the current player turn
 	 * 
 	 * @return the active team
 	 */
-	public Player getCurrentActivePlayer();
+//	public Player getCurrentActivePlayer();
 
-	public GameEngineCallbackInterface getGameEngineCallback();
+//	public GameEngineCallbackInterface getGameEngineCallback();
 
 	/*
 	 * return the initial active player, call this at the beginning of the program
 	 * 
 	 * @return (eaglePlayer || sharkPlayer)
 	 */
-	public Player getInitialPlayerActivePlayer();
+//	public Player getInitialPlayerActivePlayer();
 
 	/*
 	 * schedule timer to call setActivePlayer(String playerType, boolean
@@ -68,14 +71,14 @@ public interface EngineInterface {
 	 * @param playerType  - the player to be activated
 	 * @param turnOnTimer - whether to begin countdown or not
 	 */
-	public void setActivePlayer(TeamType playerType, boolean turnOnTimer);
+//	public void setActivePlayer(TeamType playerType, boolean turnOnTimer);
 
 	/**
 	 * turn on the timer and loop call setActivePlayer to change every interval
 	 * 
 	 * @param playerType - the player to be activated next
 	 */
-	public void setActivePlayerTimer(TeamType playerType);
+//	public void setActivePlayerTimer(TeamType playerType);
 
 	/*
 	 * Set the selected piece status to active
@@ -84,18 +87,18 @@ public interface EngineInterface {
 	 */
 	// public boolean setPieceActiveStatus(PieceInterface piece, boolean isActive);
 
-	public PieceOperator pieceOperator();
+	public GamePiece pieceOperator();
 
 	// TED
-	public void cancelTimerPauseGame();
+//	public void cancelTimerPauseGame();
 
-	public boolean ableToUndo(TeamType teamType);
-
-	public void incrementUndo(TeamType teamType);
-
-	public boolean getGameCurrentlyRunning();
-
-	public void setResumeGame();
+//	public boolean ableToUndo(TeamType teamType);
+//
+//	public void incrementUndo(TeamType teamType);
+//
+//	public boolean getGameCurrentlyRunning();
+//
+//	public void setResumeGame();
 	
 	
 	//total num piece for 

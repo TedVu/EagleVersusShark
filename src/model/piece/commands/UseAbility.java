@@ -2,30 +2,30 @@ package model.piece.commands;
 
 import java.io.Serializable;
 
-import model.contract.CommandInterface;
-import model.contract.EngineInterface;
-import model.contract.PieceInterface;
+import model.contract.Command;
+import model.contract.Engine;
+import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.PieceMemento;
-import model.piece.PieceOperator;
+import model.piece.GamePiece;
 
 /**
  *
  * @author Sefira
  *
  */
-public class UseAbility implements CommandInterface, Serializable {
+public class UseAbility implements Command, Serializable {
 
 	private static final long serialVersionUID = 6907153654562703481L;
 	PieceAbility pieceAbility;
-	private PieceInterface piece, affectedPiece;
-	private EngineInterface engine = EngineImpl.getSingletonInstance();
+	private Piece piece, affectedPiece;
+	private Engine engine = EngineImpl.getSingletonInstance();
 	private PieceCommands pieceCommands = engine.getPieceCommands();
 	private PieceMemento pieceMemento, affectedPieceMemento;
 	private boolean isMode;
 
-	public UseAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece, boolean isMode) {
+	public UseAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece, boolean isMode) {
 		this.affectedPiece = affectedPiece;
 		this.piece = piece;
 		this.pieceMemento = piece.pieceMemento();

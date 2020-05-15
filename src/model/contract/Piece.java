@@ -12,7 +12,7 @@ import model.piece.PieceMemento;
  * @author sefira & chanboth
  *
  */
-public interface PieceInterface {
+public interface Piece {
 
 	/**
 	 * Get the current position of the piece
@@ -51,7 +51,7 @@ public interface PieceInterface {
 	 */
 	public void setPosition(int x, int y);
 
-	public void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece);
+	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece);
 
 	public Set<Cell> abilityCells();
 

@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 import controller.abstractfactory.AbstractAbilityController;
-import model.contract.PieceInterface;
+import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
@@ -16,7 +16,7 @@ public class HealingSharkAbilityController extends AbstractAbilityController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (EngineImpl.getSingletonInstance().getCurrentActivePlayer().getPlayerType() == TeamType.SHARK) {
+		if (EngineImpl.getSingletonInstance().gameTurn().getCurrentActivePlayer().getPlayerType() == TeamType.SHARK) {
 
 			healingDialog.dispose();
 
@@ -41,7 +41,7 @@ public class HealingSharkAbilityController extends AbstractAbilityController {
 
 	@Override
 	public void setUpViewForAbility() {
-		List<PieceInterface> activeSharks = EngineImpl.getSingletonInstance().pieceOperator().getActiveSharks();
+		List<Piece> activeSharks = EngineImpl.getSingletonInstance().pieceOperator().getActiveSharks();
 
 		if (activeSharks.size() == EngineImpl.getSingletonInstance().getTotalNumPiece() / 2) {
 			super.viewControllerFacade.updateBoardErrorAction("No shark to revive");

@@ -32,8 +32,8 @@ import controller.playinggamecontroller.MovePieceController;
 import controller.playinggamecontroller.SelectPieceController;
 import controller.playinggamecontroller.TimerPropertyChangeListener;
 import model.board.Cell;
-import model.contract.EngineInterface;
-import model.contract.PieceInterface;
+import model.contract.Engine;
+import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
@@ -59,7 +59,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	private static final long serialVersionUID = -146176190184206205L;
 	private List<List<AbstractButton>> buttons;
 	private ViewControllerInterface facade;
-	private EngineInterface engine = EngineImpl.getSingletonInstance();
+	private Engine engine = EngineImpl.getSingletonInstance();
 
 	/**
 	 * Constructing the board panel,at the beginning, the board is a hard-coded
@@ -124,7 +124,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 		populatePieces();
 
-		PropertyChangeListener[] listeners = engine.getGameEngineCallback().getPropertyChangeListener();
+		PropertyChangeListener[] listeners = engine.gameTurn().getGameEngineCallback().getPropertyChangeListener();
 
 		for (PropertyChangeListener listener : listeners) {
 			if (listener instanceof TimerPropertyChangeListener) {
@@ -204,9 +204,9 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			}
 		}
 
-		List<PieceInterface> activeEagles = EngineImpl.getSingletonInstance().pieceOperator().getActiveEagles();
+		List<Piece> activeEagles = EngineImpl.getSingletonInstance().pieceOperator().getActiveEagles();
 
-		for (PieceInterface eagle : activeEagles) {
+		for (Piece eagle : activeEagles) {
 			AbstractButton eagleBtn = buttons.get(eagle.getPosition().get("y")).get(eagle.getPosition().get("x"));
 			eagleBtn.setActionCommand(eagle.toString());
 			updateIcon(eagleBtn, PieceType.parsePieceType(eagle.toString()));
@@ -216,7 +216,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	private void updateBoardAfterAggressiveSharkUseMode(AbstractButton movedBtn, Cell newPos) {
-		PieceInterface aggressiveShark = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+		Piece aggressiveShark = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(PieceType.AGGRESSIVESHARK);
 		AbstractButton oldBtn = buttons.get(aggressiveShark.getPosition().get("y"))
 				.get(aggressiveShark.getPosition().get("x"));
@@ -238,7 +238,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	private void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked, Cell cell) {
-		PieceInterface defensivePiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+		Piece defensivePiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(PieceType.DEFENSIVESHARK);
 		AbstractButton oldBtn = buttons.get(defensivePiece.getPosition().get("y"))
 				.get(defensivePiece.getPosition().get("x"));
@@ -262,7 +262,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	private void updateBoardBeforeUseSpecialBehaviour(ActionListener abilityController, PieceType pieceUseSpeciaBehaviour) {
-		PieceInterface animal = engine.pieceOperator().getAllPieces().get(pieceUseSpeciaBehaviour);
+		Piece animal = engine.pieceOperator().getAllPieces().get(pieceUseSpeciaBehaviour);
 		Set<Cell> abilityCells = null;
 		if (abilityController instanceof AbilityController) {
 			abilityCells = animal.abilityCells();
@@ -293,7 +293,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	private void updateBoardAfterLeadershipUseMode() {
-		PieceInterface leadershipEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+		Piece leadershipEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(PieceType.LEADERSHIPEAGLE);
 		Set<Cell> leapPos = leadershipEagle.modeCells();
 
@@ -311,7 +311,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	private void updateBoardReviveSharkSuccessful(PieceType revivedPieceEnum) {
-		PieceInterface revivedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
+		Piece revivedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(revivedPieceEnum);
 
 		AbstractButton revivedBtn = buttons.get(revivedPiece.getPosition().get("y"))
@@ -342,15 +342,15 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	private void updateBoardUndoSuccessful() {
 		refreshBoardColorAndState();
 		deleteAllIconsAndCommands();
-		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
+		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
 
-		for (PieceInterface pieces : activeSharks) {
+		for (Piece pieces : activeSharks) {
 			AbstractButton pieceBtn = buttons.get(pieces.getPosition().get("y")).get(pieces.getPosition().get("x"));
 			pieceBtn.setActionCommand(pieces.toString());
 			updateIcon(pieceBtn, PieceType.parsePieceType(pieces.toString()));
 		}
-		List<PieceInterface> activeEagles = engine.pieceOperator().getActiveEagles();
-		for (PieceInterface pieces : activeEagles) {
+		List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
+		for (Piece pieces : activeEagles) {
 			AbstractButton pieceBtn = buttons.get(pieces.getPosition().get("y")).get(pieces.getPosition().get("x"));
 			pieceBtn.setActionCommand(pieces.toString());
 			updateIcon(pieceBtn, PieceType.parsePieceType(pieces.toString()));
@@ -384,7 +384,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @param buttonClicked
 	 */
 	private void updateBoardAfterSwap(AbstractButton buttonClicked) {
-		PieceInterface visionaryEagle = engine.pieceOperator().getAllPieces().get(PieceType.VISIONARYEAGLE);
+		Piece visionaryEagle = engine.pieceOperator().getAllPieces().get(PieceType.VISIONARYEAGLE);
 
 		AbstractButton visionButton = buttons.get(visionaryEagle.getPosition().get("y"))
 				.get(visionaryEagle.getPosition().get("x"));
@@ -486,7 +486,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	private void populatePieces() {
-		Map<PieceType, PieceInterface> pieces = engine.pieceOperator().getAllPieces();
+		Map<PieceType, Piece> pieces = engine.pieceOperator().getAllPieces();
 		Set<PieceType> pts = pieces.keySet();
 		for (PieceType pt : pts) {
 			populateCustomPiece(pieces.get(pt).getPosition().get("y"), pieces.get(pt).getPosition().get("x"), pt);

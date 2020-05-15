@@ -8,8 +8,8 @@ import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
-import model.contract.PieceInterface;
-import model.contract.PieceMovementInterface;
+import model.contract.Piece;
+import model.contract.PieceMovement;
 import model.engine.EngineImpl;
 
 /**
@@ -17,13 +17,13 @@ import model.engine.EngineImpl;
  *
  */
 
-public class PieceMoveDecorator implements PieceMovementInterface {
+public class PieceMoveDecorator implements PieceMovement {
 
-	protected PieceMovementInterface pieceMove ;
+	protected PieceMovement pieceMove ;
 	
 	
 
-	public PieceMoveDecorator(PieceMovementInterface pieceMove) {
+	public PieceMoveDecorator(PieceMovement pieceMove) {
 		this.pieceMove = pieceMove;
 	}
 	
@@ -39,7 +39,7 @@ public class PieceMoveDecorator implements PieceMovementInterface {
 //	@Requires({ "piece != null", "distance == 1 || distance ==2" })
 //	@Ensures("validMoves != null")
 	@Override
-	public Set<Cell> getValidMove(PieceInterface piece, int distance) {
+	public Set<Cell> getValidMove(Piece piece, int distance) {
 		return pieceMove.getValidMove(piece, distance);
 	}
 

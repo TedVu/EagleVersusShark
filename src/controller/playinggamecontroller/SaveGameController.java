@@ -20,9 +20,9 @@ public class SaveGameController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (EngineImpl.getSingletonInstance().getGameCurrentlyRunning()) {
+		if (EngineImpl.getSingletonInstance().gameTurn().getGameCurrentlyRunning()) {
 			viewControllerFacade.undoMoveCancelTimer();
-			EngineImpl.getSingletonInstance().cancelTimerPauseGame();
+			EngineImpl.getSingletonInstance().gameTurn().cancelTimerPauseGame();
 			resumeBtn.setEnabled(true);
 		}
 		new SaveGameDialog();

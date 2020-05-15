@@ -6,9 +6,9 @@ import java.util.Stack;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
-import model.board.Board;
-import model.contract.CommandInterface;
-import model.contract.PieceInterface;
+import model.board.GameBoard;
+import model.contract.Command;
+import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.enumtype.TeamType;
@@ -30,16 +30,16 @@ public class PieceCommands implements Serializable {
 
 	private EngineImpl engine;
 
-	private Board board;
+	private GameBoard board;
 
-	private Stack<CommandInterface> commandHistory = new Stack<CommandInterface>();
+	private Stack<Command> commandHistory = new Stack<Command>();
 
 	public PieceCommands(EngineImpl engine) {
 		this.engine = engine;
 		this.board = engine.getBoard();
 	}
 
-	protected void replacePieceVersion(PieceInterface piece, PieceMemento prevState) {
+	protected void replacePieceVersion(Piece piece, PieceMemento prevState) {
 		piece.setActive(prevState.isActive());
 		piece.setImmune(prevState.isImmune());
 		piece.setPosition(prevState.getX(), prevState.getY());
@@ -59,7 +59,7 @@ public class PieceCommands implements Serializable {
 	 */
 	@Requires({ "piece != null", "x>=0", "y>=0" })
 	@Ensures({ "piece.getPosition().get(\"x\") != null && piece.getPosition().get(\"y\") != null" })
-	public void movePiece(PieceInterface piece, int x, int y, boolean isMode) {
+	public void movePiece(Piece piece, int x, int y, boolean isMode) {
 		if (isMode && piece instanceof HealingShark && piece.getModeCount() > 0) {
 			throw new IllegalArgumentException("Mode is already used");
 		}
@@ -70,7 +70,7 @@ public class PieceCommands implements Serializable {
 			piece.modeUsed();
 	}
 
-	protected void useAbility(PieceAbility pieceAbility, PieceInterface piece, PieceInterface affectedPiece,
+	protected void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece,
 			boolean isMode) {
 		if (isMode && piece instanceof AttackingEagle && piece.getModeCount() > 0) {
 			throw new IllegalArgumentException("Mode is already used");
@@ -82,7 +82,7 @@ public class PieceCommands implements Serializable {
 
 	protected void undo(int undoNum, TeamType teamType) {
 
-		if (engine.ableToUndo(teamType)) {
+		if (engine.gameTurn().ableToUndo(teamType)) {
 
 			int availableUndo = commandHistory.size() / 2;
 			if (availableUndo < 1)
@@ -95,18 +95,16 @@ public class PieceCommands implements Serializable {
 					commandHistory.pop();
 				}
 			}
-			engine.incrementUndo(teamType);
+			engine.gameTurn().incrementUndo(teamType);
 		} else {
 			throw new RuntimeException("You already used undo");
 		}
 	}
 
-	protected void addEvt(CommandInterface command) {
+	protected void addEvt(Command command) {
 		commandHistory.push(command);
 	}
 
-	public void setBoard(Board board) {
-		this.board = board;
-	}
+
 
 }

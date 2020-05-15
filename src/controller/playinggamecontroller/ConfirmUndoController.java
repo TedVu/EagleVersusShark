@@ -26,7 +26,7 @@ public class ConfirmUndoController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		boolean undoSuccess = true;
 		int numUndo = Integer.parseInt(undoMovePanel.getNumUndo());
-		Player currentTeam = EngineImpl.getSingletonInstance().getCurrentActivePlayer();
+		Player currentTeam = EngineImpl.getSingletonInstance().gameTurn().getCurrentActivePlayer();
 		TeamType currentTeamEnum = TeamType.valueOf(currentTeam.toString());
 
 		try {
@@ -38,7 +38,7 @@ public class ConfirmUndoController implements ActionListener {
 		}
 
 		if (undoSuccess) {
-			EngineImpl.getSingletonInstance().getCurrentActivePlayer().setAlreadyUndo();
+			EngineImpl.getSingletonInstance().gameTurn().getCurrentActivePlayer().setAlreadyUndo();
 			undoMovePanel.setVisible(false);
 			viewControllerFacade.confirmUndoSuccessful();
 		}
