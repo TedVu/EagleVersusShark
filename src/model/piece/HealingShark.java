@@ -79,16 +79,16 @@ public class HealingShark extends AbstractPiece {
 			int initialY = 0;
 			if (affectedPiece instanceof AggressiveShark) {
 				initialX = PieceType.AGGRESSIVESHARK
-						.xCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
+						.xCoordinate(EngineImpl.getSingletonInstance().gameBoard().getSize());
 				initialY = PieceType.AGGRESSIVESHARK
-						.yCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
+						.yCoordinate(EngineImpl.getSingletonInstance().gameBoard().getSize());
 
 			} else if (affectedPiece instanceof DefensiveShark) {
-				initialX = PieceType.DEFENSIVESHARK.xCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
-				initialY = PieceType.DEFENSIVESHARK.yCoordinate(EngineImpl.getSingletonInstance().getBoard().getSize());
+				initialX = PieceType.DEFENSIVESHARK.xCoordinate(EngineImpl.getSingletonInstance().gameBoard().getSize());
+				initialY = PieceType.DEFENSIVESHARK.yCoordinate(EngineImpl.getSingletonInstance().gameBoard().getSize());
 			}
 
-			Cell initialCell = engine.getBoard().getCell(initialX, initialY);
+			Cell initialCell = engine.gameBoard().getCell(initialX, initialY);
 			boolean cellOccupied = false;
 
 			// Will keep changing initial cell until the cell is found != occupied
@@ -102,7 +102,7 @@ public class HealingShark extends AbstractPiece {
 					// DefensiveShark will move 1 unit up
 					if (affectedPiece instanceof DefensiveShark)
 						--initialY;
-					if (!engine.getBoard().getCell(initialX, initialY).getOccupied())
+					if (!engine.gameBoard().getCell(initialX, initialY).getOccupied())
 						cellOccupied = true;
 				} else {
 					cellOccupied = true;

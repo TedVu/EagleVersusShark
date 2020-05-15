@@ -81,15 +81,15 @@ public class DefensiveShark extends AbstractPiece {
 			}
 		}
 		// Remove master cell
-		surroundingEightCells.remove(EngineImpl.getSingletonInstance().getBoard().getSharkMasterCell());
+		surroundingEightCells.remove(EngineImpl.getSingletonInstance().gameBoard().getSharkMasterCell());
 
 		// * Add the cell to the return list if the following are true:
 		// * Cell is not occupied
 		// * Cell is within the board
 		// *
 		for (Cell possibleCell : surroundingEightCells) {
-			if (!possibleCell.getOccupied() && possibleCell.getY() < engine.getBoard().getSize()
-					&& possibleCell.getY() >= 0 && possibleCell.getX() < engine.getBoard().getSize()
+			if (!possibleCell.getOccupied() && possibleCell.getY() < engine.gameBoard().getSize()
+					&& possibleCell.getY() >= 0 && possibleCell.getX() < engine.gameBoard().getSize()
 					&& possibleCell.getX() >= 0) {
 				neighbourCells.add(possibleCell);
 			}

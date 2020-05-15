@@ -130,7 +130,7 @@ public class ControllerModelFacade implements ControllerModelInterface {
 	@Override
 	public void updateModelAfterHealingSharkUseMode(PieceType affectedPieceEnum) {
 		Piece eagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces().get(affectedPieceEnum);
-		Cell eagleMasterCell = EngineImpl.getSingletonInstance().getBoard().getCell(4, 0);
+		Cell eagleMasterCell = EngineImpl.getSingletonInstance().gameBoard().getCell(4, 0);
 		commandExecutor.executeCommand(new MovePiece(eagleMasterCell.getX(), eagleMasterCell.getY(), eagle, false));
 
 	}

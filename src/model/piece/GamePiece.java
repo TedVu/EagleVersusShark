@@ -38,7 +38,7 @@ public class GamePiece implements Serializable {
 	private int healingAbilityCounter = 0;
 
 	public GamePiece(Engine engine) {
-		this.board = engine.getBoard();
+		this.board = engine.gameBoard();
 		this.engine = engine;
 		initializeDefaultPiece();
 	}

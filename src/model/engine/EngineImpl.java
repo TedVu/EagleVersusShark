@@ -119,7 +119,7 @@ public class EngineImpl implements Engine, Serializable {
 
 	@Override
 	public void loadGame(EngineImpl e) {
-		board = e.getBoard();
+		board = e.gameBoard();
 		gamePiece = e.getPieceOperator();
 		pieceCommands =e.getPieceCommands();
 	}
@@ -142,7 +142,7 @@ public class EngineImpl implements Engine, Serializable {
 //	}
 
 	@Override
-	public GameBoard getBoard() {
+	public GameBoard gameBoard() {
 		return board;
 	}
 
@@ -307,8 +307,10 @@ public class EngineImpl implements Engine, Serializable {
 
 	@Override
 	public void configObstacle(boolean hasObstacle) {
+		
+		Set<Cell> specialPos = new HashSet<>();
+		
 		if (hasObstacle) {
-			Set<Cell> specialPos = new HashSet<>();
 			for (Piece pieces : this.gamePiece.getAllPieces().values()) {
 				specialPos.add(board.getCell(pieces.getPosition().get("x"), pieces.getPosition().get("y")));
 			}

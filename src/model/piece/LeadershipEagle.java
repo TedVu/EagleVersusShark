@@ -133,30 +133,30 @@ public class LeadershipEagle extends AbstractPiece {
 		Set<Cell> finalMode = new HashSet<>();
 
 		try {
-			if (engine.getBoard().getCell(this.getPosition().get("x"), this.getPosition().get("y")).isWaterCell()) {
+			if (engine.gameBoard().getCell(this.getPosition().get("x"), this.getPosition().get("y")).isWaterCell()) {
 				throw new IllegalArgumentException("Cannot use mode because currently on water cell");
 			}
 			int YPos = getPosition().get("y");
 
 			// check if stand in boundary
-			if (YPos != engine.getBoard().getSize() && YPos != 0) {
-				boolean waterCellFrontStatus = engine.getBoard().getCell(getPosition().get("x"), YPos + 1)
+			if (YPos != engine.gameBoard().getSize() && YPos != 0) {
+				boolean waterCellFrontStatus = engine.gameBoard().getCell(getPosition().get("x"), YPos + 1)
 						.isWaterCell();
-				boolean waterCellBackStatus = engine.getBoard().getCell(getPosition().get("x"), YPos - 1).isWaterCell();
+				boolean waterCellBackStatus = engine.gameBoard().getCell(getPosition().get("x"), YPos - 1).isWaterCell();
 				if (waterCellFrontStatus) {
-					boolean leapCellOccupyStatusFront = engine.getBoard().getCell(getPosition().get("x"), YPos + 4)
+					boolean leapCellOccupyStatusFront = engine.gameBoard().getCell(getPosition().get("x"), YPos + 4)
 							.getOccupied();
 					if (leapCellOccupyStatusFront) {
 						throw new IllegalArgumentException("Cannot use this mode because the leap-to cell is occupied");
 					}
-					finalMode.add(engine.getBoard().getCell(getPosition().get("x"), YPos + 4));
+					finalMode.add(engine.gameBoard().getCell(getPosition().get("x"), YPos + 4));
 				} else if (waterCellBackStatus) {
-					boolean leapCellOccupyStatusBack = engine.getBoard().getCell(getPosition().get("x"), YPos - 4)
+					boolean leapCellOccupyStatusBack = engine.gameBoard().getCell(getPosition().get("x"), YPos - 4)
 							.getOccupied();
 					if (leapCellOccupyStatusBack) {
 						throw new IllegalArgumentException("Cannot use this mode because the leap-to cell is occupied");
 					}
-					finalMode.add(engine.getBoard().getCell(getPosition().get("x"), YPos - 4));
+					finalMode.add(engine.gameBoard().getCell(getPosition().get("x"), YPos - 4));
 
 				} else {
 					throw new IllegalArgumentException("Not standing near to any water cell to use this mode");

@@ -2,12 +2,23 @@ package model.board;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.Timer;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.contract.Engine;
+import model.contract.Piece;
+import model.enumtype.TeamType;
+import model.piece.GamePiece;
+import model.piece.commands.PieceCommands;
+import model.player.GameTurn;
+import model.player.Player;
+import model.player.PlayerImpl;
 
 /**
  * @author ted &#38; kevin
@@ -24,13 +35,41 @@ public class GameBoard implements Serializable {
 	private Engine engine;
 	
 	
+	private Player eaglePlayer = new PlayerImpl(TeamType.EAGLE);
+
+	private Player sharkPlayer = new PlayerImpl(TeamType.SHARK);
+
+	private transient Timer gameTimer;
+
+//	private GameEngineCallbackInterface geCallback = new GameEngineCallbackImpl();
+
+	private GameBoard board;
+
+	private GamePiece gamePiece;
+
+	private int turn = 1;
+
+	private int round;
+
+	private boolean gameRunning = false;
+
+	private int totalNumPiece;
+
+	private PieceCommands pieceCommands;
 	
+	private GameTurn gameTurn;
 	
 
 	public GameBoard(Engine engine) {
 		super();
 		this.engine = engine;
+		this.gamePiece = engine.pieceOperator();
 	}
+	
+//	public int getTotalNumPiece() {
+//		return this.totalNumPiece;
+//	}
+	
 
 	/**
 	 * Return shark's master cell
@@ -99,4 +138,6 @@ public class GameBoard implements Serializable {
 	public void removePiece(int x, int y) {
 		cells.get(y).get(x).setUnoccupied();
 	}
+	
+
 }

@@ -36,7 +36,7 @@ public class PieceCommands implements Serializable {
 
 	public PieceCommands(EngineImpl engine) {
 		this.engine = engine;
-		this.board = engine.getBoard();
+		this.board = engine.gameBoard();
 	}
 
 	protected void replacePieceVersion(Piece piece, PieceMemento prevState) {

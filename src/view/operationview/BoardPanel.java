@@ -70,7 +70,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @see
 	 */
 	public BoardPanel() {
-		int boardSize = engine.getBoard().getSize();
+		int boardSize = engine.gameBoard().getSize();
 
 		ButtonGroup group = new ButtonGroup();
 
@@ -92,17 +92,17 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 				currentButton.setBackground(Color.WHITE);
 
 				// water cell
-				if (engine.getBoard().getCell(col, row).isWaterCell()) {
+				if (engine.gameBoard().getCell(col, row).isWaterCell()) {
 					Color color = new Color(178, 221, 247);
 					currentButton.setBackground(color);
 				}
 
-				if (engine.getBoard().getCell(col, row).isMasterCell()) {
+				if (engine.gameBoard().getCell(col, row).isMasterCell()) {
 					Color color = new Color(7, 6, 0);
 					currentButton.setBackground(color);
 				}
 
-				if (engine.getBoard().getCell(col, row).isObstacle()) {
+				if (engine.gameBoard().getCell(col, row).isObstacle()) {
 					Color color = new Color(81, 79, 89);
 					currentButton.setBackground(color);
 				}
@@ -278,7 +278,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 					: color;
 
 			if (team == TeamType.SHARK
-					&& EngineImpl.getSingletonInstance().getBoard().getOccupationState(cell.getX(), cell.getY())) {
+					&& EngineImpl.getSingletonInstance().gameBoard().getOccupationState(cell.getX(), cell.getY())) {
 				color = new Color(40, 80, 46);
 			}
 			affectedBtn.setBackground(color);
@@ -327,7 +327,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				if (!engine.getBoard().getCell(col, row).getOccupied()) {
+				if (!engine.gameBoard().getCell(col, row).getOccupied()) {
 					buttons.get(row).get(col).setIcon(null);
 					buttons.get(row).get(col).setActionCommand("NormalButton");
 				}
@@ -405,15 +405,15 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
 				AbstractButton btn = buttons.get(row).get(col);
-				if (!engine.getBoard().getCell(col, row).isWaterCell()
-						&& !engine.getBoard().getCell(col, row).isMasterCell()
-						&& !engine.getBoard().getCell(col, row).isObstacle()) {
+				if (!engine.gameBoard().getCell(col, row).isWaterCell()
+						&& !engine.gameBoard().getCell(col, row).isMasterCell()
+						&& !engine.gameBoard().getCell(col, row).isObstacle()) {
 					btn.setBackground(Color.WHITE);
-				} else if (engine.getBoard().getCell(col, row).isWaterCell()
-						&& !engine.getBoard().getCell(col, row).isObstacle()) {
+				} else if (engine.gameBoard().getCell(col, row).isWaterCell()
+						&& !engine.gameBoard().getCell(col, row).isObstacle()) {
 					Color color = new Color(178, 221, 247);
 					btn.setBackground(color);
-				} else if (engine.getBoard().getCell(col, row).isMasterCell()) {
+				} else if (engine.gameBoard().getCell(col, row).isMasterCell()) {
 					Color color = new Color(7, 6, 0);
 					btn.setBackground(color);
 				}

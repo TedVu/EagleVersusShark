@@ -33,7 +33,7 @@ public interface Engine {
 	 */
 	// public Map<PieceType, PieceInterface> getAllPieces();
 
-	public GameBoard getBoard();
+	public GameBoard gameBoard();
 
 	/**
 	 * get the current player turn

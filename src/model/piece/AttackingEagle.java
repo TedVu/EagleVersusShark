@@ -65,13 +65,13 @@ public class AttackingEagle extends AbstractPiece {
 			if (affectedPiece.isImmune())
 				throw new IllegalArgumentException("The piece is immune");
 
-			Cell currentPos = EngineImpl.getSingletonInstance().getBoard().getCell(piece.getPosition().get("x"),
+			Cell currentPos = EngineImpl.getSingletonInstance().gameBoard().getCell(piece.getPosition().get("x"),
 					piece.getPosition().get("y"));
-			Cell opponentPos = EngineImpl.getSingletonInstance().getBoard()
+			Cell opponentPos = EngineImpl.getSingletonInstance().gameBoard()
 					.getCell(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
 
-			EngineImpl.getSingletonInstance().getBoard().removePiece(currentPos.getX(), currentPos.getY());
-			EngineImpl.getSingletonInstance().getBoard().addPiece(opponentPos.getX(), opponentPos.getY());
+			EngineImpl.getSingletonInstance().gameBoard().removePiece(currentPos.getX(), currentPos.getY());
+			EngineImpl.getSingletonInstance().gameBoard().addPiece(opponentPos.getX(), opponentPos.getY());
 			movePiece(opponentPos.getX(), opponentPos.getY());
 
 			affectedPiece.setActive(false);
@@ -158,12 +158,12 @@ public class AttackingEagle extends AbstractPiece {
 
 		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
 		for (Piece shark : activeSharks) {
-			int midRiver = engine.getBoard().getSize() / 2;
+			int midRiver = engine.gameBoard().getSize() / 2;
 			int eagleSidePart = midRiver - 2;
 			
 			if (shark.getPosition().get("y") <= eagleSidePart && !existNearbyShark(shark)) {
 				ableToUseMode = true;
-				modePos.add(engine.getBoard().getCell(shark.getPosition().get("x"), shark.getPosition().get("y")));
+				modePos.add(engine.gameBoard().getCell(shark.getPosition().get("x"), shark.getPosition().get("y")));
 			}
 		}
 		try {

@@ -67,8 +67,8 @@ public class BasicMove implements PieceMovement {
 	private Set<Cell> validMovesEast(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
-			if (x + i < EngineImpl.getSingletonInstance().getBoard().getSize()
-					&& !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x + i, y)) {
+			if (x + i < EngineImpl.getSingletonInstance().gameBoard().getSize()
+					&& !EngineImpl.getSingletonInstance().gameBoard().getOccupationState(x + i, y)) {
 				Cell validMove = new Cell(x + i, y);
 				validMoves.add(validMove);
 			} else {
@@ -91,7 +91,7 @@ public class BasicMove implements PieceMovement {
 	private Set<Cell> validMovesNorth(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
-			if (y - i >= 0 && !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x, y - i)) {
+			if (y - i >= 0 && !EngineImpl.getSingletonInstance().gameBoard().getOccupationState(x, y - i)) {
 				Cell validMove = new Cell(x, y - i);
 				validMoves.add(validMove);
 			} else {
@@ -114,8 +114,8 @@ public class BasicMove implements PieceMovement {
 	private Set<Cell> validMovesSouth(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<Cell>();
 		for (int i = 1; i <= step; i++) {
-			if (y + i < EngineImpl.getSingletonInstance().getBoard().getSize()
-					&& !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x, y + i)) {
+			if (y + i < EngineImpl.getSingletonInstance().gameBoard().getSize()
+					&& !EngineImpl.getSingletonInstance().gameBoard().getOccupationState(x, y + i)) {
 				Cell validMove = new Cell(x, y + i);
 				validMoves.add(validMove);
 			} else {
@@ -137,7 +137,7 @@ public class BasicMove implements PieceMovement {
 	private Set<Cell> validMovesWest(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
-			if (x - i >= 0 && !EngineImpl.getSingletonInstance().getBoard().getOccupationState(x - i, y)) {
+			if (x - i >= 0 && !EngineImpl.getSingletonInstance().gameBoard().getOccupationState(x - i, y)) {
 				Cell validMove = new Cell(x - i, y);
 				validMoves.add(validMove);
 			} else {
