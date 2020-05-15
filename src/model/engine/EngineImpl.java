@@ -16,7 +16,8 @@ import model.board.Cell;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
 import model.enumtype.TeamType;
-import model.piece.commands.PieceOperator;
+import model.piece.PieceOperator;
+import model.piece.commands.PieceCommands;
 import model.player.Player;
 import model.player.PlayerImpl;
 import view.callback.GameEngineCallbackImpl;
@@ -63,6 +64,8 @@ public class EngineImpl implements EngineInterface, Serializable {
 
 	private int totalNumPiece;
 
+	private PieceCommands pieceCommands;
+
 	/**
 	 * @return the singleton instance of the engine
 	 */
@@ -71,20 +74,29 @@ public class EngineImpl implements EngineInterface, Serializable {
 		// default game when hitting start without config
 		totalNumPiece = 6;
 		board = new Board(9);
-		pieceOperator = new PieceOperator(board, this);
+		pieceOperator = new PieceOperator(this);
 		pieceOperator.initializeDefaultPiece();
+		pieceCommands = new PieceCommands(this);
 		geCallback.addProperytChangeListener(new TimerPropertyChangeListener());
 		geCallback.addProperytChangeListener(new MakingMovePropertyChangeListener());
 	}
 
 	@Override
+	public PieceCommands getPieceCommands() {
+		return pieceCommands;
+	}
+
+	@Override
 	public void configBoardSize(int boardSize) {
 		board = new Board(boardSize);
+		pieceOperator.setBoard(board);
+		pieceCommands.setBoard(board);
+
 	}
 
 	@Override
 	public void configNumPiece(int numPiece) {
-		pieceOperator = new PieceOperator(board, this);
+		pieceOperator = new PieceOperator(this);
 
 		if (numPiece == 6)
 			pieceOperator.initializeDefaultPiece();
@@ -98,6 +110,7 @@ public class EngineImpl implements EngineInterface, Serializable {
 	public void loadGame(EngineImpl e) {
 		board = e.getBoard();
 		pieceOperator = e.getPieceOperator();
+		pieceCommands =e.getPieceCommands();
 	}
 
 	public PieceOperator getPieceOperator() {

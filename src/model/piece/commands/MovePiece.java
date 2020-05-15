@@ -6,6 +6,7 @@ import model.contract.CommandInterface;
 import model.contract.EngineInterface;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
+import model.piece.PieceOperator;
 
 /**
  *
@@ -18,7 +19,7 @@ public class MovePiece implements CommandInterface, Serializable {
 	private int newX, newY, oldX, oldY;
 	private PieceInterface piece;
 	private EngineInterface engine = EngineImpl.getSingletonInstance();
-	private PieceOperator pieceOperator = engine.pieceOperator();
+	private PieceCommands pieceCommands = engine.getPieceCommands();
 	private boolean isMode;
 
 	public MovePiece(int newX, int newY, PieceInterface piece, boolean isMode) {
@@ -32,16 +33,16 @@ public class MovePiece implements CommandInterface, Serializable {
 
 	@Override
 	public void execute() {
-		pieceOperator.movePiece(piece, newX, newY, isMode);
-		pieceOperator.addEvt(this);
+		pieceCommands.movePiece(piece, newX, newY, isMode);
+		pieceCommands.addEvt(this);
 	}
 
 	@Override
 	public void undo() {
 
-		pieceOperator.movePiece(piece, oldX, oldY, isMode);
-		engine.getBoard().removePiece(newX, newY);
-		engine.getBoard().addPiece(oldX, oldY);
+		pieceCommands.movePiece(piece, oldX, oldY, isMode);
+//		engine.getBoard().removePiece(newX, newY);
+//		engine.getBoard().addPiece(oldX, oldY);
 	}
 
 }

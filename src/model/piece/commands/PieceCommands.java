@@ -21,7 +21,7 @@ import model.piece.PieceMemento;
  * @author Sefira
  *
  */
-public class PieceCommands implements Serializable{
+public class PieceCommands implements Serializable {
 
 	/**
 	 * 

@@ -15,21 +15,17 @@ public enum TeamType {
 	 */
 	SHARK;
 
-	public static TeamType parseTeamType(final String string) {
-
-		TeamType teamType = null;
-		if (string.equalsIgnoreCase(PieceType.AGGRESSIVESHARK.toString())
-				|| string.equalsIgnoreCase(PieceType.HEALINGSHARK.toString())
-				|| string.equalsIgnoreCase(PieceType.DEFENSIVESHARK.toString())) {
-			teamType = SHARK;
-		} else if (string.equalsIgnoreCase(PieceType.ATTACKINGEAGLE.toString())
-				|| string.equalsIgnoreCase(PieceType.LEADERSHIPEAGLE.toString())
-				|| string.equalsIgnoreCase(PieceType.VISIONARYEAGLE.toString())) {
-			teamType = EAGLE;
-		} else {
-			throw new IllegalArgumentException("No animal type found");
+	public static TeamType parseTeamType(String animal) {
+		TeamType team = null;
+		if (animal.equalsIgnoreCase(PieceType.AGGRESSIVESHARK.toString())
+				|| animal.equalsIgnoreCase(PieceType.DEFENSIVESHARK.toString())
+				|| animal.equalsIgnoreCase(PieceType.HEALINGSHARK.toString())) {
+			team = TeamType.SHARK;
+		} else if (animal.equalsIgnoreCase(PieceType.ATTACKINGEAGLE.toString())
+				|| animal.equalsIgnoreCase(PieceType.LEADERSHIPEAGLE.toString())
+				|| animal.equalsIgnoreCase(PieceType.VISIONARYEAGLE.toString())) {
+			team = TeamType.EAGLE;
 		}
-
-		return teamType;
+		return team;
 	}
 }

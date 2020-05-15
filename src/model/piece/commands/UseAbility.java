@@ -8,6 +8,7 @@ import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.PieceMemento;
+import model.piece.PieceOperator;
 
 /**
  *
@@ -20,7 +21,7 @@ public class UseAbility implements CommandInterface, Serializable {
 	PieceAbility pieceAbility;
 	private PieceInterface piece, affectedPiece;
 	private EngineInterface engine = EngineImpl.getSingletonInstance();
-	private PieceOperator pieceOperator = engine.pieceOperator();
+	private PieceCommands pieceCommands = engine.getPieceCommands();
 	private PieceMemento pieceMemento, affectedPieceMemento;
 	private boolean isMode;
 
@@ -35,20 +36,20 @@ public class UseAbility implements CommandInterface, Serializable {
 
 	@Override
 	public void execute() {
-		pieceOperator.addEvt(this);
-		pieceOperator.useAbility(pieceAbility, piece, affectedPiece, isMode);
+		pieceCommands.useAbility(pieceAbility, piece, affectedPiece, isMode);
+		pieceCommands.addEvt(this);
 
 	}
 
 	@Override
 	public void undo() {
 
-		pieceOperator.replacePieceVersion(piece, pieceMemento);
-		pieceOperator.replacePieceVersion(affectedPiece, affectedPieceMemento);
-		engine.getBoard().removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
-		engine.getBoard().addPiece(pieceMemento.getX(), pieceMemento.getY());
-		engine.getBoard().removePiece(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
-		engine.getBoard().addPiece(affectedPieceMemento.getX(), affectedPieceMemento.getY());
+		pieceCommands.replacePieceVersion(piece, pieceMemento);
+		pieceCommands.replacePieceVersion(affectedPiece, affectedPieceMemento);
+//		engine.getBoard().removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+//		engine.getBoard().addPiece(pieceMemento.getX(), pieceMemento.getY());
+//		engine.getBoard().removePiece(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
+//		engine.getBoard().addPiece(affectedPieceMemento.getX(), affectedPieceMemento.getY());
 	}
 
 }
