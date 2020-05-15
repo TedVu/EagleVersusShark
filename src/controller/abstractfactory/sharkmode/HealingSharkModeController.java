@@ -12,7 +12,11 @@ public class HealingSharkModeController extends AbstractModeController {
 
 	@Override
 	public void setUpViewForMode() {
-		super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.HEALINGSHARK);
+		try {
+			super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.HEALINGSHARK);
+		} catch (RuntimeException e) {
+			super.viewControllerFacade.updateBoardErrorAction(e.getMessage());
+		}
 	}
 
 	@Override

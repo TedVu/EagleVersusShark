@@ -23,7 +23,7 @@ public class VisionaryEagleModeController extends AbstractModeController {
 
 	@Override
 	public void setUpViewForMode() {
-		super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.VISIONARYEAGLE);
+		super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.VISIONARYEAGLE);
 	}
 
 }

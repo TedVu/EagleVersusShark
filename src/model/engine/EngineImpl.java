@@ -109,12 +109,16 @@ public class EngineImpl implements Engine, Serializable {
 	public void configNumPiece(int numPiece) {
 		gamePiece = new GamePiece(this);
 
-		if (numPiece == 6)
+		if (numPiece == 6) {
 			gamePiece.initializeDefaultPiece();
-		else if (numPiece == 4)
+		} else if (numPiece == 4) {
 			gamePiece.initialize4Piece();
-		else if (numPiece == 2)
+			totalNumPiece = 4;
+		} else if (numPiece == 2) {
 			gamePiece.initialize2Piece();
+			totalNumPiece = 2;
+		}
+
 	}
 
 	@Override
@@ -122,6 +126,7 @@ public class EngineImpl implements Engine, Serializable {
 		board = e.gameBoard();
 		gamePiece = e.getPieceOperator();
 		pieceCommands =e.getPieceCommands();
+
 	}
 
 	public GamePiece getPieceOperator() {

@@ -41,6 +41,7 @@ public class HealingSharkAbilityController extends AbstractAbilityController {
 
 	@Override
 	public void setUpViewForAbility() {
+		
 		List<Piece> activeSharks = EngineImpl.getSingletonInstance().pieceOperator().getActiveSharks();
 
 		if (activeSharks.size() == EngineImpl.getSingletonInstance().getTotalNumPiece() / 2) {

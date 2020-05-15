@@ -1,4 +1,4 @@
- package model.piece.commands;
+package model.piece.commands;
 
 import java.io.Serializable;
 
@@ -14,6 +14,7 @@ import model.piece.GamePiece;
  *
  */
 public class Undo implements Command, Serializable  {
+
 
 	private static final long serialVersionUID = -1824704997694754116L;
 	private Engine engine = EngineImpl.getSingletonInstance();

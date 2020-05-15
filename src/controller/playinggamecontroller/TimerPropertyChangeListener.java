@@ -22,7 +22,7 @@ public class TimerPropertyChangeListener implements PropertyChangeListener {
 	public void injectBoard(BoardPanel boardView) {
 		this.boardView = boardView;
 	}
-
+ 
 	/**
 	 *
 	 */

@@ -32,7 +32,7 @@ public class AggressiveSharkAbilityController extends AbstractAbilityController 
 	@Override
 	public void setUpViewForAbility() {
 		try {
-			super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.AGGRESSIVESHARK);
+			super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.AGGRESSIVESHARK);
 		} catch (RuntimeException ex) {
 			super.viewControllerFacade.updateBoardErrorAction(ex.getMessage());
 		}

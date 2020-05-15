@@ -103,7 +103,7 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 		}
 		turnTextField.setText("PAUSE GAME");
 		timerTextField.setText("PAUSE GAME");
-	}
+	} 
 
 	/**
 	 * @return
@@ -114,8 +114,7 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
-		if (evt.getPropertyName().equalsIgnoreCase("UndoCancelTimer")) {
+		if (evt.getPropertyName().equalsIgnoreCase("UpdateBoardPauseGame")) {
 			cancelTimer();
 		} else if (evt.getPropertyName().equalsIgnoreCase("ResumeGame")) {
 			updateTurnLabel((TeamType) evt.getNewValue());

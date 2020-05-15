@@ -14,17 +14,17 @@ public class LeadershipEagleAbilityController extends AbstractAbilityController 
 	public void actionPerformed(ActionEvent e) {
 		AbstractButton btnClicked = (AbstractButton) e.getSource();
 		PieceType affectedPieceEnum = PieceType.parsePieceType(btnClicked.getActionCommand());
-		super.controllerModelFacade.updateModelStateProtectLeadership(affectedPieceEnum);
+		super.controllerModelFacade.updateModelStateProtectPiece(affectedPieceEnum, PieceType.LEADERSHIPEAGLE);
 
 		super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
 		viewControllerFacade.updateBoardAfterProtect();
 
-	}
+	} 
 
 	@Override
 	public void setUpViewForAbility() {
 		try {
-			super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.LEADERSHIPEAGLE);
+			super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.LEADERSHIPEAGLE);
 		} catch (RuntimeException e) {
 			super.viewControllerFacade.updateBoardErrorAction(e.getMessage());
 		}

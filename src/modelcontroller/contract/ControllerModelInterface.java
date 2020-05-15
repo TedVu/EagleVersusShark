@@ -2,7 +2,6 @@ package modelcontroller.contract;
 
 import java.util.Map;
 
-import model.board.Cell;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
@@ -25,21 +24,13 @@ public interface ControllerModelInterface {
 
 	public void updateModelStateSwapPiece(PieceType affectedPieceEnum);
 
-	public void updateModelStateProtectLeadership(PieceType affectedPieceEnum);
+	public void updateModelStateProtectPiece(PieceType affectedPieceEnum, PieceType piecetProtect);
 
-	public void updateModelAttackingEagleCapture(PieceType affectedPieceEnum,boolean isMode);
+	public void updateModelAttackingEagleCapture(PieceType affectedPieceEnum, boolean isMode);
 
 	public void updateModelStateAggressiveSharkCapture(PieceType affectedPieceEnum);
 
-	public void updateModelStateDefensiveSharkMove(Cell newPos);
-
-	public void updateModelStateDefensiveSharkProtect(PieceType affectedPieceEnum);
-
 	public void updateModelStateHealingSharkRevive(PieceType affectedPieceEnum);
 
-	public void updateModelAfterLeadershipUseMode();
-	
-	public void updateModelAfterAggressiveSharkUseMode(Cell newPos);
-	
 	public void updateModelAfterHealingSharkUseMode(PieceType affectedPieceEnum);
 }

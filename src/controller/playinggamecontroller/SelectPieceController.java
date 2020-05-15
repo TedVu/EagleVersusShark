@@ -43,7 +43,7 @@ public class SelectPieceController implements ActionListener {
 	public SelectPieceController(ViewControllerInterface facade) {
 		this.viewControllerFacade = facade;
 		playerAction = new PlayerAction();
-	}
+	} 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -51,7 +51,7 @@ public class SelectPieceController implements ActionListener {
 
 		if (EngineImpl.getSingletonInstance().gameTurn().getGameCurrentlyRunning()) {
 			if (!buttonClicked.getActionCommand().equalsIgnoreCase("NormalButton")) {
-				viewControllerFacade.updateBoardSelectAnotherPiece(buttonClicked);
+				viewControllerFacade.refreshBoard();
 				checkCorrectPieceButtonClicked();
 			}
 		} else {
@@ -76,7 +76,11 @@ public class SelectPieceController implements ActionListener {
 		if (playerActionType == PlayerActionType.MOVE) {
 			movePieceController = new MovePieceController(PieceType.parsePieceType(buttonClicked.getActionCommand()),
 					viewControllerFacade);
-			viewControllerFacade.updateBoardBeforeMovePiece(buttonClicked, movePieceController);
+
+			// viewControllerFacade.updateBoardBeforeMovePiece(buttonClicked,
+			// movePieceController);
+			viewControllerFacade.updateBoardBeforeCommitAction(movePieceController,
+					PieceType.parsePieceType(buttonClicked.getActionCommand()));
 		} else if (playerActionType == PlayerActionType.USEABILITY) {
 			useAbilityViewController(teamType);
 

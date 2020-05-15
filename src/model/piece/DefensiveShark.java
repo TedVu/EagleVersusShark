@@ -75,7 +75,8 @@ public class DefensiveShark extends AbstractPiece {
 
 				// All the neighbour cells around a shark - to be traversed
 
-				surroundingEightCells.addAll(new DiagonalDecorator(new BasicMove()).getValidMove(shark, NEIGHBOURING_DISTANCE));
+				surroundingEightCells
+						.addAll(new DiagonalDecorator(new BasicMove()).getValidMove(shark, NEIGHBOURING_DISTANCE));
 				Cell sharkPosition = new Cell(shark.getPosition().get("x"), shark.getPosition().get("y"));
 				surroundingEightCells.add(sharkPosition);
 			}
@@ -97,14 +98,12 @@ public class DefensiveShark extends AbstractPiece {
 
 		return neighbourCells;
 	}
-	
+
 	@Override
 	public Set<Cell> modeCells() {
 		// return all possible corner cells that are not occupied
 		return null;
 	}
-
-
 
 	@Override
 	public String toString() {

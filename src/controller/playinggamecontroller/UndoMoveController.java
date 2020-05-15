@@ -21,9 +21,10 @@ public class UndoMoveController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		if (EngineImpl.getSingletonInstance().gameTurn().getGameCurrentlyRunning()) {
 			EngineImpl.getSingletonInstance().gameTurn().cancelTimerPauseGame();
-			viewControllerFacade.undoMoveCancelTimer();
+			viewControllerFacade.updateBoardPauseGame();
 			AbstractButton undoBtn = (AbstractButton) e.getSource();
 
 			new UndoMovePanel(viewControllerFacade, undoBtn);

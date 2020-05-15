@@ -9,9 +9,7 @@ import javax.swing.AbstractButton;
 
 import com.google.java.contract.Requires;
 
-import controller.playinggamecontroller.MovePieceController;
 import controller.playinggamecontroller.PlayerAction;
-import model.board.Cell;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import viewcontroller.contract.ViewControllerInterface;
@@ -43,18 +41,6 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void updateBoardBeforeMovePiece(AbstractButton buttonClicked, MovePieceController movePieceController) {
-		pcs.firePropertyChange("UpdateBoardBeforeMovingPiece", buttonClicked, movePieceController);
-
-	}
-
-	@Override
-	@Requires("buttonClicked != null")
-	public void updateBoardSelectAnotherPiece(AbstractButton buttonClicked) {
-		pcs.firePropertyChange("RollbackSelectedPiece", null, buttonClicked);
-	}
-
-	@Override
 	public void getPlayerAction(PlayerAction playerAction) {
 		pcs.firePropertyChange("GetMode", playerAction, null);
 
@@ -66,19 +52,8 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void updateBoardChangeAction() {
-		pcs.firePropertyChange("UpdateBoardChangeAction", null, null);
-
-	}
-
-	@Override
 	public void updateBoardAfterCapture(AbstractButton btnClicked, PieceType pieceCapture) {
 		pcs.firePropertyChange("UpdateBoardAfterCapture", pieceCapture, btnClicked);
-	}
-
-	@Override
-	public void undoMoveCancelTimer() {
-		pcs.firePropertyChange("UndoCancelTimer", null, null);
 	}
 
 	@Override
@@ -93,11 +68,6 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked, Cell newPos) {
-		pcs.firePropertyChange("UpdateBoardAfterDefensiveSharkMoveAbility", newPos, btnClicked);
-	}
-
-	@Override
 	public void updateBoardAfterProtect() {
 		pcs.firePropertyChange("UpdateBoardAfterProtect", null, null);
 	}
@@ -108,30 +78,29 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void updateBoardAfterLeadershipUseMode() {
-		pcs.firePropertyChange("UpdateBoardAfterLeadershipUseMode", null, null);
-	}
-
-	@Override
-	public void updateBoardAfterAggressiveSharkUseMode(AbstractButton movedBtn, Cell newPos) {
-		pcs.firePropertyChange("UpdateBoardAfterAggressiveSharkUseMode", newPos, movedBtn);
-	}
-
-	@Override
 	public void updateBoardAfterHealingSharkUseMode() {
 		pcs.firePropertyChange("UpdateBoardAfterHealingSharkUseMode", null, null);
 
 	}
 
-	// rework
 	@Override
-	public void updateBoardBeforeUseSpecialBehaviour(ActionListener abilityController, PieceType animalType) {
-		pcs.firePropertyChange("UpdateBoardBeforeUseSpecialBehaviour", animalType, abilityController);
+	public void updateBoardBeforeCommitAction(ActionListener abilityController, PieceType animalType) {
+		pcs.firePropertyChange("UpdateBoardBeforeCommitAction", animalType, abilityController);
 	}
 
 	@Override
 	public void updateBoardErrorAction(String errMsg) {
 		pcs.firePropertyChange("UpdateBoardErrorAction", null, errMsg);
+	}
+
+	@Override
+	public void refreshBoard() {
+		pcs.firePropertyChange("RefreshBoard", null, null);
+	}
+
+	@Override
+	public void updateBoardPauseGame() {
+		pcs.firePropertyChange("UpdateBoardPauseGame", null, null);
 	}
 
 }
