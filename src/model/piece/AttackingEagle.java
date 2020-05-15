@@ -99,6 +99,9 @@ public class AttackingEagle extends AbstractPiece {
 			}
 
 		}
+		if (enemyPositions.size() == 0) {
+			throw new RuntimeException("No enemy nearby to capture");
+		}
 		return enemyPositions;
 	}
 
@@ -160,7 +163,7 @@ public class AttackingEagle extends AbstractPiece {
 		for (PieceInterface shark : activeSharks) {
 			int midRiver = engine.getBoard().getSize() / 2;
 			int eagleSidePart = midRiver - 2;
-			
+
 			if (shark.getPosition().get("y") <= eagleSidePart && !existNearbyShark(shark)) {
 				ableToUseMode = true;
 				modePos.add(engine.getBoard().getCell(shark.getPosition().get("x"), shark.getPosition().get("y")));

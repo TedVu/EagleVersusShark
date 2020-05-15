@@ -48,7 +48,7 @@ public class PieceCommands implements Serializable {
 		board.removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 		board.addPiece(prevState.getX(), prevState.getY());
 	}
-
+ 
 	/**
 	 * @param piece
 	 *            - the piece to be moved

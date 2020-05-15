@@ -37,7 +37,6 @@ import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
-import view.messagedialog.MessageDialog;
 import viewcontroller.contract.ViewControllerInterface;
 import viewcontroller.facade.ViewControllerFacade;
 
@@ -140,10 +139,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		return buttons;
 	}
 
-	/*
-	 * Later design change to pure fabrication class for routing also change event
-	 * name to be more descriptive
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -153,32 +148,20 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 					PieceType.parsePieceType((String) evt.getOldValue()));
 		} else if (event.equalsIgnoreCase("LocateNewPosition")) {
 			locateNewPos((AbstractButton) evt.getOldValue(), (Map<String, Integer>) evt.getNewValue());
-		} else if (event.equalsIgnoreCase("RollbackSelectedPiece")) {
+		} else if (event.equalsIgnoreCase("RefreshBoard") || event.equalsIgnoreCase("UpdateBoardPauseGame")) {
 			refreshBoardColorAndState();
-		} else if (event.equalsIgnoreCase("UpdateBoardBeforeMovingPiece")) {
-			updateBoardBeforeMovingPiece((AbstractButton) evt.getOldValue(), (MovePieceController) evt.getNewValue());
-		} else if (event.equalsIgnoreCase("UpdateBoardBeforeUseSpecialBehaviour")) {
-			updateBoardBeforeUseSpecialBehaviour((ActionListener) evt.getNewValue(), (PieceType) evt.getOldValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardBeforeCommitAction")) {
+			updateBoardBeforeCommitAction((ActionListener) evt.getNewValue(), (PieceType) evt.getOldValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterSwap")) {
 			updateBoardAfterSwap((AbstractButton) evt.getNewValue());
-		} else if (event.equalsIgnoreCase("UpdateBoardChangeAction")) {
-			refreshBoardColorAndState();
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterProtect")) {
 			updateBoardAfterProtectSuccess();
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterCapture")) {
 			updateBoardAfterCapture((AbstractButton) evt.getNewValue(), (PieceType) evt.getOldValue());
-		} else if (event.equalsIgnoreCase("UndoCancelTimer")) {
-			refreshBoardColorAndState();
 		} else if (event.equalsIgnoreCase("UndoSuccessful")) {
 			updateBoardUndoSuccessful();
-		} else if (event.equalsIgnoreCase("UpdateBoardAfterDefensiveSharkMoveAbility")) {
-			updateBoardAfterDefensiveSharkMoveAbility((AbstractButton) evt.getNewValue(), (Cell) evt.getOldValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardReviveSharkSuccessful")) {
 			updateBoardReviveSharkSuccessful((PieceType) evt.getNewValue());
-		} else if (event.equalsIgnoreCase("UpdateBoardAfterLeadershipUseMode")) {
-			updateBoardAfterLeadershipUseMode();
-		} else if (event.equalsIgnoreCase("UpdateBoardAfterAggressiveSharkUseMode")) {
-			updateBoardAfterAggressiveSharkUseMode((AbstractButton) evt.getNewValue(), (Cell) evt.getOldValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterHealingSharkUseMode")) {
 			updateBoardAfterHealingSharkUseMode();
 		} else if (event.equalsIgnoreCase("UpdateBoardErrorAction")) {
@@ -215,73 +198,41 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 	}
 
-	private void updateBoardAfterAggressiveSharkUseMode(AbstractButton movedBtn, Cell newPos) {
-		PieceInterface aggressiveShark = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
-				.get(PieceType.AGGRESSIVESHARK);
-		AbstractButton oldBtn = buttons.get(aggressiveShark.getPosition().get("y"))
-				.get(aggressiveShark.getPosition().get("x"));
+	private void updateBoardBeforeCommitAction(ActionListener abilityController, PieceType pieceType) {
+		PieceInterface animal = engine.pieceOperator().getAllPieces().get(pieceType);
 
-		oldBtn.setActionCommand("NormalButton");
-		movedBtn.setActionCommand("AggressiveShark");
-		oldBtn.setIcon(null);
-		updateIcon(movedBtn, PieceType.AGGRESSIVESHARK);
-		refreshBoardColorAndState();
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				if (buttons.get(row).get(col).equals(movedBtn)) {
-					newPos.setY(row);
-					newPos.setX(col);
-					break;
-				}
-			}
-		}
-	}
-
-	private void updateBoardAfterDefensiveSharkMoveAbility(AbstractButton btnClicked, Cell cell) {
-		PieceInterface defensivePiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
-				.get(PieceType.DEFENSIVESHARK);
-		AbstractButton oldBtn = buttons.get(defensivePiece.getPosition().get("y"))
-				.get(defensivePiece.getPosition().get("x"));
-
-		oldBtn.setIcon(null);
-		oldBtn.setActionCommand("NormalButton");
-		updateIcon(btnClicked, PieceType.DEFENSIVESHARK);
-		btnClicked.setActionCommand("DefensiveShark");
-
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				if (buttons.get(row).get(col).getActionCommand().equalsIgnoreCase("DefensiveShark")) {
-					cell.setY(row);
-					cell.setX(col);
-					break;
-				}
-			}
-		}
-		refreshBoardColorAndState();
-
-	}
-
-	private void updateBoardBeforeUseSpecialBehaviour(ActionListener abilityController, PieceType pieceUseSpeciaBehaviour) {
-		PieceInterface animal = engine.pieceOperator().getAllPieces().get(pieceUseSpeciaBehaviour);
 		Set<Cell> abilityCells = null;
+
+		Color color = null;
+		boolean isMoveAction = false;
 		if (abilityController instanceof AbilityController) {
 			abilityCells = animal.abilityCells();
 		} else if (abilityController instanceof ModeController) {
 			abilityCells = animal.modeCells();
+		} else if (abilityController instanceof MovePieceController) {
+			abilityCells = animal.getValidMove();
+			isMoveAction = true;
 		}
+		TeamType team = TeamType.parseTeamType(pieceType.toString());
+
+		color = (team == TeamType.SHARK) ? Color.BLUE : Color.YELLOW;
+
+		if (!isMoveAction) {
+			color = (pieceType == PieceType.ATTACKINGEAGLE || pieceType == PieceType.AGGRESSIVESHARK) ? Color.RED
+					: color;
+		}
+
 		for (Cell cell : abilityCells) {
 			AbstractButton affectedBtn = buttons.get(cell.getY()).get(cell.getX());
-			TeamType team = TeamType.parseTeamType(pieceUseSpeciaBehaviour.toString());
-			Color color = (team == TeamType.SHARK) ? Color.BLUE : Color.YELLOW;
-			color = (pieceUseSpeciaBehaviour == PieceType.ATTACKINGEAGLE || pieceUseSpeciaBehaviour == PieceType.AGGRESSIVESHARK)
-					? Color.RED
-					: color;
 
-			if (team == TeamType.SHARK
-					&& EngineImpl.getSingletonInstance().getBoard().getOccupationState(cell.getX(), cell.getY())) {
-				color = new Color(40, 80, 46);
+			if ((pieceType == PieceType.DEFENSIVESHARK || pieceType == PieceType.LEADERSHIPEAGLE)
+					&& !affectedBtn.getActionCommand().equalsIgnoreCase("NormalButton")) {
+				Color protectColor = new Color(33, 161, 121);
+				affectedBtn.setBackground(protectColor);
+			} else {
+
+				affectedBtn.setBackground(color);
 			}
-			affectedBtn.setBackground(color);
 
 			ActionListener[] listeners = affectedBtn.getActionListeners();
 			for (ActionListener listener : listeners) {
@@ -290,24 +241,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			affectedBtn.addActionListener(abilityController);
 		}
 
-	}
-
-	private void updateBoardAfterLeadershipUseMode() {
-		PieceInterface leadershipEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
-				.get(PieceType.LEADERSHIPEAGLE);
-		Set<Cell> leapPos = leadershipEagle.modeCells();
-
-		AbstractButton oldBtn = buttons.get(leadershipEagle.getPosition().get("y"))
-				.get(leadershipEagle.getPosition().get("x"));
-
-		oldBtn.setIcon(null);
-		oldBtn.setActionCommand("NormalButton");
-		for (Cell cell : leapPos) {
-			AbstractButton btnAffected = buttons.get(cell.getY()).get(cell.getX());
-			updateIcon(btnAffected, PieceType.LEADERSHIPEAGLE);
-			btnAffected.setActionCommand("LeadershipEagle");
-		}
-		refreshBoardColorAndState();
 	}
 
 	private void updateBoardReviveSharkSuccessful(PieceType revivedPieceEnum) {
@@ -356,7 +289,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			updateIcon(pieceBtn, PieceType.parsePieceType(pieces.toString()));
 		}
 
-		MessageDialog.notifyUndoSuccessful(this);
+		JOptionPane.showMessageDialog(this, "Undo Successful !!! Please resume game");
+
 	}
 
 	private void deleteAllIconsAndCommands() {
@@ -374,15 +308,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		refreshBoardColorAndState();
 	}
 
-	/**
-	 * Do the following: </br>
-	 * 1) Update icon based on buttonClicked => affectedPiece </br>
-	 * 2) Recolor white</br>
-	 * 3) Set action command </br>
-	 * 4) Register selectpiececontroller
-	 * 
-	 * @param buttonClicked
-	 */
 	private void updateBoardAfterSwap(AbstractButton buttonClicked) {
 		PieceInterface visionaryEagle = engine.pieceOperator().getAllPieces().get(PieceType.VISIONARYEAGLE);
 
@@ -505,27 +430,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		buttonClicked.setActionCommand(pieceType.toString());
 		updateIconAndButtonStateAfterMovingPiece(buttonClicked, pieceType, validMoves);
 		restoreViewForOldPos(oldPos);
-	}
-
-	@Requires({ "buttonClicked!=null", "movePieceController!=null" })
-	private void updateBoardBeforeMovingPiece(AbstractButton buttonClicked, MovePieceController movePieceController) {
-		PieceType pieceType = PieceType.valueOf(buttonClicked.getActionCommand().toUpperCase());
-
-		Set<Cell> validMoves = engine.pieceOperator().getAllPieces().get(pieceType).getValidMove();
-
-		for (Cell moves : validMoves) {
-			if (pieceType.team() == TeamType.EAGLE) {
-				buttons.get(moves.getY()).get(moves.getX()).setBackground(Color.yellow);
-			} else if (pieceType.team() == TeamType.SHARK) {
-				buttons.get(moves.getY()).get(moves.getX()).setBackground(Color.blue);
-			}
-
-			ActionListener[] listeners = buttons.get(moves.getY()).get(moves.getX()).getActionListeners();
-			for (ActionListener listener : listeners) {
-				buttons.get(moves.getY()).get(moves.getX()).removeActionListener(listener);
-			}
-			buttons.get(moves.getY()).get(moves.getX()).addActionListener(movePieceController);
-		}
 	}
 
 	/**

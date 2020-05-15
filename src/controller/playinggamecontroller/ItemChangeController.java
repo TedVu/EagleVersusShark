@@ -15,7 +15,7 @@ public class ItemChangeController implements ItemListener {
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		viewControllerFacade.updateBoardChangeAction();
+		viewControllerFacade.refreshBoard();
 	}
 
 }

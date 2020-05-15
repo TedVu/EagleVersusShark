@@ -1,4 +1,4 @@
- package model.piece.commands;
+package model.piece.commands;
 
 import java.io.Serializable;
 
@@ -13,7 +13,7 @@ import model.piece.PieceOperator;
  * @author Sefira
  *
  */
-public class Undo implements CommandInterface, Serializable  {
+public class Undo implements CommandInterface, Serializable {
 
 	private static final long serialVersionUID = -1824704997694754116L;
 	private EngineInterface engine = EngineImpl.getSingletonInstance();

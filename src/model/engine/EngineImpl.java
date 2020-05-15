@@ -98,19 +98,23 @@ public class EngineImpl implements EngineInterface, Serializable {
 	public void configNumPiece(int numPiece) {
 		pieceOperator = new PieceOperator(this);
 
-		if (numPiece == 6)
+		if (numPiece == 6) {
 			pieceOperator.initializeDefaultPiece();
-		else if (numPiece == 4)
+		} else if (numPiece == 4) {
 			pieceOperator.initialize4Piece();
-		else if (numPiece == 2)
+			totalNumPiece = 4;
+		} else if (numPiece == 2) {
 			pieceOperator.initialize2Piece();
+			totalNumPiece = 2;
+		}
+
 	}
 
 	@Override
 	public void loadGame(EngineImpl e) {
 		board = e.getBoard();
 		pieceOperator = e.getPieceOperator();
-		pieceCommands =e.getPieceCommands();
+		pieceCommands = e.getPieceCommands();
 	}
 
 	public PieceOperator getPieceOperator() {

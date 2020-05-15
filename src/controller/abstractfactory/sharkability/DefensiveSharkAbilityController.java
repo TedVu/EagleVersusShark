@@ -1,11 +1,12 @@
 package controller.abstractfactory.sharkability;
 
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.AbstractButton;
 
 import controller.abstractfactory.AbstractAbilityController;
-import model.board.Cell;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
@@ -15,16 +16,16 @@ public class DefensiveSharkAbilityController extends AbstractAbilityController {
 		AbstractButton btnClicked = (AbstractButton) e.getSource();
 
 		if (btnClicked.getActionCommand().equalsIgnoreCase("NormalButton")) {
-			Cell newPos = new Cell(0, 0);
+			Map<String, Integer> newPos = new HashMap<String, Integer>();
 
-			// manipulate cell
-			super.viewControllerFacade.updateBoardAfterDefensiveSharkMoveAbility(btnClicked, newPos);
-			super.controllerModelFacade.updateModelStateDefensiveSharkMove(newPos);
+			super.viewControllerFacade.updateBoardAfterMovingPiece(btnClicked, PieceType.DEFENSIVESHARK);
+			super.viewControllerFacade.locateNewPos(btnClicked, newPos);
+			controllerModelFacade.updateModelAfterMovingPiece(newPos, PieceType.DEFENSIVESHARK);
 			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.EAGLE);
 		} else {
 
 			PieceType affectedPieceEnum = PieceType.parsePieceType(btnClicked.getActionCommand());
-			super.controllerModelFacade.updateModelStateDefensiveSharkProtect(affectedPieceEnum);
+			super.controllerModelFacade.updateModelStateProtectPiece(affectedPieceEnum, PieceType.DEFENSIVESHARK);
 			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.EAGLE);
 
 			super.viewControllerFacade.updateBoardAfterProtect();
@@ -34,6 +35,6 @@ public class DefensiveSharkAbilityController extends AbstractAbilityController {
 
 	@Override
 	public void setUpViewForAbility() {
-		super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.DEFENSIVESHARK);
+		super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.DEFENSIVESHARK);
 	}
 }

@@ -97,19 +97,23 @@ public class AggressiveShark extends AbstractPiece {
 					activeEagle.getPosition().get("y"));
 			activeEaglePos.add(cell);
 		}
-		Set<Cell> abilityCell = new HashSet<>();
+		Set<Cell> abilityCells = new HashSet<>();
 		for (Cell cell : activeEaglePos) {
 			// only capture in horizontal + vertically
 			if (cell.getX() == currentPos.getX() || cell.getY() == currentPos.getY()) {
 				if (cell.getX() == currentPos.getX() && Math.abs(cell.getY() - currentPos.getY()) <= distance) {
-					abilityCell.add(cell);
+					abilityCells.add(cell);
 				} else if (cell.getY() == currentPos.getY() && Math.abs(cell.getX() - currentPos.getX()) <= distance) {
-					abilityCell.add(cell);
+					abilityCells.add(cell);
 				}
 			}
 		}
+		if (abilityCells.size() == 0) {
+			throw new RuntimeException("No enemy nearby to capture");
 
-		return abilityCell;
+		}
+
+		return abilityCells;
 	}
 
 	@Override

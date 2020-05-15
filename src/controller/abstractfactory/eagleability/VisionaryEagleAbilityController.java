@@ -25,7 +25,7 @@ public class VisionaryEagleAbilityController extends AbstractAbilityController {
 
 	@Override
 	public void setUpViewForAbility() {
-		viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.VISIONARYEAGLE);
+		viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.VISIONARYEAGLE);
 
 	}
 

@@ -13,7 +13,7 @@ public class AttackingEagleModeController extends AbstractModeController {
 	@Override
 	public void setUpViewForMode() {
 		try {
-			super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.ATTACKINGEAGLE);
+			super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.ATTACKINGEAGLE);
 		} catch (RuntimeException e) {
 			super.viewControllerFacade.updateBoardErrorAction(e.getMessage());
 		}

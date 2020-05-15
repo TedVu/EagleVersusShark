@@ -29,7 +29,7 @@ public class AttackingEagleAbilityController extends AbstractAbilityController {
 	@Override
 	public void setUpViewForAbility() {
 		try {
-			super.viewControllerFacade.updateBoardBeforeUseSpecialBehaviour(this, PieceType.ATTACKINGEAGLE);
+			super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.ATTACKINGEAGLE);
 		} catch (RuntimeException ex) {
 			super.viewControllerFacade.updateBoardErrorAction(ex.getMessage());
 		}

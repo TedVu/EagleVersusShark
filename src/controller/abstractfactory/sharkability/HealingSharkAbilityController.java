@@ -42,7 +42,6 @@ public class HealingSharkAbilityController extends AbstractAbilityController {
 	@Override
 	public void setUpViewForAbility() {
 		List<PieceInterface> activeSharks = EngineImpl.getSingletonInstance().pieceOperator().getActiveSharks();
-
 		if (activeSharks.size() == EngineImpl.getSingletonInstance().getTotalNumPiece() / 2) {
 			super.viewControllerFacade.updateBoardErrorAction("No shark to revive");
 		} else {

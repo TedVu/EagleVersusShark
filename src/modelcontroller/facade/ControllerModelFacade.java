@@ -1,7 +1,6 @@
 package modelcontroller.facade;
 
 import java.util.Map;
-import java.util.Set;
 
 import com.google.java.contract.Requires;
 
@@ -51,11 +50,11 @@ public class ControllerModelFacade implements ControllerModelInterface {
 	}
 
 	@Override
-	public void updateModelStateProtectLeadership(PieceType affectedPieceEnum) {
+	public void updateModelStateProtectPiece(PieceType affectedPieceEnum, PieceType pieceProtect) {
 		PieceInterface affectedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(affectedPieceEnum);
 		PieceInterface leadershipPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
-				.get(PieceType.LEADERSHIPEAGLE);
+				.get(pieceProtect);
 		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, leadershipPiece, affectedPiece, false));
 	}
 
@@ -80,23 +79,6 @@ public class ControllerModelFacade implements ControllerModelInterface {
 	}
 
 	@Override
-	public void updateModelStateDefensiveSharkMove(Cell cell) {
-		PieceInterface defensivePiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
-				.get(PieceType.DEFENSIVESHARK);
-		commandExecutor.executeCommand(new MovePiece(cell.getX(), cell.getY(), defensivePiece, false));
-	}
-
-	@Override
-	public void updateModelStateDefensiveSharkProtect(PieceType affectedPieceEnum) {
-		PieceInterface defensivePiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
-				.get(PieceType.DEFENSIVESHARK);
-		PieceInterface affectedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
-				.get(affectedPieceEnum);
-		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, defensivePiece, affectedPiece, false));
-
-	}
-
-	@Override
 	public void updateModelStateHealingSharkRevive(PieceType affectedPieceEnum) {
 		PieceInterface healingPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
 				.get(PieceType.HEALINGSHARK);
@@ -109,29 +91,10 @@ public class ControllerModelFacade implements ControllerModelInterface {
 	}
 
 	@Override
-	public void updateModelAfterLeadershipUseMode() {
-
-		PieceInterface leadershipEagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
-				.get(PieceType.LEADERSHIPEAGLE);
-		Set<Cell> leapPos = leadershipEagle.modeCells();
-		for (Cell newPos : leapPos) {
-			commandExecutor.executeCommand(new MovePiece(newPos.getX(), newPos.getY(), leadershipEagle, false));
-		}
-	}
-
-	@Override
-	public void updateModelAfterAggressiveSharkUseMode(Cell newPos) {
-		PieceInterface aggressiveShark = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
-				.get(PieceType.AGGRESSIVESHARK);
-
-		commandExecutor.executeCommand(new MovePiece(newPos.getX(), newPos.getY(), aggressiveShark, false));
-	}
-
-	@Override
 	public void updateModelAfterHealingSharkUseMode(PieceType affectedPieceEnum) {
 		PieceInterface eagle = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces().get(affectedPieceEnum);
 		Cell eagleMasterCell = EngineImpl.getSingletonInstance().getBoard().getCell(4, 0);
-		commandExecutor.executeCommand(new MovePiece(eagleMasterCell.getX(), eagleMasterCell.getY(), eagle, false));
+		commandExecutor.executeCommand(new MovePiece(eagleMasterCell.getX(), eagleMasterCell.getY(), eagle, true));
 
 	}
 }
