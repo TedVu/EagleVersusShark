@@ -7,10 +7,13 @@ import java.util.Set;
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
+import model.contract.EngineInterface;
 import model.contract.PieceInterface;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
+import model.piece.movement.DiagonalDecorator;
+import model.piece.movement.PieceMoveDecorator;
 
 /**
  * @author chanboth
@@ -19,9 +22,11 @@ import model.piece.movement.BasicMove;
 public class AggressiveShark extends AbstractPiece {
 
 	private static final long serialVersionUID = 7717531522291318350L;
+	private final EngineInterface engine;
 
-	public AggressiveShark(int x, int y) {
+	public AggressiveShark(int x, int y, EngineInterface engine) {
 		super(x, y);
+		this.engine = engine;
 	}
 
 	@Override
@@ -123,10 +128,48 @@ public class AggressiveShark extends AbstractPiece {
 
 	@Override
 	public Set<Cell> modeCells() {
-		// for now you can return a set of one cell, refactor will
-		// be made later on
+		// https://prnt.sc/sjd4oa
 
-		return null;
+		Set<Cell> returnCells = new HashSet<>();
+		Cell currentCell = new Cell(this.getPosition().get("x"),this.getPosition().get("y"));
+
+		Cell firstCell = new Cell(currentCell.getX()-1,currentCell.getY()-2);
+		Cell secondCell = new Cell(currentCell.getX()+1,currentCell.getY()-2);
+		Cell thirdCell = new Cell(currentCell.getX()-2,currentCell.getY()-1);
+		Cell fourthCell = new Cell(currentCell.getX()+2,currentCell.getY()-1);
+		Cell fifthCell = new Cell(currentCell.getX()-2,currentCell.getY()+1);
+		Cell sixthCell = new Cell(currentCell.getX()+2,currentCell.getY()+1);
+		Cell seventhCell = new Cell(currentCell.getX()-1,currentCell.getY()+2);
+		Cell eightCell = new Cell(currentCell.getX()+1,currentCell.getY()+2);
+
+		Set<Cell> candidateCells = new HashSet<>();
+		candidateCells.add(firstCell);
+		candidateCells.add(secondCell);
+		candidateCells.add(thirdCell);
+		candidateCells.add(fourthCell);
+		candidateCells.add(fifthCell);
+		candidateCells.add(sixthCell);
+		candidateCells.add(seventhCell);
+		candidateCells.add(eightCell);
+
+		Set<Cell> allySharkCells = new HashSet<>();
+		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
+		for (PieceInterface activeShark : activeSharks) {
+			int x = activeShark.getPosition().get("x");
+			int y = activeShark.getPosition().get("y");
+			allySharkCells.add(new Cell(x, y));
+		}
+
+		Cell sharkMasterCell = EngineImpl.getSingletonInstance().getBoard().getSharkMasterCell();
+		for(Cell cell : candidateCells)
+			if(!cell.getOccupied() && cell!=sharkMasterCell && !allySharkCells.contains(cell)
+					&& cell.getX() < engine.getBoard().getSize()
+					&& cell.getX() >= 0
+					&& cell.getY() < engine.getBoard().getSize()
+					&& cell.getY() >= 0)
+				returnCells.add(cell);
+
+		return returnCells;
 	}
 
 }
