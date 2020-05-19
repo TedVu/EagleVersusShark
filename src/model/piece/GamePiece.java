@@ -31,14 +31,13 @@ public class GamePiece implements Serializable {
 	private List<Piece> activeEagles = new ArrayList<Piece>();
 	private List<Piece> activeSharks = new ArrayList<Piece>();
 
-	private GameBoard board;
+//	private GameBoard board;
 
 	private Map<PieceType, Piece> pieces = new EnumMap<PieceType, Piece>(PieceType.class);
 
 	private int healingAbilityCounter = 0;
 
 	public GamePiece(Engine engine) {
-		this.board = engine.gameBoard();
 		this.engine = engine;
 		initializeDefaultPiece();
 	}
@@ -70,31 +69,31 @@ public class GamePiece implements Serializable {
 	// @Requires({"pieces.size() < 1"})
 	// @Ensures({"pieces.size()>0"})
 	public void initializeDefaultPiece() {
-		int boardSize = board.getSize();
+		int boardSize = engine.gameBoard().getSize();
 		for (PieceType pt : PieceType.values()) {
 			Piece piece = PieceFactory.generatePiece(pt, boardSize, engine);
-			board.addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+			engine.gameBoard().addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 			pieces.put(pt, piece);
 		}
 	}
 
 	public void initialize2Piece() {
-		int boardSize = board.getSize();
+		int boardSize = engine.gameBoard().getSize();
 		for (PieceType pt : PieceType.values()) {
 			if (pt == PieceType.DEFENSIVESHARK || pt == PieceType.LEADERSHIPEAGLE) {
 				Piece piece = PieceFactory.generatePiece(pt, boardSize, engine);
-				board.addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+				engine.gameBoard().addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 				pieces.put(pt, piece);
 			}
 		}
 	}
 
 	public void initialize4Piece() {
-		int boardSize = board.getSize();
+		int boardSize = engine.gameBoard().getSize();
 		for (PieceType pt : PieceType.values()) {
 			if (pt != PieceType.DEFENSIVESHARK && pt != PieceType.LEADERSHIPEAGLE) {
 				Piece piece = PieceFactory.generatePiece(pt, boardSize, engine);
-				board.addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+				engine.gameBoard().addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 				pieces.put(pt, piece);
 			}
 		}
@@ -188,8 +187,8 @@ public class GamePiece implements Serializable {
 			resetHealingAbilityCounter();
 	}
 
-	public void setBoard(GameBoard board) {
-		this.board = board;
-	}
+//	public void setBoard(GameBoard board) {
+//		this.board = board;
+//	}
 
 }

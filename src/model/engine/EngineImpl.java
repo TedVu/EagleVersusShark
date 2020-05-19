@@ -100,8 +100,8 @@ public class EngineImpl implements Engine, Serializable {
 
 	@Override
 	public void configBoardSize(int boardSize) {
-		board = new GameBoard(boardSize);
-		gamePiece.setBoard(board);
+		this.board = new GameBoard(boardSize);
+//		gamePiece.setBoard(board);
 
 	}
 
@@ -136,7 +136,7 @@ public class EngineImpl implements Engine, Serializable {
 
 	@Override
 	public GameBoard gameBoard() {
-		return board;
+		return this.board;
 	}
 
 

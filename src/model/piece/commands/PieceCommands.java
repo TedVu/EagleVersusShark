@@ -30,13 +30,11 @@ public class PieceCommands implements Serializable {
 
 	private EngineImpl engine;
 
-	private GameBoard board;
 
 	private Stack<Command> commandHistory = new Stack<Command>();
 
 	public PieceCommands(EngineImpl engine) {
 		this.engine = engine;
-		this.board = engine.gameBoard();
 	}
 
 	protected void replacePieceVersion(Piece piece, PieceMemento prevState) {
@@ -45,8 +43,8 @@ public class PieceCommands implements Serializable {
 		piece.setPosition(prevState.getX(), prevState.getY());
 		piece.setModeCount(prevState.getModeCount());
 
-		board.removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
-		board.addPiece(prevState.getX(), prevState.getY());
+		engine.gameBoard().removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+		engine.gameBoard().addPiece(prevState.getX(), prevState.getY());
 	}
  
 	/**
@@ -63,8 +61,8 @@ public class PieceCommands implements Serializable {
 		if (isMode && piece instanceof HealingShark && piece.getModeCount() > 0) {
 			throw new IllegalArgumentException("Mode is already used");
 		}
-		board.removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
-		board.addPiece(x, y);
+		engine.gameBoard().removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+		engine.gameBoard().addPiece(x, y);
 		piece.movePiece(x, y);
 		if (isMode)
 			piece.modeUsed();
