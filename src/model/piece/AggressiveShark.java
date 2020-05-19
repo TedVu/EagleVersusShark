@@ -1,16 +1,17 @@
 package model.piece;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
 import model.contract.Piece;
+import model.contract.Engine;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
+import model.piece.movement.DiagonalDecorator;
+import model.piece.movement.PieceMoveDecorator;
 
 /**
  * @author chanboth
@@ -19,9 +20,11 @@ import model.piece.movement.BasicMove;
 public class AggressiveShark extends AbstractPiece {
 
 	private static final long serialVersionUID = 7717531522291318350L;
+	private final Engine engine;
 
-	public AggressiveShark(int x, int y) {
+	public AggressiveShark(int x, int y, Engine engine) {
 		super(x, y);
+		this.engine = engine;
 	}
 
 	@Override
@@ -123,10 +126,36 @@ public class AggressiveShark extends AbstractPiece {
 
 	@Override
 	public Set<Cell> modeCells() {
-		// for now you can return a set of one cell, refactor will
-		// be made later on
+		// https://prnt.sc/sjd4oa
+		Set<Cell> returnCells = new HashSet<>();
+		Cell currentCell = new Cell(this.getPosition().get("x"),this.getPosition().get("y"));
 
-		return null;
+		Set<Cell> candidateCells = new HashSet<>();
+		int[] offsets = {-2, -1, 1, 2};
+		for (int x : offsets) {
+			for (int y : offsets) {
+				if (Math.abs(x) != Math.abs(y)) {
+					candidateCells.add(new Cell(currentCell.getX()+x,currentCell.getY()+y));
+				}
+			}
+		}
+
+		Set<Cell> allySharkCells = new HashSet<>();
+		List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
+		for (Piece eagles : activeEagles) {
+			if(eagles instanceof VisionaryEagle)
+				allySharkCells = eagles.modeCells();
+		}
+
+		for(Cell cell : candidateCells)
+			if(!cell.getOccupied() && !allySharkCells.contains(cell)
+					&& cell.getX() < engine.gameBoard().getSize()
+					&& cell.getX() >= 0
+					&& cell.getY() < engine.gameBoard().getSize()
+					&& cell.getY() >= 0)
+				returnCells.add(cell);
+
+		return returnCells;
 	}
 
 }
