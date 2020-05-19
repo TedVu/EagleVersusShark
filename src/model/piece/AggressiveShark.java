@@ -127,7 +127,6 @@ public class AggressiveShark extends AbstractPiece {
 	@Override
 	public Set<Cell> modeCells() {
 		// https://prnt.sc/sjd4oa
-
 		Set<Cell> returnCells = new HashSet<>();
 		Cell currentCell = new Cell(this.getPosition().get("x"),this.getPosition().get("y"));
 
@@ -142,11 +141,10 @@ public class AggressiveShark extends AbstractPiece {
 		}
 
 		Set<Cell> allySharkCells = new HashSet<>();
-		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
-		for (PieceInterface activeShark : activeSharks) {
-			int x = activeShark.getPosition().get("x");
-			int y = activeShark.getPosition().get("y");
-			allySharkCells.add(new Cell(x, y));
+		List<PieceInterface> activeEagles = engine.pieceOperator().getActiveEagles();
+		for (PieceInterface eagles : activeEagles) {
+			if(eagles instanceof VisionaryEagle)
+				allySharkCells = eagles.modeCells();
 		}
 
 		for(Cell cell : candidateCells)
