@@ -1,8 +1,6 @@
 package model.piece;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.google.java.contract.Requires;
 
@@ -133,24 +131,15 @@ public class AggressiveShark extends AbstractPiece {
 		Set<Cell> returnCells = new HashSet<>();
 		Cell currentCell = new Cell(this.getPosition().get("x"),this.getPosition().get("y"));
 
-		Cell firstCell = new Cell(currentCell.getX()-1,currentCell.getY()-2);
-		Cell secondCell = new Cell(currentCell.getX()+1,currentCell.getY()-2);
-		Cell thirdCell = new Cell(currentCell.getX()-2,currentCell.getY()-1);
-		Cell fourthCell = new Cell(currentCell.getX()+2,currentCell.getY()-1);
-		Cell fifthCell = new Cell(currentCell.getX()-2,currentCell.getY()+1);
-		Cell sixthCell = new Cell(currentCell.getX()+2,currentCell.getY()+1);
-		Cell seventhCell = new Cell(currentCell.getX()-1,currentCell.getY()+2);
-		Cell eightCell = new Cell(currentCell.getX()+1,currentCell.getY()+2);
-
 		Set<Cell> candidateCells = new HashSet<>();
-		candidateCells.add(firstCell);
-		candidateCells.add(secondCell);
-		candidateCells.add(thirdCell);
-		candidateCells.add(fourthCell);
-		candidateCells.add(fifthCell);
-		candidateCells.add(sixthCell);
-		candidateCells.add(seventhCell);
-		candidateCells.add(eightCell);
+		int[] offsets = {-2, -1, 1, 2};
+		for (int x : offsets) {
+			for (int y : offsets) {
+				if (Math.abs(x) != Math.abs(y)) {
+					candidateCells.add(new Cell(currentCell.getX()+x,currentCell.getY()+y));
+				}
+			}
+		}
 
 		Set<Cell> allySharkCells = new HashSet<>();
 		List<PieceInterface> activeSharks = engine.pieceOperator().getActiveSharks();
@@ -160,9 +149,8 @@ public class AggressiveShark extends AbstractPiece {
 			allySharkCells.add(new Cell(x, y));
 		}
 
-		Cell sharkMasterCell = EngineImpl.getSingletonInstance().getBoard().getSharkMasterCell();
 		for(Cell cell : candidateCells)
-			if(!cell.getOccupied() && cell!=sharkMasterCell && !allySharkCells.contains(cell)
+			if(!cell.getOccupied() && !allySharkCells.contains(cell)
 					&& cell.getX() < engine.getBoard().getSize()
 					&& cell.getX() >= 0
 					&& cell.getY() < engine.getBoard().getSize()
