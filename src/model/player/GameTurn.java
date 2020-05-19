@@ -1,5 +1,6 @@
 package model.player;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.Timer;
 
@@ -15,9 +16,14 @@ import model.piece.commands.PieceCommands;
 import view.callback.GameEngineCallbackImpl;
 import view.contract.GameEngineCallbackInterface;
 
-public class GameTurn {
+public class GameTurn implements Serializable {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2279064566555330259L;
+
 	private Player eaglePlayer = new PlayerImpl(TeamType.EAGLE);
 
 	private Player sharkPlayer = new PlayerImpl(TeamType.SHARK);
