@@ -101,8 +101,27 @@ public class DefensiveShark extends AbstractPiece {
 
 	@Override
 	public Set<Cell> modeCells() {
-		// return all possible corner cells that are not occupied
-		return null;
+		/* https://prnt.sc/skdgtx
+		 * When in water cell, this piece can move like a Chess' Rook move
+	 	 * Returning all cells in + directions WITHIN the water area, once it encounters an enemy piece,
+	 	 * 		the direction stops
+		 */
+
+		Set<Cell> returnCells = new HashSet<>();
+
+		Cell currentPos = EngineImpl.getSingletonInstance().gameBoard().getCell(this.getPosition().get("x"),
+				this.getPosition().get("y"));
+
+		if(currentPos.isWaterCell()){
+			Set<Cell> temp = new BasicMove().getValidMove(this,engine.gameBoard().getSize());
+			Set<Cell> waterCells = engine.gameBoard().getWaterCells();
+			for(Cell cell : temp){
+				if(waterCells.contains(cell))
+					returnCells.add(cell);
+			}
+		}
+
+		return returnCells;
 	}
 
 	@Override

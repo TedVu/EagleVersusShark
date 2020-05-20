@@ -140,6 +140,7 @@ public class AggressiveShark extends AbstractPiece {
 			}
 		}
 
+		// Only works when there's a visionary eagle alive
 		Set<Cell> allySharkCells = new HashSet<>();
 		List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
 		for (Piece eagles : activeEagles) {
