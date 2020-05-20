@@ -43,7 +43,7 @@ public class SelectPieceController implements ActionListener {
 	public SelectPieceController(ViewControllerInterface facade) {
 		this.viewControllerFacade = facade;
 		playerAction = new PlayerAction();
-	} 
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -76,9 +76,6 @@ public class SelectPieceController implements ActionListener {
 		if (playerActionType == PlayerActionType.MOVE) {
 			movePieceController = new MovePieceController(PieceType.parsePieceType(buttonClicked.getActionCommand()),
 					viewControllerFacade);
-
-			// viewControllerFacade.updateBoardBeforeMovePiece(buttonClicked,
-			// movePieceController);
 			viewControllerFacade.updateBoardBeforeCommitAction(movePieceController,
 					PieceType.parsePieceType(buttonClicked.getActionCommand()));
 		} else if (playerActionType == PlayerActionType.USEABILITY) {
@@ -98,7 +95,7 @@ public class SelectPieceController implements ActionListener {
 		ModeController modeController = modeFactory
 				.createModeController(PieceType.parsePieceType(buttonClicked.getActionCommand()));
 		modeController.setModeState(viewControllerFacade);
-		modeController.setUpViewForMode();
+		modeController.setUpViewForMode(PieceType.parsePieceType(buttonClicked.getActionCommand()));
 	}
 
 	private void useAbilityViewController(TeamType teamType) {
@@ -113,7 +110,8 @@ public class SelectPieceController implements ActionListener {
 	@Requires("buttonClicked != null")
 	private void checkCorrectPieceButtonClicked() {
 		if (engine.pieceOperator().checkSelectPiece(PieceType.parsePieceType(buttonClicked.getActionCommand()))) {
-			TeamType currentTurn = EngineImpl.getSingletonInstance().gameTurn().getCurrentActivePlayer().getPlayerType();
+			TeamType currentTurn = EngineImpl.getSingletonInstance().gameTurn().getCurrentActivePlayer()
+					.getPlayerType();
 			checkChooseCorrectTeamTurn(currentTurn);
 
 		}

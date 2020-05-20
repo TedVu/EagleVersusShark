@@ -12,11 +12,6 @@ import model.enumtype.TeamType;
  
 public class DefensiveSharkModeController extends AbstractModeController {
 
-	@Override
-	public void setUpViewForMode() {
-		super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.DEFENSIVESHARK);
-
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

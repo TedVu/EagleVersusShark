@@ -12,11 +12,7 @@ import model.enumtype.TeamType;
 
 public class AggressiveSharkModeController extends AbstractModeController {
 
-	@Override
-	public void setUpViewForMode() {
-		super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.AGGRESSIVESHARK);
 
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

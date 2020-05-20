@@ -90,7 +90,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 				currentButton.setBackground(Color.WHITE);
 
-				// water cell
 				if (engine.gameBoard().getCell(col, row).isWaterCell()) {
 					Color color = new Color(178, 221, 247);
 					currentButton.setBackground(color);
@@ -187,7 +186,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			}
 		}
 
-		List<Piece> activeEagles = EngineImpl.getSingletonInstance().pieceOperator().getActiveEagles();
+		List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
 
 		for (Piece eagle : activeEagles) {
 			AbstractButton eagleBtn = buttons.get(eagle.getPosition().get("y")).get(eagle.getPosition().get("x"));
@@ -205,8 +204,11 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 		Color color = null;
 		boolean isMoveAction = false;
+		boolean isAbility = false;
 		if (abilityController instanceof AbilityController) {
 			abilityCells = animal.abilityCells();
+			isAbility = true;
+
 		} else if (abilityController instanceof ModeController) {
 			abilityCells = animal.modeCells();
 		} else if (abilityController instanceof MovePieceController) {
@@ -217,9 +219,9 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 		color = (team == TeamType.SHARK) ? Color.BLUE : Color.YELLOW;
 
-		if (!isMoveAction) {
-			color = (pieceType == PieceType.ATTACKINGEAGLE || pieceType == PieceType.AGGRESSIVESHARK) ? Color.RED
-					: color;
+		if ((!isMoveAction && pieceType == PieceType.ATTACKINGEAGLE)
+				|| (isAbility && pieceType == PieceType.AGGRESSIVESHARK)) {
+			color = Color.RED;
 		}
 
 		for (Cell cell : abilityCells) {
@@ -244,8 +246,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	private void updateBoardReviveSharkSuccessful(PieceType revivedPieceEnum) {
-		Piece revivedPiece = EngineImpl.getSingletonInstance().pieceOperator().getAllPieces()
-				.get(revivedPieceEnum);
+		Piece revivedPiece = engine.pieceOperator().getAllPieces().get(revivedPieceEnum);
 
 		AbstractButton revivedBtn = buttons.get(revivedPiece.getPosition().get("y"))
 				.get(revivedPiece.getPosition().get("x"));

@@ -2,17 +2,12 @@ package model.engine;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 import java.util.Timer;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.google.java.contract.Requires;
-
-import controller.playinggamecontroller.MakingMovePropertyChangeListener;
-import controller.playinggamecontroller.TimerPropertyChangeListener;
-import model.board.GameBoard;
 import model.board.Cell;
+import model.board.GameBoard;
 import model.contract.Engine;
 import model.contract.Piece;
 import model.enumtype.TeamType;
@@ -21,8 +16,6 @@ import model.piece.commands.PieceCommands;
 import model.player.GameTurn;
 import model.player.Player;
 import model.player.PlayerImpl;
-import view.callback.GameEngineCallbackImpl;
-import view.contract.GameEngineCallbackInterface;
 
 /**
  *
@@ -51,8 +44,6 @@ public class EngineImpl implements Engine, Serializable {
 
 	private transient Timer gameTimer;
 
-//	private GameEngineCallbackInterface geCallback = new GameEngineCallbackImpl();
-
 	private GameBoard board;
 
 	private GamePiece gamePiece;
@@ -66,7 +57,7 @@ public class EngineImpl implements Engine, Serializable {
 	private int totalNumPiece;
 
 	private PieceCommands pieceCommands;
-	
+
 	private GameTurn gameTurn;
 
 	/**
@@ -80,18 +71,14 @@ public class EngineImpl implements Engine, Serializable {
 		gamePiece = new GamePiece(this);
 		pieceCommands = new PieceCommands(this);
 		gameTurn = new GameTurn(this);
-		
+
 	}
-	
-	
 
 	@Override
 	public GameTurn gameTurn() {
 		// TODO Auto-generated method stub
 		return gameTurn;
 	}
-
-
 
 	@Override
 	public PieceCommands getPieceCommands() {
@@ -101,8 +88,6 @@ public class EngineImpl implements Engine, Serializable {
 	@Override
 	public void configBoardSize(int boardSize) {
 		this.board = new GameBoard(boardSize);
-//		gamePiece.setBoard(board);
-
 	}
 
 	@Override
@@ -125,7 +110,7 @@ public class EngineImpl implements Engine, Serializable {
 	public void loadGame(EngineImpl e) {
 		board = e.gameBoard();
 		gamePiece = e.getPieceOperator();
-		pieceCommands =e.getPieceCommands();
+		pieceCommands = e.getPieceCommands();
 
 	}
 
@@ -133,18 +118,15 @@ public class EngineImpl implements Engine, Serializable {
 		return gamePiece;
 	}
 
-
 	@Override
 	public GameBoard gameBoard() {
 		return this.board;
 	}
 
-
 	@Override
 	public GamePiece pieceOperator() {
 		return gamePiece;
 	}
-
 
 	@Override
 	public int getTotalNumPiece() {
@@ -153,9 +135,9 @@ public class EngineImpl implements Engine, Serializable {
 
 	@Override
 	public void configObstacle(boolean hasObstacle) {
-		
+
 		Set<Cell> specialPos = new HashSet<>();
-		
+
 		if (hasObstacle) {
 			for (Piece pieces : this.gamePiece.getAllPieces().values()) {
 				specialPos.add(board.getCell(pieces.getPosition().get("x"), pieces.getPosition().get("y")));

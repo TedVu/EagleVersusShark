@@ -10,14 +10,6 @@ import model.enumtype.TeamType;
 
 public class HealingSharkModeController extends AbstractModeController {
 
-	@Override
-	public void setUpViewForMode() {
-		try {
-			super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.HEALINGSHARK);
-		} catch (RuntimeException e) {
-			super.viewControllerFacade.updateBoardErrorAction(e.getMessage());
-		}
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

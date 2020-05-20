@@ -21,9 +21,5 @@ public class VisionaryEagleModeController extends AbstractModeController {
 		super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
 	}
 
-	@Override
-	public void setUpViewForMode() {
-		super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.VISIONARYEAGLE);
-	}
 
 }
