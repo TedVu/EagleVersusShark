@@ -31,4 +31,6 @@ public interface GameEngineCallbackInterface {
 	 * @return
 	 */
 	public void timerNextMove(TeamType playerType, TeamType currentPlayerTurn);
+	
+	public void endGame(TeamType teamWin);
 }

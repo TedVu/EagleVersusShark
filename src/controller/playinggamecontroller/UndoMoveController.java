@@ -5,13 +5,16 @@ import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
 
-import model.engine.EngineImpl;
+import modelcontroller.contract.ControllerModelInterface;
+import modelcontroller.facade.ControllerModelFacade;
 import view.operationview.UndoMovePanel;
 import viewcontroller.contract.ViewControllerInterface;
 
 public class UndoMoveController implements ActionListener {
 
 	private ViewControllerInterface viewControllerFacade;
+	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
+
 	private AbstractButton resumeBtn;
 
 	public UndoMoveController(ViewControllerInterface viewControllerFacade, AbstractButton resumeBtn) {
@@ -22,15 +25,15 @@ public class UndoMoveController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (EngineImpl.getSingletonInstance().gameTurn().getGameCurrentlyRunning()) {
-			EngineImpl.getSingletonInstance().gameTurn().cancelTimerPauseGame();
+		if (controllerModelFacade.getGameCurrentlyRunning()) {
+			controllerModelFacade.cancelTimerPauseGame();
 			viewControllerFacade.updateBoardPauseGame();
 			AbstractButton undoBtn = (AbstractButton) e.getSource();
 
 			new UndoMovePanel(viewControllerFacade, undoBtn);
 			resumeBtn.setEnabled(true);
 		} else {
-			viewControllerFacade.updateBoardErrorAction("Game is not running or is paused");
+			viewControllerFacade.updateBoardNotiDialog("Game is not running or is paused");
 		}
 
 	}

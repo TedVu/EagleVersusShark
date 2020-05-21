@@ -10,6 +10,7 @@ import controller.playinggamecontroller.MakingMovePropertyChangeListener;
 import controller.playinggamecontroller.TimerPropertyChangeListener;
 import model.board.GameBoard;
 import model.contract.Engine;
+import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import model.piece.GamePiece;
 import model.piece.commands.PieceCommands;
@@ -17,8 +18,7 @@ import view.callback.GameEngineCallbackImpl;
 import view.contract.GameEngineCallbackInterface;
 
 public class GameTurn implements Serializable {
-	
-	
+
 	/**
 	 * 
 	 */
@@ -39,7 +39,7 @@ public class GameTurn implements Serializable {
 	private int turn = 1;
 
 	private int round;
-	
+
 	private Engine engine;
 
 	private boolean gameRunning = false;
@@ -47,21 +47,17 @@ public class GameTurn implements Serializable {
 	private int totalNumPiece;
 
 	private PieceCommands pieceCommands;
-	
-	
-	
-	
+
 	public GameTurn(Engine engine) {
 		this.engine = engine;
-		
+
 		geCallback.addProperytChangeListener(new TimerPropertyChangeListener());
 		geCallback.addProperytChangeListener(new MakingMovePropertyChangeListener());
 	}
-	
+
 	public GameEngineCallbackInterface getGameEngineCallback() {
 		return geCallback;
 	}
-
 
 	/**
 	 * stop the timer of the game
@@ -74,7 +70,7 @@ public class GameTurn implements Serializable {
 			gameTimer.cancel();
 		}
 	}
-	
+
 	/**
 	 * get the current player turn
 	 * 
@@ -87,7 +83,7 @@ public class GameTurn implements Serializable {
 			return sharkPlayer;
 
 	}
-	
+
 	/*
 	 * return the initial active player, call this at the beginning of the program
 	 * 
@@ -150,9 +146,9 @@ public class GameTurn implements Serializable {
 		if (turnOnTimer) {
 			setActivePlayerTimer(nextPlayer);
 		}
-		
+
 	}
-	
+
 	/**
 	 * turn on the timer and loop call setActivePlayer to change every interval
 	 * 
@@ -170,14 +166,19 @@ public class GameTurn implements Serializable {
 				geCallback.timerNextMove(playerType, currentPlayer);
 			}
 		}, 10000);
-		
+
 	}
-	
+
+	public void endGame(TeamType teamWin) {
+		cancelTimerPauseGame();
+		geCallback.endGame(teamWin);
+	}
+
 	public void cancelTimerPauseGame() {
 		gameRunning = false;
 		gameTimer.cancel();
 	}
-	
+
 	public boolean getGameCurrentlyRunning() {
 		return gameRunning;
 	}
@@ -185,14 +186,14 @@ public class GameTurn implements Serializable {
 	public void setResumeGame() {
 		gameRunning = true;
 	}
-	
+
 	public void incrementUndo(TeamType teamType) {
 
 		Player player = playerType(teamType);
 
 		player.undoCounter(round);
 	}
-	
+
 	public boolean ableToUndo(TeamType teamType) {
 
 		Player player = playerType(teamType);

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.startgamecontroller.SaveGameBtnController;
+import viewcontroller.contract.ViewControllerInterface;
 
 /**
  * @author kevin & ted
@@ -30,7 +31,7 @@ public class SaveGameDialog extends JDialog {
 	/**
 	 * @see
 	 */
-	public SaveGameDialog() {
+	public SaveGameDialog(ViewControllerInterface viewControllerFacade) {
 		fileNameField = new JTextField(15);
 
 		setTitle("Save Game");
@@ -40,7 +41,7 @@ public class SaveGameDialog extends JDialog {
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setResizable(false);
 
-		saveGameButton.addActionListener(new SaveGameBtnController(this));
+		saveGameButton.addActionListener(new SaveGameBtnController(this,viewControllerFacade));
 		// save game => initiate pause game
 		JPanel textFieldPanel = new JPanel();
 		textFieldPanel.add(new JLabel("File name:"));

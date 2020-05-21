@@ -8,7 +8,6 @@ import java.util.Map;
 
 import com.google.java.contract.Requires;
 
-import model.board.GameBoard;
 import model.contract.Engine;
 import model.contract.Piece;
 import model.enumtype.PieceType;

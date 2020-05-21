@@ -8,44 +8,43 @@ import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
+import modelcontroller.contract.ControllerModelInterface;
+import modelcontroller.facade.ControllerModelFacade;
 import view.operationview.HealingSharkDialog;
 
 public class HealingSharkAbilityController extends AbstractAbilityController {
 
 	private HealingSharkDialog healingDialog;
+	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (EngineImpl.getSingletonInstance().gameTurn().getCurrentActivePlayer().getPlayerType() == TeamType.SHARK) {
+		if (controllerModelFacade.getCurrentActivePlayer().getPlayerType() == TeamType.SHARK) {
 
 			healingDialog.dispose();
 
-			boolean reviveSuccess = true;
 			PieceType affectedPieceEnum = PieceType.parsePieceType(healingDialog.getSharkRevived());
 
 			try {
 				super.controllerModelFacade.updateModelStateHealingSharkRevive(affectedPieceEnum);
-			} catch (RuntimeException ex) {
-				reviveSuccess = false;
-				super.viewControllerFacade.updateBoardErrorAction(ex.getMessage());
-			}
-			if (reviveSuccess) {
 				super.viewControllerFacade.updateBoardReviveSharkSuccessful(affectedPieceEnum);
 				super.controllerModelFacade.updateModelStateForNextTurn(TeamType.EAGLE);
+			} catch (RuntimeException ex) {
+				super.viewControllerFacade.updateBoardNotiDialog(ex.getMessage());
 			}
 		} else {
 			healingDialog.dispose();
-			super.viewControllerFacade.updateBoardErrorAction("Not correct turn to revive");
+			super.viewControllerFacade.updateBoardNotiDialog("Not correct turn to revive");
 		}
 	}
 
 	@Override
-	public void setUpViewForAbility() {
-		
+	public void setUpViewForAbility(PieceType pieceType) {
+
 		List<Piece> activeSharks = EngineImpl.getSingletonInstance().pieceOperator().getActiveSharks();
 
 		if (activeSharks.size() == EngineImpl.getSingletonInstance().getTotalNumPiece() / 2) {
-			super.viewControllerFacade.updateBoardErrorAction("No shark to revive");
+			super.viewControllerFacade.updateBoardNotiDialog("No shark to revive");
 		} else {
 			healingDialog = new HealingSharkDialog(this);
 		}

@@ -33,8 +33,4 @@ public class DefensiveSharkAbilityController extends AbstractAbilityController {
 		}
 	}
 
-	@Override
-	public void setUpViewForAbility() {
-		super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.DEFENSIVESHARK);
-	}
 }

@@ -103,7 +103,7 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 		}
 		turnTextField.setText("PAUSE GAME");
 		timerTextField.setText("PAUSE GAME");
-	} 
+	}
 
 	/**
 	 * @return
@@ -120,7 +120,14 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 			updateTurnLabel((TeamType) evt.getNewValue());
 			startCountDown();
 		}
+	}
 
+	public void endGameTimer() {
+		for (SwingWorker<Void, Void> preWorker : workerThreads) {
+			preWorker.cancel(true);
+		}
+		turnTextField.setText("END GAME");
+		timerTextField.setText("END GAME");
 	}
 
 }

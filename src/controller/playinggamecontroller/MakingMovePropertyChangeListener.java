@@ -24,7 +24,8 @@ public class MakingMovePropertyChangeListener implements PropertyChangeListener 
 	private ModePanel modePanel;
 
 	/**
-	 * @param statusPanel Reference from view-status panel.
+	 * @param statusPanel
+	 *            Reference from view-status panel.
 	 */
 	@Requires("statusPanel != null")
 	public void injectStatusPanel(StatusPanel statusPanel) {
@@ -47,6 +48,8 @@ public class MakingMovePropertyChangeListener implements PropertyChangeListener 
 			statusPanel.updateTurnLabel((TeamType) evt.getNewValue());
 			statusPanel.startCountDown();
 			modePanel.updateAvailableMode((TeamType) evt.getNewValue());
+		} else if (evt.getPropertyName().equalsIgnoreCase("EndGame")) {
+			statusPanel.endGameTimer();
 		}
 	}
 }

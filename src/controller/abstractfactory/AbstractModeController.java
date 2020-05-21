@@ -23,7 +23,7 @@ public abstract class AbstractModeController implements ModeController {
 		try {
 			this.viewControllerFacade.updateBoardBeforeCommitAction(this, pieceType);
 		} catch (RuntimeException ex) {
-			this.viewControllerFacade.updateBoardErrorAction(ex.getMessage());
+			this.viewControllerFacade.updateBoardNotiDialog(ex.getMessage());
 		}
 	}
 

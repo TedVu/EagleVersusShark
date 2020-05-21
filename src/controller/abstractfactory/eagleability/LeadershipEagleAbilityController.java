@@ -21,12 +21,5 @@ public class LeadershipEagleAbilityController extends AbstractAbilityController 
 
 	} 
 
-	@Override
-	public void setUpViewForAbility() {
-		try {
-			super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.LEADERSHIPEAGLE);
-		} catch (RuntimeException e) {
-			super.viewControllerFacade.updateBoardErrorAction(e.getMessage());
-		}
-	}
+
 }

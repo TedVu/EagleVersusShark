@@ -20,7 +20,7 @@ public class AggressiveSharkAbilityController extends AbstractAbilityController 
 			super.controllerModelFacade.updateModelStateAggressiveSharkCapture(affectedPieceEnum);
 		} catch (RuntimeException ex) {
 			captureSuccess = false;
-			super.viewControllerFacade.updateBoardErrorAction("This piece has immunity. Cannot capture");
+			super.viewControllerFacade.updateBoardNotiDialog("This piece has immunity. Cannot capture");
 		}
 		if (captureSuccess) {
 			super.viewControllerFacade.updateBoardAfterCapture(btnClicked, PieceType.AGGRESSIVESHARK);
@@ -29,12 +29,4 @@ public class AggressiveSharkAbilityController extends AbstractAbilityController 
 		}
 	}
 
-	@Override
-	public void setUpViewForAbility() {
-		try {
-			super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.AGGRESSIVESHARK);
-		} catch (RuntimeException ex) {
-			super.viewControllerFacade.updateBoardErrorAction(ex.getMessage());
-		}
-	}
 }

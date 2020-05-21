@@ -26,7 +26,7 @@ public class DefensiveShark extends AbstractPiece {
 	private final Engine engine;
 
 	private static final long serialVersionUID = -3824904265692727849L;
-
+ 
 	public DefensiveShark(int x, int y, Engine engine) {
 		super(x, y);
 		this.engine = engine;
@@ -119,7 +119,9 @@ public class DefensiveShark extends AbstractPiece {
 				if(waterCells.contains(cell))
 					returnCells.add(cell);
 			}
-		}
+		} else
+			throw new IllegalArgumentException("Shark is currently not on water cell!\n" +
+					"You must be on water cell to use the 2nd ability");
 
 		return returnCells;
 	}

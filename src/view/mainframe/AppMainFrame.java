@@ -8,7 +8,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import model.engine.EngineImpl;
 import view.operationview.BoardPanel;
 import view.operationview.OperationToolbar;
 import view.operationview.RightPanel;
@@ -20,7 +19,7 @@ public class AppMainFrame extends JFrame {
 	/**
 	 * @serial -6241584551658525365L
 	 */
-	private static final long serialVersionUID = -6241584551658525365L;
+	private static final long serialVersionUID = -6241584551658525365L; 
 	private static final int FRAME_WIDTH = 1000;
 	private static final int FRAME_HEIGHT = 700;
 
@@ -32,7 +31,7 @@ public class AppMainFrame extends JFrame {
 	 * @see
 	 */
 	public AppMainFrame() {
-		boardPanel = new BoardPanel();
+		boardPanel = new BoardPanel(this);
 		rightPanel = new RightPanel(boardPanel.getFacade());
 		operationToolbar = new OperationToolbar(this, boardPanel.getFacade());
 

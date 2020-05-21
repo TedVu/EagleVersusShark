@@ -13,8 +13,6 @@ import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.enumtype.PieceType;
-import model.piece.commands.CommandExecutor;
-import model.piece.commands.MovePiece;
 import model.piece.movement.BasicMove;
 import model.piece.movement.DiagonalDecorator;
 import model.piece.movement.PieceMoveDecorator;
@@ -28,7 +26,7 @@ public class HealingShark extends AbstractPiece {
 	private static final long serialVersionUID = -7746905541941458353L;
 
 	private final Engine engine;
-	
+
 	private boolean isModeAvailable = true;
 
 	public HealingShark(int x, int y, Engine engine) {
@@ -84,8 +82,10 @@ public class HealingShark extends AbstractPiece {
 						.yCoordinate(EngineImpl.getSingletonInstance().gameBoard().getSize());
 
 			} else if (affectedPiece instanceof DefensiveShark) {
-				initialX = PieceType.DEFENSIVESHARK.xCoordinate(EngineImpl.getSingletonInstance().gameBoard().getSize());
-				initialY = PieceType.DEFENSIVESHARK.yCoordinate(EngineImpl.getSingletonInstance().gameBoard().getSize());
+				initialX = PieceType.DEFENSIVESHARK
+						.xCoordinate(EngineImpl.getSingletonInstance().gameBoard().getSize());
+				initialY = PieceType.DEFENSIVESHARK
+						.yCoordinate(EngineImpl.getSingletonInstance().gameBoard().getSize());
 			}
 
 			Cell initialCell = engine.gameBoard().getCell(initialX, initialY);
@@ -118,38 +118,33 @@ public class HealingShark extends AbstractPiece {
 	}
 
 	@Override
-	public Set<Cell> abilityCells() {
-
-		// refactor later on as not a good practice to return null
-		return null;
-	}
-
-	@Override
 	public String toString() {
 		return String.format("%s", "HealingShark");
 	}
 
 	@Override
 	public Set<Cell> modeCells() {
-		
-		//return current eagle positions so user can choose the eagle
-		
-		if(isModeAvailable) {
-			Set<Cell> currentEaglePositions = new HashSet<>();
-			List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
-			for (Piece activeEagle : activeEagles) {
-				int x = activeEagle.getPosition().get("x");
-				int y = activeEagle.getPosition().get("y");
 
+		Set<Cell> currentEaglePositions = new HashSet<>();
+		List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
+		for (Piece activeEagle : activeEagles) {
+			int x = activeEagle.getPosition().get("x");
+			int y = activeEagle.getPosition().get("y");
+			if (y != 0) {
 				currentEaglePositions.add(new Cell(x, y));
 			}
-
-			return currentEaglePositions;
 		}
-		else
-			throw new IllegalArgumentException("Mode is already used");
-		
+		if (currentEaglePositions.size() > 0) {
+			return currentEaglePositions;
+		} else
+			throw new IllegalArgumentException("All eagle is at the top eagle side now cannot use this mode");
+
 	}
 
+	@Override
+	public Set<Cell> abilityCells() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

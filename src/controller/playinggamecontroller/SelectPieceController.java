@@ -12,11 +12,12 @@ import controller.abstractfactory.ModeController;
 import controller.abstractfactory.SpecialBehaviourControllerFactory;
 import controller.abstractfactory.factory.AbilityControllerFactory;
 import controller.abstractfactory.factory.ModeControllerFactory;
-import model.contract.Engine;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.PlayerActionType;
 import model.enumtype.TeamType;
+import modelcontroller.contract.ControllerModelInterface;
+import modelcontroller.facade.ControllerModelFacade;
 import viewcontroller.contract.ViewControllerInterface;
 
 /**
@@ -28,11 +29,11 @@ import viewcontroller.contract.ViewControllerInterface;
  */
 public class SelectPieceController implements ActionListener {
 
-	private AbstractButton buttonClicked;
+	private AbstractButton btnClicked;
 	private MovePieceController movePieceController;
-	private Engine engine = EngineImpl.getSingletonInstance();
 
 	private ViewControllerInterface viewControllerFacade;
+	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
 
 	private PlayerAction playerAction;
 
@@ -47,37 +48,37 @@ public class SelectPieceController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.buttonClicked = (AbstractButton) e.getSource();
+		this.btnClicked = (AbstractButton) e.getSource();
 
 		if (EngineImpl.getSingletonInstance().gameTurn().getGameCurrentlyRunning()) {
-			if (!buttonClicked.getActionCommand().equalsIgnoreCase("NormalButton")) {
+			if (!btnClicked.getActionCommand().equalsIgnoreCase("NormalButton")) {
 				viewControllerFacade.refreshBoard();
 				checkCorrectPieceButtonClicked();
 			}
 		} else {
-			viewControllerFacade.updateBoardErrorAction("Game not running");
+			viewControllerFacade.updateBoardNotiDialog("Game not running");
 		}
 	}
 
 	@Requires({ "teamType != null", "viewControllerFacade != null" })
 	private void checkChooseCorrectTeamTurn(TeamType teamType) {
-		if (PieceType.parsePieceType(buttonClicked.getActionCommand()).team() == teamType) {
+		if (PieceType.parsePieceType(btnClicked.getActionCommand()).team() == teamType) {
 
 			viewControllerFacade.getPlayerAction(playerAction);
 			PlayerActionType playerActionType = PlayerActionType.parsePlayerActionType(playerAction.getPlayerAction());
 
 			routePlayerAction(playerActionType, teamType);
 		} else {
-			viewControllerFacade.updateBoardErrorAction("Select wrong team");
+			viewControllerFacade.updateBoardNotiDialog("Select wrong team");
 		}
 	}
 
 	private void routePlayerAction(PlayerActionType playerActionType, TeamType teamType) {
 		if (playerActionType == PlayerActionType.MOVE) {
-			movePieceController = new MovePieceController(PieceType.parsePieceType(buttonClicked.getActionCommand()),
+			movePieceController = new MovePieceController(PieceType.parsePieceType(btnClicked.getActionCommand()),
 					viewControllerFacade);
 			viewControllerFacade.updateBoardBeforeCommitAction(movePieceController,
-					PieceType.parsePieceType(buttonClicked.getActionCommand()));
+					PieceType.parsePieceType(btnClicked.getActionCommand()));
 		} else if (playerActionType == PlayerActionType.USEABILITY) {
 			useAbilityViewController(teamType);
 
@@ -93,23 +94,24 @@ public class SelectPieceController implements ActionListener {
 				.getSpecialBehaviourControllerFactory(teamType).createModeControllerFactory();
 
 		ModeController modeController = modeFactory
-				.createModeController(PieceType.parsePieceType(buttonClicked.getActionCommand()));
+				.createModeController(PieceType.parsePieceType(btnClicked.getActionCommand()));
 		modeController.setModeState(viewControllerFacade);
-		modeController.setUpViewForMode(PieceType.parsePieceType(buttonClicked.getActionCommand()));
+		modeController.setUpViewForMode(PieceType.parsePieceType(btnClicked.getActionCommand()));
 	}
 
 	private void useAbilityViewController(TeamType teamType) {
 		AbilityControllerFactory abilityFactory = SpecialBehaviourControllerFactory
 				.getSpecialBehaviourControllerFactory(teamType).createAbilityControllerFactory();
 		AbilityController abilityController = abilityFactory
-				.createAbilityController(PieceType.parsePieceType(buttonClicked.getActionCommand()));
+				.createAbilityController(PieceType.parsePieceType(btnClicked.getActionCommand()));
 		abilityController.setAbilityState(viewControllerFacade);
-		abilityController.setUpViewForAbility();
+		abilityController.setUpViewForAbility(PieceType.parsePieceType(btnClicked.getActionCommand()));
 	}
 
-	@Requires("buttonClicked != null")
+	@Requires({ "btnClicked != null", "controllerModelFacade != null" })
 	private void checkCorrectPieceButtonClicked() {
-		if (engine.pieceOperator().checkSelectPiece(PieceType.parsePieceType(buttonClicked.getActionCommand()))) {
+		if (controllerModelFacade
+				.checkCorrectTurnOfSelectedPiece(PieceType.parsePieceType(btnClicked.getActionCommand()))) {
 			TeamType currentTurn = EngineImpl.getSingletonInstance().gameTurn().getCurrentActivePlayer()
 					.getPlayerType();
 			checkChooseCorrectTeamTurn(currentTurn);

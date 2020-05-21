@@ -52,6 +52,7 @@ public class MovePieceController implements ActionListener {
 		Map<String, Integer> newPos = new HashMap<String, Integer>();
 		viewControllerFacade.locateNewPos(buttonClicked, newPos);
 		controllerModelFacade.updateModelAfterMovingPiece(newPos, pieceType);
+
 	}
 
 	@Requires({ "pieceType.team()!=null" })

@@ -20,7 +20,7 @@ public class AttackingEagleModeController extends AbstractModeController {
 			super.viewControllerFacade.updateBoardAfterCapture(btnClicked, PieceType.ATTACKINGEAGLE);
 			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
 		} catch (RuntimeException ex) {
-			super.viewControllerFacade.updateBoardErrorAction(ex.getMessage());
+			super.viewControllerFacade.updateBoardNotiDialog(ex.getMessage());
 		}
 
 	}

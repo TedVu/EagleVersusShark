@@ -6,7 +6,6 @@ import java.util.Stack;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
-import model.board.GameBoard;
 import model.contract.Command;
 import model.contract.Piece;
 import model.engine.EngineImpl;
@@ -28,7 +27,6 @@ public class PieceCommands implements Serializable {
 
 	private EngineImpl engine;
 
-
 	private Stack<Command> commandHistory = new Stack<Command>();
 
 	public PieceCommands(EngineImpl engine) {
@@ -44,7 +42,7 @@ public class PieceCommands implements Serializable {
 		engine.gameBoard().removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 		engine.gameBoard().addPiece(prevState.getX(), prevState.getY());
 	}
- 
+
 	/**
 	 * @param piece
 	 *            - the piece to be moved
@@ -66,8 +64,7 @@ public class PieceCommands implements Serializable {
 			piece.modeUsed();
 	}
 
-	protected void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece,
-			boolean isMode) {
+	protected void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece, boolean isMode) {
 		if (isMode && piece instanceof AttackingEagle && piece.getModeCount() > 0) {
 			throw new IllegalArgumentException("Mode is already used");
 		}
@@ -100,7 +97,5 @@ public class PieceCommands implements Serializable {
 	protected void addEvt(Command command) {
 		commandHistory.push(command);
 	}
-
-
 
 }

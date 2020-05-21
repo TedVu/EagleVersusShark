@@ -2,6 +2,7 @@ package model.engine;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Timer;
 import java.util.concurrent.ThreadLocalRandom;
@@ -163,5 +164,51 @@ public class EngineImpl implements Engine, Serializable {
 			}
 
 		}
+	}
+
+	private boolean checkPiecesActiveWinningCondition() {
+		if (pieceOperator().getActiveEagles().size() == 0) {
+			gameTurn.endGame(TeamType.SHARK);
+			return true;
+		} else if (pieceOperator().getActiveSharks().size() == 0) {
+			gameTurn.endGame(TeamType.EAGLE);
+			return true;
+		}
+		return false;
+	}
+
+	private boolean checkPieceEnterMasterCellWinningCondition() {
+		for (Piece sharks : pieceOperator().getActiveSharks()) {
+			Cell cntPos = board.getCell(sharks.getPosition().get("x"), sharks.getPosition().get("y"));
+			if (cntPos.equals(board.getEagleMasterCell())) {
+				gameTurn.endGame(TeamType.SHARK);
+				return true;
+			}
+		}
+
+		for (Piece eagle : pieceOperator().getActiveEagles()) {
+			Cell cntPos = board.getCell(eagle.getPosition().get("x"), eagle.getPosition().get("y"));
+			if (cntPos.equals(board.getSharkMasterCell())) {
+				gameTurn.endGame(TeamType.EAGLE);
+				return true;
+			}
+		} 
+		return false;
+	}
+
+	/*
+	 * call at controllermodelfacade inside updateStateModelForNextTurn()
+	 */
+	@Override
+	public boolean endGame() {
+		if (checkPiecesActiveWinningCondition()) {
+			return true;
+		}
+
+		if (checkPieceEnterMasterCellWinningCondition()) {
+			return true;
+		}
+
+		return false;
 	}
 }
