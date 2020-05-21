@@ -23,9 +23,7 @@ import model.piece.PieceMemento;
  */
 public class PieceCommands implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -1506663538384796618L;
 
 	private EngineImpl engine;
