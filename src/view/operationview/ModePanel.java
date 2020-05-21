@@ -111,6 +111,8 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
+	
+
 	public AbstractButton getResumeButton() {
 		return resumeBtn;
 	}

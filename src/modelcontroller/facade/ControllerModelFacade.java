@@ -36,8 +36,10 @@ public class ControllerModelFacade implements ControllerModelInterface {
 	@Override
 	@Requires({ "teamName!=null" })
 	public void updateModelStateForNextTurn(TeamType teamName) {
-		engine.gameTurn().cancelTimer();
-		engine.gameTurn().setActivePlayer(teamName, true);
+		if (!engine.endGame()) {
+			engine.gameTurn().cancelTimer();
+			engine.gameTurn().setActivePlayer(teamName, true);
+		}
 	}
 
 	@Override

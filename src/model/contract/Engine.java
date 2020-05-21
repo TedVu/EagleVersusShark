@@ -14,13 +14,13 @@ import view.contract.GameEngineCallbackInterface;
  *
  */
 public interface Engine {
-	
+
 	public GameTurn gameTurn();
 
 	/**
 	 * stop the timer of the game
 	 */
-//	public void cancelTimer();
+	// public void cancelTimer();
 
 	// /**
 	// * @param occupiedPieceType
@@ -40,16 +40,16 @@ public interface Engine {
 	 * 
 	 * @return the active team
 	 */
-//	public Player getCurrentActivePlayer();
+	// public Player getCurrentActivePlayer();
 
-//	public GameEngineCallbackInterface getGameEngineCallback();
+	// public GameEngineCallbackInterface getGameEngineCallback();
 
 	/*
 	 * return the initial active player, call this at the beginning of the program
 	 * 
 	 * @return (eaglePlayer || sharkPlayer)
 	 */
-//	public Player getInitialPlayerActivePlayer();
+	// public Player getInitialPlayerActivePlayer();
 
 	/*
 	 * schedule timer to call setActivePlayer(String playerType, boolean
@@ -59,26 +59,32 @@ public interface Engine {
 	 */
 
 	/**
-	 * @param piece - the piece to be moved
-	 * @param newX  - new x position
-	 * @param newY  - new y position Generate the pieces and put them on the board
+	 * @param piece
+	 *            - the piece to be moved
+	 * @param newX
+	 *            - new x position
+	 * @param newY
+	 *            - new y position Generate the pieces and put them on the board
 	 */
 	// public void movePiece(PieceInterface piece, int newX, int newY);
 
 	/**
 	 * set the turn to the specified team in parameter
 	 * 
-	 * @param playerType  - the player to be activated
-	 * @param turnOnTimer - whether to begin countdown or not
+	 * @param playerType
+	 *            - the player to be activated
+	 * @param turnOnTimer
+	 *            - whether to begin countdown or not
 	 */
-//	public void setActivePlayer(TeamType playerType, boolean turnOnTimer);
+	// public void setActivePlayer(TeamType playerType, boolean turnOnTimer);
 
 	/**
 	 * turn on the timer and loop call setActivePlayer to change every interval
 	 * 
-	 * @param playerType - the player to be activated next
+	 * @param playerType
+	 *            - the player to be activated next
 	 */
-//	public void setActivePlayerTimer(TeamType playerType);
+	// public void setActivePlayerTimer(TeamType playerType);
 
 	/*
 	 * Set the selected piece status to active
@@ -90,18 +96,17 @@ public interface Engine {
 	public GamePiece pieceOperator();
 
 	// TED
-//	public void cancelTimerPauseGame();
+	// public void cancelTimerPauseGame();
 
-//	public boolean ableToUndo(TeamType teamType);
-//
-//	public void incrementUndo(TeamType teamType);
-//
-//	public boolean getGameCurrentlyRunning();
-//
-//	public void setResumeGame();
-	
-	
-	//total num piece for 
+	// public boolean ableToUndo(TeamType teamType);
+	//
+	// public void incrementUndo(TeamType teamType);
+	//
+	// public boolean getGameCurrentlyRunning();
+	//
+	// public void setResumeGame();
+
+	// total num piece for
 	public int getTotalNumPiece();
 
 	// Board Set up
@@ -111,10 +116,11 @@ public interface Engine {
 	public void configNumPiece(int pieceNumberSelection);
 
 	public void configObstacle(boolean hasObstacle);
-	
+
 	public void loadGame(EngineImpl e);
-	
+
 	public PieceCommands getPieceCommands();
-	
-	
+
+	public boolean endGame();
+
 }

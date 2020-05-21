@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 import javax.swing.SwingUtilities;
 
+import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import view.contract.GameEngineCallbackInterface;
 
@@ -55,6 +56,16 @@ public class GameEngineCallbackImpl implements GameEngineCallbackInterface, Seri
 			@Override
 			public void run() {
 				pcs.firePropertyChange("SwitchTurn", null, currentPlayerTurn);
+			}
+		});
+	}
+
+	@Override
+	public void endGame(TeamType teamWin) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				pcs.firePropertyChange("EndGame", null, teamWin);
 			}
 		});
 	}

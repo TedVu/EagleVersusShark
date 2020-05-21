@@ -22,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingWorker;
 
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
@@ -37,6 +38,7 @@ import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
+import view.mainframe.AppMainFrame;
 import viewcontroller.contract.ViewControllerInterface;
 import viewcontroller.facade.ViewControllerFacade;
 
@@ -56,6 +58,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @serial -146176190184206205L
 	 */
 	private static final long serialVersionUID = -146176190184206205L;
+	private AppMainFrame mainFrame;
 	private List<List<AbstractButton>> buttons;
 	private ViewControllerInterface facade;
 	private Engine engine = EngineImpl.getSingletonInstance();
@@ -68,7 +71,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * 
 	 * @see
 	 */
-	public BoardPanel() {
+	public BoardPanel(AppMainFrame mainFrame) {
+		this.mainFrame = mainFrame;
 		int boardSize = engine.gameBoard().getSize();
 
 		ButtonGroup group = new ButtonGroup();
@@ -169,6 +173,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	private void updateBoardNotiDialog(String errMsg) {
+
 		JOptionPane.showMessageDialog(this, errMsg);
 	}
 
@@ -444,6 +449,29 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		} catch (IOException e1) {
 			e1.getStackTrace();
 		}
+	}
+
+	public void endGame(String finalMsg) {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				AbstractButton btn = buttons.get(row).get(col);
+				ActionListener[] listeners = btn.getActionListeners();
+				for (ActionListener listener : listeners) {
+					btn.removeActionListener(listener);
+				}
+
+			}
+		}
+		BoardPanel board = this;
+		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+			@Override
+			protected Void doInBackground() throws Exception {
+				JOptionPane.showMessageDialog(board, finalMsg);
+				mainFrame.dispose();
+				return null;
+			}
+		};
+		worker.execute();
 	}
 
 	public ViewControllerInterface getFacade() {
