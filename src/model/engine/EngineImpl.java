@@ -8,11 +8,9 @@ import java.util.Timer;
 import java.util.concurrent.ThreadLocalRandom;
 
 import model.board.Cell;
-import model.board.GameBoard;
 import model.contract.Engine;
 import model.contract.Piece;
 import model.enumtype.TeamType;
-import model.piece.GamePiece;
 import model.piece.commands.PieceCommands;
 import model.player.GameTurn;
 import model.player.Player;
@@ -39,21 +37,10 @@ public class EngineImpl implements Engine, Serializable {
 		return engine;
 	}
 
-	private Player eaglePlayer = new PlayerImpl(TeamType.EAGLE);
-
-	private Player sharkPlayer = new PlayerImpl(TeamType.SHARK);
-
-	private transient Timer gameTimer;
 
 	private GameBoard board;
 
 	private GamePiece gamePiece;
-
-	private int turn = 1;
-
-	private int round;
-
-	private boolean gameRunning = false;
 
 	private int totalNumPiece;
 
@@ -85,6 +72,25 @@ public class EngineImpl implements Engine, Serializable {
 	public PieceCommands getPieceCommands() {
 		return pieceCommands;
 	}
+	
+	public GamePiece getPieceOperator() {
+		return gamePiece;
+	}
+
+	@Override
+	public GameBoard gameBoard() {
+		return this.board;
+	}
+
+	@Override
+	public GamePiece pieceOperator() {
+		return gamePiece;
+	}
+
+	@Override
+	public int getTotalNumPiece() {
+		return this.totalNumPiece;
+	}
 
 	@Override
 	public void configBoardSize(int boardSize) {
@@ -115,24 +121,6 @@ public class EngineImpl implements Engine, Serializable {
 
 	}
 
-	public GamePiece getPieceOperator() {
-		return gamePiece;
-	}
-
-	@Override
-	public GameBoard gameBoard() {
-		return this.board;
-	}
-
-	@Override
-	public GamePiece pieceOperator() {
-		return gamePiece;
-	}
-
-	@Override
-	public int getTotalNumPiece() {
-		return this.totalNumPiece;
-	}
 
 	@Override
 	public void configObstacle(boolean hasObstacle) {

@@ -1,4 +1,4 @@
-package model.board;
+package model.engine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
+import model.board.Cell;
 import model.contract.Engine;
 import model.enumtype.TeamType;
-import model.piece.GamePiece;
 import model.piece.commands.PieceCommands;
 import model.player.GameTurn;
 import model.player.Player;
@@ -32,39 +32,16 @@ public class GameBoard implements Serializable {
 	private Cell sharkMasterCell = null;
 	private Cell eagleMasterCell = null;
 
-	private Engine engine;
 
 	private Set<Cell> waterCells;
 
-	private Player eaglePlayer = new PlayerImpl(TeamType.EAGLE);
 
-	private Player sharkPlayer = new PlayerImpl(TeamType.SHARK);
-
-	private transient Timer gameTimer;
 
 	// private GameEngineCallbackInterface geCallback = new
 	// GameEngineCallbackImpl();
 
-	private GameBoard board;
 
-	private GamePiece gamePiece;
-
-	private int turn = 1;
-
-	private int round;
-
-	private boolean gameRunning = false;
-
-	private int totalNumPiece;
-
-	private PieceCommands pieceCommands;
-
-	private GameTurn gameTurn;
-
-	public GameBoard(Engine engine) {
-		super();
-		this.engine = engine;
-		this.gamePiece = engine.pieceOperator();
+	public GameBoard() {
 	}
 
 	// public int getTotalNumPiece() {

@@ -6,7 +6,7 @@ import model.contract.Command;
 import model.contract.Engine;
 import model.contract.Piece;
 import model.engine.EngineImpl;
-import model.piece.GamePiece;
+import model.engine.GamePiece;
 
 /**
  *

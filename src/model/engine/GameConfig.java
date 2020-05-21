@@ -1,8 +1,6 @@
 package model.engine;
 
-import model.board.GameBoard;
 import model.contract.Engine;
-import model.piece.GamePiece;
 
 public class GameConfig {
 	

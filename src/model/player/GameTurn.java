@@ -8,11 +8,11 @@ import com.google.java.contract.Requires;
 
 import controller.playinggamecontroller.MakingMovePropertyChangeListener;
 import controller.playinggamecontroller.TimerPropertyChangeListener;
-import model.board.GameBoard;
 import model.contract.Engine;
+import model.engine.GameBoard;
+import model.engine.GamePiece;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
-import model.piece.GamePiece;
 import model.piece.commands.PieceCommands;
 import view.callback.GameEngineCallbackImpl;
 import view.contract.GameEngineCallbackInterface;

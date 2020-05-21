@@ -5,8 +5,8 @@ import java.io.Serializable;
 import model.contract.Command;
 import model.contract.Engine;
 import model.engine.EngineImpl;
+import model.engine.GamePiece;
 import model.enumtype.TeamType;
-import model.piece.GamePiece;
 
 /**
  *

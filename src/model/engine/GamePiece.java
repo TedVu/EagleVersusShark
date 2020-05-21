@@ -1,4 +1,4 @@
-package model.piece;
+package model.engine;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,6 +11,13 @@ import com.google.java.contract.Requires;
 import model.contract.Engine;
 import model.contract.Piece;
 import model.enumtype.PieceType;
+import model.piece.AggressiveShark;
+import model.piece.AttackingEagle;
+import model.piece.DefensiveShark;
+import model.piece.HealingShark;
+import model.piece.LeadershipEagle;
+import model.piece.PieceFactory;
+import model.piece.VisionaryEagle;
 
 /**
  *
@@ -186,8 +193,5 @@ public class GamePiece implements Serializable {
 			resetHealingAbilityCounter();
 	}
 
-//	public void setBoard(GameBoard board) {
-//		this.board = board;
-//	}
 
 }

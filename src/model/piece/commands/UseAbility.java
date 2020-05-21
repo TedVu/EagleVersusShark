@@ -6,9 +6,9 @@ import model.contract.Command;
 import model.contract.Engine;
 import model.contract.Piece;
 import model.engine.EngineImpl;
+import model.engine.GamePiece;
 import model.enumtype.PieceAbility;
 import model.piece.PieceMemento;
-import model.piece.GamePiece;
 
 /**
  *
@@ -46,10 +46,7 @@ public class UseAbility implements Command, Serializable {
 
 		pieceCommands.replacePieceVersion(piece, pieceMemento);
 		pieceCommands.replacePieceVersion(affectedPiece, affectedPieceMemento);
-//		engine.getBoard().removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
-//		engine.getBoard().addPiece(pieceMemento.getX(), pieceMemento.getY());
-//		engine.getBoard().removePiece(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
-//		engine.getBoard().addPiece(affectedPieceMemento.getX(), affectedPieceMemento.getY());
+
 	}
 
 }
