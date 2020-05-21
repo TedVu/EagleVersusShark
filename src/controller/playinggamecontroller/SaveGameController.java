@@ -5,12 +5,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
 
-import model.engine.EngineImpl;
+import modelcontroller.contract.ControllerModelInterface;
+import modelcontroller.facade.ControllerModelFacade;
 import view.configuration.SaveGameDialog;
 import viewcontroller.contract.ViewControllerInterface;
 
 public class SaveGameController implements ActionListener {
 	private ViewControllerInterface viewControllerFacade;
+	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
 	private AbstractButton resumeBtn;
 
 	public SaveGameController(ViewControllerInterface viewControllerFacade, AbstractButton resumeBtn) {
@@ -21,9 +23,9 @@ public class SaveGameController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		if (EngineImpl.getSingletonInstance().gameTurn().getGameCurrentlyRunning()) {
+		if (controllerModelFacade.getGameCurrentlyRunning()) {
 			viewControllerFacade.updateBoardPauseGame();
-			EngineImpl.getSingletonInstance().gameTurn().cancelTimerPauseGame();
+			controllerModelFacade.cancelTimerPauseGame();
 			resumeBtn.setEnabled(true);
 		}
 		new SaveGameDialog();

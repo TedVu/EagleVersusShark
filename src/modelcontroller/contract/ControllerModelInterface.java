@@ -4,12 +4,29 @@ import java.util.Map;
 
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
+import model.player.Player;
 
 /**
  * @author ted &#38; kevin
  *
  */
 public interface ControllerModelInterface {
+
+	public Player getCurrentActivePlayer();
+
+	public Player getInitialActivePlayer();
+
+	public boolean getGameCurrentlyRunning();
+
+	public void cancelTimerPauseGame();
+
+	public void setTurnStartingGame(TeamType teamType);
+	
+	public void setResumeGame();
+
+	public void setAlreadyUseUndo();
+
+	public boolean checkCorrectTurnOfSelectedPiece(PieceType pieceType);
 
 	/**
 	 * @param newPos

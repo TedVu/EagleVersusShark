@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import model.engine.EngineImpl;
-import model.enumtype.TeamType;
 import model.player.Player;
+import modelcontroller.contract.ControllerModelInterface;
+import modelcontroller.facade.ControllerModelFacade;
 import view.operationview.ModePanel;
 import view.operationview.StatusPanel;
 
@@ -19,6 +19,8 @@ public class StartGameController implements ActionListener {
 
 	private StatusPanel statusPanel;
 	private ModePanel modePanel;
+
+	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
 
 	/**
 	 * @param statusPanel
@@ -33,17 +35,13 @@ public class StartGameController implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Player initialPlayer = EngineImpl.getSingletonInstance().gameTurn().getInitialPlayerActivePlayer();
+		Player initialPlayer = controllerModelFacade.getInitialActivePlayer();
 		statusPanel.updateTurnLabel(initialPlayer.getPlayerType());
 
 		statusPanel.startCountDown();
 		modePanel.updateAvailableMode(initialPlayer.getPlayerType());
 
-		if (initialPlayer.getPlayerType() == TeamType.SHARK) {
-			EngineImpl.getSingletonInstance().gameTurn().setActivePlayerTimer(TeamType.EAGLE);
-		} else if (initialPlayer.getPlayerType() == TeamType.EAGLE) {
-			EngineImpl.getSingletonInstance().gameTurn().setActivePlayerTimer(TeamType.SHARK);
-		}
+		controllerModelFacade.setTurnStartingGame(initialPlayer.getPlayerType());
 		JButton startButton = (JButton) e.getSource();
 		startButton.setEnabled(false);
 	}

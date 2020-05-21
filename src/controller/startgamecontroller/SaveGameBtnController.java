@@ -42,7 +42,6 @@ public class SaveGameBtnController implements ActionListener {
 		catch (IOException ex) {
 			ex.printStackTrace();
 		}
-		System.exit(0);
 	}
 
 	private String nameCheck(String s) {
