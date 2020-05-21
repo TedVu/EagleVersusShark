@@ -29,7 +29,7 @@ public class AggressiveShark extends AbstractPiece {
 		secondAbilityUnlock = false;
 	}
 
-	public void setSecondAbilityUnlock(){
+	public void setSecondAbilityUnlock() {
 		this.secondAbilityUnlock = true;
 	}
 
@@ -47,6 +47,9 @@ public class AggressiveShark extends AbstractPiece {
 	@Override
 	@Requires({ "x>=0", "y>=0" })
 	public void movePiece(int x, int y) {
+		if (engine.gameBoard().getCell(x, y).isWaterCell()) {
+			secondAbilityUnlock = true;
+		}
 		setPosition(x, y);
 	}
 
@@ -136,37 +139,35 @@ public class AggressiveShark extends AbstractPiece {
 		Set<Cell> returnCells = new HashSet<>();
 
 		if (this.secondAbilityUnlock) {
-			Cell currentCell = engine.gameBoard().getCell(this.getPosition().get("x"),
-					this.getPosition().get("y"));
+			Cell currentCell = engine.gameBoard().getCell(this.getPosition().get("x"), this.getPosition().get("y"));
 
 			// Populate the cells that are like Chess Knight valid moves
-			int[] offsets = {-2, -1, 1, 2};
+			int[] offsets = { -2, -1, 1, 2 };
 			for (int x : offsets) {
 				for (int y : offsets) {
 					if (Math.abs(x) != Math.abs(y)) {
-						// Unfortunately there is no way around refactoring the below block of code as you cannot make a
-						// 	temporary cell before checking its validity
+						// Unfortunately there is no way around refactoring the below block of code as
+						// you cannot make a
+						// temporary cell before checking its validity
 
 						// Check if the possible sell is within the board and occupation
-						if (currentCell.getX() + x < engine.gameBoard().getSize() &&
-								currentCell.getX() + x >= 0 &&
-								currentCell.getY() + y < engine.gameBoard().getSize() &&
-								currentCell.getY() + y >= 0 &&
-								!engine.gameBoard().getCell(currentCell.getX() + x, currentCell.getY() + y)
+						if (currentCell.getX() + x < engine.gameBoard().getSize() && currentCell.getX() + x >= 0
+								&& currentCell.getY() + y < engine.gameBoard().getSize() && currentCell.getY() + y >= 0
+								&& !engine.gameBoard().getCell(currentCell.getX() + x, currentCell.getY() + y)
 										.getOccupied()) {
 							// Before adding to the return list, check if the cell is the master cell
 							Cell targetCell = engine.gameBoard().getCell(currentCell.getX() + x,
 									currentCell.getY() + y);
 							if (!targetCell.equals(engine.gameBoard().getEagleMasterCell()))
-								returnCells.add(engine.gameBoard().getCell(currentCell.getX() + x,
-										currentCell.getY() + y));
+								returnCells.add(
+										engine.gameBoard().getCell(currentCell.getX() + x, currentCell.getY() + y));
 						}
 					}
 				}
 			}
 		} else
-			throw new IllegalArgumentException("Aggressive Shark has never stepped on any water cell!\n" +
-					"You can activate it by stepping on a water cell once.");
+			throw new IllegalArgumentException("Aggressive Shark has never stepped on any water cell!\n"
+					+ "You can activate it by stepping on a water cell once.");
 
 		return returnCells;
 	}

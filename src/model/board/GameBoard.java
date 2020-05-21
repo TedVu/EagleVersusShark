@@ -84,15 +84,6 @@ public class GameBoard implements Serializable {
 		return getCell(size / 2, 0);
 	}
 
-	/**
-	 * Return eagle's master cell
-	 *
-	 * @author Chanboth
-	 */
-	public Cell getEagleMasterCell() {
-		return this.eagleMasterCell;
-	}
-
 	public GameBoard(int boardSize) {
 		size = boardSize;
 		cells = new ArrayList<>();

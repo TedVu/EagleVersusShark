@@ -20,7 +20,7 @@ public class MovePiece implements Command, Serializable {
 	private Piece piece;
 	private Engine engine = EngineImpl.getSingletonInstance();
 	private PieceCommands pieceCommands = engine.getPieceCommands();
-	private boolean isMode;
+	private boolean isMode; 
 
 	public MovePiece(int newX, int newY, Piece piece, boolean isMode) {
 		this.newX = newX;

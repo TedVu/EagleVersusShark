@@ -13,8 +13,6 @@ import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.enumtype.PieceType;
-import model.piece.commands.CommandExecutor;
-import model.piece.commands.MovePiece;
 import model.piece.movement.BasicMove;
 import model.piece.movement.DiagonalDecorator;
 import model.piece.movement.PieceMoveDecorator;
@@ -127,22 +125,19 @@ public class HealingShark extends AbstractPiece {
 	@Override
 	public Set<Cell> modeCells() {
 
-		if (isModeAvailable) {
-			Set<Cell> currentEaglePositions = new HashSet<>();
-			List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
-			for (Piece activeEagle : activeEagles) {
-				int x = activeEagle.getPosition().get("x");
-				int y = activeEagle.getPosition().get("y");
-				if (y != 0) {
-					currentEaglePositions.add(new Cell(x, y));
-				}
+		Set<Cell> currentEaglePositions = new HashSet<>();
+		List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
+		for (Piece activeEagle : activeEagles) {
+			int x = activeEagle.getPosition().get("x");
+			int y = activeEagle.getPosition().get("y");
+			if (y != 0) {
+				currentEaglePositions.add(new Cell(x, y));
 			}
-			if (currentEaglePositions.size() > 0) {
-				return currentEaglePositions;
-			} else
-				throw new IllegalArgumentException("All eagle is at the top eagle side now cannot use this mode");
+		}
+		if (currentEaglePositions.size() > 0) {
+			return currentEaglePositions;
 		} else
-			throw new IllegalArgumentException("Mode is already used");
+			throw new IllegalArgumentException("All eagle is at the top eagle side now cannot use this mode");
 
 	}
 
