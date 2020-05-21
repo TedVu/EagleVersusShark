@@ -1,17 +1,17 @@
 package model.piece;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
-import model.contract.Piece;
 import model.contract.Engine;
+import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
-import model.piece.movement.DiagonalDecorator;
-import model.piece.movement.PieceMoveDecorator;
 
 /**
  * @author chanboth

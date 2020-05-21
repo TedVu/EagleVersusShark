@@ -12,7 +12,6 @@ import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.contract.Engine;
-import model.contract.Piece;
 import model.enumtype.TeamType;
 import model.piece.GamePiece;
 import model.piece.commands.PieceCommands;
@@ -33,7 +32,7 @@ public class GameBoard implements Serializable {
 	private Cell sharkMasterCell = null;
 
 	private Engine engine;
-	
+
 	private Set<Cell> waterCells;
 
 	private Player eaglePlayer = new PlayerImpl(TeamType.EAGLE);
@@ -42,7 +41,8 @@ public class GameBoard implements Serializable {
 
 	private transient Timer gameTimer;
 
-//	private GameEngineCallbackInterface geCallback = new GameEngineCallbackImpl();
+	// private GameEngineCallbackInterface geCallback = new
+	// GameEngineCallbackImpl();
 
 	private GameBoard board;
 
@@ -57,20 +57,18 @@ public class GameBoard implements Serializable {
 	private int totalNumPiece;
 
 	private PieceCommands pieceCommands;
-	
+
 	private GameTurn gameTurn;
-	
 
 	public GameBoard(Engine engine) {
 		super();
 		this.engine = engine;
 		this.gamePiece = engine.pieceOperator();
 	}
-	
-//	public int getTotalNumPiece() {
-//		return this.totalNumPiece;
-//	}
-	
+
+	// public int getTotalNumPiece() {
+	// return this.totalNumPiece;
+	// }
 
 	/**
 	 * Return shark's master cell
@@ -105,7 +103,7 @@ public class GameBoard implements Serializable {
 		cells.get(size - 1).get(mid).setMasterCell();
 
 	}
- 
+
 	/**
 	 * @param x
 	 * @param y
@@ -130,6 +128,26 @@ public class GameBoard implements Serializable {
 
 	public Cell getCell(int x, int y) {
 		return cells.get(y).get(x);
+	}
+
+	public Cell getAvailableTopEagleSideCell() {
+		Set<Cell> topEagleSideCells = new HashSet<>();
+		Cell availableCell = null;
+		for (int i = 0; i < size; ++i) {
+			topEagleSideCells.add(this.getCell(i, 0));
+		}
+		int min = 0, max = size;
+
+		do {
+
+			int randomX = ThreadLocalRandom.current().nextInt(min, max);
+
+			availableCell = getCell(randomX, 0);
+
+		} while (availableCell.getOccupied());
+
+		return availableCell;
+
 	}
 
 	/**

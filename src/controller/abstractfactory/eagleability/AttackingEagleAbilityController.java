@@ -21,17 +21,10 @@ public class AttackingEagleAbilityController extends AbstractAbilityController {
 			super.viewControllerFacade.updateBoardAfterCapture(btnClicked, PieceType.ATTACKINGEAGLE);
 			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
 		} catch (RuntimeException ex) {
-			super.viewControllerFacade.updateBoardErrorAction("This piece has immunity. Cannot capture");
+			super.viewControllerFacade.updateBoardNotiDialog("This piece has immunity. Cannot capture");
 		}
 
 	}
 
-	@Override
-	public void setUpViewForAbility() {
-		try {
-			super.viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.ATTACKINGEAGLE);
-		} catch (RuntimeException ex) {
-			super.viewControllerFacade.updateBoardErrorAction(ex.getMessage());
-		}
-	}
+	
 }

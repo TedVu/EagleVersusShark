@@ -23,10 +23,6 @@ public class VisionaryEagleAbilityController extends AbstractAbilityController {
 		super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
 	}
 
-	@Override
-	public void setUpViewForAbility() {
-		viewControllerFacade.updateBoardBeforeCommitAction(this, PieceType.VISIONARYEAGLE);
-
-	}
+	
 
 }

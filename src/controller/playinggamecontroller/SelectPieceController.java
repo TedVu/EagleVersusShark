@@ -56,7 +56,7 @@ public class SelectPieceController implements ActionListener {
 				checkCorrectPieceButtonClicked();
 			}
 		} else {
-			viewControllerFacade.updateBoardErrorAction("Game not running");
+			viewControllerFacade.updateBoardNotiDialog("Game not running");
 		}
 	}
 
@@ -69,7 +69,7 @@ public class SelectPieceController implements ActionListener {
 
 			routePlayerAction(playerActionType, teamType);
 		} else {
-			viewControllerFacade.updateBoardErrorAction("Select wrong team");
+			viewControllerFacade.updateBoardNotiDialog("Select wrong team");
 		}
 	}
 
@@ -105,7 +105,7 @@ public class SelectPieceController implements ActionListener {
 		AbilityController abilityController = abilityFactory
 				.createAbilityController(PieceType.parsePieceType(btnClicked.getActionCommand()));
 		abilityController.setAbilityState(viewControllerFacade);
-		abilityController.setUpViewForAbility();
+		abilityController.setUpViewForAbility(PieceType.parsePieceType(btnClicked.getActionCommand()));
 	}
 
 	@Requires({ "btnClicked != null", "controllerModelFacade != null" })

@@ -57,7 +57,7 @@ public interface ViewControllerInterface {
 
 	public void updateBoardAfterProtect();
 
-	public void updateBoardErrorAction(String errMsg);
+	public void updateBoardNotiDialog(String msg);
 	
 	public void updateBoardPauseGame();
 }

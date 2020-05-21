@@ -24,7 +24,7 @@ import model.piece.movement.BasicMove;
 public class LeadershipEagle extends AbstractPiece {
 
 	private static final long serialVersionUID = -6579315280240148680L;
-	Engine engine;
+	private Engine engine;
 
 	public LeadershipEagle(int x, int y) {
 		super(x, y);

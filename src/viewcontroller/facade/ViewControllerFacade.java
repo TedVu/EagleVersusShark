@@ -89,8 +89,8 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
-	public void updateBoardErrorAction(String errMsg) {
-		pcs.firePropertyChange("UpdateBoardErrorAction", null, errMsg);
+	public void updateBoardNotiDialog(String errMsg) {
+		pcs.firePropertyChange("UpdateBoardNotification", null, errMsg);
 	}
 
 	@Override

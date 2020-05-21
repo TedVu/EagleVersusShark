@@ -9,13 +9,16 @@ import java.io.ObjectOutputStream;
 import model.contract.Engine;
 import model.engine.EngineImpl;
 import view.configuration.SaveGameDialog;
+import viewcontroller.contract.ViewControllerInterface;
 
 public class SaveGameBtnController implements ActionListener {
 
 	private SaveGameDialog saveGameDialog;
+	private ViewControllerInterface viewControllerFacade;
 
-	public SaveGameBtnController(SaveGameDialog saveGameDialog) {
+	public SaveGameBtnController(SaveGameDialog saveGameDialog, ViewControllerInterface viewControllerFacade) {
 		this.saveGameDialog = saveGameDialog;
+		this.viewControllerFacade = viewControllerFacade;
 	}
 
 	@Override
@@ -37,6 +40,8 @@ public class SaveGameBtnController implements ActionListener {
 			out.close();
 			file.close();
 			System.out.println("Object has been serialized");
+			viewControllerFacade.updateBoardNotiDialog("Save game successful !!! Please resume game");
+			saveGameDialog.dispose();
 		}
 
 		catch (IOException ex) {

@@ -163,12 +163,12 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			updateBoardReviveSharkSuccessful((PieceType) evt.getNewValue());
 		} else if (event.equalsIgnoreCase("UpdateBoardAfterHealingSharkUseMode")) {
 			updateBoardAfterHealingSharkUseMode();
-		} else if (event.equalsIgnoreCase("UpdateBoardErrorAction")) {
-			updateBoardErrorAction((String) evt.getNewValue());
+		} else if (event.equalsIgnoreCase("UpdateBoardNotification")) {
+			updateBoardNotiDialog((String) evt.getNewValue());
 		}
 	}
 
-	private void updateBoardErrorAction(String errMsg) {
+	private void updateBoardNotiDialog(String errMsg) {
 		JOptionPane.showMessageDialog(this, errMsg);
 	}
 

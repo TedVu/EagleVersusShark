@@ -33,7 +33,7 @@ public class UndoMoveController implements ActionListener {
 			new UndoMovePanel(viewControllerFacade, undoBtn);
 			resumeBtn.setEnabled(true);
 		} else {
-			viewControllerFacade.updateBoardErrorAction("Game is not running or is paused");
+			viewControllerFacade.updateBoardNotiDialog("Game is not running or is paused");
 		}
 
 	}

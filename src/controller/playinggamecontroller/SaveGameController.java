@@ -28,7 +28,7 @@ public class SaveGameController implements ActionListener {
 			controllerModelFacade.cancelTimerPauseGame();
 			resumeBtn.setEnabled(true);
 		}
-		new SaveGameDialog();
+		new SaveGameDialog(viewControllerFacade);
 
 	}
 
