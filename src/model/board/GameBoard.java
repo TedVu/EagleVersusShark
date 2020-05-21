@@ -34,7 +34,8 @@ public class GameBoard implements Serializable {
 
 	private Engine engine;
 	
-	
+	private Set<Cell> waterCells;
+
 	private Player eaglePlayer = new PlayerImpl(TeamType.EAGLE);
 
 	private Player sharkPlayer = new PlayerImpl(TeamType.SHARK);
@@ -90,11 +91,13 @@ public class GameBoard implements Serializable {
 			}
 		}
 
+		waterCells = new HashSet<>();
 		// water cell
 		int mid = (cells.size() - 1) / 2;
 		for (int row = mid - 1; row <= mid + 1; ++row) {
 			for (int col = 0; col < size; ++col) {
 				cells.get(row).get(col).setWaterCell();
+				waterCells.add(cells.get(row).get(col));
 			}
 		}
 
@@ -138,6 +141,9 @@ public class GameBoard implements Serializable {
 	public void removePiece(int x, int y) {
 		cells.get(y).get(x).setUnoccupied();
 	}
-	
+
+	public Set<Cell> getWaterCells() {
+		return this.waterCells;
+	}
 
 }
