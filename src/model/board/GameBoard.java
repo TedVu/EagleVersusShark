@@ -31,6 +31,7 @@ public class GameBoard implements Serializable {
 	private int size;
 	private List<List<Cell>> cells;
 	private Cell sharkMasterCell = null;
+	private Cell eagleMasterCell = null;
 
 	private Engine engine;
 	
@@ -81,6 +82,15 @@ public class GameBoard implements Serializable {
 		return this.sharkMasterCell;
 	}
 
+	/**
+	 * Return eagle's master cell
+	 *
+	 * @author Chanboth
+	 */
+	public Cell getEagleMasterCell() {
+		return this.eagleMasterCell;
+	}
+
 	public GameBoard(int boardSize) {
 		size = boardSize;
 		cells = new ArrayList<>();
@@ -101,8 +111,13 @@ public class GameBoard implements Serializable {
 			}
 		}
 
+		// Establish and set master cell for eagle team
 		cells.get(0).get(mid).setMasterCell();
+		this.eagleMasterCell = cells.get(0).get(mid);
+
+		// Establish and set master cell for shark team
 		cells.get(size - 1).get(mid).setMasterCell();
+		this.sharkMasterCell = cells.get(size - 1).get(mid);
 
 	}
  
