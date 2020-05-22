@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import model.enumtype.TeamType;
 import model.player.Player;
 import modelcontroller.contract.ControllerModelInterface;
 import modelcontroller.facade.ControllerModelFacade;
@@ -41,7 +42,11 @@ public class StartGameController implements ActionListener {
 		statusPanel.startCountDown();
 		modePanel.updateAvailableMode(initialPlayer.getPlayerType());
 
-		controllerModelFacade.setTurnStartingGame(initialPlayer.getPlayerType());
+		if (initialPlayer.getPlayerType() == TeamType.EAGLE) {
+			controllerModelFacade.setTurnStartingGame(TeamType.SHARK);
+		} else {
+			controllerModelFacade.setTurnStartingGame(TeamType.EAGLE);
+		}
 		JButton startButton = (JButton) e.getSource();
 		startButton.setEnabled(false);
 	}
