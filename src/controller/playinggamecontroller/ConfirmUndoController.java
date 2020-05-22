@@ -12,6 +12,12 @@ import modelcontroller.facade.ControllerModelFacade;
 import view.operationview.UndoMovePanel;
 import viewcontroller.contract.ViewControllerInterface;
 
+/**
+ * @author ted & kevin
+ * 
+ *         Controller for undo action
+ * 
+ */
 public class ConfirmUndoController implements ActionListener {
 
 	private ViewControllerInterface viewControllerFacade;
@@ -27,24 +33,20 @@ public class ConfirmUndoController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		boolean undoSuccess = true;
 		int numUndo = Integer.parseInt(undoMovePanel.getNumUndo());
 		Player currentTeam = controllerModelFacade.getCurrentActivePlayer();
-		TeamType currentTeamEnum = TeamType.valueOf(currentTeam.toString());
+		TeamType currentTeamEnum = currentTeam.getPlayerType();
 
 		try {
 			commandExecutor.executeCommand(new Undo(currentTeamEnum, numUndo));
-
-		} catch (RuntimeException ex) {
-			undoSuccess = false;
-			viewControllerFacade.updateBoardNotiDialog(ex.getMessage());
-		}
-
-		if (undoSuccess) {
 			controllerModelFacade.setAlreadyUseUndo();
 			undoMovePanel.setVisible(false);
 			viewControllerFacade.confirmUndoSuccessful();
+
+		} catch (RuntimeException ex) {
+			viewControllerFacade.updateBoardNotiDialog(ex.getMessage());
 		}
+
 	}
 
 }

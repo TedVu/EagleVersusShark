@@ -182,9 +182,9 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
 				AbstractButton btn = buttons.get(row).get(col);
-				if (btn.getActionCommand().equalsIgnoreCase("AttackingEagle")
-						|| btn.getActionCommand().equalsIgnoreCase("LeadershipEagle")
-						|| btn.getActionCommand().equalsIgnoreCase("VisionaryEagle")) {
+				if (btn.getActionCommand().equalsIgnoreCase(PieceType.ATTACKINGEAGLE.name())
+						|| btn.getActionCommand().equalsIgnoreCase(PieceType.LEADERSHIPEAGLE.name())
+						|| btn.getActionCommand().equalsIgnoreCase(PieceType.VISIONARYEAGLE.name())) {
 					btn.setActionCommand("NormalButton");
 					btn.setIcon(null);
 				}
@@ -205,19 +205,19 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	private void updateBoardBeforeCommitAction(ActionListener abilityController, PieceType pieceType) {
 		Piece animal = engine.pieceOperator().getAllPieces().get(pieceType);
 
-		Set<Cell> abilityCells = null;
+		Set<Cell> actionCells = null;
 
 		Color color = null;
 		boolean isMoveAction = false;
 		boolean isAbility = false;
 		if (abilityController instanceof AbilityController) {
-			abilityCells = animal.abilityCells();
+			actionCells = animal.abilityCells();
 			isAbility = true;
 
 		} else if (abilityController instanceof ModeController) {
-			abilityCells = animal.modeCells();
+			actionCells = animal.modeCells();
 		} else if (abilityController instanceof MovePieceController) {
-			abilityCells = animal.getValidMove();
+			actionCells = animal.getValidMove();
 			isMoveAction = true;
 		}
 		TeamType team = TeamType.parseTeamType(pieceType.toString());
@@ -229,7 +229,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			color = Color.RED;
 		}
 
-		for (Cell cell : abilityCells) {
+		for (Cell cell : actionCells) {
 			AbstractButton affectedBtn = buttons.get(cell.getY()).get(cell.getX());
 
 			if ((pieceType == PieceType.DEFENSIVESHARK || pieceType == PieceType.LEADERSHIPEAGLE)
@@ -342,9 +342,11 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 					btn.setBackground(Color.WHITE);
 				} else if (engine.gameBoard().getCell(col, row).isWaterCell()
 						&& !engine.gameBoard().getCell(col, row).isObstacle()) {
+					// color for water cell
 					Color color = new Color(178, 221, 247);
 					btn.setBackground(color);
 				} else if (engine.gameBoard().getCell(col, row).isMasterCell()) {
+					// color for master cell
 					Color color = new Color(7, 6, 0);
 					btn.setBackground(color);
 				}

@@ -1,18 +1,7 @@
 package model.enumtype;
 
 public enum PlayerActionType {
-	MOVE {
-
-	},
-	USEABILITY {
-
-	},
-	EAGLEMODE {
-
-	},
-	SHARKMODE {
-
-	};
+	MOVE, USEABILITY, EAGLEMODE, SHARKMODE;
 
 	public static PlayerActionType parsePlayerActionType(final String playerActionString) {
 		PlayerActionType actionType = null;

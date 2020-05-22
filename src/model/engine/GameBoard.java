@@ -5,19 +5,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Timer;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
-import model.contract.Engine;
-import model.enumtype.TeamType;
-import model.piece.commands.PieceCommands;
-import model.player.GameTurn;
-import model.player.Player;
-import model.player.PlayerImpl;
 
 /**
  * @author ted &#38; kevin
@@ -32,21 +25,7 @@ public class GameBoard implements Serializable {
 	private Cell sharkMasterCell = null;
 	private Cell eagleMasterCell = null;
 
-
 	private Set<Cell> waterCells;
-
-
-
-	// private GameEngineCallbackInterface geCallback = new
-	// GameEngineCallbackImpl();
-
-
-	public GameBoard() {
-	}
-
-	// public int getTotalNumPiece() {
-	// return this.totalNumPiece;
-	// }
 
 	/**
 	 * Return shark's master cell
@@ -54,11 +33,11 @@ public class GameBoard implements Serializable {
 	 * @author Chanboth
 	 */
 	public Cell getSharkMasterCell() {
-		return getCell(size / 2, size - 1);
+		return sharkMasterCell;
 	}
 
 	public Cell getEagleMasterCell() {
-		return getCell(size / 2, 0);
+		return eagleMasterCell;
 	}
 
 	public GameBoard(int boardSize) {

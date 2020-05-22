@@ -13,7 +13,6 @@ import com.google.java.contract.Requires;
 import model.board.Cell;
 import model.contract.Engine;
 import model.contract.Piece;
-import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
 import model.piece.movement.DiagonalDecorator;
@@ -28,7 +27,7 @@ public class VisionaryEagle extends AbstractPiece {
 	 * 
 	 */
 	private static final long serialVersionUID = -6390595106558376146L;
-	Engine engine;
+	private Engine engine;
 
 	public VisionaryEagle(int x, int y, Engine engine) {
 		super(x, y);
@@ -50,21 +49,20 @@ public class VisionaryEagle extends AbstractPiece {
 		setPosition(x, y);
 
 		// Chanboth (Remove these comments upon submission)
-		// Integrate HealingShark's healing ability tracker
-		EngineImpl.getSingletonInstance().pieceOperator().eagleCheckingHealingSharkAbility();
+		// Integrate HealingShark's heal
+		engine.pieceOperator().eagleCheckingHealingSharkAbility();
 	}
 
 	@Override
 	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.SWAP)) {
 			swap(piece, affectedPiece);
-		} 
-	
+		}
+
 		else {
 			throw new IllegalArgumentException("Invalid ability");
 		}
 	}
-
 
 	private void swap(Piece piece, Piece affectedPiece) {
 
@@ -100,15 +98,14 @@ public class VisionaryEagle extends AbstractPiece {
 
 		return swapPositions;
 	}
-	
-	
+
 	@Override
 	public Set<Cell> modeCells() {
-		
+
 		Set<Cell> swapPositions = new HashSet<>();
 		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
 		for (Piece activeShark : activeSharks) {
-			
+
 			int x = activeShark.getPosition().get("x");
 			int y = activeShark.getPosition().get("y");
 
@@ -118,12 +115,9 @@ public class VisionaryEagle extends AbstractPiece {
 		return swapPositions;
 	}
 
-
 	@Override
 	public String toString() {
 		return String.format("%s", "VisionaryEagle");
 	}
-
-	
 
 }

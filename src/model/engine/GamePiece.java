@@ -37,8 +37,6 @@ public class GamePiece implements Serializable {
 	private List<Piece> activeEagles = new ArrayList<Piece>();
 	private List<Piece> activeSharks = new ArrayList<Piece>();
 
-//	private GameBoard board;
-
 	private Map<PieceType, Piece> pieces = new EnumMap<PieceType, Piece>(PieceType.class);
 
 	private int healingAbilityCounter = 0;
@@ -192,6 +190,5 @@ public class GamePiece implements Serializable {
 		else if (this.getHealingAbilityCounter() == SHARK_TURN)
 			resetHealingAbilityCounter();
 	}
-
 
 }

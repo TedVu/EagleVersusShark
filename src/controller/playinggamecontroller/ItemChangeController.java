@@ -5,6 +5,12 @@ import java.awt.event.ItemListener;
 
 import viewcontroller.contract.ViewControllerInterface;
 
+/**
+ * @author ted & kevin
+ * 
+ *         When changing ability => will update board
+ *
+ */
 public class ItemChangeController implements ItemListener {
 
 	private ViewControllerInterface viewControllerFacade;

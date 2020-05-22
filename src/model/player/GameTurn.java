@@ -11,7 +11,6 @@ import controller.playinggamecontroller.TimerPropertyChangeListener;
 import model.contract.Engine;
 import model.engine.GameBoard;
 import model.engine.GamePiece;
-import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import model.piece.commands.PieceCommands;
 import view.callback.GameEngineCallbackImpl;
@@ -128,9 +127,6 @@ public class GameTurn implements Serializable {
 		TeamType nextPlayer;
 		turn++;
 		round = turn / 2;
-
-		// System.out.println("turn: " + turn);
-		System.out.println("round: " + round);
 
 		if (playerType == TeamType.EAGLE) {
 			this.eaglePlayer.setActive(true);

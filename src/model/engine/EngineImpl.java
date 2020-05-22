@@ -2,9 +2,7 @@ package model.engine;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.Timer;
 import java.util.concurrent.ThreadLocalRandom;
 
 import model.board.Cell;
@@ -13,8 +11,6 @@ import model.contract.Piece;
 import model.enumtype.TeamType;
 import model.piece.commands.PieceCommands;
 import model.player.GameTurn;
-import model.player.Player;
-import model.player.PlayerImpl;
 
 /**
  *
@@ -64,7 +60,6 @@ public class EngineImpl implements Engine, Serializable {
 
 	@Override
 	public GameTurn gameTurn() {
-		// TODO Auto-generated method stub
 		return gameTurn;
 	}
 

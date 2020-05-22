@@ -46,7 +46,7 @@ public class AttackingEagle extends AbstractPiece {
 
 		// Chanboth (Remove these comments upon submission)
 		// Integrate HealingShark's healing ability tracker
-		EngineImpl.getSingletonInstance().pieceOperator().eagleCheckingHealingSharkAbility();
+		engine.pieceOperator().eagleCheckingHealingSharkAbility();
 	}
 
 	@Override
@@ -70,8 +70,8 @@ public class AttackingEagle extends AbstractPiece {
 			Cell opponentPos = EngineImpl.getSingletonInstance().gameBoard()
 					.getCell(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
 
-			EngineImpl.getSingletonInstance().gameBoard().removePiece(currentPos.getX(), currentPos.getY());
-			EngineImpl.getSingletonInstance().gameBoard().addPiece(opponentPos.getX(), opponentPos.getY());
+			engine.gameBoard().removePiece(currentPos.getX(), currentPos.getY());
+			engine.gameBoard().addPiece(opponentPos.getX(), opponentPos.getY());
 			movePiece(opponentPos.getX(), opponentPos.getY());
 
 			affectedPiece.setActive(false);
@@ -156,7 +156,6 @@ public class AttackingEagle extends AbstractPiece {
 	@Override
 	public Set<Cell> modeCells() {
 		boolean ableToUseMode = false;
-		engine = EngineImpl.getSingletonInstance();
 		Set<Cell> modePos = new HashSet<>();
 
 		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();

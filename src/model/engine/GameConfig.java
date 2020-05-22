@@ -10,7 +10,7 @@ public class GameConfig {
 	
 	public void configBoardSize(int boardSize) {
 		gameBoard = new GameBoard(boardSize);
-//		gamePiece.setBoard(this);
+		// gamePiece.setBoard(this);
 
 	}
 
