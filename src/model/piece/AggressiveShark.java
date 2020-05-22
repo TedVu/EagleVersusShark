@@ -9,13 +9,12 @@ import com.google.java.contract.Requires;
 import model.board.Cell;
 import model.contract.Engine;
 import model.contract.Piece;
-import model.engine.EngineImpl;
+import model.engine.GameBoard;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
 
 /**
- * @author chanboth
- *
+ * @author Chanboth
  */
 public class AggressiveShark extends AbstractPiece {
 
@@ -138,28 +137,26 @@ public class AggressiveShark extends AbstractPiece {
 		Set<Cell> returnCells = new HashSet<>();
 
 		if (this.secondAbilityUnlock) {
-			Cell currentCell = engine.gameBoard().getCell(this.getPosition().get("x"), this.getPosition().get("y"));
+			GameBoard gameBoard = engine.gameBoard();
+			Cell currentCell = gameBoard.getCell(this.getPosition().get("x"),
+					this.getPosition().get("y"));
 
 			// Populate the cells that are like Chess Knight valid moves
-			int[] offsets = { -2, -1, 1, 2 };
+			int[] offsets = {-2, -1, 1, 2};
 			for (int x : offsets) {
 				for (int y : offsets) {
 					if (Math.abs(x) != Math.abs(y)) {
-						// Unfortunately there is no way around refactoring the below block of code as
-						// you cannot make a
-						// temporary cell before checking its validity
+						// Check if the possible sell is within the board
+						if (currentCell.getX() + x < gameBoard.getSize() && currentCell.getX() + x >= 0 &&
+								currentCell.getY() + y < gameBoard.getSize() && currentCell.getY() + y >= 0) {
+							// Check the cell's occupation and it is eagle's master cell
+							int xPos = currentCell.getX() + x;
+							int yPos = currentCell.getY() + y;
+							Cell targetCell = gameBoard.getCell(xPos, yPos);
 
-						// Check if the possible sell is within the board and occupation
-						if (currentCell.getX() + x < engine.gameBoard().getSize() && currentCell.getX() + x >= 0
-								&& currentCell.getY() + y < engine.gameBoard().getSize() && currentCell.getY() + y >= 0
-								&& !engine.gameBoard().getCell(currentCell.getX() + x, currentCell.getY() + y)
-										.getOccupied()) {
-							// Before adding to the return list, check if the cell is the master cell
-							Cell targetCell = engine.gameBoard().getCell(currentCell.getX() + x,
-									currentCell.getY() + y);
-							if (!targetCell.equals(engine.gameBoard().getEagleMasterCell()))
-								returnCells.add(
-										engine.gameBoard().getCell(currentCell.getX() + x, currentCell.getY() + y));
+							if (!gameBoard.getCell(xPos, yPos).getOccupied() &&
+									!targetCell.equals(gameBoard.getEagleMasterCell()))
+								returnCells.add(targetCell);
 						}
 					}
 				}
