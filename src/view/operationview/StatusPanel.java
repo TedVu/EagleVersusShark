@@ -1,5 +1,6 @@
 package view.operationview;
 
+import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -40,10 +41,13 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 	public StatusPanel(ModePanel modePanel) {
 		startButton = new JButton("START");
 		turnLabel = new JLabel("Turn:");
+
 		turnTextField = new JTextField(10);
+		turnTextField.setBackground(new Color(220, 225, 233));
 		turnTextField.setEditable(false);
 		timerLabel = new JLabel("Timer:");
 		timerTextField = new JTextField(10);
+		timerTextField.setBackground(new Color(220, 225, 233));
 		timerTextField.setEditable(false);
 
 		workerThreads = new ArrayList<SwingWorker<Void, Void>>();

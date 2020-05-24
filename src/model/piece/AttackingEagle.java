@@ -4,15 +4,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.management.RuntimeErrorException;
-
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
 import model.contract.Engine;
 import model.contract.Piece;
-import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
 import model.piece.movement.DiagonalDecorator;
@@ -44,8 +41,6 @@ public class AttackingEagle extends AbstractPiece {
 	public void movePiece(int x, int y) {
 		setPosition(x, y);
 
-		// Chanboth (Remove these comments upon submission)
-		// Integrate HealingShark's healing ability tracker
 		engine.pieceOperator().eagleCheckingHealingSharkAbility();
 	}
 
@@ -61,24 +56,18 @@ public class AttackingEagle extends AbstractPiece {
 	}
 
 	private void capture(Piece piece, Piece affectedPiece) {
-		try {
-			if (affectedPiece.isImmune())
-				throw new IllegalArgumentException("The piece is immune");
+		if (affectedPiece.isImmune())
+			throw new IllegalArgumentException("The piece is immune");
 
-			Cell currentPos = EngineImpl.getSingletonInstance().gameBoard().getCell(piece.getPosition().get("x"),
-					piece.getPosition().get("y"));
-			Cell opponentPos = EngineImpl.getSingletonInstance().gameBoard()
-					.getCell(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
+		Cell currentPos = engine.gameBoard().getCell(piece.getPosition().get("x"), piece.getPosition().get("y"));
+		Cell opponentPos = engine.gameBoard().getCell(affectedPiece.getPosition().get("x"),
+				affectedPiece.getPosition().get("y"));
 
-			engine.gameBoard().removePiece(currentPos.getX(), currentPos.getY());
-			engine.gameBoard().addPiece(opponentPos.getX(), opponentPos.getY());
-			movePiece(opponentPos.getX(), opponentPos.getY());
+		engine.gameBoard().removePiece(currentPos.getX(), currentPos.getY());
+		engine.gameBoard().addPiece(opponentPos.getX(), opponentPos.getY());
+		movePiece(opponentPos.getX(), opponentPos.getY());
 
-			affectedPiece.setActive(false);
-
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		affectedPiece.setActive(false);
 
 	}
 
@@ -168,13 +157,10 @@ public class AttackingEagle extends AbstractPiece {
 				modePos.add(engine.gameBoard().getCell(shark.getPosition().get("x"), shark.getPosition().get("y")));
 			}
 		}
-		try {
-			if (!ableToUseMode) {
-				throw new IllegalArgumentException("No alone shark in eagle side of the river to use mode");
-			}
-		} catch (Error e) {
-			throw new RuntimeErrorException(e);
+		if (!ableToUseMode) {
+			throw new RuntimeException("No alone shark in eagle side of the river to use mode");
 		}
+
 		return modePos;
 	}
 

@@ -82,6 +82,8 @@ public class GamePiece implements Serializable {
 	}
 
 	public void initialize2Piece() {
+		pieces = new EnumMap<PieceType, Piece>(PieceType.class);
+
 		int boardSize = engine.gameBoard().getSize();
 		for (PieceType pt : PieceType.values()) {
 			if (pt == PieceType.DEFENSIVESHARK || pt == PieceType.LEADERSHIPEAGLE) {
@@ -93,6 +95,8 @@ public class GamePiece implements Serializable {
 	}
 
 	public void initialize4Piece() {
+		pieces = new EnumMap<PieceType, Piece>(PieceType.class);
+
 		int boardSize = engine.gameBoard().getSize();
 		for (PieceType pt : PieceType.values()) {
 			if (pt != PieceType.DEFENSIVESHARK && pt != PieceType.LEADERSHIPEAGLE) {
@@ -101,6 +105,7 @@ public class GamePiece implements Serializable {
 				pieces.put(pt, piece);
 			}
 		}
+		System.out.println(pieces.size());
 	}
 
 	/*

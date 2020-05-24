@@ -9,6 +9,8 @@ import view.mainframe.AppMainFrame;
 import viewcontroller.contract.ViewControllerInterface;
 
 /**
+ * An operational toolbar on top of the board frame
+ * 
  * @author ted &#38; kevin
  */
 public class OperationToolbar extends JMenuBar {
@@ -25,7 +27,7 @@ public class OperationToolbar extends JMenuBar {
 	 * @see
 	 */
 	public OperationToolbar(AppMainFrame mainFrame, ViewControllerInterface viewControllerFacade) {
-		String[] options = new String[] { "File", "Edit", "Help" };
+		String[] options = new String[] { "File" };
 		menus = new JMenu[options.length];
 
 		for (int i = 0; i < options.length; i++) {
@@ -34,6 +36,7 @@ public class OperationToolbar extends JMenuBar {
 		}
 
 		save = new JMenuItem("Save");
+
 		save.addActionListener(new SaveGameController(viewControllerFacade,
 				mainFrame.getRightPanel().getModePanel().getResumeButton()));
 		exit = new JMenuItem("Exit");

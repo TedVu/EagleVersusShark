@@ -180,7 +180,7 @@ public class EngineImpl implements Engine, Serializable {
 	}
 
 	/*
-	 * call at controllermodelfacade inside updateStateModelForNextTurn()
+	 * called at controllermodelfacade inside updateStateModelForNextTurn()
 	 */
 	@Override
 	public boolean endGame() {

@@ -12,12 +12,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import controller.startgamecontroller.InvokeGameSettingController;
 import controller.startgamecontroller.InvokeLoadGameDialogController;
 import controller.startgamecontroller.StartDefaultGameController;
 
 /**
+ * Welcome menu for the game
+ * 
  * @author kevin & ted
  */
 public class StartGameMainFrame extends JFrame {
@@ -33,9 +36,11 @@ public class StartGameMainFrame extends JFrame {
 	private JButton loadButton;
 	private JButton exitButton;
 
-	private StartGameMainFrame startGameFrame = this; // for exitaction to reference
+	private StartGameMainFrame startGameFrame = this; // for exit action to reference
 
 	/**
+	 * Build components in this frame
+	 * 
 	 * @see
 	 */
 	public StartGameMainFrame() {
@@ -53,7 +58,6 @@ public class StartGameMainFrame extends JFrame {
 
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(dimension.width / 2 - FRAME_WIDTH / 2, dimension.height / 2 - FRAME_HEIGHT / 2);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setResizable(false);
 
@@ -83,5 +87,9 @@ public class StartGameMainFrame extends JFrame {
 
 		getContentPane().add(buttonPanel, BorderLayout.CENTER);
 		getContentPane().add(headingPanel, BorderLayout.NORTH);
+
+		// for program termination when closing frame
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 	}
 }

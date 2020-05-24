@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.management.RuntimeErrorException;
-
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
@@ -61,8 +59,9 @@ public class LeadershipEagle extends AbstractPiece {
 
 	@Override
 	public Set<Cell> abilityCells() {
-		Set<Cell> otherEagleCells = new HashSet<Cell>();
 		engine = EngineImpl.getSingletonInstance();
+
+		Set<Cell> otherEagleCells = new HashSet<Cell>();
 		List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
 
 		for (Piece activeEagle : activeEagles) {
@@ -74,13 +73,13 @@ public class LeadershipEagle extends AbstractPiece {
 			}
 		}
 		Set<Cell> validCells = new HashSet<>();
-		for (Cell c : otherEagleCells) {
-			int x = c.getX();
-			int y = c.getY();
+		for (Cell cell : otherEagleCells) {
+			int x = cell.getX();
+			int y = cell.getY();
 			// nearby cell
 			if (Math.abs((double) (this.getPosition().get("x") - x)) < 2
 					&& Math.abs((double) (this.getPosition().get("y") - y)) < 2) {
-				validCells.add(c);
+				validCells.add(cell);
 			}
 		}
 		if (validCells.size() == 0) {
@@ -93,26 +92,20 @@ public class LeadershipEagle extends AbstractPiece {
 
 	private void protect(Piece piece, Piece affectedPiece) {
 
-		try {
+		if (affectedPiece.isImmune())
+			throw new IllegalArgumentException("Chosen piece is already immune");
 
-			if (affectedPiece.isImmune())
-				throw new IllegalArgumentException("Chosen piece is already immune");
+		int pieceX = piece.getPosition().get("x");
+		int pieceY = piece.getPosition().get("y");
 
-			int pieceX = piece.getPosition().get("x");
-			int pieceY = piece.getPosition().get("y");
+		int affectedPieceX = affectedPiece.getPosition().get("x");
+		int affectedPieceY = affectedPiece.getPosition().get("y");
 
-			int affectedPieceX = affectedPiece.getPosition().get("x");
-			int affectedPieceY = affectedPiece.getPosition().get("y");
-
-			if (!isSurrounding(pieceX, affectedPieceX, pieceY, affectedPieceY, 1)) {
-				throw new IllegalArgumentException("Invalid position to protect");
-			}
-
-			affectedPiece.setImmune(true);
-
-		} catch (Error e) {
-			throw new RuntimeErrorException(e);
+		if (!isSurrounding(pieceX, affectedPieceX, pieceY, affectedPieceY, 1)) {
+			throw new RuntimeException("Invalid position to protect");
 		}
+
+		affectedPiece.setImmune(true);
 
 	}
 
@@ -134,7 +127,7 @@ public class LeadershipEagle extends AbstractPiece {
 		Set<Cell> finalMode = new HashSet<>();
 
 		if (engine.gameBoard().getCell(this.getPosition().get("x"), this.getPosition().get("y")).isWaterCell()) {
-			throw new IllegalArgumentException("Cannot use mode because currently on water cell");
+			throw new RuntimeException("Cannot use mode because currently on water cell");
 		}
 		int YPos = getPosition().get("y");
 
@@ -146,11 +139,11 @@ public class LeadershipEagle extends AbstractPiece {
 			} else if (waterCellBackStatus) {
 				checkAbleToLeap(finalMode, YPos - 4);
 			} else {
-				throw new IllegalArgumentException("Not standing near to any water cell to use this mode");
+				throw new RuntimeException("Not standing near to any water cell to use this mode");
 			}
 
 		} else {
-			throw new IllegalArgumentException("Cannot use mode at this position");
+			throw new RuntimeException("Cannot use mode at this position");
 		}
 
 		return finalMode;
@@ -159,7 +152,7 @@ public class LeadershipEagle extends AbstractPiece {
 	private void checkAbleToLeap(Set<Cell> finalMode, int YPos) {
 		boolean leapCellOccupyStatusFront = engine.gameBoard().getCell(getPosition().get("x"), YPos).getOccupied();
 		if (leapCellOccupyStatusFront) {
-			throw new IllegalArgumentException("Cannot use this mode because the leap-to cell is occupied");
+			throw new RuntimeException("Cannot use this mode because the leap-to cell is occupied");
 		}
 		finalMode.add(engine.gameBoard().getCell(getPosition().get("x"), YPos));
 	}

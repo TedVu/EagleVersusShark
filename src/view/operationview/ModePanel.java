@@ -32,7 +32,7 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 	private static final long serialVersionUID = 4010321472922982018L;
 
 	private JComboBox<String> modeBox;
-	String[] allModes = { "MOVE", "USEABILITY", "EAGLEMODE", "SHARKMODE" };
+	private String[] allModes = { "MOVE", "USEABILITY", "EAGLEMODE", "SHARKMODE" };
 	private String[] eagleActions = { "MOVE", "USEABILITY", "EAGLEMODE" };
 	private String[] sharkActions = { "MOVE", "USEABILITY", "SHARKMODE" };
 
@@ -40,7 +40,7 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 	private JButton resumeBtn;
 
 	/**
-	 * @see
+	 * Construct component here
 	 */
 	public ModePanel(ViewControllerInterface viewControllerFacade) {
 
@@ -110,8 +110,6 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 			playerAction.setPlayerAction(modeBox.getSelectedItem().toString());
 		}
 	}
-
-	
 
 	public AbstractButton getResumeButton() {
 		return resumeBtn;

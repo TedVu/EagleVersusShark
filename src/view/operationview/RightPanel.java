@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import viewcontroller.contract.ViewControllerInterface;
 
 /**
+ * Right panel consisting of status and mode panels
+ * 
  * @author ted &#38; kevin
  */
 public class RightPanel extends JPanel {

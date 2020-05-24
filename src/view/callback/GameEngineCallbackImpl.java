@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 import javax.swing.SwingUtilities;
 
-import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import view.contract.GameEngineCallbackInterface;
 

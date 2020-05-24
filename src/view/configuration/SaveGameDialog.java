@@ -14,6 +14,8 @@ import controller.startgamecontroller.SaveGameBtnController;
 import viewcontroller.contract.ViewControllerInterface;
 
 /**
+ * SaveGameDialog initiated when user hit save on menu bar
+ * 
  * @author kevin & ted
  */
 public class SaveGameDialog extends JDialog {
@@ -29,7 +31,9 @@ public class SaveGameDialog extends JDialog {
 	private JButton saveGameButton = new JButton("Save");
 
 	/**
-	 * @see
+	 * Constructor initiating components in the dialog
+	 * 
+	 * @param viewControllerFacade
 	 */
 	public SaveGameDialog(ViewControllerInterface viewControllerFacade) {
 		fileNameField = new JTextField(15);
@@ -41,8 +45,8 @@ public class SaveGameDialog extends JDialog {
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setResizable(false);
 
-		saveGameButton.addActionListener(new SaveGameBtnController(this,viewControllerFacade));
-		// save game => initiate pause game
+		saveGameButton.addActionListener(new SaveGameBtnController(this, viewControllerFacade));
+
 		JPanel textFieldPanel = new JPanel();
 		textFieldPanel.add(new JLabel("File name:"));
 		textFieldPanel.add(fileNameField);
@@ -57,7 +61,7 @@ public class SaveGameDialog extends JDialog {
 	}
 
 	/**
-	 * @return
+	 * @return name of the saving file
 	 * @param
 	 */
 	public String getFileNameInput() {

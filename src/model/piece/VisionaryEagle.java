@@ -48,8 +48,6 @@ public class VisionaryEagle extends AbstractPiece {
 	public void movePiece(int x, int y) {
 		setPosition(x, y);
 
-		// Chanboth (Remove these comments upon submission)
-		// Integrate HealingShark's heal
 		engine.pieceOperator().eagleCheckingHealingSharkAbility();
 	}
 
@@ -94,6 +92,9 @@ public class VisionaryEagle extends AbstractPiece {
 
 				swapPositions.add(new Cell(x, y));
 			}
+		}
+		if (swapPositions.size() == 0) {
+			throw new RuntimeException("No eagle alive to swap");
 		}
 
 		return swapPositions;

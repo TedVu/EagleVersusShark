@@ -15,6 +15,8 @@ import controller.startgamecontroller.ApplyConfigurationController;
 import view.mainframe.StartGameMainFrame;
 
 /**
+ * SettingsDialog initiated when user hits settings in the welcome menu
+ * 
  * @author kevin & ted
  */
 public class SettingsDialog extends JDialog {
@@ -73,20 +75,25 @@ public class SettingsDialog extends JDialog {
 
 		add(buttonPanel, BorderLayout.SOUTH);
 		add(selectionPanel, BorderLayout.CENTER);
-		
+
 		applyButton.addActionListener(new ApplyConfigurationController(this, startGameMainFrame));
 
 		setModal(true);
 		setVisible(true);
 	}
 
+	/**
+	 * Converting human UI to machine value of piece
+	 * 
+	 * @return
+	 */
 	public int getBoardSizeSelection() {
-		int select = boardSizeMenu.getSelectedIndex();
-		if (select == 0) {
+		int selectedIndex = boardSizeMenu.getSelectedIndex();
+		if (selectedIndex == 0) {
 			return 9;
-		} else if (select == 1) {
+		} else if (selectedIndex == 1) {
 			return 11;
-		} else if (select == 2) {
+		} else if (selectedIndex == 2) {
 			return 13;
 		} else {
 			return 15;
@@ -94,16 +101,16 @@ public class SettingsDialog extends JDialog {
 	}
 
 	public int getPieceNumberSelection() {
-		int select = numPieceMenu.getSelectedIndex();
-		if (select == 0) {
+		int selectedIndex = numPieceMenu.getSelectedIndex();
+		if (selectedIndex == 0) {
 			return 6;
-		} else if (select == 1) {
+		} else if (selectedIndex == 1) {
 			return 4;
 		} else {
 			return 2;
 		}
 	}
-	
+
 	public String getObstacleConfig() {
 		return (String) obstaclesMenu.getSelectedItem();
 	}

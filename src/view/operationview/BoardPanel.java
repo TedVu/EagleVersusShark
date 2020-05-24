@@ -142,6 +142,10 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		return buttons;
 	}
 
+	/*
+	 * An Board API Gateway here, all events will be routed in this method
+	 * 
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -172,11 +176,20 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
-	private void updateBoardNotiDialog(String errMsg) {
+	/**
+	 * For logging notification when playing game
+	 * 
+	 * @param errMsg
+	 */
+	private void updateBoardNotiDialog(String msg) {
 
-		JOptionPane.showMessageDialog(this, errMsg);
+		JOptionPane.showMessageDialog(this, msg);
 	}
 
+	/**
+	 * Healing shark mode is complex hence it has a separate method to handle events
+	 * 
+	 */
 	private void updateBoardAfterHealingSharkUseMode() {
 
 		for (int row = 0; row < buttons.size(); ++row) {
@@ -202,6 +215,12 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 	}
 
+	/**
+	 * Update board before commiting action such as: Move, UseAbility, UseMode
+	 * 
+	 * @param abilityController
+	 * @param pieceType
+	 */
 	private void updateBoardBeforeCommitAction(ActionListener abilityController, PieceType pieceType) {
 		Piece animal = engine.pieceOperator().getAllPieces().get(pieceType);
 
@@ -213,7 +232,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		if (abilityController instanceof AbilityController) {
 			actionCells = animal.abilityCells();
 			isAbility = true;
-
 		} else if (abilityController instanceof ModeController) {
 			actionCells = animal.modeCells();
 		} else if (abilityController instanceof MovePieceController) {
@@ -226,6 +244,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 		if ((!isMoveAction && pieceType == PieceType.ATTACKINGEAGLE)
 				|| (isAbility && pieceType == PieceType.AGGRESSIVESHARK)) {
+			// red coloring for capturing behaviour
 			color = Color.RED;
 		}
 
@@ -471,6 +490,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 				JOptionPane.showMessageDialog(board, finalMsg);
 				mainFrame.dispose();
 				return null;
+
 			}
 		};
 		worker.execute();
