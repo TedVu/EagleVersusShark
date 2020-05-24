@@ -144,6 +144,7 @@ public class GameBoard implements Serializable {
 			if (!specialPos.contains(getCell(randomX, randomY))
 					&& !(getCell(randomX, randomY).getType() == CellType.OBSTACLE)) {
 				getCell(randomX, randomY).setType(CellType.OBSTACLE);
+				getCell(randomX, randomY).setOccupied();
 				++numObstacle;
 			}
 		}
