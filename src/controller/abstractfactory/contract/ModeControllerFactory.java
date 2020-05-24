@@ -1,8 +1,13 @@
-package controller.abstractfactory.factory;
+package controller.abstractfactory.contract;
 
-import controller.abstractfactory.ModeController;
 import model.enumtype.PieceType;
 
 public interface ModeControllerFactory {
+	
+	/**
+	 * @param pieceType
+	 * @return
+	 */
 	public ModeController createModeController(PieceType pieceType);
+
 }

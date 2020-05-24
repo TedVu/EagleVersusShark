@@ -1,13 +1,13 @@
 package model.contract;
 
+import model.board.GameBoard;
 import model.engine.EngineImpl;
-import model.engine.GameBoard;
 import model.engine.GamePiece;
 import model.piece.commands.PieceCommands;
 import model.player.GameTurn;
 
 /**
- * @author sefira
+ * @author Sefira
  *
  */
 public interface Engine {

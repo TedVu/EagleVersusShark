@@ -1,10 +1,9 @@
 package model.engine;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import model.board.Cell;
+import model.board.GameBoard;
 import model.contract.Engine;
 import model.contract.Piece;
 import model.enumtype.TeamType;
@@ -51,7 +50,6 @@ public class EngineImpl implements Engine, Serializable {
 		gamePiece = new GamePiece(this);
 		pieceCommands = new PieceCommands(this);
 		gameTurn = new GameTurn(this);
-
 	}
 
 	@Override
@@ -91,7 +89,6 @@ public class EngineImpl implements Engine, Serializable {
 	@Override
 	public void configNumPiece(int numPiece) {
 		gamePiece = new GamePiece(this);
-
 		if (numPiece == 6) {
 			gamePiece.initializeDefaultPiece();
 		} else if (numPiece == 4) {
@@ -101,7 +98,6 @@ public class EngineImpl implements Engine, Serializable {
 			gamePiece.initialize2Piece();
 			totalNumPiece = 2;
 		}
-
 	}
 
 	@Override
@@ -109,7 +105,6 @@ public class EngineImpl implements Engine, Serializable {
 		board = e.gameBoard();
 		gamePiece = e.getPieceOperator();
 		pieceCommands = e.getPieceCommands();
-
 	}
 
 	private boolean checkPiecesActiveWinningCondition() {
@@ -142,7 +137,7 @@ public class EngineImpl implements Engine, Serializable {
 		return false;
 	}
 
-	/*
+	/**
 	 * call at controllermodelfacade inside updateStateModelForNextTurn()
 	 */
 	@Override
@@ -150,11 +145,9 @@ public class EngineImpl implements Engine, Serializable {
 		if (checkPiecesActiveWinningCondition()) {
 			return true;
 		}
-
 		if (checkPieceEnterMasterCellWinningCondition()) {
 			return true;
 		}
-
 		return false;
 	}
 }

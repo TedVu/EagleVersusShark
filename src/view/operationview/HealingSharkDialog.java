@@ -18,6 +18,7 @@ import model.contract.Piece;
 import model.engine.EngineImpl;
 
 public class HealingSharkDialog extends JDialog {
+	
 	private static final long serialVersionUID = -4258981534634398081L;
 	private static final int FRAME_WIDTH = 350;
 	private static final int FRAME_HEIGHT = 100;
@@ -30,7 +31,7 @@ public class HealingSharkDialog extends JDialog {
 
 		healingController.injectHealingDialog(this);
 
-		setTitle("Undo Panel");
+		setTitle("Revive Shark");
 
 		reviveBtn = new JButton("Revive");
 		reviveBtn.addActionListener(healingController);

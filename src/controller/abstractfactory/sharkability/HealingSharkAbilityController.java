@@ -9,13 +9,13 @@ import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import modelcontroller.contract.ControllerModelInterface;
-import modelcontroller.facade.ControllerModelFacade;
+import modelcontroller.facade.ControllerModelFacadeImpl;
 import view.operationview.HealingSharkDialog;
 
 public class HealingSharkAbilityController extends AbstractAbilityController {
 
 	private HealingSharkDialog healingDialog;
-	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
+	private ControllerModelInterface controllerModelFacade = new ControllerModelFacadeImpl();
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

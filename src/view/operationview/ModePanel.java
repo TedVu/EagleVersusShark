@@ -25,23 +25,16 @@ import viewcontroller.contract.ViewControllerInterface;
  */
 public class ModePanel extends JPanel implements PropertyChangeListener {
 
-	/**
-	 * @serial 4010321472922982018L
-	 */
-
 	private static final long serialVersionUID = 4010321472922982018L;
 
 	private JComboBox<String> modeBox;
-	String[] allModes = { "MOVE", "USEABILITY", "EAGLEMODE", "SHARKMODE" };
+	private String[] allModes = { "MOVE", "USEABILITY", "EAGLEMODE", "SHARKMODE" };
 	private String[] eagleActions = { "MOVE", "USEABILITY", "EAGLEMODE" };
 	private String[] sharkActions = { "MOVE", "USEABILITY", "SHARKMODE" };
 
 	private JButton undoBtn;
 	private JButton resumeBtn;
 
-	/**
-	 * @see
-	 */
 	public ModePanel(ViewControllerInterface viewControllerFacade) {
 
 		modeBox = new JComboBox<String>(allModes);
@@ -98,11 +91,6 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 
 	}
 
-	/*
-	 * Listen to ViewControllerFacade attachment is done in MainAppFrame
-	 * 
-	 * @see MainAppFrame
-	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equalsIgnoreCase("GetMode")) {

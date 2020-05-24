@@ -20,19 +20,9 @@ import model.engine.EngineImpl;
 public class BasicMove implements PieceMovement {
 
 	private Set<Cell> validMoves = new HashSet<>();
-	private PieceMovement pieceMove;
-
-	public BasicMove(PieceMovement pieceMove) {
-		this.pieceMove = pieceMove;
-	}
-
-	public BasicMove() {
-		this.pieceMove = this;
-	}
 
 	/**
 	 * @param piece    - selected piece
-	 * 
 	 * @param distance - piece moving distance
 	 * 
 	 * @return the set of valid coordinate
@@ -54,7 +44,6 @@ public class BasicMove implements PieceMovement {
 
 	/**
 	 * @param piece    - selected piece
-	 * 
 	 * @param distance - piece moving distance
 	 * 
 	 * @return the set of valid coordinate for east direction
@@ -72,13 +61,11 @@ public class BasicMove implements PieceMovement {
 				break;
 			}
 		}
-
 		return validMoves;
 	}
 
 	/**
 	 * @param piece    - selected piece
-	 * 
 	 * @param distance - piece moving distance
 	 * 
 	 * @return the set of valid coordinate for north direction
@@ -95,13 +82,11 @@ public class BasicMove implements PieceMovement {
 				break;
 			}
 		}
-
 		return validMoves;
 	}
 
 	/**
 	 * @param piece    - selected piece
-	 * 
 	 * @param distance - piece moving distance
 	 * 
 	 * @return the set of valid coordinate for south direction
@@ -124,7 +109,6 @@ public class BasicMove implements PieceMovement {
 
 	/**
 	 * @param piece    - selected piece
-	 * 
 	 * @param distance - piece moving distance
 	 * 
 	 * @return the set of valid coordinate for west direction
@@ -141,7 +125,6 @@ public class BasicMove implements PieceMovement {
 				break;
 			}
 		}
-
 		return validMoves;
 	}
 

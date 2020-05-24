@@ -1,6 +1,7 @@
 package controller.abstractfactory.factory;
 
-import controller.abstractfactory.ModeController;
+import controller.abstractfactory.contract.ModeController;
+import controller.abstractfactory.contract.ModeControllerFactory;
 import controller.abstractfactory.eaglemode.AttackingEagleModeController;
 import controller.abstractfactory.eaglemode.LeadershipEagleModeController;
 import controller.abstractfactory.eaglemode.VisionaryEagleModeController;

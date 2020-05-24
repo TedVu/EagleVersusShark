@@ -27,8 +27,8 @@ import javax.swing.SwingWorker;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
-import controller.abstractfactory.AbilityController;
-import controller.abstractfactory.ModeController;
+import controller.abstractfactory.contract.AbilityController;
+import controller.abstractfactory.contract.ModeController;
 import controller.playinggamecontroller.MovePieceController;
 import controller.playinggamecontroller.SelectPieceController;
 import controller.playinggamecontroller.TimerPropertyChangeListener;
@@ -36,12 +36,10 @@ import model.board.Cell;
 import model.contract.Engine;
 import model.contract.Piece;
 import model.engine.EngineImpl;
-import model.enumtype.CellType;
 import model.enumtype.PieceType;
-import model.enumtype.TeamType;
 import view.mainframe.AppMainFrame;
 import viewcontroller.contract.ViewControllerInterface;
-import viewcontroller.facade.ViewControllerFacade;
+import viewcontroller.facade.ViewControllerFacadeImpl;
 
 /**
  * <h1>Board Panel View</h1> BoardPanel class contains the boards (can be
@@ -83,7 +81,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		JPanel btnContainerPanel = new JPanel();
 		btnContainerPanel.setLayout(new GridLayout(boardSize, boardSize, 0, 0));
 
-		facade = new ViewControllerFacade();
+		facade = new ViewControllerFacadeImpl();
 		facade.addPropertyChangeListener(this);
 
 		for (int row = 0; row < boardSize; ++row) {
@@ -121,9 +119,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
-	/**
-	 * @return
-	 */
 	public List<List<AbstractButton>> getButtonList() {
 		return buttons;
 	}
@@ -193,7 +188,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 		Set<Cell> actionCells = null;
 
-		Color color = null;
+		Color color = pieceType.team().color();
 		boolean isMoveAction = false;
 		boolean isAbility = false;
 		if (abilityController instanceof AbilityController) {
@@ -206,8 +201,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			actionCells = animal.getValidMove();
 			isMoveAction = true;
 		}
-		
-		color = pieceType.team().color();
 
 		if ((!isMoveAction && pieceType == PieceType.ATTACKINGEAGLE)
 				|| (isAbility && pieceType == PieceType.AGGRESSIVESHARK)) {
@@ -219,10 +212,9 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 			if ((pieceType == PieceType.DEFENSIVESHARK || pieceType == PieceType.LEADERSHIPEAGLE)
 					&& !affectedBtn.getActionCommand().equalsIgnoreCase("NormalButton")) {
-				Color protectColor = new Color(33, 161, 121);
+				Color protectColor = Color.ORANGE;
 				affectedBtn.setBackground(protectColor);
 			} else {
-
 				affectedBtn.setBackground(color);
 			}
 
@@ -344,7 +336,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	/**
 	 * @return
 	 */
-
 	@Requires({ "buttonClicked != null", "pieceType != null", "validMoves != null" })
 	public void updateIconAndButtonStateAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType,
 			Set<Cell> validMoves) {

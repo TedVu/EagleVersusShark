@@ -21,9 +21,7 @@ import controller.startgamecontroller.StartDefaultGameController;
  * @author kevin & ted
  */
 public class StartGameMainFrame extends JFrame {
-	/**
-	 * @serial -8454047695594084099L
-	 */
+
 	private static final long serialVersionUID = -8454047695594084099L;
 	private static final int FRAME_WIDTH = 550;
 	private static final int FRAME_HEIGHT = 250;
@@ -33,11 +31,8 @@ public class StartGameMainFrame extends JFrame {
 	private JButton loadButton;
 	private JButton exitButton;
 
-	private StartGameMainFrame startGameFrame = this; // for exitaction to reference
+	private StartGameMainFrame startGameFrame = this;
 
-	/**
-	 * @see
-	 */
 	public StartGameMainFrame() {
 		startButton = new JButton("   START GAME   ");
 		configBtn = new JButton("GAME SETTINGS");

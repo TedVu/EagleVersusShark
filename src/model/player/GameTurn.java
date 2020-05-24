@@ -9,47 +9,24 @@ import com.google.java.contract.Requires;
 import controller.playinggamecontroller.MakingMovePropertyChangeListener;
 import controller.playinggamecontroller.TimerPropertyChangeListener;
 import model.contract.Engine;
-import model.engine.GameBoard;
-import model.engine.GamePiece;
+import model.contract.Player;
 import model.enumtype.TeamType;
-import model.piece.commands.PieceCommands;
 import view.callback.GameEngineCallbackImpl;
 import view.contract.GameEngineCallbackInterface;
 
 public class GameTurn implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2279064566555330259L;
 
 	private Player eaglePlayer = new PlayerImpl(TeamType.EAGLE);
-
 	private Player sharkPlayer = new PlayerImpl(TeamType.SHARK);
-
 	private transient Timer gameTimer;
-
 	private GameEngineCallbackInterface geCallback = new GameEngineCallbackImpl();
-
-	private GameBoard board;
-
-	private GamePiece gamePiece;
-
 	private int turn = 1;
-
 	private int round;
-
-	private Engine engine;
-
 	private boolean gameRunning = false;
 
-	private int totalNumPiece;
-
-	private PieceCommands pieceCommands;
-
 	public GameTurn(Engine engine) {
-		this.engine = engine;
-
 		geCallback.addProperytChangeListener(new TimerPropertyChangeListener());
 		geCallback.addProperytChangeListener(new MakingMovePropertyChangeListener());
 	}
@@ -76,14 +53,14 @@ public class GameTurn implements Serializable {
 	 * @return the active team
 	 */
 	public Player getCurrentActivePlayer() {
-		if (eaglePlayer.getActive())
+		if (eaglePlayer.getActive()) {
 			return eaglePlayer;
-		else
+		} else {
 			return sharkPlayer;
-
+		}
 	}
 
-	/*
+	/**
 	 * return the initial active player, call this at the beginning of the program
 	 * 
 	 * @return (eaglePlayer || sharkPlayer)
@@ -140,7 +117,6 @@ public class GameTurn implements Serializable {
 		if (turnOnTimer) {
 			setActivePlayerTimer(nextPlayer);
 		}
-
 	}
 
 	/**
@@ -159,7 +135,6 @@ public class GameTurn implements Serializable {
 				geCallback.timerNextMove(playerType, currentPlayer);
 			}
 		}, 10000);
-
 	}
 
 	public void endGame(TeamType teamWin) {
@@ -181,21 +156,16 @@ public class GameTurn implements Serializable {
 	}
 
 	public void incrementUndo(TeamType teamType) {
-
 		Player player = playerType(teamType);
-
 		player.undoCounter(round);
 	}
 
 	public boolean ableToUndo(TeamType teamType) {
-
 		Player player = playerType(teamType);
-
 		return player.ableToUndo(round);
 	}
 
 	private Player playerType(TeamType teamType) {
-
 		if (teamType.equals(TeamType.EAGLE)) {
 			return eaglePlayer;
 		} else if (teamType.equals(TeamType.SHARK)) {
@@ -203,7 +173,6 @@ public class GameTurn implements Serializable {
 		} else {
 			throw new IllegalArgumentException("Invalid team type");
 		}
-
 	}
 
 }

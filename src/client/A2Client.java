@@ -7,7 +7,7 @@ import javax.swing.UIManager;
 import view.mainframe.StartGameMainFrame;
 
 /**
- * Primary Client
+ * Main
  * @author ktcs
  *
  */
@@ -18,6 +18,7 @@ public class A2Client {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {

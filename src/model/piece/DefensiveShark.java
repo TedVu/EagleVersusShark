@@ -23,10 +23,10 @@ import model.piece.movement.PieceMoveDecorator;
  */
 public class DefensiveShark extends AbstractPiece {
 
+	private static final long serialVersionUID = -3824904265692727849L;
+
 	final int NEIGHBOURING_DISTANCE = 1;
 	private final Engine engine;
-
-	private static final long serialVersionUID = -3824904265692727849L;
 
 	public DefensiveShark(int x, int y, Engine engine) {
 		super(x, y);
@@ -70,25 +70,16 @@ public class DefensiveShark extends AbstractPiece {
 		Set<Cell> surroundingEightCells = new HashSet<>();
 		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
 
-		// Return all the neighbouring cells around other sharks
 		for (Piece shark : activeSharks) {
 			if (!(shark instanceof DefensiveShark)) {
-
-				// All the neighbour cells around a shark - to be traversed
-
 				surroundingEightCells
 						.addAll(new DiagonalDecorator(new BasicMove()).getValidMove(shark, NEIGHBOURING_DISTANCE));
 				Cell sharkPosition = new Cell(shark.getPosition().get("x"), shark.getPosition().get("y"));
 				surroundingEightCells.add(sharkPosition);
 			}
 		}
-		// Remove master cell
-		surroundingEightCells.remove(EngineImpl.getSingletonInstance().gameBoard().getSharkMasterCell());
 
-		// * Add the cell to the return list if the following are true:
-		// * Cell is not occupied
-		// * Cell is within the board
-		// *
+		surroundingEightCells.remove(EngineImpl.getSingletonInstance().gameBoard().getSharkMasterCell());
 		for (Cell possibleCell : surroundingEightCells) {
 			if (!possibleCell.getOccupied() && possibleCell.getY() < engine.gameBoard().getSize()
 					&& possibleCell.getY() >= 0 && possibleCell.getX() < engine.gameBoard().getSize()
@@ -96,18 +87,11 @@ public class DefensiveShark extends AbstractPiece {
 				neighbourCells.add(possibleCell);
 			}
 		}
-
 		return neighbourCells;
 	}
 
 	@Override
 	public Set<Cell> modeCells() {
-		/*
-		 * https://prnt.sc/skdgtx When in water cell, this piece can move like a Chess'
-		 * Rook move Returning all cells in + directions WITHIN the water area, once it
-		 * encounters an enemy piece, the direction stops
-		 */
-
 		Set<Cell> returnCells = new HashSet<>();
 
 		Cell currentPos = EngineImpl.getSingletonInstance().gameBoard().getCell(this.getPosition().get("x"),

@@ -6,7 +6,6 @@ import model.contract.Command;
 import model.contract.Engine;
 import model.contract.Piece;
 import model.engine.EngineImpl;
-import model.engine.GamePiece;
 
 /**
  *
@@ -39,10 +38,7 @@ public class MovePiece implements Command, Serializable {
 
 	@Override
 	public void undo() {
-
 		pieceCommands.movePiece(piece, oldX, oldY, isMode);
-//		engine.getBoard().removePiece(newX, newY);
-//		engine.getBoard().addPiece(oldX, oldY);
 	}
 
 }

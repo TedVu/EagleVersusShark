@@ -7,24 +7,23 @@ import java.util.Map;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
+import model.contract.Player;
 import model.enumtype.TeamType;
 
 /**
- * @author sefira
+ * Class to control the activation of each team in the future this class will
+ * also control whether the player can undo
  * 
- *         class to control the activation of each team in the future this class
- *         will also control whether the player can undo
+ * @author sefira
  *
  */
 public class PlayerImpl implements Player, Serializable {
 
 	private static final long serialVersionUID = -9214708606518227867L;
+
 	private boolean isActive;
 	private TeamType playerType;
 	private Map<Integer, Integer> undoDict = new HashMap<Integer, Integer>();
-	private int undoCount = 0;
-	private int prevUndoRound = -1;
-
 	private boolean ableToUndo = true;
 
 	public PlayerImpl(TeamType playerType) {
@@ -57,14 +56,8 @@ public class PlayerImpl implements Player, Serializable {
 
 	@Override
 	public void undoCounter(int round) {
-		// System.out.println("-----in undocounter");
-		// System.out.println(undoDict);
 		if (!undoDict.containsKey(round)) {
-			undoCount++;
-			prevUndoRound = round;
 			undoDict.put(round, 1);
-
-			// System.out.println("------ overall undo Count undo counter = " + undoCount);
 		} else {
 			int newCount = undoDict.get(round) + 1;
 			undoDict.replace(round, newCount);
@@ -73,7 +66,6 @@ public class PlayerImpl implements Player, Serializable {
 
 	@Override
 	public boolean ableToUndo(int round) {
-
 		return ableToUndo;
 	}
 

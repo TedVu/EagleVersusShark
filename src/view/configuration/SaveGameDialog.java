@@ -17,9 +17,7 @@ import viewcontroller.contract.ViewControllerInterface;
  * @author kevin & ted
  */
 public class SaveGameDialog extends JDialog {
-	/**
-	 * @serial -4258981534634398081L
-	 */
+
 	private static final long serialVersionUID = -4258981534634398081L;
 	private static final int FRAME_WIDTH = 350;
 	private static final int FRAME_HEIGHT = 100;
@@ -28,9 +26,6 @@ public class SaveGameDialog extends JDialog {
 
 	private JButton saveGameButton = new JButton("Save");
 
-	/**
-	 * @see
-	 */
 	public SaveGameDialog(ViewControllerInterface viewControllerFacade) {
 		fileNameField = new JTextField(15);
 
@@ -56,10 +51,6 @@ public class SaveGameDialog extends JDialog {
 		setVisible(true);
 	}
 
-	/**
-	 * @return
-	 * @param
-	 */
 	public String getFileNameInput() {
 		return fileNameField.getText();
 	}

@@ -1,7 +1,7 @@
 package controller.abstractfactory;
 
-import controller.abstractfactory.factory.AbilityControllerFactory;
-import controller.abstractfactory.factory.ModeControllerFactory;
+import controller.abstractfactory.contract.AbilityControllerFactory;
+import controller.abstractfactory.contract.ModeControllerFactory;
 import controller.abstractfactory.factory.SharkAbilityControllerFactory;
 import controller.abstractfactory.factory.SharkModeControllerFactory;
 

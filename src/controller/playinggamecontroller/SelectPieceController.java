@@ -7,17 +7,17 @@ import javax.swing.AbstractButton;
 
 import com.google.java.contract.Requires;
 
-import controller.abstractfactory.AbilityController;
-import controller.abstractfactory.ModeController;
 import controller.abstractfactory.SpecialBehaviourControllerFactory;
-import controller.abstractfactory.factory.AbilityControllerFactory;
-import controller.abstractfactory.factory.ModeControllerFactory;
+import controller.abstractfactory.contract.AbilityController;
+import controller.abstractfactory.contract.AbilityControllerFactory;
+import controller.abstractfactory.contract.ModeController;
+import controller.abstractfactory.contract.ModeControllerFactory;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
 import model.enumtype.PlayerActionType;
 import model.enumtype.TeamType;
 import modelcontroller.contract.ControllerModelInterface;
-import modelcontroller.facade.ControllerModelFacade;
+import modelcontroller.facade.ControllerModelFacadeImpl;
 import viewcontroller.contract.ViewControllerInterface;
 
 /**
@@ -33,7 +33,7 @@ public class SelectPieceController implements ActionListener {
 	private MovePieceController movePieceController;
 
 	private ViewControllerInterface viewControllerFacade;
-	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
+	private ControllerModelInterface controllerModelFacade = new ControllerModelFacadeImpl();
 
 	private PlayerAction playerAction;
 

@@ -18,9 +18,7 @@ import view.mainframe.StartGameMainFrame;
  * @author kevin & ted
  */
 public class SettingsDialog extends JDialog {
-	/**
-	 * @serial -4920890146910758833L
-	 */
+
 	private static final long serialVersionUID = -4920890146910758833L;
 	private static final int FRAME_WIDTH = 350;
 	private static final int FRAME_HEIGHT = 180;
@@ -31,9 +29,6 @@ public class SettingsDialog extends JDialog {
 
 	private JButton applyButton;
 
-	/**
-	 * @see
-	 */
 	public SettingsDialog(StartGameMainFrame startGameMainFrame) {
 		String[] boardSize = { " 9 x 9 ", "11 x 11", "13 x 13", "15 x 15" };
 		String[] numPieces = { "   6   ", "   4   ", "   2   " };

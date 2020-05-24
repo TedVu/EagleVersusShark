@@ -7,6 +7,7 @@ import java.awt.Color;
  *
  */
 public enum CellType {
+
 	SMASTER(Color.GREEN), EMASTER(Color.GREEN), NORMAL(Color.WHITE), WATER(Color.CYAN), OBSTACLE(Color.BLACK);
 
 	private final Color color;
@@ -18,4 +19,5 @@ public enum CellType {
 	public Color color() {
 		return color;
 	}
+
 }

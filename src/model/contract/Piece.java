@@ -32,9 +32,8 @@ public interface Piece {
 	public boolean isActive();
 
 	/**
-	 * @param x - the new x position
-	 * @param y - the new y position
-	 * @return
+	 * @param x the new x position
+	 * @param y the new y position
 	 */
 	public void movePiece(int x, int y);
 

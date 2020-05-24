@@ -1,6 +1,7 @@
 package controller.abstractfactory.factory;
 
-import controller.abstractfactory.AbilityController;
+import controller.abstractfactory.contract.AbilityController;
+import controller.abstractfactory.contract.AbilityControllerFactory;
 import controller.abstractfactory.sharkability.AggressiveSharkAbilityController;
 import controller.abstractfactory.sharkability.DefensiveSharkAbilityController;
 import controller.abstractfactory.sharkability.HealingSharkAbilityController;

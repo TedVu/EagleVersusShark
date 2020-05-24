@@ -8,11 +8,15 @@ import model.enumtype.TeamType;
  * @author ted &#38; kevin
  */
 public interface GameEngineCallbackInterface {
+	
 	/**
 	 * 
 	 */
 	public void addProperytChangeListener(PropertyChangeListener listener);
 
+	/**
+	 * @return
+	 */
 	public PropertyChangeListener[] getPropertyChangeListener();
 
 	/**
@@ -32,5 +36,8 @@ public interface GameEngineCallbackInterface {
 	 */
 	public void timerNextMove(TeamType playerType, TeamType currentPlayerTurn);
 
+	/**
+	 * @param teamWin
+	 */
 	public void endGame(TeamType teamWin);
 }

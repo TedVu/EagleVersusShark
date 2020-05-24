@@ -1,6 +1,7 @@
 package controller.abstractfactory.factory;
 
-import controller.abstractfactory.AbilityController;
+import controller.abstractfactory.contract.AbilityController;
+import controller.abstractfactory.contract.AbilityControllerFactory;
 import controller.abstractfactory.eagleability.AttackingEagleAbilityController;
 import controller.abstractfactory.eagleability.LeadershipEagleAbilityController;
 import controller.abstractfactory.eagleability.VisionaryEagleAbilityController;

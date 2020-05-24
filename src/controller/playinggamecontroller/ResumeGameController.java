@@ -5,15 +5,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
 
-import model.player.Player;
+import model.contract.Player;
 import modelcontroller.contract.ControllerModelInterface;
-import modelcontroller.facade.ControllerModelFacade;
+import modelcontroller.facade.ControllerModelFacadeImpl;
 import viewcontroller.contract.ViewControllerInterface;
 
 public class ResumeGameController implements ActionListener {
 
 	private ViewControllerInterface viewControllerFacade;
-	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
+	private ControllerModelInterface controllerModelFacade = new ControllerModelFacadeImpl();
 
 	public ResumeGameController(ViewControllerInterface viewControllerFacade) {
 		this.viewControllerFacade = viewControllerFacade;

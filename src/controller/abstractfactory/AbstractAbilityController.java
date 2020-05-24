@@ -2,16 +2,17 @@ package controller.abstractfactory;
 
 import javax.swing.AbstractButton;
 
+import controller.abstractfactory.contract.AbilityController;
 import model.enumtype.PieceType;
 import modelcontroller.contract.ControllerModelInterface;
-import modelcontroller.facade.ControllerModelFacade;
+import modelcontroller.facade.ControllerModelFacadeImpl;
 import viewcontroller.contract.ViewControllerInterface;
 
 public abstract class AbstractAbilityController implements AbilityController {
 
 	protected AbstractButton buttonClicked;
 	protected ViewControllerInterface viewControllerFacade;
-	protected ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
+	protected ControllerModelInterface controllerModelFacade = new ControllerModelFacadeImpl();
 
 	@Override
 	public void setAbilityState(ViewControllerInterface viewControllerFacade) {

@@ -9,7 +9,6 @@ import com.google.java.contract.Requires;
 import model.contract.Command;
 import model.contract.Piece;
 import model.engine.EngineImpl;
-import model.engine.GameBoard;
 import model.enumtype.PieceAbility;
 import model.enumtype.TeamType;
 import model.piece.AttackingEagle;
@@ -26,7 +25,6 @@ public class PieceCommands implements Serializable {
 	private static final long serialVersionUID = -1506663538384796618L;
 
 	private EngineImpl engine;
-
 	private Stack<Command> commandHistory = new Stack<Command>();
 
 	public PieceCommands(EngineImpl engine) {

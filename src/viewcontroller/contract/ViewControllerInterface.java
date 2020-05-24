@@ -34,30 +34,64 @@ public interface ViewControllerInterface {
 	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType);
 
 	/**
-	 * @param buttonClicked
+	 * @param playerAction
 	 */
-
 	public void getPlayerAction(PlayerAction playerAction);
 
+	/**
+	 * @param buttonClicked
+	 */
 	public void updateBoardAfterSwap(AbstractButton buttonClicked);
 
+	/**
+	 * @param btnClicked
+	 * @param pieceCapture
+	 */
 	public void updateBoardAfterCapture(AbstractButton btnClicked, PieceType pieceCapture);
 
+	/**
+	 * 
+	 */
 	public void refreshBoard();
 
+	/**
+	 * @param currentTeam
+	 */
 	public void resumeGame(TeamType currentTeam);
 
+	/**
+	 * 
+	 */
 	public void confirmUndoSuccessful();
 
+	/**
+	 * @param revivedPiece
+	 */
 	public void updateBoardReviveSharkSuccessful(PieceType revivedPiece);
 
+	/**
+	 * 
+	 */
 	public void updateBoardAfterHealingSharkUseMode();
 
+	/**
+	 * @param abilityController
+	 * @param animalType
+	 */
 	public void updateBoardBeforeCommitAction(ActionListener abilityController, PieceType animalType);
 
+	/**
+	 * 
+	 */
 	public void updateBoardAfterProtect();
 
+	/**
+	 * @param msg
+	 */
 	public void updateBoardNotiDialog(String msg);
 
+	/**
+	 * 
+	 */
 	public void updateBoardPauseGame();
 }

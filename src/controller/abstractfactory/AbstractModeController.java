@@ -2,16 +2,17 @@ package controller.abstractfactory;
 
 import javax.swing.AbstractButton;
 
+import controller.abstractfactory.contract.ModeController;
 import model.enumtype.PieceType;
 import modelcontroller.contract.ControllerModelInterface;
-import modelcontroller.facade.ControllerModelFacade;
+import modelcontroller.facade.ControllerModelFacadeImpl;
 import viewcontroller.contract.ViewControllerInterface;
 
 public abstract class AbstractModeController implements ModeController {
 
 	protected AbstractButton buttonClicked;
 	protected ViewControllerInterface viewControllerFacade;
-	protected ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
+	protected ControllerModelInterface controllerModelFacade = new ControllerModelFacadeImpl();
 
 	@Override
 	public void setModeState(ViewControllerInterface viewControllerFacade) {

@@ -22,10 +22,9 @@ import model.enumtype.TeamType;
  * @author ted &#38; kevin
  */
 public class StatusPanel extends JPanel implements PropertyChangeListener {
-	/**
-	 * @serial 8787252718705342879L
-	 */
+
 	private static final long serialVersionUID = 8787252718705342879L;
+	
 	private JButton startButton;
 	private JLabel turnLabel;
 	private JTextField turnTextField;
@@ -34,9 +33,6 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 
 	private List<SwingWorker<Void, Void>> workerThreads;
 
-	/**
-	 * @see
-	 */
 	public StatusPanel(ModePanel modePanel) {
 		startButton = new JButton("START");
 		turnLabel = new JLabel("Turn:");
@@ -76,9 +72,6 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
-	/**
-	 * @return
-	 */
 	public void startCountDown() {
 		for (SwingWorker<Void, Void> preWorker : workerThreads) {
 			preWorker.cancel(true);
@@ -105,9 +98,6 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 		timerTextField.setText("PAUSE GAME");
 	}
 
-	/**
-	 * @return
-	 */
 	public void updateTurnLabel(TeamType currentPlayer) {
 		turnTextField.setText(currentPlayer.toString());
 	}

@@ -12,7 +12,7 @@ import com.google.java.contract.Requires;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 import modelcontroller.contract.ControllerModelInterface;
-import modelcontroller.facade.ControllerModelFacade;
+import modelcontroller.facade.ControllerModelFacadeImpl;
 import viewcontroller.contract.ViewControllerInterface;
 
 /**
@@ -26,7 +26,7 @@ import viewcontroller.contract.ViewControllerInterface;
 public class MovePieceController implements ActionListener {
 
 	private ViewControllerInterface viewControllerFacade;
-	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
+	private ControllerModelInterface controllerModelFacade = new ControllerModelFacadeImpl();
 
 	private PieceType pieceType;
 

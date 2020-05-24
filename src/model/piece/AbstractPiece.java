@@ -16,6 +16,7 @@ import model.contract.Piece;
 public abstract class AbstractPiece implements Piece, Serializable {
 
 	private static final long serialVersionUID = -564937938237634780L;
+
 	private Map<String, Integer> position = new HashMap<String, Integer>();
 	private boolean isActive = true;
 	private boolean isImmune = false;

@@ -6,7 +6,6 @@ import model.contract.Command;
 import model.contract.Engine;
 import model.contract.Piece;
 import model.engine.EngineImpl;
-import model.engine.GamePiece;
 import model.enumtype.PieceAbility;
 import model.piece.PieceMemento;
 
@@ -18,6 +17,7 @@ import model.piece.PieceMemento;
 public class UseAbility implements Command, Serializable {
 
 	private static final long serialVersionUID = 6907153654562703481L;
+	
 	PieceAbility pieceAbility;
 	private Piece piece, affectedPiece;
 	private Engine engine = EngineImpl.getSingletonInstance();
@@ -38,15 +38,12 @@ public class UseAbility implements Command, Serializable {
 	public void execute() {
 		pieceCommands.useAbility(pieceAbility, piece, affectedPiece, isMode);
 		pieceCommands.addEvt(this);
-
 	}
 
 	@Override
 	public void undo() {
-
 		pieceCommands.replacePieceVersion(piece, pieceMemento);
 		pieceCommands.replacePieceVersion(affectedPiece, affectedPieceMemento);
-
 	}
 
 }

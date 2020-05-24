@@ -6,14 +6,14 @@ import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 
 import modelcontroller.contract.ControllerModelInterface;
-import modelcontroller.facade.ControllerModelFacade;
+import modelcontroller.facade.ControllerModelFacadeImpl;
 import view.operationview.UndoMovePanel;
 import viewcontroller.contract.ViewControllerInterface;
 
 public class UndoMoveController implements ActionListener {
 
 	private ViewControllerInterface viewControllerFacade;
-	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
+	private ControllerModelInterface controllerModelFacade = new ControllerModelFacadeImpl();
 
 	private AbstractButton resumeBtn;
 

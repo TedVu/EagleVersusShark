@@ -3,12 +3,12 @@ package controller.playinggamecontroller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import model.contract.Player;
 import model.enumtype.TeamType;
 import model.piece.commands.CommandExecutor;
 import model.piece.commands.Undo;
-import model.player.Player;
 import modelcontroller.contract.ControllerModelInterface;
-import modelcontroller.facade.ControllerModelFacade;
+import modelcontroller.facade.ControllerModelFacadeImpl;
 import view.operationview.UndoMovePanel;
 import viewcontroller.contract.ViewControllerInterface;
 
@@ -21,7 +21,7 @@ import viewcontroller.contract.ViewControllerInterface;
 public class ConfirmUndoController implements ActionListener {
 
 	private ViewControllerInterface viewControllerFacade;
-	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
+	private ControllerModelInterface controllerModelFacade = new ControllerModelFacadeImpl();
 
 	private UndoMovePanel undoMovePanel;
 	private CommandExecutor commandExecutor = new CommandExecutor();

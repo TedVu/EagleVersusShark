@@ -5,7 +5,6 @@ import java.io.Serializable;
 import model.contract.Command;
 import model.contract.Engine;
 import model.engine.EngineImpl;
-import model.engine.GamePiece;
 import model.enumtype.TeamType;
 
 /**
@@ -16,6 +15,7 @@ import model.enumtype.TeamType;
 public class Undo implements Command, Serializable {
 
 	private static final long serialVersionUID = -1824704997694754116L;
+	
 	private Engine engine = EngineImpl.getSingletonInstance();
 	private PieceCommands pieceCommands = engine.getPieceCommands();
 	private TeamType teamType;

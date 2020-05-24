@@ -16,9 +16,7 @@ import view.operationview.RightPanel;
  * @author ted &#38; kevin
  */
 public class AppMainFrame extends JFrame {
-	/**
-	 * @serial -6241584551658525365L
-	 */
+
 	private static final long serialVersionUID = -6241584551658525365L;
 	private static final int FRAME_WIDTH = 1000;
 	private static final int FRAME_HEIGHT = 700;
@@ -27,9 +25,6 @@ public class AppMainFrame extends JFrame {
 	private BoardPanel boardPanel;
 	private RightPanel rightPanel;
 
-	/**
-	 * @see
-	 */
 	public AppMainFrame() {
 		boardPanel = new BoardPanel(this);
 		rightPanel = new RightPanel(boardPanel.getFacade());
@@ -54,7 +49,6 @@ public class AppMainFrame extends JFrame {
 
 		boardPanel.getFacade().addPropertyChangeListener(rightPanel.getModePanel());
 		boardPanel.getFacade().addPropertyChangeListener(rightPanel.getStatusPanel());
-
 	}
 
 	public RightPanel getRightPanel() {

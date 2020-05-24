@@ -43,9 +43,6 @@ public class LeadershipEagle extends AbstractPiece {
 	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
 	public void movePiece(int x, int y) {
 		setPosition(x, y);
-
-		// Chanboth (Remove these comments upon submission)
-		// Integrate HealingShark's healing ability tracker
 		EngineImpl.getSingletonInstance().pieceOperator().eagleCheckingHealingSharkAbility();
 	}
 
