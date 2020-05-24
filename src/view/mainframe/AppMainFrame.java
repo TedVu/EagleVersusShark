@@ -19,7 +19,7 @@ public class AppMainFrame extends JFrame {
 	/**
 	 * @serial -6241584551658525365L
 	 */
-	private static final long serialVersionUID = -6241584551658525365L; 
+	private static final long serialVersionUID = -6241584551658525365L;
 	private static final int FRAME_WIDTH = 1000;
 	private static final int FRAME_HEIGHT = 700;
 

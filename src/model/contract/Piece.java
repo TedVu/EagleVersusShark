@@ -60,13 +60,13 @@ public interface Piece {
 	public boolean isImmune();
 
 	public PieceMemento pieceMemento();
-	
+
 	public Set<Cell> modeCells();
-	
+
 	public void modeUsed();
-	
+
 	public void setModeCount(int modeCount);
-	
+
 	public int getModeCount();
-	
+
 }

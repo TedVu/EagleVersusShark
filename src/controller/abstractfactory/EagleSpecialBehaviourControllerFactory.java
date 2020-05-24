@@ -14,7 +14,7 @@ public class EagleSpecialBehaviourControllerFactory extends SpecialBehaviourCont
 
 	@Override
 	public ModeControllerFactory createModeControllerFactory() {
-		return new EagleModeControllerFactory(); 
+		return new EagleModeControllerFactory();
 	}
 
 }

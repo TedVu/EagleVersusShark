@@ -21,7 +21,7 @@ public interface ControllerModelInterface {
 	public void cancelTimerPauseGame();
 
 	public void setTurnStartingGame(TeamType teamType);
-	
+
 	public void setResumeGame();
 
 	public void setAlreadyUseUndo();

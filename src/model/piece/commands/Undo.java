@@ -13,8 +13,7 @@ import model.enumtype.TeamType;
  * @author Sefira
  *
  */
-public class Undo implements Command, Serializable  {
-
+public class Undo implements Command, Serializable {
 
 	private static final long serialVersionUID = -1824704997694754116L;
 	private Engine engine = EngineImpl.getSingletonInstance();

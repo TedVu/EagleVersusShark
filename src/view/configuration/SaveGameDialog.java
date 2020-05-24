@@ -41,7 +41,7 @@ public class SaveGameDialog extends JDialog {
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		setResizable(false);
 
-		saveGameButton.addActionListener(new SaveGameBtnController(this,viewControllerFacade));
+		saveGameButton.addActionListener(new SaveGameBtnController(this, viewControllerFacade));
 		// save game => initiate pause game
 		JPanel textFieldPanel = new JPanel();
 		textFieldPanel.add(new JLabel("File name:"));

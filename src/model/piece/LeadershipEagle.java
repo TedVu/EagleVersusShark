@@ -14,6 +14,7 @@ import model.board.Cell;
 import model.contract.Engine;
 import model.contract.Piece;
 import model.engine.EngineImpl;
+import model.enumtype.CellType;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
 
@@ -133,14 +134,14 @@ public class LeadershipEagle extends AbstractPiece {
 		engine = EngineImpl.getSingletonInstance();
 		Set<Cell> finalMode = new HashSet<>();
 
-		if (engine.gameBoard().getCell(this.getPosition().get("x"), this.getPosition().get("y")).isWaterCell()) {
+		if (engine.gameBoard().getCell(this.getPosition().get("x"), this.getPosition().get("y")).getType() == CellType.WATER) {
 			throw new IllegalArgumentException("Cannot use mode because currently on water cell");
 		}
 		int YPos = getPosition().get("y");
 
 		if (YPos != engine.gameBoard().getSize() && YPos != 0) {
-			boolean waterCellFrontStatus = engine.gameBoard().getCell(getPosition().get("x"), YPos + 1).isWaterCell();
-			boolean waterCellBackStatus = engine.gameBoard().getCell(getPosition().get("x"), YPos - 1).isWaterCell();
+			boolean waterCellFrontStatus = engine.gameBoard().getCell(getPosition().get("x"), YPos + 1).getType() == CellType.WATER;
+			boolean waterCellBackStatus = engine.gameBoard().getCell(getPosition().get("x"), YPos - 1).getType() == CellType.WATER;
 			if (waterCellFrontStatus) {
 				checkAbleToLeap(finalMode, YPos + 4);
 			} else if (waterCellBackStatus) {

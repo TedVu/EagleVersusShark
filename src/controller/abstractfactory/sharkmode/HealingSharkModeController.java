@@ -10,7 +10,6 @@ import model.enumtype.TeamType;
 
 public class HealingSharkModeController extends AbstractModeController {
 
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		AbstractButton affectedBtn = (AbstractButton) e.getSource();

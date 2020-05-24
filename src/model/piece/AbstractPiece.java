@@ -64,7 +64,8 @@ public abstract class AbstractPiece implements Piece, Serializable {
 	}
 
 	public PieceMemento pieceMemento() {
-		PieceMemento memento = new PieceMemento(isActive, isImmune, position.get("x"), position.get("y"), modeUsageCount);
+		PieceMemento memento = new PieceMemento(isActive, isImmune, position.get("x"), position.get("y"),
+				modeUsageCount);
 		return memento.getState();
 	}
 
@@ -82,6 +83,5 @@ public abstract class AbstractPiece implements Piece, Serializable {
 	public int getModeCount() {
 		return modeUsageCount;
 	}
-	
-	
+
 }

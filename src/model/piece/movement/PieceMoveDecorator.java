@@ -19,15 +19,11 @@ import model.engine.EngineImpl;
 
 public class PieceMoveDecorator implements PieceMovement {
 
-	protected PieceMovement pieceMove ;
-	
-	
+	protected PieceMovement pieceMove;
 
 	public PieceMoveDecorator(PieceMovement pieceMove) {
 		this.pieceMove = pieceMove;
 	}
-	
-
 
 	/*
 	 * @param piece - selected piece
@@ -42,7 +38,5 @@ public class PieceMoveDecorator implements PieceMovement {
 	public Set<Cell> getValidMove(Piece piece, int distance) {
 		return pieceMove.getValidMove(piece, distance);
 	}
-
-
 
 }

@@ -20,21 +20,18 @@ import model.engine.EngineImpl;
 public class BasicMove implements PieceMovement {
 
 	private Set<Cell> validMoves = new HashSet<>();
-	private PieceMovement pieceMove ;
-	
-	
+	private PieceMovement pieceMove;
 
 	public BasicMove(PieceMovement pieceMove) {
 		this.pieceMove = pieceMove;
 	}
-	
+
 	public BasicMove() {
 		this.pieceMove = this;
 	}
 
-
-	/*
-	 * @param piece - selected piece
+	/**
+	 * @param piece    - selected piece
 	 * 
 	 * @param distance - piece moving distance
 	 * 
@@ -55,8 +52,8 @@ public class BasicMove implements PieceMovement {
 		return validMoves;
 	}
 
-	/*
-	 * @param piece - selected piece
+	/**
+	 * @param piece    - selected piece
 	 * 
 	 * @param distance - piece moving distance
 	 * 
@@ -79,8 +76,8 @@ public class BasicMove implements PieceMovement {
 		return validMoves;
 	}
 
-	/*
-	 * @param piece - selected piece
+	/**
+	 * @param piece    - selected piece
 	 * 
 	 * @param distance - piece moving distance
 	 * 
@@ -102,8 +99,8 @@ public class BasicMove implements PieceMovement {
 		return validMoves;
 	}
 
-	/*
-	 * @param piece - selected piece
+	/**
+	 * @param piece    - selected piece
 	 * 
 	 * @param distance - piece moving distance
 	 * 
@@ -125,8 +122,8 @@ public class BasicMove implements PieceMovement {
 		return validMoves;
 	}
 
-	/*
-	 * @param piece - selected piece
+	/**
+	 * @param piece    - selected piece
 	 * 
 	 * @param distance - piece moving distance
 	 * 

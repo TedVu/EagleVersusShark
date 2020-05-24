@@ -116,10 +116,8 @@ public class GameTurn implements Serializable {
 	/**
 	 * set the turn to the specified team in parameter
 	 * 
-	 * @param playerType
-	 *            - the player to be activated
-	 * @param turnOnTimer
-	 *            - whether to begin countdown or not
+	 * @param playerType  - the player to be activated
+	 * @param turnOnTimer - whether to begin countdown or not
 	 */
 	@Requires({ "playerType != null", "turnOnTimer == true || turnOnTimer == false" })
 	public void setActivePlayer(TeamType playerType, boolean turnOnTimer) {
@@ -148,8 +146,7 @@ public class GameTurn implements Serializable {
 	/**
 	 * turn on the timer and loop call setActivePlayer to change every interval
 	 * 
-	 * @param playerType
-	 *            - the player to be activated next
+	 * @param playerType - the player to be activated next
 	 */
 	@Requires({ "playerType != null" })
 	public void setActivePlayerTimer(TeamType playerType) {

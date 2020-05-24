@@ -23,6 +23,4 @@ public class VisionaryEagleAbilityController extends AbstractAbilityController {
 		super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
 	}
 
-	
-
 }

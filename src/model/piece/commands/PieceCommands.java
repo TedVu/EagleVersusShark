@@ -23,11 +23,9 @@ import model.piece.PieceMemento;
  */
 public class PieceCommands implements Serializable {
 
-
 	private static final long serialVersionUID = -1506663538384796618L;
 
 	private EngineImpl engine;
-
 
 	private Stack<Command> commandHistory = new Stack<Command>();
 
@@ -44,14 +42,11 @@ public class PieceCommands implements Serializable {
 		engine.gameBoard().removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 		engine.gameBoard().addPiece(prevState.getX(), prevState.getY());
 	}
- 
+
 	/**
-	 * @param piece
-	 *            - the piece to be moved
-	 * @param newX
-	 *            - new x position
-	 * @param newY
-	 *            - new y position Generate the pieces and put them on the board
+	 * @param piece - the piece to be moved
+	 * @param newX  - new x position
+	 * @param newY  - new y position Generate the pieces and put them on the board
 	 */
 	@Requires({ "piece != null", "x>=0", "y>=0" })
 	@Ensures({ "piece.getPosition().get(\"x\") != null && piece.getPosition().get(\"y\") != null" })
@@ -66,8 +61,7 @@ public class PieceCommands implements Serializable {
 			piece.modeUsed();
 	}
 
-	protected void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece,
-			boolean isMode) {
+	protected void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece, boolean isMode) {
 		if (isMode && piece instanceof AttackingEagle && piece.getModeCount() > 0) {
 			throw new IllegalArgumentException("Mode is already used");
 		}
@@ -100,7 +94,5 @@ public class PieceCommands implements Serializable {
 	protected void addEvt(Command command) {
 		commandHistory.push(command);
 	}
-
-
 
 }

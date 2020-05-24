@@ -3,7 +3,6 @@ package model.engine;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
 
 import model.board.Cell;
 import model.contract.Engine;
@@ -33,7 +32,6 @@ public class EngineImpl implements Engine, Serializable {
 		return engine;
 	}
 
-
 	private GameBoard board;
 
 	private GamePiece gamePiece;
@@ -48,10 +46,8 @@ public class EngineImpl implements Engine, Serializable {
 	 * @return the singleton instance of the engine
 	 */
 	private EngineImpl() {
-
-		// default game when hitting start without config
 		totalNumPiece = 6;
-		board = new GameBoard(9);
+		board = new GameBoard(9, false);
 		gamePiece = new GamePiece(this);
 		pieceCommands = new PieceCommands(this);
 		gameTurn = new GameTurn(this);
@@ -67,7 +63,7 @@ public class EngineImpl implements Engine, Serializable {
 	public PieceCommands getPieceCommands() {
 		return pieceCommands;
 	}
-	
+
 	public GamePiece getPieceOperator() {
 		return gamePiece;
 	}
@@ -89,7 +85,7 @@ public class EngineImpl implements Engine, Serializable {
 
 	@Override
 	public void configBoardSize(int boardSize) {
-		this.board = new GameBoard(boardSize);
+		this.board = new GameBoard(boardSize, false);
 	}
 
 	@Override
@@ -114,39 +110,6 @@ public class EngineImpl implements Engine, Serializable {
 		gamePiece = e.getPieceOperator();
 		pieceCommands = e.getPieceCommands();
 
-	}
-
-
-	@Override
-	public void configObstacle(boolean hasObstacle) {
-
-		Set<Cell> specialPos = new HashSet<>();
-
-		if (hasObstacle) {
-			for (Piece pieces : this.gamePiece.getAllPieces().values()) {
-				specialPos.add(board.getCell(pieces.getPosition().get("x"), pieces.getPosition().get("y")));
-			}
-			specialPos.add(board.getCell(board.getSize() / 2, 0));
-			specialPos.add(board.getCell(board.getSize() / 2, board.getSize() - 1));
-
-			int min = 0, max = board.getSize();
-			// 4 obstacles
-			int numObstacle = 1;
-			while (numObstacle <= 4) {
-				// exclusive the ceiling
-				int randomX = ThreadLocalRandom.current().nextInt(min, max);
-				int randomY = ThreadLocalRandom.current().nextInt(min, max);
-
-				// generate random until not either the special pos
-				if (!specialPos.contains(board.getCell(randomX, randomY))
-						&& !board.getCell(randomX, randomY).isObstacle()) {
-					board.getCell(randomX, randomY).setObstacle();
-					++numObstacle;
-				}
-
-			}
-
-		}
 	}
 
 	private boolean checkPiecesActiveWinningCondition() {
@@ -175,7 +138,7 @@ public class EngineImpl implements Engine, Serializable {
 				gameTurn.endGame(TeamType.EAGLE);
 				return true;
 			}
-		} 
+		}
 		return false;
 	}
 

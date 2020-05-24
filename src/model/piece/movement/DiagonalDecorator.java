@@ -19,15 +19,12 @@ import model.engine.EngineImpl;
 
 public class DiagonalDecorator extends PieceMoveDecorator {
 
-
 	private Set<Cell> validMoves = new HashSet<>();
-	
-	
+
 	public DiagonalDecorator(PieceMovement pieceMove) {
 		super(pieceMove);
 		// TODO Auto-generated constructor stub
 	}
-	
 
 	/*
 	 * @param piece - selected piece
@@ -40,18 +37,17 @@ public class DiagonalDecorator extends PieceMoveDecorator {
 	@Ensures("validMoves != null")
 	@Override
 	public Set<Cell> getValidMove(Piece piece, int distance) {
-		
+
 		validMoves = pieceMove.getValidMove(piece, distance);
-		
+
 		Map<String, Integer> currentPosition = piece.getPosition();
 		int currentX = currentPosition.get("x");
 		int currentY = currentPosition.get("y");
-		
+
 		validMoves.addAll(validDiaNorthEast(currentX, currentY, distance));
 		validMoves.addAll(validDiaSouthWest(currentX, currentY, distance));
 		validMoves.addAll(validDiaSouthEast(currentX, currentY, distance));
 		validMoves.addAll(validDiaNorthWest(currentX, currentY, distance));
-
 
 		return validMoves;
 	}

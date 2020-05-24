@@ -6,6 +6,11 @@ import javax.swing.UIManager;
 
 import view.mainframe.StartGameMainFrame;
 
+/**
+ * Primary Client
+ * @author ktcs
+ *
+ */
 public class A2Client {
 	public static void main(final String[] args) {
 		try {

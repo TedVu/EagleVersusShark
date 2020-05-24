@@ -1,5 +1,7 @@
 package model.enumtype;
 
+import java.awt.Color;
+
 /**
  * @author ted &#38; kevin
  *
@@ -8,12 +10,22 @@ public enum TeamType {
 	/**
 	 * Include: VisionaryEagle, LeadershipEagle, AttackingEagle
 	 */
-	EAGLE,
+	EAGLE(Color.YELLOW),
 
 	/**
 	 * Include: AggressiveShark, DefensiveShark, HealingShark
 	 */
-	SHARK;
+	SHARK(Color.BLUE);
+
+	private final Color color;
+
+	TeamType(final Color color) {
+		this.color = color;
+	}
+
+	public Color color() {
+		return color;
+	}
 
 	public static TeamType parseTeamType(String animal) {
 		TeamType team = null;

@@ -28,7 +28,6 @@ public class PieceFactory {
 		}
 	}
 
-
 	private static Piece createAggressiveShark(int boardSize, Engine engine) {
 		return new AggressiveShark(PieceType.AGGRESSIVESHARK.xCoordinate(boardSize),
 				PieceType.AGGRESSIVESHARK.yCoordinate(boardSize), engine);

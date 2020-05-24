@@ -16,18 +16,13 @@ public interface Engine {
 
 	public GameBoard gameBoard();
 
-
 	public GamePiece pieceOperator();
 
-
 	public int getTotalNumPiece();
-
 
 	public void configBoardSize(int boardSize);
 
 	public void configNumPiece(int pieceNumberSelection);
-
-	public void configObstacle(boolean hasObstacle);
 
 	public void loadGame(EngineImpl e);
 

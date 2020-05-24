@@ -73,7 +73,7 @@ public class SettingsDialog extends JDialog {
 
 		add(buttonPanel, BorderLayout.SOUTH);
 		add(selectionPanel, BorderLayout.CENTER);
-		
+
 		applyButton.addActionListener(new ApplyConfigurationController(this, startGameMainFrame));
 
 		setModal(true);
@@ -103,7 +103,7 @@ public class SettingsDialog extends JDialog {
 			return 2;
 		}
 	}
-	
+
 	public String getObstacleConfig() {
 		return (String) obstaclesMenu.getSelectedItem();
 	}

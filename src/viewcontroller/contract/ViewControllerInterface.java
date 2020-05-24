@@ -44,7 +44,7 @@ public interface ViewControllerInterface {
 	public void updateBoardAfterCapture(AbstractButton btnClicked, PieceType pieceCapture);
 
 	public void refreshBoard();
-	
+
 	public void resumeGame(TeamType currentTeam);
 
 	public void confirmUndoSuccessful();
@@ -58,6 +58,6 @@ public interface ViewControllerInterface {
 	public void updateBoardAfterProtect();
 
 	public void updateBoardNotiDialog(String msg);
-	
+
 	public void updateBoardPauseGame();
 }
