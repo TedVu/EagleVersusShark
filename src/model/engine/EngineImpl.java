@@ -21,9 +21,6 @@ public class EngineImpl implements Engine, Serializable {
 
 	private static Engine engine = null;
 
-	/**
-	 * @return the singleton instance of the engine
-	 */
 	public static Engine getSingletonInstance() {
 		if (engine == null) {
 			engine = new EngineImpl();
@@ -41,9 +38,6 @@ public class EngineImpl implements Engine, Serializable {
 
 	private GameTurn gameTurn;
 
-	/**
-	 * @return the singleton instance of the engine
-	 */
 	private EngineImpl() {
 		totalNumPiece = 6;
 		board = new GameBoard(9, false);
@@ -82,8 +76,8 @@ public class EngineImpl implements Engine, Serializable {
 	}
 
 	@Override
-	public void configBoardSize(int boardSize) {
-		this.board = new GameBoard(boardSize, false);
+	public void configBoardSize(int boardSize, boolean hasObstacle) {
+		this.board = new GameBoard(boardSize, hasObstacle);
 	}
 
 	@Override
@@ -91,6 +85,7 @@ public class EngineImpl implements Engine, Serializable {
 		gamePiece = new GamePiece(this);
 		if (numPiece == 6) {
 			gamePiece.initializeDefaultPiece();
+			totalNumPiece = 6;
 		} else if (numPiece == 4) {
 			gamePiece.initialize4Piece();
 			totalNumPiece = 4;
@@ -137,9 +132,6 @@ public class EngineImpl implements Engine, Serializable {
 		return false;
 	}
 
-	/**
-	 * call at controllermodelfacade inside updateStateModelForNextTurn()
-	 */
 	@Override
 	public boolean endGame() {
 		if (checkPiecesActiveWinningCondition()) {

@@ -11,6 +11,7 @@ import view.configuration.SaveGameDialog;
 import viewcontroller.contract.ViewControllerInterface;
 
 public class SaveGameController implements ActionListener {
+	
 	private ViewControllerInterface viewControllerFacade;
 	private ControllerModelInterface controllerModelFacade = new ControllerModelFacadeImpl();
 	private AbstractButton resumeBtn;

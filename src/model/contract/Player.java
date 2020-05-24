@@ -28,9 +28,14 @@ public interface Player {
 	 */
 	public boolean ableToUndo(int round);
 
+	/**
+	 * @param round
+	 */
 	public void undoCounter(int round);
 
-	// TED
+	/**
+	 * 
+	 */
 	public void setAlreadyUndo();
 
 }

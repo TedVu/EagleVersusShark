@@ -18,7 +18,6 @@ public class LeadershipEagleAbilityController extends AbstractAbilityController 
 
 		super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
 		viewControllerFacade.updateBoardAfterProtect();
-
 	}
 
 }

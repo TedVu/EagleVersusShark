@@ -8,6 +8,7 @@ import controller.abstractfactory.eagleability.VisionaryEagleAbilityController;
 import model.enumtype.PieceType;
 
 public class EagleAbilityControllerFactory implements AbilityControllerFactory {
+	
 	@Override
 	public AbilityController createAbilityController(PieceType eagleType) {
 		if (eagleType == PieceType.VISIONARYEAGLE) {
@@ -20,4 +21,5 @@ public class EagleAbilityControllerFactory implements AbilityControllerFactory {
 			throw new IllegalArgumentException("Piece type not found");
 		}
 	}
+
 }

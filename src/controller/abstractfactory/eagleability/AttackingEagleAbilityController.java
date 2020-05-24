@@ -14,16 +14,13 @@ public class AttackingEagleAbilityController extends AbstractAbilityController {
 	public void actionPerformed(ActionEvent e) {
 		AbstractButton btnClicked = (AbstractButton) e.getSource();
 		PieceType affectedPieceEnum = PieceType.parsePieceType(btnClicked.getActionCommand());
-
 		try {
-			// will throw exception if capture immunity piece
 			super.controllerModelFacade.updateModelAttackingEagleCapture(affectedPieceEnum, false);
 			super.viewControllerFacade.updateBoardAfterCapture(btnClicked, PieceType.ATTACKINGEAGLE);
 			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
 		} catch (RuntimeException ex) {
 			super.viewControllerFacade.updateBoardNotiDialog("This piece has immunity. Cannot capture");
 		}
-
 	}
 
 }

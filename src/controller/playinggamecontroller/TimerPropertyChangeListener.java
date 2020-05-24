@@ -23,10 +23,7 @@ public class TimerPropertyChangeListener implements PropertyChangeListener {
 	public void injectBoard(BoardPanel boardView) {
 		this.boardView = boardView;
 	}
-
-	/**
-	 *
-	 */
+	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equalsIgnoreCase("SwitchTurn")) {

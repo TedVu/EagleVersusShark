@@ -30,10 +30,7 @@ public class StartGameController implements ActionListener {
 		this.statusPanel = statusPanel;
 		this.modePanel = modePanel;
 	}
-
-	/**
-	 *
-	 */
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Player initialPlayer = controllerModelFacade.getInitialActivePlayer();

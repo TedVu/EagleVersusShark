@@ -6,6 +6,7 @@ import controller.abstractfactory.factory.SharkAbilityControllerFactory;
 import controller.abstractfactory.factory.SharkModeControllerFactory;
 
 public class SharkSpecialBehaviourControllerFactory extends SpecialBehaviourControllerFactory {
+	
 	@Override
 	public AbilityControllerFactory createAbilityControllerFactory() {
 		return new SharkAbilityControllerFactory();

@@ -5,8 +5,14 @@ package model.contract;
  */
 public interface Command {
 
+	/**
+	 * 
+	 */
 	public void execute();
 
+	/**
+	 * 
+	 */
 	public void undo();
 
 }

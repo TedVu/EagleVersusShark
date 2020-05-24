@@ -22,7 +22,6 @@ public class ConfirmUndoController implements ActionListener {
 
 	private ViewControllerInterface viewControllerFacade;
 	private ControllerModelInterface controllerModelFacade = new ControllerModelFacadeImpl();
-
 	private UndoMovePanel undoMovePanel;
 	private CommandExecutor commandExecutor = new CommandExecutor();
 

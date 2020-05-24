@@ -20,11 +20,8 @@ public class HealingSharkAbilityController extends AbstractAbilityController {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (controllerModelFacade.getCurrentActivePlayer().getPlayerType() == TeamType.SHARK) {
-
 			healingDialog.dispose();
-
 			PieceType affectedPieceEnum = PieceType.parsePieceType(healingDialog.getSharkRevived());
-
 			try {
 				super.controllerModelFacade.updateModelStateHealingSharkRevive(affectedPieceEnum);
 				super.viewControllerFacade.updateBoardReviveSharkSuccessful(affectedPieceEnum);
@@ -40,9 +37,7 @@ public class HealingSharkAbilityController extends AbstractAbilityController {
 
 	@Override
 	public void setUpViewForAbility(PieceType pieceType) {
-
 		List<Piece> activeSharks = EngineImpl.getSingletonInstance().pieceOperator().getActiveSharks();
-
 		if (activeSharks.size() == EngineImpl.getSingletonInstance().getTotalNumPiece() / 2) {
 			super.viewControllerFacade.updateBoardNotiDialog("No shark to revive");
 		} else {

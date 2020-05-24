@@ -50,22 +50,51 @@ public interface Piece {
 	 */
 	public void setPosition(int x, int y);
 
+	/**
+	 * @param pieceAbility
+	 * @param piece
+	 * @param affectedPiece
+	 */
 	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece);
 
+	/**
+	 * @return
+	 */
 	public Set<Cell> abilityCells();
 
+	/**
+	 * @param isImmune
+	 */
 	public void setImmune(boolean isImmune);
 
+	/**
+	 * @return
+	 */
 	public boolean isImmune();
 
+	/**
+	 * @return
+	 */
 	public PieceMemento pieceMemento();
 
+	/**
+	 * @return
+	 */
 	public Set<Cell> modeCells();
 
+	/**
+	 * 
+	 */
 	public void modeUsed();
 
+	/**
+	 * @param modeCount
+	 */
 	public void setModeCount(int modeCount);
 
+	/**
+	 * @return
+	 */
 	public int getModeCount();
 
 }

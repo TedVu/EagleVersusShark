@@ -8,6 +8,7 @@ import controller.abstractfactory.sharkability.HealingSharkAbilityController;
 import model.enumtype.PieceType;
 
 public class SharkAbilityControllerFactory implements AbilityControllerFactory {
+	
 	@Override
 	public AbilityController createAbilityController(PieceType sharkType) {
 		if (sharkType == PieceType.AGGRESSIVESHARK) {
@@ -20,4 +21,5 @@ public class SharkAbilityControllerFactory implements AbilityControllerFactory {
 			throw new IllegalArgumentException("Piece type not found");
 		}
 	}
+
 }
