@@ -132,6 +132,9 @@ public class EngineImpl implements Engine, Serializable {
 		return false;
 	}
 
+	/**
+	 * called at controllermodelfacade inside updateStateModelForNextTurn()
+	 */
 	@Override
 	public boolean endGame() {
 		if (checkPiecesActiveWinningCondition()) {

@@ -7,12 +7,16 @@ import java.awt.Toolkit;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 import view.operationview.BoardPanel;
 import view.operationview.OperationToolbar;
 import view.operationview.RightPanel;
 
 /**
+ * 
+ * Container for board
+ * 
  * @author ted &#38; kevin
  */
 public class AppMainFrame extends JFrame {
@@ -25,6 +29,9 @@ public class AppMainFrame extends JFrame {
 	private BoardPanel boardPanel;
 	private RightPanel rightPanel;
 
+	/**
+	 * Construct component here
+	 */
 	public AppMainFrame() {
 		boardPanel = new BoardPanel(this);
 		rightPanel = new RightPanel(boardPanel.getFacade());
@@ -36,7 +43,6 @@ public class AppMainFrame extends JFrame {
 		setLocation(screenDimension.width / 2 - FRAME_WIDTH / 2, screenDimension.height / 2 - FRAME_HEIGHT / 2);
 
 		setSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 
 		JPanel centerPanel = new JPanel();
@@ -49,6 +55,9 @@ public class AppMainFrame extends JFrame {
 
 		boardPanel.getFacade().addPropertyChangeListener(rightPanel.getModePanel());
 		boardPanel.getFacade().addPropertyChangeListener(rightPanel.getStatusPanel());
+
+		// for program termination when closing frame
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 
 	public RightPanel getRightPanel() {

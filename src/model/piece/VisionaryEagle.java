@@ -88,6 +88,10 @@ public class VisionaryEagle extends AbstractPiece {
 				swapPositions.add(new Cell(x, y));
 			}
 		}
+
+		if (swapPositions.size() == 0) {
+			throw new RuntimeException("No eagle alive to swap");
+		}
 		return swapPositions;
 	}
 

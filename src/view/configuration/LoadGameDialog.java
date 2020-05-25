@@ -40,7 +40,7 @@ public class LoadGameDialog extends JDialog {
 		loadGameButton.addActionListener(new LoadGameController(startFrame, this));
 
 		JPanel textfiledPanel = new JPanel();
-		textfiledPanel.add(new JLabel("File name:"));
+		textfiledPanel.add(new JLabel("File name (with .ser):"));
 		textfiledPanel.add(fileNameField);
 		add(textfiledPanel, BorderLayout.CENTER);
 

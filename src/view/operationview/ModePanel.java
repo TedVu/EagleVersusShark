@@ -35,6 +35,9 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 	private JButton undoBtn;
 	private JButton resumeBtn;
 
+	/**
+	 * Construct component here
+	 */
 	public ModePanel(ViewControllerInterface viewControllerFacade) {
 
 		modeBox = new JComboBox<String>(allModes);
