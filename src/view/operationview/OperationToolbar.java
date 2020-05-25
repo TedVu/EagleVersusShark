@@ -15,17 +15,12 @@ import viewcontroller.contract.ViewControllerInterface;
  */
 public class OperationToolbar extends JMenuBar {
 
-	/**
-	 * @serial -3854607902557332468L
-	 */
 	private static final long serialVersionUID = -3854607902557332468L;
+	
 	private JMenu[] menus;
 	private JMenuItem save;
 	private JMenuItem exit;
 
-	/**
-	 * @see
-	 */
 	public OperationToolbar(AppMainFrame mainFrame, ViewControllerInterface viewControllerFacade) {
 		String[] options = new String[] { "File" };
 		menus = new JMenu[options.length];

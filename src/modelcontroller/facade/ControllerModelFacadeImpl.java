@@ -7,6 +7,7 @@ import com.google.java.contract.Requires;
 import model.board.Cell;
 import model.contract.Engine;
 import model.contract.Piece;
+import model.contract.Player;
 import model.engine.EngineImpl;
 import model.enumtype.PieceAbility;
 import model.enumtype.PieceType;
@@ -14,14 +15,13 @@ import model.enumtype.TeamType;
 import model.piece.commands.CommandExecutor;
 import model.piece.commands.MovePiece;
 import model.piece.commands.UseAbility;
-import model.player.Player;
 import modelcontroller.contract.ControllerModelInterface;
 
 /**
  * @author ted &#38; kevin
  *
  */
-public class ControllerModelFacade implements ControllerModelInterface {
+public class ControllerModelFacadeImpl implements ControllerModelInterface {
 
 	private Engine engine = EngineImpl.getSingletonInstance();
 	private CommandExecutor commandExecutor = new CommandExecutor();
@@ -89,7 +89,6 @@ public class ControllerModelFacade implements ControllerModelInterface {
 		Cell eagleRandomTopCell = engine.gameBoard().getAvailableTopEagleSideCell();
 		commandExecutor
 				.executeCommand(new MovePiece(eagleRandomTopCell.getX(), eagleRandomTopCell.getY(), eagle, true));
-
 	}
 
 	@Override

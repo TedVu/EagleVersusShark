@@ -16,6 +16,7 @@ import model.contract.Piece;
 public abstract class AbstractPiece implements Piece, Serializable {
 
 	private static final long serialVersionUID = -564937938237634780L;
+
 	private Map<String, Integer> position = new HashMap<String, Integer>();
 	private boolean isActive = true;
 	private boolean isImmune = false;
@@ -64,7 +65,8 @@ public abstract class AbstractPiece implements Piece, Serializable {
 	}
 
 	public PieceMemento pieceMemento() {
-		PieceMemento memento = new PieceMemento(isActive, isImmune, position.get("x"), position.get("y"), modeUsageCount);
+		PieceMemento memento = new PieceMemento(isActive, isImmune, position.get("x"), position.get("y"),
+				modeUsageCount);
 		return memento.getState();
 	}
 
@@ -82,6 +84,5 @@ public abstract class AbstractPiece implements Piece, Serializable {
 	public int getModeCount() {
 		return modeUsageCount;
 	}
-	
-	
+
 }

@@ -9,9 +9,8 @@ import javax.swing.AbstractButton;
 import controller.abstractfactory.AbstractModeController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
- 
-public class DefensiveSharkModeController extends AbstractModeController {
 
+public class DefensiveSharkModeController extends AbstractModeController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

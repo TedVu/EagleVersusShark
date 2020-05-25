@@ -1,10 +1,13 @@
-package controller.abstractfactory.factory;
+package controller.abstractfactory.contract;
 
-import controller.abstractfactory.AbilityController;
 import model.enumtype.PieceType;
 
 public interface AbilityControllerFactory {
 
+	/**
+	 * @param pieceType
+	 * @return
+	 */
 	public AbilityController createAbilityController(PieceType pieceType);
 
 }

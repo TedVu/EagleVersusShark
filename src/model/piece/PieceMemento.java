@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class PieceMemento implements Serializable {
 
 	private static final long serialVersionUID = -2210167835452781626L;
+	
 	boolean isActive;
 	boolean isImmune;
 	int x, y, modeUsageCount;

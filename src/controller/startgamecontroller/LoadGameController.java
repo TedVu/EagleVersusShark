@@ -49,7 +49,7 @@ public class LoadGameController implements ActionListener {
 
 						in.close();
 						file.close();
-
+            
 						EngineImpl.getSingletonInstance().loadGame(engine);
 						final AppMainFrame window = new AppMainFrame();
 						window.setVisible(true);

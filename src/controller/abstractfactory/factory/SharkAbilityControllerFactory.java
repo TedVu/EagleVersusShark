@@ -1,12 +1,14 @@
 package controller.abstractfactory.factory;
 
-import controller.abstractfactory.AbilityController;
+import controller.abstractfactory.contract.AbilityController;
+import controller.abstractfactory.contract.AbilityControllerFactory;
 import controller.abstractfactory.sharkability.AggressiveSharkAbilityController;
 import controller.abstractfactory.sharkability.DefensiveSharkAbilityController;
 import controller.abstractfactory.sharkability.HealingSharkAbilityController;
 import model.enumtype.PieceType;
 
 public class SharkAbilityControllerFactory implements AbilityControllerFactory {
+	
 	@Override
 	public AbilityController createAbilityController(PieceType sharkType) {
 		if (sharkType == PieceType.AGGRESSIVESHARK) {
@@ -19,4 +21,5 @@ public class SharkAbilityControllerFactory implements AbilityControllerFactory {
 			throw new IllegalArgumentException("Piece type not found");
 		}
 	}
+
 }

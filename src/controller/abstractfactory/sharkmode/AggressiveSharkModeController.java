@@ -12,8 +12,6 @@ import model.enumtype.TeamType;
 
 public class AggressiveSharkModeController extends AbstractModeController {
 
-
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		AbstractButton btnClicked = (AbstractButton) e.getSource();

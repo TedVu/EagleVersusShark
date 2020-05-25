@@ -23,10 +23,8 @@ import model.piece.movement.DiagonalDecorator;
  */
 public class VisionaryEagle extends AbstractPiece {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6390595106558376146L;
+
 	private Engine engine;
 
 	public VisionaryEagle(int x, int y, Engine engine) {
@@ -47,7 +45,6 @@ public class VisionaryEagle extends AbstractPiece {
 	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
 	public void movePiece(int x, int y) {
 		setPosition(x, y);
-
 		engine.pieceOperator().eagleCheckingHealingSharkAbility();
 	}
 
@@ -63,7 +60,6 @@ public class VisionaryEagle extends AbstractPiece {
 	}
 
 	private void swap(Piece piece, Piece affectedPiece) {
-
 		try {
 			Map<String, Integer> position1 = new HashMap<String, Integer>();
 			Map<String, Integer> position2 = new HashMap<String, Integer>();
@@ -81,7 +77,6 @@ public class VisionaryEagle extends AbstractPiece {
 
 	@Override
 	public Set<Cell> abilityCells() {
-
 		Set<Cell> swapPositions = new HashSet<>();
 		List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
 		for (Piece activeEagle : activeEagles) {
@@ -93,16 +88,15 @@ public class VisionaryEagle extends AbstractPiece {
 				swapPositions.add(new Cell(x, y));
 			}
 		}
+
 		if (swapPositions.size() == 0) {
 			throw new RuntimeException("No eagle alive to swap");
 		}
-
 		return swapPositions;
 	}
 
 	@Override
 	public Set<Cell> modeCells() {
-
 		Set<Cell> swapPositions = new HashSet<>();
 		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
 		for (Piece activeShark : activeSharks) {
@@ -112,7 +106,6 @@ public class VisionaryEagle extends AbstractPiece {
 
 			swapPositions.add(new Cell(x, y));
 		}
-
 		return swapPositions;
 	}
 

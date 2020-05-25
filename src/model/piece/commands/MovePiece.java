@@ -6,7 +6,6 @@ import model.contract.Command;
 import model.contract.Engine;
 import model.contract.Piece;
 import model.engine.EngineImpl;
-import model.engine.GamePiece;
 
 /**
  *
@@ -20,7 +19,7 @@ public class MovePiece implements Command, Serializable {
 	private Piece piece;
 	private Engine engine = EngineImpl.getSingletonInstance();
 	private PieceCommands pieceCommands = engine.getPieceCommands();
-	private boolean isMode; 
+	private boolean isMode;
 
 	public MovePiece(int newX, int newY, Piece piece, boolean isMode) {
 		this.newX = newX;
@@ -39,10 +38,7 @@ public class MovePiece implements Command, Serializable {
 
 	@Override
 	public void undo() {
-
 		pieceCommands.movePiece(piece, oldX, oldY, isMode);
-//		engine.getBoard().removePiece(newX, newY);
-//		engine.getBoard().addPiece(oldX, oldY);
 	}
 
 }

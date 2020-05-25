@@ -15,7 +15,6 @@ public class AggressiveSharkAbilityController extends AbstractAbilityController 
 		boolean captureSuccess = true;
 		AbstractButton btnClicked = (AbstractButton) e.getSource();
 		PieceType affectedPieceEnum = PieceType.parsePieceType(btnClicked.getActionCommand());
-
 		try {
 			super.controllerModelFacade.updateModelStateAggressiveSharkCapture(affectedPieceEnum);
 		} catch (RuntimeException ex) {
@@ -25,7 +24,6 @@ public class AggressiveSharkAbilityController extends AbstractAbilityController 
 		if (captureSuccess) {
 			super.viewControllerFacade.updateBoardAfterCapture(btnClicked, PieceType.AGGRESSIVESHARK);
 			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.EAGLE);
-
 		}
 	}
 

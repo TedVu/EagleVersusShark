@@ -27,8 +27,8 @@ import javax.swing.SwingWorker;
 import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
-import controller.abstractfactory.AbilityController;
-import controller.abstractfactory.ModeController;
+import controller.abstractfactory.contract.AbilityController;
+import controller.abstractfactory.contract.ModeController;
 import controller.playinggamecontroller.MovePieceController;
 import controller.playinggamecontroller.SelectPieceController;
 import controller.playinggamecontroller.TimerPropertyChangeListener;
@@ -37,10 +37,9 @@ import model.contract.Engine;
 import model.contract.Piece;
 import model.engine.EngineImpl;
 import model.enumtype.PieceType;
-import model.enumtype.TeamType;
 import view.mainframe.AppMainFrame;
 import viewcontroller.contract.ViewControllerInterface;
-import viewcontroller.facade.ViewControllerFacade;
+import viewcontroller.facade.ViewControllerFacadeImpl;
 
 /**
  * <h1>Board Panel View</h1> BoardPanel class contains the boards (can be
@@ -82,7 +81,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		JPanel btnContainerPanel = new JPanel();
 		btnContainerPanel.setLayout(new GridLayout(boardSize, boardSize, 0, 0));
 
-		facade = new ViewControllerFacade();
+		facade = new ViewControllerFacadeImpl();
 		facade.addPropertyChangeListener(this);
 
 		for (int row = 0; row < boardSize; ++row) {
@@ -92,22 +91,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 				JButton currentButton = new JButton();
 				buttons.get(row).add(currentButton);
 
-				currentButton.setBackground(Color.WHITE);
-
-				if (engine.gameBoard().getCell(col, row).isWaterCell()) {
-					Color color = new Color(178, 221, 247);
-					currentButton.setBackground(color);
-				}
-
-				if (engine.gameBoard().getCell(col, row).isMasterCell()) {
-					Color color = new Color(7, 6, 0);
-					currentButton.setBackground(color);
-				}
-
-				if (engine.gameBoard().getCell(col, row).isObstacle()) {
-					Color color = new Color(81, 79, 89);
-					currentButton.setBackground(color);
-				}
+				currentButton.setBackground(engine.gameBoard().getCell(col, row).getType().color());
 				currentButton.setBorder(BorderFactory.createRaisedBevelBorder());
 
 				currentButton.setActionCommand("NormalButton");
@@ -135,9 +119,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
-	/**
-	 * @return
-	 */
 	public List<List<AbstractButton>> getButtonList() {
 		return buttons;
 	}
@@ -226,7 +207,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 		Set<Cell> actionCells = null;
 
-		Color color = null;
+		Color color = pieceType.team().color();
 		boolean isMoveAction = false;
 		boolean isAbility = false;
 		if (abilityController instanceof AbilityController) {
@@ -238,9 +219,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			actionCells = animal.getValidMove();
 			isMoveAction = true;
 		}
-		TeamType team = TeamType.parseTeamType(pieceType.toString());
-
-		color = (team == TeamType.SHARK) ? Color.BLUE : Color.YELLOW;
 
 		if ((!isMoveAction && pieceType == PieceType.ATTACKINGEAGLE)
 				|| (isAbility && pieceType == PieceType.AGGRESSIVESHARK)) {
@@ -253,10 +231,9 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 			if ((pieceType == PieceType.DEFENSIVESHARK || pieceType == PieceType.LEADERSHIPEAGLE)
 					&& !affectedBtn.getActionCommand().equalsIgnoreCase("NormalButton")) {
-				Color protectColor = new Color(33, 161, 121);
+				Color protectColor = Color.ORANGE;
 				affectedBtn.setBackground(protectColor);
 			} else {
-
 				affectedBtn.setBackground(color);
 			}
 
@@ -355,20 +332,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
 				AbstractButton btn = buttons.get(row).get(col);
-				if (!engine.gameBoard().getCell(col, row).isWaterCell()
-						&& !engine.gameBoard().getCell(col, row).isMasterCell()
-						&& !engine.gameBoard().getCell(col, row).isObstacle()) {
-					btn.setBackground(Color.WHITE);
-				} else if (engine.gameBoard().getCell(col, row).isWaterCell()
-						&& !engine.gameBoard().getCell(col, row).isObstacle()) {
-					// color for water cell
-					Color color = new Color(178, 221, 247);
-					btn.setBackground(color);
-				} else if (engine.gameBoard().getCell(col, row).isMasterCell()) {
-					// color for master cell
-					Color color = new Color(7, 6, 0);
-					btn.setBackground(color);
-				}
+				btn.setBackground(engine.gameBoard().getCell(col, row).getType().color());
 				ActionListener[] listeners = btn.getActionListeners();
 				for (ActionListener listener : listeners) {
 					btn.removeActionListener(listener);
@@ -391,7 +355,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	/**
 	 * @return
 	 */
-
 	@Requires({ "buttonClicked != null", "pieceType != null", "validMoves != null" })
 	public void updateIconAndButtonStateAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType,
 			Set<Cell> validMoves) {

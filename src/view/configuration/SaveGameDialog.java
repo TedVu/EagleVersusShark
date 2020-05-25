@@ -19,9 +19,7 @@ import viewcontroller.contract.ViewControllerInterface;
  * @author kevin & ted
  */
 public class SaveGameDialog extends JDialog {
-	/**
-	 * @serial -4258981534634398081L
-	 */
+
 	private static final long serialVersionUID = -4258981534634398081L;
 	private static final int FRAME_WIDTH = 350;
 	private static final int FRAME_HEIGHT = 100;
@@ -46,7 +44,7 @@ public class SaveGameDialog extends JDialog {
 		setResizable(false);
 
 		saveGameButton.addActionListener(new SaveGameBtnController(this, viewControllerFacade));
-
+  
 		JPanel textFieldPanel = new JPanel();
 		textFieldPanel.add(new JLabel("File name:"));
 		textFieldPanel.add(fileNameField);

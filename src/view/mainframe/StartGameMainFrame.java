@@ -24,9 +24,7 @@ import controller.startgamecontroller.StartDefaultGameController;
  * @author kevin & ted
  */
 public class StartGameMainFrame extends JFrame {
-	/**
-	 * @serial -8454047695594084099L
-	 */
+
 	private static final long serialVersionUID = -8454047695594084099L;
 	private static final int FRAME_WIDTH = 550;
 	private static final int FRAME_HEIGHT = 250;

@@ -22,7 +22,6 @@ public class AttackingEagleModeController extends AbstractModeController {
 		} catch (RuntimeException ex) {
 			super.viewControllerFacade.updateBoardNotiDialog(ex.getMessage());
 		}
-
 	}
 
 }

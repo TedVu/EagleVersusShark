@@ -20,9 +20,7 @@ import view.operationview.RightPanel;
  * @author ted &#38; kevin
  */
 public class AppMainFrame extends JFrame {
-	/**
-	 * @serial -6241584551658525365L
-	 */
+
 	private static final long serialVersionUID = -6241584551658525365L;
 	private static final int FRAME_WIDTH = 1000;
 	private static final int FRAME_HEIGHT = 700;
@@ -60,7 +58,6 @@ public class AppMainFrame extends JFrame {
 
 		// for program termination when closing frame
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
 	}
 
 	public RightPanel getRightPanel() {

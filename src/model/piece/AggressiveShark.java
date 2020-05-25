@@ -7,9 +7,10 @@ import java.util.Set;
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
+import model.board.GameBoard;
 import model.contract.Engine;
 import model.contract.Piece;
-import model.engine.GameBoard;
+import model.enumtype.CellType;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
 
@@ -19,6 +20,7 @@ import model.piece.movement.BasicMove;
 public class AggressiveShark extends AbstractPiece {
 
 	private static final long serialVersionUID = 7717531522291318350L;
+
 	private final Engine engine;
 	private boolean secondAbilityUnlock;
 
@@ -34,9 +36,8 @@ public class AggressiveShark extends AbstractPiece {
 
 	@Override
 	public Set<Cell> getValidMove() {
-		Cell currentPos = engine.gameBoard().getCell(this.getPosition().get("x"),
-				this.getPosition().get("y"));
-		if (!currentPos.isWaterCell()) {
+		Cell currentPos = engine.gameBoard().getCell(this.getPosition().get("x"), this.getPosition().get("y"));
+		if (!(currentPos.getType() == CellType.WATER)) {
 			return new BasicMove().getValidMove(this, 1);
 		} else {
 			return new BasicMove().getValidMove(this, 2);
@@ -46,7 +47,7 @@ public class AggressiveShark extends AbstractPiece {
 	@Override
 	@Requires({ "x>=0", "y>=0" })
 	public void movePiece(int x, int y) {
-		if (engine.gameBoard().getCell(x, y).isWaterCell()) {
+		if (engine.gameBoard().getCell(x, y).getType() == CellType.WATER) {
 			secondAbilityUnlock = true;
 		}
 		setPosition(x, y);
@@ -66,37 +67,32 @@ public class AggressiveShark extends AbstractPiece {
 
 	private void capture(Piece piece, Piece affectedPiece) {
 		try {
-			Cell currentPos = engine.gameBoard().getCell(piece.getPosition().get("x"),
-					piece.getPosition().get("y"));
-			Cell opponentPos = engine.gameBoard()
-					.getCell(affectedPiece.getPosition().get("x"), affectedPiece.getPosition().get("y"));
-			if (currentPos.isWaterCell()) {
-				if (!opponentPos.isWaterCell() && affectedPiece.isImmune()) {
+			Cell currentPos = engine.gameBoard().getCell(piece.getPosition().get("x"), piece.getPosition().get("y"));
+			Cell opponentPos = engine.gameBoard().getCell(affectedPiece.getPosition().get("x"),
+					affectedPiece.getPosition().get("y"));
+			if (currentPos.getType() == CellType.WATER) {
+				if (!(opponentPos.getType() == CellType.WATER) && affectedPiece.isImmune()) {
 					throw new IllegalArgumentException("The piece is immune");
 				}
-			} else if (!currentPos.isWaterCell()) {
+			} else if (!(currentPos.getType() == CellType.WATER)) {
 				if (affectedPiece.isImmune()) {
 					throw new IllegalArgumentException("The piece is immune");
 				}
 			}
 
 			engine.gameBoard().removePiece(currentPos.getX(), currentPos.getY());
-
 			movePiece(opponentPos.getX(), opponentPos.getY());
 			affectedPiece.setActive(false);
-
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-
 	}
 
 	@Override
 	public Set<Cell> abilityCells() {
 		int distance = 0;
-		Cell currentPos = engine.gameBoard().getCell(this.getPosition().get("x"),
-				this.getPosition().get("y"));
-		if (!currentPos.isWaterCell()) {
+		Cell currentPos = engine.gameBoard().getCell(this.getPosition().get("x"), this.getPosition().get("y"));
+		if (!(currentPos.getType() == CellType.WATER)) {
 			distance = 1;
 		} else {
 			distance = 2;
@@ -110,7 +106,6 @@ public class AggressiveShark extends AbstractPiece {
 		}
 		Set<Cell> abilityCells = new HashSet<>();
 		for (Cell cell : activeEaglePos) {
-			// only capture in horizontal + vertically
 			if (cell.getX() == currentPos.getX() || cell.getY() == currentPos.getY()) {
 				if (cell.getX() == currentPos.getX() && Math.abs(cell.getY() - currentPos.getY()) <= distance) {
 					abilityCells.add(cell);
@@ -119,10 +114,10 @@ public class AggressiveShark extends AbstractPiece {
 				}
 			}
 		}
+
 		if (abilityCells.size() == 0) {
 			throw new RuntimeException("No enemy nearby to capture");
 		}
-
 		return abilityCells;
 	}
 
@@ -133,29 +128,24 @@ public class AggressiveShark extends AbstractPiece {
 
 	@Override
 	public Set<Cell> modeCells() {
-		// https://prnt.sc/sjd4oa
 		Set<Cell> returnCells = new HashSet<>();
 
 		if (this.secondAbilityUnlock) {
 			GameBoard gameBoard = engine.gameBoard();
-			Cell currentCell = gameBoard.getCell(this.getPosition().get("x"),
-					this.getPosition().get("y"));
+			Cell currentCell = gameBoard.getCell(this.getPosition().get("x"), this.getPosition().get("y"));
 
-			// Populate the cells that are like Chess Knight valid moves
-			int[] offsets = {-2, -1, 1, 2};
+			int[] offsets = { -2, -1, 1, 2 };
 			for (int x : offsets) {
 				for (int y : offsets) {
 					if (Math.abs(x) != Math.abs(y)) {
-						// Check if the possible sell is within the board
-						if (currentCell.getX() + x < gameBoard.getSize() && currentCell.getX() + x >= 0 &&
-								currentCell.getY() + y < gameBoard.getSize() && currentCell.getY() + y >= 0) {
-							// Check the cell's occupation and it is eagle's master cell
+						if (currentCell.getX() + x < gameBoard.getSize() && currentCell.getX() + x >= 0
+								&& currentCell.getY() + y < gameBoard.getSize() && currentCell.getY() + y >= 0) {
 							int xPos = currentCell.getX() + x;
 							int yPos = currentCell.getY() + y;
 							Cell targetCell = gameBoard.getCell(xPos, yPos);
 
-							if (!gameBoard.getCell(xPos, yPos).getOccupied() &&
-									!targetCell.equals(gameBoard.getEagleMasterCell()))
+							if (!gameBoard.getCell(xPos, yPos).getOccupied()
+									&& !targetCell.equals(gameBoard.getEagleMasterCell()))
 								returnCells.add(targetCell);
 						}
 					}

@@ -136,7 +136,7 @@ public enum PieceType {
 		/**
 		 * Defensive Shark x is in the middle column.
 		 * 
-		 * @param boardSize TODO
+		 * @param boardSize
 		 */
 		@Override
 		public int xCoordinate(final int boardSize) {
@@ -146,7 +146,7 @@ public enum PieceType {
 		/**
 		 * Defensive Shark y is 1 cell above the bottom row.
 		 * 
-		 * @param boardSize TODO
+		 * @param boardSize
 		 */
 		@Override
 		public int yCoordinate(final int boardSize) {

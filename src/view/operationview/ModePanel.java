@@ -25,10 +25,6 @@ import viewcontroller.contract.ViewControllerInterface;
  */
 public class ModePanel extends JPanel implements PropertyChangeListener {
 
-	/**
-	 * @serial 4010321472922982018L
-	 */
-
 	private static final long serialVersionUID = 4010321472922982018L;
 
 	private JComboBox<String> modeBox;
@@ -98,11 +94,6 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 
 	}
 
-	/*
-	 * Listen to ViewControllerFacade attachment is done in MainAppFrame
-	 * 
-	 * @see MainAppFrame
-	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equalsIgnoreCase("GetMode")) {

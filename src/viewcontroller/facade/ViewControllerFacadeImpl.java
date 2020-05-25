@@ -18,7 +18,7 @@ import viewcontroller.contract.ViewControllerInterface;
  * @author kevin & ted
  *
  */
-public class ViewControllerFacade implements ViewControllerInterface {
+public class ViewControllerFacadeImpl implements ViewControllerInterface {
 
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
@@ -41,22 +41,26 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	}
 
 	@Override
+	@Requires({ "playerAction != null" })
 	public void getPlayerAction(PlayerAction playerAction) {
 		pcs.firePropertyChange("GetMode", playerAction, null);
 
 	}
 
 	@Override
+	@Requires({ "buttonClicked != null" })
 	public void updateBoardAfterSwap(AbstractButton buttonClicked) {
 		pcs.firePropertyChange("UpdateBoardAfterSwap", null, buttonClicked);
 	}
 
 	@Override
+	@Requires({ "btnClicked != null", "pieceCapture != null" })
 	public void updateBoardAfterCapture(AbstractButton btnClicked, PieceType pieceCapture) {
 		pcs.firePropertyChange("UpdateBoardAfterCapture", pieceCapture, btnClicked);
 	}
 
 	@Override
+	@Requires({ "currentTeam != null" })
 	public void resumeGame(TeamType currentTeam) {
 		pcs.firePropertyChange("ResumeGame", null, currentTeam);
 	}
@@ -64,7 +68,6 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	@Override
 	public void confirmUndoSuccessful() {
 		pcs.firePropertyChange("UndoSuccessful", null, null);
-
 	}
 
 	@Override
@@ -80,15 +83,16 @@ public class ViewControllerFacade implements ViewControllerInterface {
 	@Override
 	public void updateBoardAfterHealingSharkUseMode() {
 		pcs.firePropertyChange("UpdateBoardAfterHealingSharkUseMode", null, null);
-
 	}
 
 	@Override
+	@Requires({ "abilityController != null", "animalType != null" })
 	public void updateBoardBeforeCommitAction(ActionListener abilityController, PieceType animalType) {
 		pcs.firePropertyChange("UpdateBoardBeforeCommitAction", animalType, abilityController);
 	}
 
 	@Override
+	@Requires({ "errMsg != null" })
 	public void updateBoardNotiDialog(String errMsg) {
 		pcs.firePropertyChange("UpdateBoardNotification", null, errMsg);
 	}

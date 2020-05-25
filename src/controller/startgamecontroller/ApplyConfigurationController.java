@@ -23,11 +23,10 @@ public class ApplyConfigurationController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		settingGameDialog.setVisible(false);
 		startGameMainFrame.setVisible(false);
-
-		EngineImpl.getSingletonInstance().configBoardSize(settingGameDialog.getBoardSizeSelection());
-		EngineImpl.getSingletonInstance().configNumPiece(settingGameDialog.getPieceNumberSelection());
+		
 		boolean hasObstacle = settingGameDialog.getObstacleConfig().equalsIgnoreCase("YES") ? true : false;
-		EngineImpl.getSingletonInstance().configObstacle(hasObstacle);
+		EngineImpl.getSingletonInstance().configBoardSize(settingGameDialog.getBoardSizeSelection(), hasObstacle);
+		EngineImpl.getSingletonInstance().configNumPiece(settingGameDialog.getPieceNumberSelection());
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

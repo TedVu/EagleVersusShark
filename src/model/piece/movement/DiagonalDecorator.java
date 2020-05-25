@@ -19,20 +19,15 @@ import model.engine.EngineImpl;
 
 public class DiagonalDecorator extends PieceMoveDecorator {
 
-
 	private Set<Cell> validMoves = new HashSet<>();
-	
-	
+
 	public DiagonalDecorator(PieceMovement pieceMove) {
 		super(pieceMove);
-		// TODO Auto-generated constructor stub
 	}
-	
 
-	/*
-	 * @param piece - selected piece
-	 * 
-	 * @param distance - piece moving distance
+	/**
+	 * @param piece    selected piece
+	 * @param distance piece moving distance
 	 * 
 	 * @return the set of valid coordinate
 	 */
@@ -40,9 +35,9 @@ public class DiagonalDecorator extends PieceMoveDecorator {
 	@Ensures("validMoves != null")
 	@Override
 	public Set<Cell> getValidMove(Piece piece, int distance) {
-		
+
 		validMoves = pieceMove.getValidMove(piece, distance);
-		
+
 		Map<String, Integer> currentPosition = piece.getPosition();
 		int currentX = currentPosition.get("x");
 		int currentY = currentPosition.get("y");
@@ -51,15 +46,13 @@ public class DiagonalDecorator extends PieceMoveDecorator {
 		validMoves.addAll(validDiaSouthWest(currentX, currentY, distance));
 		validMoves.addAll(validDiaSouthEast(currentX, currentY, distance));
 		validMoves.addAll(validDiaNorthWest(currentX, currentY, distance));
-
-
+		
 		return validMoves;
 	}
 
-	/*
-	 * @param piece - selected piece
-	 * 
-	 * @param distance - piece moving distance
+	/**
+	 * @param piece    selected piece
+	 * @param distance piece moving distance
 	 * 
 	 * @return the set of valid coordinate for north east direction
 	 */
@@ -79,10 +72,9 @@ public class DiagonalDecorator extends PieceMoveDecorator {
 		return validMoves;
 	}
 
-	/*
-	 * @param piece - selected piece
-	 * 
-	 * @param distance - piece moving distance
+	/**
+	 * @param piece    selected piece
+	 * @param distance piece moving distance
 	 * 
 	 * @return the set of valid coordinate for north west direction
 	 */
@@ -99,14 +91,12 @@ public class DiagonalDecorator extends PieceMoveDecorator {
 				break;
 			}
 		}
-
 		return validMoves;
 	}
 
-	/*
-	 * @param piece - selected piece
-	 * 
-	 * @param distance - piece moving distance
+	/**
+	 * @param piece    selected piece
+	 * @param distance piece moving distance
 	 * 
 	 * @return the set of valid coordinate for south east direction
 	 */
@@ -124,14 +114,12 @@ public class DiagonalDecorator extends PieceMoveDecorator {
 				break;
 			}
 		}
-
 		return validMoves;
 	}
 
-	/*
-	 * @param piece - selected piece
-	 * 
-	 * @param distance - piece moving distance
+	/**
+	 * @param piece    selected piece
+	 * @param distance piece moving distance
 	 * 
 	 * @return the set of valid coordinate for south west direction
 	 */
@@ -148,7 +136,6 @@ public class DiagonalDecorator extends PieceMoveDecorator {
 				break;
 			}
 		}
-
 		return validMoves;
 	}
 }

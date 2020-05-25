@@ -5,10 +5,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import model.contract.Player;
 import model.enumtype.TeamType;
-import model.player.Player;
 import modelcontroller.contract.ControllerModelInterface;
-import modelcontroller.facade.ControllerModelFacade;
+import modelcontroller.facade.ControllerModelFacadeImpl;
 import view.operationview.ModePanel;
 import view.operationview.StatusPanel;
 
@@ -21,7 +21,7 @@ public class StartGameController implements ActionListener {
 	private StatusPanel statusPanel;
 	private ModePanel modePanel;
 
-	private ControllerModelInterface controllerModelFacade = new ControllerModelFacade();
+	private ControllerModelInterface controllerModelFacade = new ControllerModelFacadeImpl();
 
 	/**
 	 * @param statusPanel
@@ -30,10 +30,7 @@ public class StartGameController implements ActionListener {
 		this.statusPanel = statusPanel;
 		this.modePanel = modePanel;
 	}
-
-	/**
-	 *
-	 */
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Player initialPlayer = controllerModelFacade.getInitialActivePlayer();
