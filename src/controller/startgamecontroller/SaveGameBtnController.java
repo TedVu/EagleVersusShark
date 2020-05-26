@@ -11,6 +11,11 @@ import model.engine.EngineImpl;
 import view.configuration.SaveGameDialog;
 import viewcontroller.contract.ViewControllerInterface;
 
+/**
+ * @author Ted & Kevin
+ *
+ *         A controller when hitting saving button of the saving dialog
+ */
 public class SaveGameBtnController implements ActionListener {
 
 	private SaveGameDialog saveGameDialog;

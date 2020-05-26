@@ -8,6 +8,11 @@ import controller.abstractfactory.AbstractAbilityController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
+/**
+ * @author Ted & Kevin
+ *
+ *         A concrete controller for aggressiveshark ability
+ */
 public class AggressiveSharkAbilityController extends AbstractAbilityController {
 
 	@Override

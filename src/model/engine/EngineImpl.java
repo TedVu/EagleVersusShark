@@ -32,14 +32,11 @@ public class EngineImpl implements Engine, Serializable {
 
 	private GamePiece gamePiece;
 
-	private int totalNumPiece;
-
 	private PieceCommands pieceCommands;
 
 	private GameTurn gameTurn;
 
 	private EngineImpl() {
-		totalNumPiece = 6;
 		board = new GameBoard(9, false);
 		gamePiece = new GamePiece(this);
 		pieceCommands = new PieceCommands(this);
@@ -56,9 +53,6 @@ public class EngineImpl implements Engine, Serializable {
 		return pieceCommands;
 	}
 
-	public GamePiece getPieceOperator() {
-		return gamePiece;
-	}
 
 	@Override
 	public GameBoard gameBoard() {
@@ -71,11 +65,6 @@ public class EngineImpl implements Engine, Serializable {
 	}
 
 	@Override
-	public int getTotalNumPiece() {
-		return this.totalNumPiece;
-	}
-
-	@Override
 	public void configBoardSize(int boardSize, boolean hasObstacle) {
 		this.board = new GameBoard(boardSize, hasObstacle);
 	}
@@ -83,22 +72,13 @@ public class EngineImpl implements Engine, Serializable {
 	@Override
 	public void configNumPiece(int numPiece) {
 		gamePiece = new GamePiece(this);
-		if (numPiece == 6) {
-			gamePiece.initializeDefaultPiece();
-			totalNumPiece = 6;
-		} else if (numPiece == 4) {
-			gamePiece.initialize4Piece();
-			totalNumPiece = 4;
-		} else if (numPiece == 2) {
-			gamePiece.initialize2Piece();
-			totalNumPiece = 2;
-		}
+		gamePiece.initializePiece(numPiece);
 	}
 
 	@Override
 	public void loadGame(EngineImpl e) {
 		board = e.gameBoard();
-		gamePiece = e.getPieceOperator();
+		gamePiece = e.pieceOperator();
 		pieceCommands = e.getPieceCommands();
 	}
 

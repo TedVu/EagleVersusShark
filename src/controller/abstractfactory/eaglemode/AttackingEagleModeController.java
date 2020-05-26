@@ -7,7 +7,11 @@ import javax.swing.AbstractButton;
 import controller.abstractfactory.AbstractModeController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
-
+/**
+ * @author Ted & Kevin
+ *
+ *         A concrete mode controller for attacking eagle
+ */
 public class AttackingEagleModeController extends AbstractModeController {
 
 	@Override
@@ -21,7 +25,7 @@ public class AttackingEagleModeController extends AbstractModeController {
 			super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
 		} catch (RuntimeException ex) {
 			super.viewControllerFacade.updateBoardNotiDialog(ex.getMessage());
-		}
+		}  
 	}
 
 }

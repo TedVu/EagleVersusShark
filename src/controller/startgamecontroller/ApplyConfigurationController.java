@@ -9,6 +9,11 @@ import view.configuration.SettingsDialog;
 import view.mainframe.AppMainFrame;
 import view.mainframe.StartGameMainFrame;
 
+/**
+ * @author Ted & Kevin
+ *
+ *         A controller for settings panel to apply configuration
+ */
 public class ApplyConfigurationController implements ActionListener {
 
 	private SettingsDialog settingGameDialog;
@@ -23,7 +28,7 @@ public class ApplyConfigurationController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		settingGameDialog.setVisible(false);
 		startGameMainFrame.setVisible(false);
-		
+
 		boolean hasObstacle = settingGameDialog.getObstacleConfig().equalsIgnoreCase("YES") ? true : false;
 		EngineImpl.getSingletonInstance().configBoardSize(settingGameDialog.getBoardSizeSelection(), hasObstacle);
 		EngineImpl.getSingletonInstance().configNumPiece(settingGameDialog.getPieceNumberSelection());

@@ -7,8 +7,13 @@ import controller.abstractfactory.sharkability.DefensiveSharkAbilityController;
 import controller.abstractfactory.sharkability.HealingSharkAbilityController;
 import model.enumtype.PieceType;
 
+/**
+ * @author Ted & Kevin
+ *
+ *         A concrete factory to produce different abilities for shark
+ */
 public class SharkAbilityControllerFactory implements AbilityControllerFactory {
-	
+
 	@Override
 	public AbilityController createAbilityController(PieceType sharkType) {
 		if (sharkType == PieceType.AGGRESSIVESHARK) {

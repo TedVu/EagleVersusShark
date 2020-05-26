@@ -3,8 +3,10 @@ package model.engine;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.java.contract.Requires;
 
@@ -43,7 +45,7 @@ public class GamePiece implements Serializable {
 
 	public GamePiece(Engine engine) {
 		this.engine = engine;
-		initializeDefaultPiece();
+		initializePiece(6);
 	}
 
 	/**
@@ -68,44 +70,46 @@ public class GamePiece implements Serializable {
 	}
 
 	/**
-	 * Generate the pieces and put them on the board
+	 * The configuration is done here 
+	 * 4 pieces - 2 side pieces of each team
+	 * 2 pieces - only middle piece of each team
+	 * @param numPiece
 	 */
-	// @Requires({"pieces.size() < 1"})
-	// @Ensures({"pieces.size()>0"})
-	public void initializeDefaultPiece() {
+	public void initializePiece(int numPiece) {
+		Set<PieceType> pieceAvailable = new HashSet<PieceType>();
+		if (numPiece == 6) {
+			for (PieceType p : PieceType.values()) {
+				pieceAvailable.add(p);
+			}
+		} else if (numPiece == 4) {
+			for (PieceType p : PieceType.values()) {
+				if (p != PieceType.DEFENSIVESHARK && p != PieceType.LEADERSHIPEAGLE) {
+					pieceAvailable.add(p);
+				}
+			}
+		} else {
+			for (PieceType p : PieceType.values()) {
+				if (p == PieceType.DEFENSIVESHARK || p == PieceType.LEADERSHIPEAGLE) {
+					pieceAvailable.add(p);
+				}
+			}
+		}
 		int boardSize = engine.gameBoard().getSize();
+
+		// remove all the piece before adding - when applying configuration
 		for (PieceType pt : PieceType.values()) {
+			Piece piece = PieceFactory.generatePiece(pt, boardSize, engine);
+			engine.gameBoard().removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+		}
+
+		pieces = new EnumMap<PieceType, Piece>(PieceType.class);
+
+		for (PieceType pt : pieceAvailable) {
 			Piece piece = PieceFactory.generatePiece(pt, boardSize, engine);
 			engine.gameBoard().addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 			pieces.put(pt, piece);
 		}
-	}
 
-	public void initialize2Piece() {
-		pieces = new EnumMap<PieceType, Piece>(PieceType.class);
-
-		int boardSize = engine.gameBoard().getSize();
-		for (PieceType pt : PieceType.values()) {
-			if (pt == PieceType.DEFENSIVESHARK || pt == PieceType.LEADERSHIPEAGLE) {
-				Piece piece = PieceFactory.generatePiece(pt, boardSize, engine);
-				engine.gameBoard().addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
-				pieces.put(pt, piece);
-			}
-		}
-	}
-
-	public void initialize4Piece() {
-		pieces = new EnumMap<PieceType, Piece>(PieceType.class);
-
-		int boardSize = engine.gameBoard().getSize();
-		for (PieceType pt : PieceType.values()) {
-			if (pt != PieceType.DEFENSIVESHARK && pt != PieceType.LEADERSHIPEAGLE) {
-				Piece piece = PieceFactory.generatePiece(pt, boardSize, engine);
-				engine.gameBoard().addPiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
-				pieces.put(pt, piece);
-			}
-		}
-		System.out.println(pieces.size());
 	}
 
 	/*

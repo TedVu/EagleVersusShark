@@ -6,6 +6,12 @@ import java.awt.event.ActionListener;
 import view.configuration.LoadGameDialog;
 import view.mainframe.StartGameMainFrame;
 
+/**
+ * @author Ted & Kevin
+ * 
+ *         A controller to invoke loadgame dialog at the start panel
+ *
+ */
 public class InvokeLoadGameDialogController implements ActionListener {
 
 	private StartGameMainFrame startFrame;

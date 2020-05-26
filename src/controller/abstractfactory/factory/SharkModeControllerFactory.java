@@ -6,7 +6,11 @@ import controller.abstractfactory.sharkmode.AggressiveSharkModeController;
 import controller.abstractfactory.sharkmode.DefensiveSharkModeController;
 import controller.abstractfactory.sharkmode.HealingSharkModeController;
 import model.enumtype.PieceType;
-
+/**
+ * @author Ted & Kevin
+ *
+ *         A concrete factory to produce different modes for shark
+ */
 public class SharkModeControllerFactory implements ModeControllerFactory {
 
 	@Override
@@ -20,6 +24,6 @@ public class SharkModeControllerFactory implements ModeControllerFactory {
 		} else {
 			throw new IllegalArgumentException("Piece type not found");
 		}
-	}
+	} 
 
 }

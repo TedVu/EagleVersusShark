@@ -8,6 +8,11 @@ import controller.abstractfactory.AbstractModeController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
+/**
+ * @author Ted & Kevin
+ *
+ *         A concrete mode controller for visionary eagle
+ */
 public class VisionaryEagleModeController extends AbstractModeController {
 
 	@Override

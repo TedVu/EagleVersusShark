@@ -7,6 +7,12 @@ import java.awt.event.ActionListener;
 import view.mainframe.AppMainFrame;
 import view.mainframe.StartGameMainFrame;
 
+/**
+ * @author Ted & Kevin
+ * 
+ *         A controller to when hitting start game of the start panel
+ *
+ */
 public class StartDefaultGameController implements ActionListener {
 
 	private StartGameMainFrame startFrame;

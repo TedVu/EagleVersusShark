@@ -28,13 +28,8 @@ public interface Engine {
 	public GamePiece pieceOperator();
 
 	/**
-	 * @return
-	 */
-	public int getTotalNumPiece();
-
-	/**
 	 * @param boardSize
-	 * @param hasObstacle 
+	 * @param hasObstacle
 	 */
 	public void configBoardSize(int boardSize, boolean hasObstacle);
 

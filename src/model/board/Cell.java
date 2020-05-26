@@ -19,7 +19,7 @@ public class Cell implements Serializable {
 
 	/**
 	 * Create the cell with x, y, and cell type - occupied will be false by default.
-	 * 
+	 *  
 	 * @param x
 	 * @param y
 	 * @param type

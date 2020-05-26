@@ -7,8 +7,13 @@ import controller.abstractfactory.eagleability.LeadershipEagleAbilityController;
 import controller.abstractfactory.eagleability.VisionaryEagleAbilityController;
 import model.enumtype.PieceType;
 
+/**
+ * @author Ted & Kevin
+ *
+ *         A concrete factory to produce different abilities for eagle
+ */
 public class EagleAbilityControllerFactory implements AbilityControllerFactory {
-	
+
 	@Override
 	public AbilityController createAbilityController(PieceType eagleType) {
 		if (eagleType == PieceType.VISIONARYEAGLE) {

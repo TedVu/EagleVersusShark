@@ -9,7 +9,11 @@ import javax.swing.AbstractButton;
 import controller.abstractfactory.AbstractModeController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
-
+/**
+ * @author Ted & Kevin
+ *
+ *         A concrete controller for defensive shark mode
+ */
 public class DefensiveSharkModeController extends AbstractModeController {
 
 	@Override
@@ -24,3 +28,4 @@ public class DefensiveSharkModeController extends AbstractModeController {
 	}
 
 }
+ 

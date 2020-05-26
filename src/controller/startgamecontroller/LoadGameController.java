@@ -3,8 +3,8 @@ package controller.startgamecontroller;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
@@ -15,6 +15,13 @@ import view.configuration.LoadGameDialog;
 import view.mainframe.AppMainFrame;
 import view.mainframe.StartGameMainFrame;
 
+/**
+ * 
+ * @author Ted & Kevin
+ * 
+ *         Controller for load game dialog at the start of program
+ * 
+ */
 public class LoadGameController implements ActionListener {
 
 	private StartGameMainFrame startFrame;
@@ -29,27 +36,21 @@ public class LoadGameController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String filename = loadGameDialog.getFileNameInput();
 
-		boolean fileExist = true;
-		try {
-			FileInputStream file = new FileInputStream(filename);
-		} catch (FileNotFoundException e1) {
-			fileExist = false;
-			JOptionPane.showMessageDialog(loadGameDialog, "No file found in the system\nPlease check filename (appending  .ser)");
+		File file = new File(filename);
 
-		}
-		if (fileExist) {
+		if (file.exists()) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
 
-						FileInputStream file = new FileInputStream(filename);
-						ObjectInputStream in = new ObjectInputStream(file);
+						FileInputStream inFile = new FileInputStream(file);
+						ObjectInputStream in = new ObjectInputStream(inFile);
 
 						EngineImpl engine = (EngineImpl) in.readObject();
 
 						in.close();
-						file.close();
-            
+						inFile.close();
+
 						EngineImpl.getSingletonInstance().loadGame(engine);
 						final AppMainFrame window = new AppMainFrame();
 						window.setVisible(true);
@@ -65,8 +66,12 @@ public class LoadGameController implements ActionListener {
 			});
 			startFrame.dispose();
 			loadGameDialog.dispose();
+		} else {
+			JOptionPane.showMessageDialog(loadGameDialog,
+					"No file found in the system\nPlease check filename (appending  .ser)");
+
 		}
-		
+
 	}
 
 }

@@ -8,6 +8,11 @@ import modelcontroller.contract.ControllerModelInterface;
 import modelcontroller.facade.ControllerModelFacadeImpl;
 import viewcontroller.contract.ViewControllerInterface;
 
+/**
+ * @author Ted & Kevin
+ *
+ *         A mode controller to provide some default code
+ */
 public abstract class AbstractModeController implements ModeController {
 
 	protected AbstractButton buttonClicked;

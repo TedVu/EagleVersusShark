@@ -10,6 +10,11 @@ import controller.abstractfactory.AbstractModeController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
+/**
+ * @author Ted & Kevin
+ *
+ *         A concrete mode controller for leadership eagle
+ */
 public class LeadershipEagleModeController extends AbstractModeController {
 
 	@Override
@@ -21,6 +26,6 @@ public class LeadershipEagleModeController extends AbstractModeController {
 		super.viewControllerFacade.locateNewPos(btnClicked, newPos);
 		controllerModelFacade.updateModelAfterMovingPiece(newPos, PieceType.LEADERSHIPEAGLE);
 		super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
-	}
-
+	} 
+ 
 }

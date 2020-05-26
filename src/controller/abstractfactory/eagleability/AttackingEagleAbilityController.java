@@ -8,6 +8,11 @@ import controller.abstractfactory.AbstractAbilityController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
+/**
+ * @author Ted & Kevin
+ *
+ *         A concrete ability controller for attacking eagle
+ */
 public class AttackingEagleAbilityController extends AbstractAbilityController {
 
 	@Override

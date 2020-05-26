@@ -10,6 +10,11 @@ import controller.abstractfactory.AbstractModeController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
+/**
+ * @author Ted & Kevin
+ *
+ *         A concrete controller for aggressive shark mode
+ */
 public class AggressiveSharkModeController extends AbstractModeController {
 
 	@Override
@@ -24,3 +29,4 @@ public class AggressiveSharkModeController extends AbstractModeController {
 	}
 
 }
+ 

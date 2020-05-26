@@ -1,5 +1,6 @@
 package modelcontroller.facade;
 
+import java.util.List;
 import java.util.Map;
 
 import com.google.java.contract.Requires;
@@ -130,5 +131,15 @@ public class ControllerModelFacadeImpl implements ControllerModelInterface {
 	@Override
 	public void setResumeGame() {
 		engine.gameTurn().setResumeGame();
+	}
+
+	@Override
+	public List<Piece> getActiveSharks() {
+		return engine.pieceOperator().getActiveSharks();
+	}
+
+	@Override
+	public int getNumPiece() {
+		return engine.pieceOperator().getAllPieces().size();
 	}
 }

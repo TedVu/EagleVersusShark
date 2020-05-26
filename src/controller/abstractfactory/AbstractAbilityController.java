@@ -8,6 +8,11 @@ import modelcontroller.contract.ControllerModelInterface;
 import modelcontroller.facade.ControllerModelFacadeImpl;
 import viewcontroller.contract.ViewControllerInterface;
 
+/**
+ * @author Ted & Kevin
+ *
+ *         An abstract ability controller to provide some default code
+ */
 public abstract class AbstractAbilityController implements AbilityController {
 
 	protected AbstractButton buttonClicked;

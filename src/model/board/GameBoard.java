@@ -74,8 +74,10 @@ public class GameBoard implements Serializable {
 	/**
 	 * Set the cell to occupied after moving the piece.
 	 * 
-	 * @param x row
-	 * @param y col
+	 * @param x
+	 *            row
+	 * @param y
+	 *            col
 	 */
 	@Requires({ "x>=0", "y>=0" })
 	@Ensures("cells.get(y).get(x).getOccupied()==true")
@@ -86,8 +88,10 @@ public class GameBoard implements Serializable {
 	/**
 	 * Set the cell to unoccupied after moving the piece.
 	 * 
-	 * @param x row
-	 * @param y col
+	 * @param x
+	 *            row
+	 * @param y
+	 *            col
 	 */
 	@Requires({ "x>=0", "y>=0" })
 	@Ensures("cells.get(y).get(x).getOccupied()==false")
@@ -130,6 +134,8 @@ public class GameBoard implements Serializable {
 		return waterCells;
 	}
 
+	
+
 	/**
 	 * Create Obstacle Cells
 	 */
@@ -153,7 +159,7 @@ public class GameBoard implements Serializable {
 	public Cell getAvailableTopEagleSideCell() {
 		Set<Cell> topEagleSideCells = new HashSet<>();
 		Cell availableCell = null;
-		
+
 		for (int i = 0; i < size; ++i) {
 			topEagleSideCells.add(this.getCell(i, 0));
 		}

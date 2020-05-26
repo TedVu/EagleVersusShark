@@ -1,4 +1,4 @@
-package controller.abstractfactory.sharkmode;
+ package controller.abstractfactory.sharkmode;
 
 import java.awt.event.ActionEvent;
 
@@ -21,3 +21,4 @@ public class HealingSharkModeController extends AbstractModeController {
 	}
 
 }
+ 

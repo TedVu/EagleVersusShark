@@ -10,8 +10,13 @@ import controller.abstractfactory.AbstractAbilityController;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
+/**
+ * @author Ted & Kevin
+ *
+ *         A concrete controller for defensive shark ability
+ */
 public class DefensiveSharkAbilityController extends AbstractAbilityController {
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		AbstractButton btnClicked = (AbstractButton) e.getSource();

@@ -78,9 +78,9 @@ public class SettingsDialog extends JDialog {
 	}
 
 	/**
-	 * Converting human UI to machine value of piece
+	 * Converting human UI to machine value of board size
 	 * 
-	 * @return
+	 * @return boardSize
 	 */
 	public int getBoardSizeSelection() {
 		int selectedIndex = boardSizeMenu.getSelectedIndex();
@@ -95,6 +95,12 @@ public class SettingsDialog extends JDialog {
 		}
 	}
 
+	/**
+	 * Converting human UI to machine value of number of piece
+	 * 
+	 * 
+	 * @return numberOfPiece
+	 */
 	public int getPieceNumberSelection() {
 		int selectedIndex = numPieceMenu.getSelectedIndex();
 		if (selectedIndex == 0) {

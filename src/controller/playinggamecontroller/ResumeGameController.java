@@ -19,7 +19,7 @@ public class ResumeGameController implements ActionListener {
 		this.viewControllerFacade = viewControllerFacade;
 	}
 
-	@Override
+	@Override 
 	public void actionPerformed(ActionEvent e) {
 		Player currentPlayer = controllerModelFacade.getCurrentActivePlayer();
 

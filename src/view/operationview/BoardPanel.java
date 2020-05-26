@@ -435,6 +435,11 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
+	/**
+	 * Method on boardview to end the game
+	 * 
+	 * @param finalMsg
+	 */
 	public void endGame(String finalMsg) {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
@@ -452,6 +457,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			protected Void doInBackground() throws Exception {
 				JOptionPane.showMessageDialog(board, finalMsg);
 				mainFrame.dispose();
+				// is there any other way ?
+				System.exit(0);
 				return null;
 
 			}

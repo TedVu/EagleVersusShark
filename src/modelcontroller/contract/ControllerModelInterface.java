@@ -1,14 +1,20 @@
 package modelcontroller.contract;
 
+import java.util.List;
 import java.util.Map;
 
+import model.contract.Piece;
 import model.contract.Player;
 import model.enumtype.PieceType;
 import model.enumtype.TeamType;
 
 /**
  * @author ted &#38; kevin
- *
+ * 
+ *         A facade or model APIs to expose methods on model to controller to
+ *         call - a way to minimize coupling between model and controller and
+ *         hence minimize unwanted manipulation of model. Any method call on
+ *         model from controller has to be made via this interface
  */
 public interface ControllerModelInterface {
 
@@ -95,4 +101,14 @@ public interface ControllerModelInterface {
 	 * @param affectedPieceEnum
 	 */
 	public void updateModelAfterHealingSharkUseMode(PieceType affectedPieceEnum);
+
+	/**
+	 * @return activeSharks
+	 */
+	public List<Piece> getActiveSharks();
+
+	/**
+	 * @return numPiece
+	 */
+	public int getNumPiece();
 }

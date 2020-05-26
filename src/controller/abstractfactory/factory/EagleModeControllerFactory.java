@@ -7,6 +7,11 @@ import controller.abstractfactory.eaglemode.LeadershipEagleModeController;
 import controller.abstractfactory.eaglemode.VisionaryEagleModeController;
 import model.enumtype.PieceType;
 
+/**
+ * @author Ted & Kevin
+ *
+ *         A concrete factory to produce different modes for eagle
+ */
 public class EagleModeControllerFactory implements ModeControllerFactory {
 
 	@Override
