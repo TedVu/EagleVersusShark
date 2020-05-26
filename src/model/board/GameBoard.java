@@ -90,7 +90,7 @@ public class GameBoard implements Serializable {
 		int min = 0;
 		int numObstacle = 0;
 
-		while (numObstacle < 5) {
+		while (numObstacle < 10) {
 			int randomX = ThreadLocalRandom.current().nextInt(min, size);
 			int randomY = ThreadLocalRandom.current().nextInt(min, size);
 
@@ -102,7 +102,13 @@ public class GameBoard implements Serializable {
 			}
 		}
 	}
-
+	
+	
+	/**
+	 * Used for shark ability.
+	 * 
+	 * @return Top cells that are not occupied by any piece.
+	 */
 	public Cell getAvailableTopEagleSideCell() {
 		Set<Cell> topEagleSideCells = new HashSet<>();
 		Cell availableCell = null;
