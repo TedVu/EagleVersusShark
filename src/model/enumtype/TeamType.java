@@ -17,16 +17,6 @@ public enum TeamType {
 	 */
 	SHARK(Color.BLUE);
 
-	private final Color color;
-
-	TeamType(final Color color) {
-		this.color = color;
-	}
-
-	public Color color() {
-		return color;
-	}
-
 	public static TeamType parseTeamType(String animal) {
 		TeamType team = null;
 		if (animal.equalsIgnoreCase(PieceType.AGGRESSIVESHARK.toString())
@@ -39,5 +29,15 @@ public enum TeamType {
 			team = TeamType.EAGLE;
 		}
 		return team;
+	}
+
+	private final Color color;
+
+	TeamType(final Color color) {
+		this.color = color;
+	}
+
+	public Color color() {
+		return color;
 	}
 }

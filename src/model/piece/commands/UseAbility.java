@@ -17,7 +17,7 @@ import model.piece.PieceMemento;
 public class UseAbility implements Command, Serializable {
 
 	private static final long serialVersionUID = 6907153654562703481L;
-	
+
 	PieceAbility pieceAbility;
 	private Piece piece, affectedPiece;
 	private Engine engine = EngineImpl.getSingletonInstance();

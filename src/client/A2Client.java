@@ -8,6 +8,7 @@ import view.mainframe.StartGameMainFrame;
 
 /**
  * Main
+ * 
  * @author ktcs
  *
  */
@@ -18,7 +19,7 @@ public class A2Client {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		
+
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {

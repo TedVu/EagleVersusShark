@@ -34,6 +34,7 @@ public class ApplyConfigurationController implements ActionListener {
 		EngineImpl.getSingletonInstance().configNumPiece(settingGameDialog.getPieceNumberSelection());
 
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					AppMainFrame window = new AppMainFrame();

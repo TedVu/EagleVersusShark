@@ -34,7 +34,7 @@ public class MovePieceController implements ActionListener {
 		this.pieceType = pieceName;
 		this.viewControllerFacade = facade;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		AbstractButton buttonClicked = (AbstractButton) e.getSource();

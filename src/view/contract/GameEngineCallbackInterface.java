@@ -17,6 +17,13 @@ public interface GameEngineCallbackInterface {
 	public void addProperytChangeListener(PropertyChangeListener listener);
 
 	/**
+	 * Will fire property change if winning condition is satisfied
+	 * 
+	 * @param teamWin
+	 */
+	public void endGame(TeamType teamWin);
+
+	/**
 	 * Get all the property
 	 * 
 	 * @return PropertyChangeListener[]
@@ -39,11 +46,4 @@ public interface GameEngineCallbackInterface {
 	 * @return
 	 */
 	public void timerNextMove(TeamType playerType, TeamType currentPlayerTurn);
-
-	/**
-	 * Will fire property change if winning condition is satisfied
-	 * 
-	 * @param teamWin
-	 */
-	public void endGame(TeamType teamWin);
 }

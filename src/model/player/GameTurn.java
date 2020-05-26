@@ -31,8 +31,9 @@ public class GameTurn implements Serializable {
 		geCallback.addProperytChangeListener(new MakingMovePropertyChangeListener());
 	}
 
-	public GameEngineCallbackInterface getGameEngineCallback() {
-		return geCallback;
+	public boolean ableToUndo(TeamType teamType) {
+		Player player = playerType(teamType);
+		return player.ableToUndo(round);
 	}
 
 	/**
@@ -47,6 +48,16 @@ public class GameTurn implements Serializable {
 		}
 	}
 
+	public void cancelTimerPauseGame() {
+		gameRunning = false;
+		gameTimer.cancel();
+	}
+
+	public void endGame(TeamType teamWin) {
+		cancelTimerPauseGame();
+		geCallback.endGame(teamWin);
+	}
+
 	/**
 	 * get the current player turn
 	 * 
@@ -58,6 +69,14 @@ public class GameTurn implements Serializable {
 		} else {
 			return sharkPlayer;
 		}
+	}
+
+	public boolean getGameCurrentlyRunning() {
+		return gameRunning;
+	}
+
+	public GameEngineCallbackInterface getGameEngineCallback() {
+		return geCallback;
 	}
 
 	/**
@@ -88,6 +107,21 @@ public class GameTurn implements Serializable {
 			activePlayer = sharkPlayer;
 		}
 		return activePlayer;
+	}
+
+	public void incrementUndo(TeamType teamType) {
+		Player player = playerType(teamType);
+		player.undoCounter(round);
+	}
+
+	private Player playerType(TeamType teamType) {
+		if (teamType.equals(TeamType.EAGLE)) {
+			return eaglePlayer;
+		} else if (teamType.equals(TeamType.SHARK)) {
+			return sharkPlayer;
+		} else {
+			throw new IllegalArgumentException("Invalid team type");
+		}
 	}
 
 	/**
@@ -137,42 +171,8 @@ public class GameTurn implements Serializable {
 		}, 10000);
 	}
 
-	public void endGame(TeamType teamWin) {
-		cancelTimerPauseGame();
-		geCallback.endGame(teamWin);
-	}
-
-	public void cancelTimerPauseGame() {
-		gameRunning = false;
-		gameTimer.cancel();
-	}
-
-	public boolean getGameCurrentlyRunning() {
-		return gameRunning;
-	}
-
 	public void setResumeGame() {
 		gameRunning = true;
-	}
-
-	public void incrementUndo(TeamType teamType) {
-		Player player = playerType(teamType);
-		player.undoCounter(round);
-	}
-
-	public boolean ableToUndo(TeamType teamType) {
-		Player player = playerType(teamType);
-		return player.ableToUndo(round);
-	}
-
-	private Player playerType(TeamType teamType) {
-		if (teamType.equals(TeamType.EAGLE)) {
-			return eaglePlayer;
-		} else if (teamType.equals(TeamType.SHARK)) {
-			return sharkPlayer;
-		} else {
-			throw new IllegalArgumentException("Invalid team type");
-		}
 	}
 
 }

@@ -29,13 +29,8 @@ public abstract class AbstractPiece implements Piece, Serializable {
 	}
 
 	@Override
-	public void setImmune(boolean isImmune) {
-		this.isImmune = isImmune;
-	}
-
-	@Override
-	public boolean isImmune() {
-		return this.isImmune;
+	public int getModeCount() {
+		return modeUsageCount;
 	}
 
 	@Override
@@ -52,22 +47,8 @@ public abstract class AbstractPiece implements Piece, Serializable {
 	}
 
 	@Override
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-
-	@Override
-	@Requires({ "x>=0", "y>=0" })
-	@Ensures({ "position.get(\"x\")==x", "position.get(\"y\")==y" })
-	public void setPosition(int x, int y) {
-		this.position.replace("x", x);
-		this.position.replace("y", y);
-	}
-
-	public PieceMemento pieceMemento() {
-		PieceMemento memento = new PieceMemento(isActive, isImmune, position.get("x"), position.get("y"),
-				modeUsageCount);
-		return memento.getState();
+	public boolean isImmune() {
+		return this.isImmune;
 	}
 
 	@Override
@@ -76,13 +57,33 @@ public abstract class AbstractPiece implements Piece, Serializable {
 	}
 
 	@Override
+	public PieceMemento pieceMemento() {
+		PieceMemento memento = new PieceMemento(isActive, isImmune, position.get("x"), position.get("y"),
+				modeUsageCount);
+		return memento.getState();
+	}
+
+	@Override
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	@Override
+	public void setImmune(boolean isImmune) {
+		this.isImmune = isImmune;
+	}
+
+	@Override
 	public void setModeCount(int modeCount) {
 		this.modeUsageCount = modeCount;
 	}
 
 	@Override
-	public int getModeCount() {
-		return modeUsageCount;
+	@Requires({ "x>=0", "y>=0" })
+	@Ensures({ "position.get(\"x\")==x", "position.get(\"y\")==y" })
+	public void setPosition(int x, int y) {
+		this.position.replace("x", x);
+		this.position.replace("y", y);
 	}
 
 }

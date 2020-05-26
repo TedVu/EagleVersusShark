@@ -41,12 +41,12 @@ public class DiagonalDecorator extends PieceMoveDecorator {
 		Map<String, Integer> currentPosition = piece.getPosition();
 		int currentX = currentPosition.get("x");
 		int currentY = currentPosition.get("y");
-		
+
 		validMoves.addAll(validDiaNorthEast(currentX, currentY, distance));
 		validMoves.addAll(validDiaSouthWest(currentX, currentY, distance));
 		validMoves.addAll(validDiaSouthEast(currentX, currentY, distance));
 		validMoves.addAll(validDiaNorthWest(currentX, currentY, distance));
-		
+
 		return validMoves;
 	}
 

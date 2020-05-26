@@ -23,16 +23,16 @@ public class MakingMovePropertyChangeListener implements PropertyChangeListener 
 	private StatusPanel statusPanel;
 	private ModePanel modePanel;
 
+	public void injectModePanel(ModePanel modePanel) {
+		this.modePanel = modePanel;
+	}
+
 	/**
 	 * @param statusPanel Reference from view-status panel.
 	 */
 	@Requires("statusPanel != null")
 	public void injectStatusPanel(StatusPanel statusPanel) {
 		this.statusPanel = statusPanel;
-	}
-
-	public void injectModePanel(ModePanel modePanel) {
-		this.modePanel = modePanel;
 	}
 
 	/**

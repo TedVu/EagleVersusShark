@@ -19,39 +19,9 @@ import model.enumtype.TeamType;
 public interface ControllerModelInterface {
 
 	/**
-	 * @return
-	 */
-	public Player getCurrentActivePlayer();
-
-	/**
-	 * @return
-	 */
-	public Player getInitialActivePlayer();
-
-	/**
-	 * @return
-	 */
-	public boolean getGameCurrentlyRunning();
-
-	/**
 	 * 
 	 */
 	public void cancelTimerPauseGame();
-
-	/**
-	 * @param teamType
-	 */
-	public void setTurnStartingGame(TeamType teamType);
-
-	/**
-	 * 
-	 */
-	public void setResumeGame();
-
-	/**
-	 * 
-	 */
-	public void setAlreadyUseUndo();
 
 	/**
 	 * @param pieceType
@@ -60,26 +30,55 @@ public interface ControllerModelInterface {
 	public boolean checkCorrectTurnOfSelectedPiece(PieceType pieceType);
 
 	/**
+	 * @return activeSharks
+	 */
+	public List<Piece> getActiveSharks();
+
+	/**
+	 * @return
+	 */
+	public Player getCurrentActivePlayer();
+
+	/**
+	 * @return
+	 */
+	public boolean getGameCurrentlyRunning();
+
+	/**
+	 * @return
+	 */
+	public Player getInitialActivePlayer();
+
+	/**
+	 * @return numPiece
+	 */
+	public int getNumPiece();
+
+	/**
+	 * 
+	 */
+	public void setAlreadyUseUndo();
+
+	/**
+	 * 
+	 */
+	public void setResumeGame();
+
+	/**
+	 * @param teamType
+	 */
+	public void setTurnStartingGame(TeamType teamType);
+
+	/**
+	 * @param affectedPieceEnum
+	 */
+	public void updateModelAfterHealingSharkUseMode(PieceType affectedPieceEnum);
+
+	/**
 	 * @param newPos
 	 * @param pieceType
 	 */
 	public void updateModelAfterMovingPiece(Map<String, Integer> newPos, PieceType pieceType);
-
-	/**
-	 * @param teamName
-	 */
-	public void updateModelStateForNextTurn(TeamType teamName);
-
-	/**
-	 * @param affectedPieceEnum
-	 */
-	public void updateModelStateSwapPiece(PieceType affectedPieceEnum);
-
-	/**
-	 * @param affectedPieceEnum
-	 * @param piecetProtect
-	 */
-	public void updateModelStateProtectPiece(PieceType affectedPieceEnum, PieceType piecetProtect);
 
 	/**
 	 * @param affectedPieceEnum
@@ -93,22 +92,23 @@ public interface ControllerModelInterface {
 	public void updateModelStateAggressiveSharkCapture(PieceType affectedPieceEnum);
 
 	/**
+	 * @param teamName
+	 */
+	public void updateModelStateForNextTurn(TeamType teamName);
+
+	/**
 	 * @param affectedPieceEnum
 	 */
 	public void updateModelStateHealingSharkRevive(PieceType affectedPieceEnum);
 
 	/**
 	 * @param affectedPieceEnum
+	 * @param piecetProtect
 	 */
-	public void updateModelAfterHealingSharkUseMode(PieceType affectedPieceEnum);
+	public void updateModelStateProtectPiece(PieceType affectedPieceEnum, PieceType piecetProtect);
 
 	/**
-	 * @return activeSharks
+	 * @param affectedPieceEnum
 	 */
-	public List<Piece> getActiveSharks();
-
-	/**
-	 * @return numPiece
-	 */
-	public int getNumPiece();
+	public void updateModelStateSwapPiece(PieceType affectedPieceEnum);
 }

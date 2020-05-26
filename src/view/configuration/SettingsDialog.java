@@ -95,6 +95,10 @@ public class SettingsDialog extends JDialog {
 		}
 	}
 
+	public String getObstacleConfig() {
+		return (String) obstaclesMenu.getSelectedItem();
+	}
+
 	/**
 	 * Converting human UI to machine value of number of piece
 	 * 
@@ -110,9 +114,5 @@ public class SettingsDialog extends JDialog {
 		} else {
 			return 2;
 		}
-	}
-
-	public String getObstacleConfig() {
-		return (String) obstaclesMenu.getSelectedItem();
 	}
 }

@@ -25,7 +25,7 @@ import model.enumtype.TeamType;
 public class StatusPanel extends JPanel implements PropertyChangeListener {
 
 	private static final long serialVersionUID = 8787252718705342879L;
-	
+
 	private JButton startButton;
 	private JLabel turnLabel;
 	private JTextField turnTextField;
@@ -76,6 +76,32 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
+	private void cancelTimer() {
+		for (SwingWorker<Void, Void> preWorker : workerThreads) {
+			preWorker.cancel(true);
+		}
+		turnTextField.setText("PAUSE GAME");
+		timerTextField.setText("PAUSE GAME");
+	}
+
+	public void endGameTimer() {
+		for (SwingWorker<Void, Void> preWorker : workerThreads) {
+			preWorker.cancel(true);
+		}
+		turnTextField.setText("END GAME");
+		timerTextField.setText("END GAME");
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equalsIgnoreCase("UpdateBoardPauseGame")) {
+			cancelTimer();
+		} else if (evt.getPropertyName().equalsIgnoreCase("ResumeGame")) {
+			updateTurnLabel((TeamType) evt.getNewValue());
+			startCountDown();
+		}
+	}
+
 	public void startCountDown() {
 		for (SwingWorker<Void, Void> preWorker : workerThreads) {
 			preWorker.cancel(true);
@@ -94,34 +120,8 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 		worker.execute();
 	}
 
-	private void cancelTimer() {
-		for (SwingWorker<Void, Void> preWorker : workerThreads) {
-			preWorker.cancel(true);
-		}
-		turnTextField.setText("PAUSE GAME");
-		timerTextField.setText("PAUSE GAME");
-	}
-
 	public void updateTurnLabel(TeamType currentPlayer) {
 		turnTextField.setText(currentPlayer.toString());
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equalsIgnoreCase("UpdateBoardPauseGame")) {
-			cancelTimer();
-		} else if (evt.getPropertyName().equalsIgnoreCase("ResumeGame")) {
-			updateTurnLabel((TeamType) evt.getNewValue());
-			startCountDown();
-		}
-	}
-
-	public void endGameTimer() {
-		for (SwingWorker<Void, Void> preWorker : workerThreads) {
-			preWorker.cancel(true);
-		}
-		turnTextField.setText("END GAME");
-		timerTextField.setText("END GAME");
 	}
 
 }

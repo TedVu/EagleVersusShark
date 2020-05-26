@@ -119,8 +119,98 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
+	private void deleteAllIconsAndCommands() {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				buttons.get(row).get(col).setIcon(null);
+				buttons.get(row).get(col).setActionCommand("NormalButton");
+			}
+		}
+	}
+
+	/**
+	 * Method on boardview to end the game
+	 * 
+	 * @param finalMsg
+	 */
+	public void endGame(String finalMsg) {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				AbstractButton btn = buttons.get(row).get(col);
+				ActionListener[] listeners = btn.getActionListeners();
+				for (ActionListener listener : listeners) {
+					btn.removeActionListener(listener);
+				}
+
+			}
+		}
+		BoardPanel board = this;
+		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+			@Override
+			protected Void doInBackground() throws Exception {
+				JOptionPane.showMessageDialog(board, finalMsg);
+				mainFrame.dispose();
+				// is there any other way ?
+				System.exit(0);
+				return null;
+
+			}
+		};
+		worker.execute();
+	}
+
 	public List<List<AbstractButton>> getButtonList() {
 		return buttons;
+	}
+
+	public ViewControllerInterface getFacade() {
+		return facade;
+	}
+
+	/**
+	 * Post-condition is needed because this method will process new position
+	 * 
+	 * @param buttonClicked
+	 * @param newPos
+	 */
+	@Requires({ "buttonClicked != null", "newPos != null" })
+	@Ensures("newPos.size()>0")
+	private void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos) {
+
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(row).size(); ++col) {
+				if (buttons.get(row).get(col).equals(buttonClicked)) {
+					newPos.put("y", row);
+					newPos.put("x", col);
+					break;
+				}
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param positionX
+	 * @param positionY
+	 * @param pieceType
+	 */
+	@Requires({ "positionX >= 0", "positionY >= 0", "pieceType != null" })
+	private void populateCustomPiece(int positionX, int positionY, PieceType pieceType) {
+		try {
+			Image pieceImage = ImageIO.read(pieceType.file());
+			buttons.get(positionX).get(positionY).setIcon(new ImageIcon(pieceImage));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		buttons.get(positionX).get(positionY).setActionCommand(pieceType.toString());
+	}
+
+	private void populatePieces() {
+		Map<PieceType, Piece> pieces = engine.pieceOperator().getAllPieces();
+		Set<PieceType> pts = pieces.keySet();
+		for (PieceType pt : pts) {
+			populateCustomPiece(pieces.get(pt).getPosition().get("y"), pieces.get(pt).getPosition().get("x"), pt);
+		}
 	}
 
 	/*
@@ -157,14 +247,44 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
-	/**
-	 * For logging notification when playing game
-	 * 
-	 * @param errMsg
-	 */
-	private void updateBoardNotiDialog(String msg) {
+	public void refreshBoardColorAndState() {
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				AbstractButton btn = buttons.get(row).get(col);
+				btn.setBackground(engine.gameBoard().getCell(col, row).getType().color());
+				ActionListener[] listeners = btn.getActionListeners();
+				for (ActionListener listener : listeners) {
+					btn.removeActionListener(listener);
+				}
+				btn.addActionListener(new SelectPieceController(facade));
+			}
+		}
+	}
 
-		JOptionPane.showMessageDialog(this, msg);
+	/**
+	 * @return
+	 */
+	@Requires("oldPos!=null")
+	private void restoreViewForOldPos(Map<String, Integer> oldPos) {
+		AbstractButton button = buttons.get(oldPos.get("y")).get(oldPos.get("x"));
+		button.setIcon(null);
+		button.setActionCommand("NormalButton");
+	}
+
+	private void updateBoardAfterCapture(AbstractButton btnClicked, PieceType pieceName) {
+
+		for (int row = 0; row < buttons.size(); ++row) {
+			for (int col = 0; col < buttons.get(0).size(); ++col) {
+				if (!engine.gameBoard().getCell(col, row).getOccupied()) {
+					buttons.get(row).get(col).setIcon(null);
+					buttons.get(row).get(col).setActionCommand("NormalButton");
+				}
+			}
+		}
+
+		btnClicked.setActionCommand(pieceName.toString());
+		updateIcon(btnClicked, pieceName);
+		refreshBoardColorAndState();
 	}
 
 	/**
@@ -192,6 +312,44 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			eagleBtn.setActionCommand(eagle.toString());
 			updateIcon(eagleBtn, PieceType.parsePieceType(eagle.toString()));
 		}
+		refreshBoardColorAndState();
+
+	}
+
+	/**
+	 * @param buttonClicked
+	 * @param pieceType
+	 */
+	@Requires({ "buttonClicked != null", "pieceType != null" })
+	private void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
+		Map<String, Integer> oldPos = engine.pieceOperator().getAllPieces().get(pieceType).getPosition();
+		Set<Cell> validMoves = engine.pieceOperator().getAllPieces().get(pieceType).getValidMove();
+
+		buttonClicked.setActionCommand(pieceType.toString());
+		updateIconAndButtonStateAfterMovingPiece(buttonClicked, pieceType, validMoves);
+		restoreViewForOldPos(oldPos);
+	}
+
+	private void updateBoardAfterProtectSuccess() {
+		JOptionPane.showMessageDialog(this, "Give protection successful");
+
+		refreshBoardColorAndState();
+	}
+
+	private void updateBoardAfterSwap(AbstractButton buttonClicked) {
+		Piece visionaryEagle = engine.pieceOperator().getAllPieces().get(PieceType.VISIONARYEAGLE);
+
+		AbstractButton visionButton = buttons.get(visionaryEagle.getPosition().get("y"))
+				.get(visionaryEagle.getPosition().get("x"));
+
+		PieceType affectedPiece = PieceType.parsePieceType(buttonClicked.getActionCommand());
+
+		updateIcon(buttonClicked, PieceType.VISIONARYEAGLE);
+		updateIcon(visionButton, affectedPiece);
+
+		visionButton.setActionCommand(buttonClicked.getActionCommand());
+		buttonClicked.setActionCommand(PieceType.VISIONARYEAGLE.toString());
+
 		refreshBoardColorAndState();
 
 	}
@@ -246,6 +404,16 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 	}
 
+	/**
+	 * For logging notification when playing game
+	 * 
+	 * @param errMsg
+	 */
+	private void updateBoardNotiDialog(String msg) {
+
+		JOptionPane.showMessageDialog(this, msg);
+	}
+
 	private void updateBoardReviveSharkSuccessful(PieceType revivedPieceEnum) {
 		Piece revivedPiece = engine.pieceOperator().getAllPieces().get(revivedPieceEnum);
 
@@ -256,22 +424,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		revivedBtn.setActionCommand(revivedPiece.toString());
 		revivedBtn.addActionListener(new SelectPieceController(facade));
 
-	}
-
-	private void updateBoardAfterCapture(AbstractButton btnClicked, PieceType pieceName) {
-
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				if (!engine.gameBoard().getCell(col, row).getOccupied()) {
-					buttons.get(row).get(col).setIcon(null);
-					buttons.get(row).get(col).setActionCommand("NormalButton");
-				}
-			}
-		}
-
-		btnClicked.setActionCommand(pieceName.toString());
-		updateIcon(btnClicked, pieceName);
-		refreshBoardColorAndState();
 	}
 
 	private void updateBoardUndoSuccessful() {
@@ -295,133 +447,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 	}
 
-	private void deleteAllIconsAndCommands() {
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				buttons.get(row).get(col).setIcon(null);
-				buttons.get(row).get(col).setActionCommand("NormalButton");
-			}
-		}
-	}
-
-	private void updateBoardAfterProtectSuccess() {
-		JOptionPane.showMessageDialog(this, "Give protection successful");
-
-		refreshBoardColorAndState();
-	}
-
-	private void updateBoardAfterSwap(AbstractButton buttonClicked) {
-		Piece visionaryEagle = engine.pieceOperator().getAllPieces().get(PieceType.VISIONARYEAGLE);
-
-		AbstractButton visionButton = buttons.get(visionaryEagle.getPosition().get("y"))
-				.get(visionaryEagle.getPosition().get("x"));
-
-		PieceType affectedPiece = PieceType.parsePieceType(buttonClicked.getActionCommand());
-
-		updateIcon(buttonClicked, PieceType.VISIONARYEAGLE);
-		updateIcon(visionButton, affectedPiece);
-
-		visionButton.setActionCommand(buttonClicked.getActionCommand());
-		buttonClicked.setActionCommand(PieceType.VISIONARYEAGLE.toString());
-
-		refreshBoardColorAndState();
-
-	}
-
-	public void refreshBoardColorAndState() {
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				AbstractButton btn = buttons.get(row).get(col);
-				btn.setBackground(engine.gameBoard().getCell(col, row).getType().color());
-				ActionListener[] listeners = btn.getActionListeners();
-				for (ActionListener listener : listeners) {
-					btn.removeActionListener(listener);
-				}
-				btn.addActionListener(new SelectPieceController(facade));
-			}
-		}
-	}
-
-	/**
-	 * @return
-	 */
-	@Requires("oldPos!=null")
-	private void restoreViewForOldPos(Map<String, Integer> oldPos) {
-		AbstractButton button = buttons.get(oldPos.get("y")).get(oldPos.get("x"));
-		button.setIcon(null);
-		button.setActionCommand("NormalButton");
-	}
-
-	/**
-	 * @return
-	 */
-	@Requires({ "buttonClicked != null", "pieceType != null", "validMoves != null" })
-	public void updateIconAndButtonStateAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType,
-			Set<Cell> validMoves) {
-		updateIcon(buttonClicked, pieceType);
-		refreshBoardColorAndState();
-	}
-
-	/**
-	 * Post-condition is needed because this method will process new position
-	 * 
-	 * @param buttonClicked
-	 * @param newPos
-	 */
-	@Requires({ "buttonClicked != null", "newPos != null" })
-	@Ensures("newPos.size()>0")
-	private void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos) {
-
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(row).size(); ++col) {
-				if (buttons.get(row).get(col).equals(buttonClicked)) {
-					newPos.put("y", row);
-					newPos.put("x", col);
-					break;
-				}
-			}
-		}
-	}
-
-	/**
-	 * 
-	 * @param positionX
-	 * @param positionY
-	 * @param pieceType
-	 */
-	@Requires({ "positionX >= 0", "positionY >= 0", "pieceType != null" })
-	private void populateCustomPiece(int positionX, int positionY, PieceType pieceType) {
-		try {
-			Image pieceImage = ImageIO.read(pieceType.file());
-			buttons.get(positionX).get(positionY).setIcon(new ImageIcon(pieceImage));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		buttons.get(positionX).get(positionY).setActionCommand(pieceType.toString());
-	}
-
-	private void populatePieces() {
-		Map<PieceType, Piece> pieces = engine.pieceOperator().getAllPieces();
-		Set<PieceType> pts = pieces.keySet();
-		for (PieceType pt : pts) {
-			populateCustomPiece(pieces.get(pt).getPosition().get("y"), pieces.get(pt).getPosition().get("x"), pt);
-		}
-	}
-
-	/**
-	 * @param buttonClicked
-	 * @param pieceType
-	 */
-	@Requires({ "buttonClicked != null", "pieceType != null" })
-	private void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
-		Map<String, Integer> oldPos = engine.pieceOperator().getAllPieces().get(pieceType).getPosition();
-		Set<Cell> validMoves = engine.pieceOperator().getAllPieces().get(pieceType).getValidMove();
-
-		buttonClicked.setActionCommand(pieceType.toString());
-		updateIconAndButtonStateAfterMovingPiece(buttonClicked, pieceType, validMoves);
-		restoreViewForOldPos(oldPos);
-	}
-
 	/**
 	 * @return
 	 */
@@ -436,38 +461,13 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	/**
-	 * Method on boardview to end the game
-	 * 
-	 * @param finalMsg
+	 * @return
 	 */
-	public void endGame(String finalMsg) {
-		for (int row = 0; row < buttons.size(); ++row) {
-			for (int col = 0; col < buttons.get(0).size(); ++col) {
-				AbstractButton btn = buttons.get(row).get(col);
-				ActionListener[] listeners = btn.getActionListeners();
-				for (ActionListener listener : listeners) {
-					btn.removeActionListener(listener);
-				}
-
-			}
-		}
-		BoardPanel board = this;
-		SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
-			@Override
-			protected Void doInBackground() throws Exception {
-				JOptionPane.showMessageDialog(board, finalMsg);
-				mainFrame.dispose();
-				// is there any other way ?
-				System.exit(0);
-				return null;
-
-			}
-		};
-		worker.execute();
-	}
-
-	public ViewControllerInterface getFacade() {
-		return facade;
+	@Requires({ "buttonClicked != null", "pieceType != null", "validMoves != null" })
+	public void updateIconAndButtonStateAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType,
+			Set<Cell> validMoves) {
+		updateIcon(buttonClicked, pieceType);
+		refreshBoardColorAndState();
 	}
 
 }

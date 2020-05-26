@@ -34,36 +34,6 @@ public class DefensiveShark extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({ "getPosition() != null" })
-	@Ensures("getValidMove() != null")
-	public Set<Cell> getValidMove() {
-		return new PieceMoveDecorator(new DiagonalDecorator(new BasicMove())).getValidMove(this, 2);
-	}
-
-	@Override
-	@Requires({ "x>=0", "y>=0" })
-	public void movePiece(int x, int y) {
-		setPosition(x, y);
-	}
-
-	@Override
-	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
-		if (pieceAbility.equals(PieceAbility.PROTECT)) {
-			defend(affectedPiece);
-			if (EngineImpl.getSingletonInstance().pieceOperator().getHealingAbilityCounter() == 2) {
-				EngineImpl.getSingletonInstance().pieceOperator().resetHealingAbilityCounter();
-			}
-		} else {
-			throw new IllegalArgumentException("Invalid ability");
-		}
-	}
-
-	private void defend(Piece targetPiece) {
-		targetPiece.setImmune(true);
-
-	}
-
-	@Override
 	@Ensures("abilityCells() != null")
 	public Set<Cell> abilityCells() {
 		Set<Cell> neighbourCells = new HashSet<>();
@@ -90,6 +60,18 @@ public class DefensiveShark extends AbstractPiece {
 		return neighbourCells;
 	}
 
+	private void defend(Piece targetPiece) {
+		targetPiece.setImmune(true);
+
+	}
+
+	@Override
+	@Requires({ "getPosition() != null" })
+	@Ensures("getValidMove() != null")
+	public Set<Cell> getValidMove() {
+		return new PieceMoveDecorator(new DiagonalDecorator(new BasicMove())).getValidMove(this, 2);
+	}
+
 	@Override
 	public Set<Cell> modeCells() {
 		Set<Cell> returnCells = new HashSet<>();
@@ -112,8 +94,26 @@ public class DefensiveShark extends AbstractPiece {
 	}
 
 	@Override
+	@Requires({ "x>=0", "y>=0" })
+	public void movePiece(int x, int y) {
+		setPosition(x, y);
+	}
+
+	@Override
 	public String toString() {
 		return String.format("%s", "DefensiveShark");
+	}
+
+	@Override
+	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
+		if (pieceAbility.equals(PieceAbility.PROTECT)) {
+			defend(affectedPiece);
+			if (EngineImpl.getSingletonInstance().pieceOperator().getHealingAbilityCounter() == 2) {
+				EngineImpl.getSingletonInstance().pieceOperator().resetHealingAbilityCounter();
+			}
+		} else {
+			throw new IllegalArgumentException("Invalid ability");
+		}
 	}
 
 }

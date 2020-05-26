@@ -30,48 +30,6 @@ public class AttackingEagle extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({ "getPosition() != null" })
-	@Ensures("getValidMove() != null")
-	public Set<Cell> getValidMove() {
-		return new DiagonalDecorator(new BasicMove()).getValidMove(this, 1);
-	}
-
-	@Override
-	@Requires({ "getPosition() != null" })
-	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
-	public void movePiece(int x, int y) {
-		setPosition(x, y);
-		engine.pieceOperator().eagleCheckingHealingSharkAbility();
-	}
-
-	@Override
-	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
-		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
-			capture(piece, affectedPiece);
-		}
-
-		else {
-			throw new IllegalArgumentException("Invalid ability");
-		}
-	}
-
-	private void capture(Piece piece, Piece affectedPiece) {
-		if (affectedPiece.isImmune())
-			throw new IllegalArgumentException("The piece is immune");
-
-		Cell currentPos = engine.gameBoard().getCell(piece.getPosition().get("x"), piece.getPosition().get("y"));
-		Cell opponentPos = engine.gameBoard().getCell(affectedPiece.getPosition().get("x"),
-				affectedPiece.getPosition().get("y"));
-
-		engine.gameBoard().removePiece(currentPos.getX(), currentPos.getY());
-		engine.gameBoard().addPiece(opponentPos.getX(), opponentPos.getY());
-		movePiece(opponentPos.getX(), opponentPos.getY());
-
-		affectedPiece.setActive(false);
-
-	}
-
-	@Override
 	public Set<Cell> abilityCells() {
 		Set<Cell> enemyPositions = new HashSet<>();
 		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
@@ -94,11 +52,20 @@ public class AttackingEagle extends AbstractPiece {
 		return enemyPositions;
 	}
 
-	private boolean isSurrounding(int x1, int x2, int y1, int y2, int distance) {
-		if (x2 > x1 + distance || y2 > y1 + distance || x2 < x1 - distance || y2 < y1 - distance) {
-			return false;
-		}
-		return true;
+	private void capture(Piece piece, Piece affectedPiece) {
+		if (affectedPiece.isImmune())
+			throw new IllegalArgumentException("The piece is immune");
+
+		Cell currentPos = engine.gameBoard().getCell(piece.getPosition().get("x"), piece.getPosition().get("y"));
+		Cell opponentPos = engine.gameBoard().getCell(affectedPiece.getPosition().get("x"),
+				affectedPiece.getPosition().get("y"));
+
+		engine.gameBoard().removePiece(currentPos.getX(), currentPos.getY());
+		engine.gameBoard().addPiece(opponentPos.getX(), opponentPos.getY());
+		movePiece(opponentPos.getX(), opponentPos.getY());
+
+		affectedPiece.setActive(false);
+
 	}
 
 	private int captureDistance(int pieceX, int pieceY) {
@@ -121,11 +88,6 @@ public class AttackingEagle extends AbstractPiece {
 		return distance;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("%s", "AttackingEagle");
-	}
-
 	private boolean existNearbyShark(Piece shark) {
 		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
 		for (Piece otherShark : activeSharks) {
@@ -140,6 +102,20 @@ public class AttackingEagle extends AbstractPiece {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	@Requires({ "getPosition() != null" })
+	@Ensures("getValidMove() != null")
+	public Set<Cell> getValidMove() {
+		return new DiagonalDecorator(new BasicMove()).getValidMove(this, 1);
+	}
+
+	private boolean isSurrounding(int x1, int x2, int y1, int y2, int distance) {
+		if (x2 > x1 + distance || y2 > y1 + distance || x2 < x1 - distance || y2 < y1 - distance) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -162,6 +138,30 @@ public class AttackingEagle extends AbstractPiece {
 		}
 
 		return modePos;
+	}
+
+	@Override
+	@Requires({ "getPosition() != null" })
+	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
+	public void movePiece(int x, int y) {
+		setPosition(x, y);
+		engine.pieceOperator().eagleCheckingHealingSharkAbility();
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s", "AttackingEagle");
+	}
+
+	@Override
+	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
+		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
+			capture(piece, affectedPiece);
+		}
+
+		else {
+			throw new IllegalArgumentException("Invalid ability");
+		}
 	}
 
 }

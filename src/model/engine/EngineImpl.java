@@ -43,56 +43,6 @@ public class EngineImpl implements Engine, Serializable {
 		gameTurn = new GameTurn(this);
 	}
 
-	@Override
-	public GameTurn gameTurn() {
-		return gameTurn;
-	}
-
-	@Override
-	public PieceCommands getPieceCommands() {
-		return pieceCommands;
-	}
-
-
-	@Override
-	public GameBoard gameBoard() {
-		return this.board;
-	}
-
-	@Override
-	public GamePiece pieceOperator() {
-		return gamePiece;
-	}
-
-	@Override
-	public void configBoardSize(int boardSize, boolean hasObstacle) {
-		this.board = new GameBoard(boardSize, hasObstacle);
-	}
-
-	@Override
-	public void configNumPiece(int numPiece) {
-		gamePiece = new GamePiece(this);
-		gamePiece.initializePiece(numPiece);
-	}
-
-	@Override
-	public void loadGame(EngineImpl e) {
-		board = e.gameBoard();
-		gamePiece = e.pieceOperator();
-		pieceCommands = e.getPieceCommands();
-	}
-
-	private boolean checkPiecesActiveWinningCondition() {
-		if (pieceOperator().getActiveEagles().size() == 0) {
-			gameTurn.endGame(TeamType.SHARK);
-			return true;
-		} else if (pieceOperator().getActiveSharks().size() == 0) {
-			gameTurn.endGame(TeamType.EAGLE);
-			return true;
-		}
-		return false;
-	}
-
 	private boolean checkPieceEnterMasterCellWinningCondition() {
 		for (Piece sharks : pieceOperator().getActiveSharks()) {
 			Cell cntPos = board.getCell(sharks.getPosition().get("x"), sharks.getPosition().get("y"));
@@ -112,6 +62,28 @@ public class EngineImpl implements Engine, Serializable {
 		return false;
 	}
 
+	private boolean checkPiecesActiveWinningCondition() {
+		if (pieceOperator().getActiveEagles().size() == 0) {
+			gameTurn.endGame(TeamType.SHARK);
+			return true;
+		} else if (pieceOperator().getActiveSharks().size() == 0) {
+			gameTurn.endGame(TeamType.EAGLE);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void configBoardSize(int boardSize, boolean hasObstacle) {
+		this.board = new GameBoard(boardSize, hasObstacle);
+	}
+
+	@Override
+	public void configNumPiece(int numPiece) {
+		gamePiece = new GamePiece(this);
+		gamePiece.initializePiece(numPiece);
+	}
+
 	/**
 	 * called at controllermodelfacade inside updateStateModelForNextTurn()
 	 */
@@ -124,5 +96,32 @@ public class EngineImpl implements Engine, Serializable {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public GameBoard gameBoard() {
+		return this.board;
+	}
+
+	@Override
+	public GameTurn gameTurn() {
+		return gameTurn;
+	}
+
+	@Override
+	public PieceCommands getPieceCommands() {
+		return pieceCommands;
+	}
+
+	@Override
+	public void loadGame(EngineImpl e) {
+		board = e.gameBoard();
+		gamePiece = e.pieceOperator();
+		pieceCommands = e.getPieceCommands();
+	}
+
+	@Override
+	public GamePiece pieceOperator() {
+		return gamePiece;
 	}
 }

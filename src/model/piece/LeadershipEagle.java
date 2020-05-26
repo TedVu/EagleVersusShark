@@ -30,32 +30,6 @@ public class LeadershipEagle extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({ "getPosition() != null" })
-	@Ensures("getValidMove() != null")
-	public Set<Cell> getValidMove() {
-		return new BasicMove().getValidMove(this, 2);
-	}
-
-	@Override
-	@Requires({ "getPosition() != null" })
-	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
-	public void movePiece(int x, int y) {
-		setPosition(x, y);
-		EngineImpl.getSingletonInstance().pieceOperator().eagleCheckingHealingSharkAbility();
-	}
-
-	@Override
-	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
-
-		if (pieceAbility.equals(PieceAbility.PROTECT)) {
-			protect(piece, affectedPiece);
-		} else {
-			throw new IllegalArgumentException("Invalid ability");
-		}
-
-	}
-
-	@Override
 	public Set<Cell> abilityCells() {
 		engine = EngineImpl.getSingletonInstance();
 
@@ -88,6 +62,66 @@ public class LeadershipEagle extends AbstractPiece {
 
 	}
 
+	private void checkAbleToLeap(Set<Cell> finalMode, int YPos) {
+		boolean leapCellOccupyStatusFront = engine.gameBoard().getCell(getPosition().get("x"), YPos).getOccupied();
+		if (leapCellOccupyStatusFront) {
+			throw new RuntimeException("Cannot use this mode because the leap-to cell is occupied");
+		}
+		finalMode.add(engine.gameBoard().getCell(getPosition().get("x"), YPos));
+	}
+
+	@Override
+	@Requires({ "getPosition() != null" })
+	@Ensures("getValidMove() != null")
+	public Set<Cell> getValidMove() {
+		return new BasicMove().getValidMove(this, 2);
+	}
+
+	private boolean isSurrounding(int x1, int x2, int y1, int y2, int distance) {
+		if (x2 > x1 + distance || y2 > y1 + distance || x2 < x1 - distance || y2 < y1 - distance) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public Set<Cell> modeCells() {
+		engine = EngineImpl.getSingletonInstance();
+		Set<Cell> finalMode = new HashSet<>();
+		if (engine.gameBoard().getCell(this.getPosition().get("x"), this.getPosition().get("y"))
+				.getType() == CellType.WATER) {
+			throw new IllegalArgumentException("Cannot use mode because currently on water cell");
+		}
+		int YPos = getPosition().get("y");
+
+		if (YPos != engine.gameBoard().getSize() && YPos != 0) {
+			boolean waterCellFrontStatus = engine.gameBoard().getCell(getPosition().get("x"), YPos + 1)
+					.getType() == CellType.WATER;
+			boolean waterCellBackStatus = engine.gameBoard().getCell(getPosition().get("x"), YPos - 1)
+					.getType() == CellType.WATER;
+			if (waterCellFrontStatus) {
+				checkAbleToLeap(finalMode, YPos + 4);
+			} else if (waterCellBackStatus) {
+				checkAbleToLeap(finalMode, YPos - 4);
+			} else {
+				throw new RuntimeException("Not standing near to any water cell to use this mode");
+			}
+
+		} else {
+			throw new RuntimeException("Cannot use mode at this position");
+		}
+
+		return finalMode;
+	}
+
+	@Override
+	@Requires({ "getPosition() != null" })
+	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
+	public void movePiece(int x, int y) {
+		setPosition(x, y);
+		EngineImpl.getSingletonInstance().pieceOperator().eagleCheckingHealingSharkAbility();
+	}
+
 	private void protect(Piece piece, Piece affectedPiece) {
 
 		if (affectedPiece.isImmune())
@@ -107,51 +141,20 @@ public class LeadershipEagle extends AbstractPiece {
 
 	}
 
-	private boolean isSurrounding(int x1, int x2, int y1, int y2, int distance) {
-		if (x2 > x1 + distance || y2 > y1 + distance || x2 < x1 - distance || y2 < y1 - distance) {
-			return false;
-		}
-		return true;
-	}
-
 	@Override
 	public String toString() {
 		return String.format("%s", "LeadershipEagle");
 	}
 
 	@Override
-	public Set<Cell> modeCells() {
-		engine = EngineImpl.getSingletonInstance();
-		Set<Cell> finalMode = new HashSet<>();
-		if (engine.gameBoard().getCell(this.getPosition().get("x"), this.getPosition().get("y")).getType() == CellType.WATER) {
-			throw new IllegalArgumentException("Cannot use mode because currently on water cell");
-		}
-		int YPos = getPosition().get("y");
+	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 
-		if (YPos != engine.gameBoard().getSize() && YPos != 0) {
-			boolean waterCellFrontStatus = engine.gameBoard().getCell(getPosition().get("x"), YPos + 1).getType() == CellType.WATER;
-			boolean waterCellBackStatus = engine.gameBoard().getCell(getPosition().get("x"), YPos - 1).getType() == CellType.WATER;
-			if (waterCellFrontStatus) {
-				checkAbleToLeap(finalMode, YPos + 4);
-			} else if (waterCellBackStatus) {
-				checkAbleToLeap(finalMode, YPos - 4);
-			} else {
-				throw new RuntimeException("Not standing near to any water cell to use this mode");
-			}
-
+		if (pieceAbility.equals(PieceAbility.PROTECT)) {
+			protect(piece, affectedPiece);
 		} else {
-			throw new RuntimeException("Cannot use mode at this position");
+			throw new IllegalArgumentException("Invalid ability");
 		}
 
-		return finalMode;
-	}
-
-	private void checkAbleToLeap(Set<Cell> finalMode, int YPos) {
-		boolean leapCellOccupyStatusFront = engine.gameBoard().getCell(getPosition().get("x"), YPos).getOccupied();
-		if (leapCellOccupyStatusFront) {
-			throw new RuntimeException("Cannot use this mode because the leap-to cell is occupied");
-		}
-		finalMode.add(engine.gameBoard().getCell(getPosition().get("x"), YPos));
 	}
 
 }

@@ -31,6 +31,11 @@ public class PlayerImpl implements Player, Serializable {
 	}
 
 	@Override
+	public boolean ableToUndo(int round) {
+		return ableToUndo;
+	}
+
+	@Override
 	@Requires({ "this.isActive ==true || this.isActive ==false" })
 	public boolean getActive() {
 		return isActive;
@@ -50,6 +55,11 @@ public class PlayerImpl implements Player, Serializable {
 	}
 
 	@Override
+	public void setAlreadyUndo() {
+		ableToUndo = false;
+	}
+
+	@Override
 	public String toString() {
 		return String.format("%s", playerType.toString());
 	}
@@ -62,15 +72,5 @@ public class PlayerImpl implements Player, Serializable {
 			int newCount = undoDict.get(round) + 1;
 			undoDict.replace(round, newCount);
 		}
-	}
-
-	@Override
-	public boolean ableToUndo(int round) {
-		return ableToUndo;
-	}
-
-	@Override
-	public void setAlreadyUndo() {
-		ableToUndo = false;
 	}
 }

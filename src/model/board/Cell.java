@@ -17,9 +17,16 @@ public class Cell implements Serializable {
 	private CellType type;
 	private boolean occupied;
 
+	public Cell(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.type = null;
+		this.occupied = false;
+	}
+
 	/**
 	 * Create the cell with x, y, and cell type - occupied will be false by default.
-	 *  
+	 * 
 	 * @param x
 	 * @param y
 	 * @param type
@@ -29,54 +36,6 @@ public class Cell implements Serializable {
 		this.y = y;
 		this.type = type;
 		this.occupied = false;
-	}
-
-	public Cell(int x, int y) {
-		this.x = x;
-		this.y = y;
-		this.type = null;
-		this.occupied = false;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public CellType getType() {
-		return type;
-	}
-
-	public boolean getOccupied() {
-		return occupied;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public void setType(CellType type) {
-		this.type = type;
-	}
-
-	public void setOccupied() {
-		this.occupied = true;
-	}
-
-	public void setUnoccupied() {
-		this.occupied = false;
-	}
-
-	@Override
-	public int hashCode() {
-		return Integer.parseInt((new Integer(x)).toString() + (new Integer(y)).toString());
 	}
 
 	@Override
@@ -91,5 +50,46 @@ public class Cell implements Serializable {
 		if (y != other.y)
 			return false;
 		return true;
+	}
+
+	public boolean getOccupied() {
+		return occupied;
+	}
+
+	public CellType getType() {
+		return type;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	@Override
+	public int hashCode() {
+		return Integer.parseInt((new Integer(x)).toString() + (new Integer(y)).toString());
+	}
+
+	public void setOccupied() {
+		this.occupied = true;
+	}
+
+	public void setType(CellType type) {
+		this.type = type;
+	}
+
+	public void setUnoccupied() {
+		this.occupied = false;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
 	}
 }

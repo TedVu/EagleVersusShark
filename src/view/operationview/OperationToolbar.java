@@ -16,7 +16,7 @@ import viewcontroller.contract.ViewControllerInterface;
 public class OperationToolbar extends JMenuBar {
 
 	private static final long serialVersionUID = -3854607902557332468L;
-	
+
 	private JMenu[] menus;
 	private JMenuItem save;
 	private JMenuItem exit;

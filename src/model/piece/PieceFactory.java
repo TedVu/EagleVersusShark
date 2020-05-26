@@ -10,24 +10,6 @@ import model.enumtype.PieceType;
  */
 public class PieceFactory {
 
-	public static Piece generatePiece(PieceType pieceType, int boardSize, Engine engine) {
-		if (pieceType == PieceType.ATTACKINGEAGLE) {
-			return createAttackingEagle(boardSize, engine);
-		} else if (pieceType == PieceType.LEADERSHIPEAGLE) {
-			return createLeadershipEagle(boardSize);
-		} else if (pieceType == PieceType.VISIONARYEAGLE) {
-			return createVisionaryEagle(boardSize, engine);
-		} else if (pieceType == PieceType.AGGRESSIVESHARK) {
-			return createAggressiveShark(boardSize, engine);
-		} else if (pieceType == PieceType.DEFENSIVESHARK) {
-			return createDesensiveShark(boardSize, engine);
-		} else if (pieceType == PieceType.HEALINGSHARK) {
-			return createHealingShark(boardSize, engine);
-		} else {
-			return null;
-		}
-	}
-
 	private static Piece createAggressiveShark(int boardSize, Engine engine) {
 		return new AggressiveShark(PieceType.AGGRESSIVESHARK.xCoordinate(boardSize),
 				PieceType.AGGRESSIVESHARK.yCoordinate(boardSize), engine);
@@ -56,6 +38,24 @@ public class PieceFactory {
 	private static Piece createVisionaryEagle(int boardSize, Engine engine) {
 		return new VisionaryEagle(PieceType.VISIONARYEAGLE.xCoordinate(boardSize),
 				PieceType.VISIONARYEAGLE.yCoordinate(boardSize), engine);
+	}
+
+	public static Piece generatePiece(PieceType pieceType, int boardSize, Engine engine) {
+		if (pieceType == PieceType.ATTACKINGEAGLE) {
+			return createAttackingEagle(boardSize, engine);
+		} else if (pieceType == PieceType.LEADERSHIPEAGLE) {
+			return createLeadershipEagle(boardSize);
+		} else if (pieceType == PieceType.VISIONARYEAGLE) {
+			return createVisionaryEagle(boardSize, engine);
+		} else if (pieceType == PieceType.AGGRESSIVESHARK) {
+			return createAggressiveShark(boardSize, engine);
+		} else if (pieceType == PieceType.DEFENSIVESHARK) {
+			return createDesensiveShark(boardSize, engine);
+		} else if (pieceType == PieceType.HEALINGSHARK) {
+			return createHealingShark(boardSize, engine);
+		} else {
+			return null;
+		}
 	}
 
 	/**

@@ -9,6 +9,11 @@ import model.enumtype.TeamType;
 public interface Player {
 
 	/**
+	 * @param isActive - set the player active status
+	 */
+	public boolean ableToUndo(int round);
+
+	/**
 	 * @return whether it's currently the player's turn or not
 	 */
 	public boolean getActive();
@@ -24,18 +29,13 @@ public interface Player {
 	public void setActive(boolean isActive);
 
 	/**
-	 * @param isActive - set the player active status
+	 * 
 	 */
-	public boolean ableToUndo(int round);
+	public void setAlreadyUndo();
 
 	/**
 	 * @param round
 	 */
 	public void undoCounter(int round);
-
-	/**
-	 * 
-	 */
-	public void setAlreadyUndo();
 
 }

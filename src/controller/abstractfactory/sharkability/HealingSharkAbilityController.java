@@ -39,6 +39,10 @@ public class HealingSharkAbilityController extends AbstractAbilityController {
 		}
 	}
 
+	public void injectHealingDialog(HealingSharkDialog healingDialog) {
+		this.healingDialog = healingDialog;
+	}
+
 	@Override
 	public void setUpViewForAbility(PieceType pieceType) {
 		List<Piece> activeSharks = controllerModelFacade.getActiveSharks();
@@ -47,9 +51,5 @@ public class HealingSharkAbilityController extends AbstractAbilityController {
 		} else {
 			healingDialog = new HealingSharkDialog(this);
 		}
-	}
-
-	public void injectHealingDialog(HealingSharkDialog healingDialog) {
-		this.healingDialog = healingDialog;
 	}
 }

@@ -74,10 +74,8 @@ public class GameBoard implements Serializable {
 	/**
 	 * Set the cell to occupied after moving the piece.
 	 * 
-	 * @param x
-	 *            row
-	 * @param y
-	 *            col
+	 * @param x row
+	 * @param y col
 	 */
 	@Requires({ "x>=0", "y>=0" })
 	@Ensures("cells.get(y).get(x).getOccupied()==true")
@@ -86,17 +84,39 @@ public class GameBoard implements Serializable {
 	}
 
 	/**
-	 * Set the cell to unoccupied after moving the piece.
-	 * 
-	 * @param x
-	 *            row
-	 * @param y
-	 *            col
+	 * Create Obstacle Cells
 	 */
-	@Requires({ "x>=0", "y>=0" })
-	@Ensures("cells.get(y).get(x).getOccupied()==false")
-	public void removePiece(int x, int y) {
-		cells.get(y).get(x).setUnoccupied();
+	public void configObstacle() {
+		int min = 0;
+		int numObstacle = 0;
+
+		while (numObstacle < 5) {
+			int randomX = ThreadLocalRandom.current().nextInt(min, size);
+			int randomY = ThreadLocalRandom.current().nextInt(min, size);
+
+			if (!specialPos.contains(getCell(randomX, randomY))
+					&& !(getCell(randomX, randomY).getType() == CellType.OBSTACLE)) {
+				getCell(randomX, randomY).setType(CellType.OBSTACLE);
+				getCell(randomX, randomY).setOccupied();
+				++numObstacle;
+			}
+		}
+	}
+
+	public Cell getAvailableTopEagleSideCell() {
+		Set<Cell> topEagleSideCells = new HashSet<>();
+		Cell availableCell = null;
+
+		for (int i = 0; i < size; ++i) {
+			topEagleSideCells.add(this.getCell(i, 0));
+		}
+		int min = 0, max = size;
+
+		do {
+			int randomX = ThreadLocalRandom.current().nextInt(min, max);
+			availableCell = getCell(randomX, 0);
+		} while (availableCell.getOccupied());
+		return availableCell;
 	}
 
 	@Requires({ "cells!=null" })
@@ -134,41 +154,15 @@ public class GameBoard implements Serializable {
 		return waterCells;
 	}
 
-	
-
 	/**
-	 * Create Obstacle Cells
+	 * Set the cell to unoccupied after moving the piece.
+	 * 
+	 * @param x row
+	 * @param y col
 	 */
-	public void configObstacle() {
-		int min = 0;
-		int numObstacle = 0;
-
-		while (numObstacle < 5) {
-			int randomX = ThreadLocalRandom.current().nextInt(min, size);
-			int randomY = ThreadLocalRandom.current().nextInt(min, size);
-
-			if (!specialPos.contains(getCell(randomX, randomY))
-					&& !(getCell(randomX, randomY).getType() == CellType.OBSTACLE)) {
-				getCell(randomX, randomY).setType(CellType.OBSTACLE);
-				getCell(randomX, randomY).setOccupied();
-				++numObstacle;
-			}
-		}
-	}
-
-	public Cell getAvailableTopEagleSideCell() {
-		Set<Cell> topEagleSideCells = new HashSet<>();
-		Cell availableCell = null;
-
-		for (int i = 0; i < size; ++i) {
-			topEagleSideCells.add(this.getCell(i, 0));
-		}
-		int min = 0, max = size;
-
-		do {
-			int randomX = ThreadLocalRandom.current().nextInt(min, max);
-			availableCell = getCell(randomX, 0);
-		} while (availableCell.getOccupied());
-		return availableCell;
+	@Requires({ "x>=0", "y>=0" })
+	@Ensures("cells.get(y).get(x).getOccupied()==false")
+	public void removePiece(int x, int y) {
+		cells.get(y).get(x).setUnoccupied();
 	}
 }

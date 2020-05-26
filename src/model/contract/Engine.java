@@ -13,21 +13,6 @@ import model.player.GameTurn;
 public interface Engine {
 
 	/**
-	 * @return
-	 */
-	public GameTurn gameTurn();
-
-	/**
-	 * @return
-	 */
-	public GameBoard gameBoard();
-
-	/**
-	 * @return
-	 */
-	public GamePiece pieceOperator();
-
-	/**
 	 * @param boardSize
 	 * @param hasObstacle
 	 */
@@ -39,9 +24,19 @@ public interface Engine {
 	public void configNumPiece(int pieceNumberSelection);
 
 	/**
-	 * @param e
+	 * @return
 	 */
-	public void loadGame(EngineImpl e);
+	public boolean endGame();
+
+	/**
+	 * @return
+	 */
+	public GameBoard gameBoard();
+
+	/**
+	 * @return
+	 */
+	public GameTurn gameTurn();
 
 	/**
 	 * @return
@@ -49,8 +44,13 @@ public interface Engine {
 	public PieceCommands getPieceCommands();
 
 	/**
+	 * @param e
+	 */
+	public void loadGame(EngineImpl e);
+
+	/**
 	 * @return
 	 */
-	public boolean endGame();
+	public GamePiece pieceOperator();
 
 }

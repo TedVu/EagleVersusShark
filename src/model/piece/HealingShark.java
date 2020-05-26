@@ -32,37 +32,16 @@ public class HealingShark extends AbstractPiece {
 	}
 
 	@Override
+	public Set<Cell> abilityCells() {
+		return null;
+	}
+
+	@Override
 	@Requires({ "getPosition() != null" })
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
 		return new PieceMoveDecorator(new DiagonalDecorator(new BasicMove())).getValidMove(this, 1);
 
-	}
-
-	@Override
-	@Requires({ "getPosition() != null" })
-	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
-	public void movePiece(int x, int y) {
-		setPosition(x, y);
-	}
-
-	@Override
-	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
-		if (pieceAbility.equals(PieceAbility.HEAL)) {
-
-			int counter = engine.pieceOperator().getHealingAbilityCounter();
-			System.out.println(counter);
-			if (counter != 0) {
-				if (counter == 2) {
-					engine.pieceOperator().resetHealingAbilityCounter();
-				}
-				throw new RuntimeException("You just used the ability last round!");
-			} else {
-				heal(affectedPiece);
-			}
-		} else {
-			throw new IllegalArgumentException("Invalid ability");
-		}
 	}
 
 	private void heal(Piece affectedPiece) {
@@ -111,11 +90,6 @@ public class HealingShark extends AbstractPiece {
 	}
 
 	@Override
-	public String toString() {
-		return String.format("%s", "HealingShark");
-	}
-
-	@Override
 	public Set<Cell> modeCells() {
 
 		Set<Cell> currentEaglePositions = new HashSet<>();
@@ -135,8 +109,34 @@ public class HealingShark extends AbstractPiece {
 	}
 
 	@Override
-	public Set<Cell> abilityCells() {
-		return null;
+	@Requires({ "getPosition() != null" })
+	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
+	public void movePiece(int x, int y) {
+		setPosition(x, y);
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s", "HealingShark");
+	}
+
+	@Override
+	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
+		if (pieceAbility.equals(PieceAbility.HEAL)) {
+
+			int counter = engine.pieceOperator().getHealingAbilityCounter();
+			System.out.println(counter);
+			if (counter != 0) {
+				if (counter == 2) {
+					engine.pieceOperator().resetHealingAbilityCounter();
+				}
+				throw new RuntimeException("You just used the ability last round!");
+			} else {
+				heal(affectedPiece);
+			}
+		} else {
+			throw new IllegalArgumentException("Invalid ability");
+		}
 	}
 
 }

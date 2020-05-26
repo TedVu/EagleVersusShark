@@ -9,13 +9,13 @@ import java.awt.Color;
 public enum CellType {
 
 	/**
-	 *SMASTER,EMASTER: Melon color - (R,G,B) = (227,181,164) <br> 
+	 * SMASTER,EMASTER: Melon color - (R,G,B) = (227,181,164) <br>
 	 *
-	 *WATER: French blue - (R,G,B) = (101,175,254) <br>
+	 * WATER: French blue - (R,G,B) = (101,175,254) <br>
 	 *
 	 */
-	SMASTER(new Color(227,181,164 )), EMASTER(new Color(227,181,164 )), NORMAL(Color.WHITE), WATER(new Color(101,175,254)), OBSTACLE(
-			Color.BLACK);
+	SMASTER(new Color(227, 181, 164)), EMASTER(new Color(227, 181, 164)), NORMAL(Color.WHITE),
+	WATER(new Color(101, 175, 254)), OBSTACLE(Color.BLACK);
 
 	private final Color color;
 

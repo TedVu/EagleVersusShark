@@ -14,7 +14,7 @@ import viewcontroller.contract.ViewControllerInterface;
 public class RightPanel extends JPanel {
 
 	private static final long serialVersionUID = 2103383416089369712L;
-	
+
 	private StatusPanel statusPanel;
 	private ModePanel modePanel;
 
@@ -28,11 +28,11 @@ public class RightPanel extends JPanel {
 		add(modePanel);
 	}
 
-	public StatusPanel getStatusPanel() {
-		return statusPanel;
-	}
-
 	public ModePanel getModePanel() {
 		return modePanel;
+	}
+
+	public StatusPanel getStatusPanel() {
+		return statusPanel;
 	}
 }

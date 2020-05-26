@@ -26,6 +26,6 @@ public class LeadershipEagleModeController extends AbstractModeController {
 		super.viewControllerFacade.locateNewPos(btnClicked, newPos);
 		controllerModelFacade.updateModelAfterMovingPiece(newPos, PieceType.LEADERSHIPEAGLE);
 		super.controllerModelFacade.updateModelStateForNextTurn(TeamType.SHARK);
-	} 
- 
+	}
+
 }

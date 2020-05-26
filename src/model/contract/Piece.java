@@ -15,6 +15,16 @@ import model.piece.PieceMemento;
 public interface Piece {
 
 	/**
+	 * @return
+	 */
+	public Set<Cell> abilityCells();
+
+	/**
+	 * @return
+	 */
+	public int getModeCount();
+
+	/**
 	 * Get the current position of the piece
 	 * 
 	 * @return {"x": .. , "y": ..}
@@ -32,15 +42,45 @@ public interface Piece {
 	public boolean isActive();
 
 	/**
+	 * @return
+	 */
+	public boolean isImmune();
+
+	/**
+	 * @return
+	 */
+	public Set<Cell> modeCells();
+
+	/**
+	 * 
+	 */
+	public void modeUsed();
+
+	/**
 	 * @param x the new x position
 	 * @param y the new y position
 	 */
 	public void movePiece(int x, int y);
 
 	/**
+	 * @return
+	 */
+	public PieceMemento pieceMemento();
+
+	/**
 	 * @param isActive - set the piece to active or not
 	 */
 	public void setActive(boolean isActive);
+
+	/**
+	 * @param isImmune
+	 */
+	public void setImmune(boolean isImmune);
+
+	/**
+	 * @param modeCount
+	 */
+	public void setModeCount(int modeCount);
 
 	/**
 	 * Modify the position of the piece
@@ -56,45 +96,5 @@ public interface Piece {
 	 * @param affectedPiece
 	 */
 	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece);
-
-	/**
-	 * @return
-	 */
-	public Set<Cell> abilityCells();
-
-	/**
-	 * @param isImmune
-	 */
-	public void setImmune(boolean isImmune);
-
-	/**
-	 * @return
-	 */
-	public boolean isImmune();
-
-	/**
-	 * @return
-	 */
-	public PieceMemento pieceMemento();
-
-	/**
-	 * @return
-	 */
-	public Set<Cell> modeCells();
-
-	/**
-	 * 
-	 */
-	public void modeUsed();
-
-	/**
-	 * @param modeCount
-	 */
-	public void setModeCount(int modeCount);
-
-	/**
-	 * @return
-	 */
-	public int getModeCount();
 
 }

@@ -73,6 +73,17 @@ public class SelectPieceController implements ActionListener {
 		}
 	}
 
+	@Requires({ "btnClicked != null", "controllerModelFacade != null" })
+	private void checkCorrectPieceButtonClicked() {
+		if (controllerModelFacade
+				.checkCorrectTurnOfSelectedPiece(PieceType.parsePieceType(btnClicked.getActionCommand()))) {
+			TeamType currentTurn = EngineImpl.getSingletonInstance().gameTurn().getCurrentActivePlayer()
+					.getPlayerType();
+			checkChooseCorrectTeamTurn(currentTurn);
+
+		}
+	}
+
 	private void routePlayerAction(PlayerActionType playerActionType, TeamType teamType) {
 		if (playerActionType == PlayerActionType.MOVE) {
 			movePieceController = new MovePieceController(PieceType.parsePieceType(btnClicked.getActionCommand()),
@@ -89,16 +100,6 @@ public class SelectPieceController implements ActionListener {
 		}
 	}
 
-	private void useModeViewController(TeamType teamType) {
-		ModeControllerFactory modeFactory = SpecialBehaviourControllerFactory
-				.getSpecialBehaviourControllerFactory(teamType).createModeControllerFactory();
-
-		ModeController modeController = modeFactory
-				.createModeController(PieceType.parsePieceType(btnClicked.getActionCommand()));
-		modeController.setModeState(viewControllerFacade);
-		modeController.setUpViewForMode(PieceType.parsePieceType(btnClicked.getActionCommand()));
-	}
-
 	private void useAbilityViewController(TeamType teamType) {
 		AbilityControllerFactory abilityFactory = SpecialBehaviourControllerFactory
 				.getSpecialBehaviourControllerFactory(teamType).createAbilityControllerFactory();
@@ -108,15 +109,14 @@ public class SelectPieceController implements ActionListener {
 		abilityController.setUpViewForAbility(PieceType.parsePieceType(btnClicked.getActionCommand()));
 	}
 
-	@Requires({ "btnClicked != null", "controllerModelFacade != null" })
-	private void checkCorrectPieceButtonClicked() {
-		if (controllerModelFacade
-				.checkCorrectTurnOfSelectedPiece(PieceType.parsePieceType(btnClicked.getActionCommand()))) {
-			TeamType currentTurn = EngineImpl.getSingletonInstance().gameTurn().getCurrentActivePlayer()
-					.getPlayerType();
-			checkChooseCorrectTeamTurn(currentTurn);
+	private void useModeViewController(TeamType teamType) {
+		ModeControllerFactory modeFactory = SpecialBehaviourControllerFactory
+				.getSpecialBehaviourControllerFactory(teamType).createModeControllerFactory();
 
-		}
+		ModeController modeController = modeFactory
+				.createModeController(PieceType.parsePieceType(btnClicked.getActionCommand()));
+		modeController.setModeState(viewControllerFacade);
+		modeController.setUpViewForMode(PieceType.parsePieceType(btnClicked.getActionCommand()));
 	}
 
 }

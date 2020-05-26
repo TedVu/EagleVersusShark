@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class PieceMemento implements Serializable {
 
 	private static final long serialVersionUID = -2210167835452781626L;
-	
+
 	boolean isActive;
 	boolean isImmune;
 	int x, y, modeUsageCount;
@@ -19,16 +19,12 @@ public class PieceMemento implements Serializable {
 		this.modeUsageCount = modeUsageCount;
 	};
 
+	public int getModeCount() {
+		return modeUsageCount;
+	}
+
 	public PieceMemento getState() {
 		return this;
-	}
-
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public boolean isImmune() {
-		return isImmune;
 	}
 
 	public int getX() {
@@ -39,8 +35,12 @@ public class PieceMemento implements Serializable {
 		return y;
 	}
 
-	public int getModeCount() {
-		return modeUsageCount;
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public boolean isImmune() {
+		return isImmune;
 	}
 
 }

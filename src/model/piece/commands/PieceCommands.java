@@ -31,14 +31,8 @@ public class PieceCommands implements Serializable {
 		this.engine = engine;
 	}
 
-	protected void replacePieceVersion(Piece piece, PieceMemento prevState) {
-		piece.setActive(prevState.isActive());
-		piece.setImmune(prevState.isImmune());
-		piece.setPosition(prevState.getX(), prevState.getY());
-		piece.setModeCount(prevState.getModeCount());
-
-		engine.gameBoard().removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
-		engine.gameBoard().addPiece(prevState.getX(), prevState.getY());
+	protected void addEvt(Command command) {
+		commandHistory.push(command);
 	}
 
 	/**
@@ -59,13 +53,14 @@ public class PieceCommands implements Serializable {
 			piece.modeUsed();
 	}
 
-	protected void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece, boolean isMode) {
-		if (isMode && piece instanceof AttackingEagle && piece.getModeCount() > 0) {
-			throw new IllegalArgumentException("Mode is already used");
-		}
-		piece.useAbility(pieceAbility, piece, affectedPiece);
-		if (isMode)
-			piece.modeUsed();
+	protected void replacePieceVersion(Piece piece, PieceMemento prevState) {
+		piece.setActive(prevState.isActive());
+		piece.setImmune(prevState.isImmune());
+		piece.setPosition(prevState.getX(), prevState.getY());
+		piece.setModeCount(prevState.getModeCount());
+
+		engine.gameBoard().removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
+		engine.gameBoard().addPiece(prevState.getX(), prevState.getY());
 	}
 
 	protected void undo(int undoNum, TeamType teamType) {
@@ -89,8 +84,13 @@ public class PieceCommands implements Serializable {
 		}
 	}
 
-	protected void addEvt(Command command) {
-		commandHistory.push(command);
+	protected void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece, boolean isMode) {
+		if (isMode && piece instanceof AttackingEagle && piece.getModeCount() > 0) {
+			throw new IllegalArgumentException("Mode is already used");
+		}
+		piece.useAbility(pieceAbility, piece, affectedPiece);
+		if (isMode)
+			piece.modeUsed();
 	}
 
 }

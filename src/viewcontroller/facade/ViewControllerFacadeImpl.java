@@ -29,15 +29,8 @@ public class ViewControllerFacadeImpl implements ViewControllerInterface {
 	}
 
 	@Override
-	@Requires({ "buttonClicked != null", "newPos != null" })
-	public void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos) {
-		pcs.firePropertyChange("LocateNewPosition", buttonClicked, newPos);
-	}
-
-	@Override
-	@Requires({ "buttonClicked !=null", "pieceType != null" })
-	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
-		pcs.firePropertyChange("UpdateBoardAfterMovingPiece", pieceType.toString(), buttonClicked);
+	public void confirmUndoSuccessful() {
+		pcs.firePropertyChange("UndoSuccessful", null, null);
 	}
 
 	@Override
@@ -48,15 +41,14 @@ public class ViewControllerFacadeImpl implements ViewControllerInterface {
 	}
 
 	@Override
-	@Requires({ "buttonClicked != null" })
-	public void updateBoardAfterSwap(AbstractButton buttonClicked) {
-		pcs.firePropertyChange("UpdateBoardAfterSwap", null, buttonClicked);
+	@Requires({ "buttonClicked != null", "newPos != null" })
+	public void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos) {
+		pcs.firePropertyChange("LocateNewPosition", buttonClicked, newPos);
 	}
 
 	@Override
-	@Requires({ "btnClicked != null", "pieceCapture != null" })
-	public void updateBoardAfterCapture(AbstractButton btnClicked, PieceType pieceCapture) {
-		pcs.firePropertyChange("UpdateBoardAfterCapture", pieceCapture, btnClicked);
+	public void refreshBoard() {
+		pcs.firePropertyChange("RefreshBoard", null, null);
 	}
 
 	@Override
@@ -66,8 +58,20 @@ public class ViewControllerFacadeImpl implements ViewControllerInterface {
 	}
 
 	@Override
-	public void confirmUndoSuccessful() {
-		pcs.firePropertyChange("UndoSuccessful", null, null);
+	@Requires({ "btnClicked != null", "pieceCapture != null" })
+	public void updateBoardAfterCapture(AbstractButton btnClicked, PieceType pieceCapture) {
+		pcs.firePropertyChange("UpdateBoardAfterCapture", pieceCapture, btnClicked);
+	}
+
+	@Override
+	public void updateBoardAfterHealingSharkUseMode() {
+		pcs.firePropertyChange("UpdateBoardAfterHealingSharkUseMode", null, null);
+	}
+
+	@Override
+	@Requires({ "buttonClicked !=null", "pieceType != null" })
+	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
+		pcs.firePropertyChange("UpdateBoardAfterMovingPiece", pieceType.toString(), buttonClicked);
 	}
 
 	@Override
@@ -76,13 +80,9 @@ public class ViewControllerFacadeImpl implements ViewControllerInterface {
 	}
 
 	@Override
-	public void updateBoardReviveSharkSuccessful(PieceType revivedPiece) {
-		pcs.firePropertyChange("UpdateBoardReviveSharkSuccessful", null, revivedPiece);
-	}
-
-	@Override
-	public void updateBoardAfterHealingSharkUseMode() {
-		pcs.firePropertyChange("UpdateBoardAfterHealingSharkUseMode", null, null);
+	@Requires({ "buttonClicked != null" })
+	public void updateBoardAfterSwap(AbstractButton buttonClicked) {
+		pcs.firePropertyChange("UpdateBoardAfterSwap", null, buttonClicked);
 	}
 
 	@Override
@@ -98,13 +98,13 @@ public class ViewControllerFacadeImpl implements ViewControllerInterface {
 	}
 
 	@Override
-	public void refreshBoard() {
-		pcs.firePropertyChange("RefreshBoard", null, null);
+	public void updateBoardPauseGame() {
+		pcs.firePropertyChange("UpdateBoardPauseGame", null, null);
 	}
 
 	@Override
-	public void updateBoardPauseGame() {
-		pcs.firePropertyChange("UpdateBoardPauseGame", null, null);
+	public void updateBoardReviveSharkSuccessful(PieceType revivedPiece) {
+		pcs.firePropertyChange("UpdateBoardReviveSharkSuccessful", null, revivedPiece);
 	}
 
 }

@@ -30,64 +30,6 @@ public class AggressiveShark extends AbstractPiece {
 		secondAbilityUnlock = false;
 	}
 
-	public void setSecondAbilityUnlock() {
-		this.secondAbilityUnlock = true;
-	}
-
-	@Override
-	public Set<Cell> getValidMove() {
-		Cell currentPos = engine.gameBoard().getCell(this.getPosition().get("x"), this.getPosition().get("y"));
-		if (!(currentPos.getType() == CellType.WATER)) {
-			return new BasicMove().getValidMove(this, 1);
-		} else {
-			return new BasicMove().getValidMove(this, 2);
-		}
-	}
-
-	@Override
-	@Requires({ "x>=0", "y>=0" })
-	public void movePiece(int x, int y) {
-		if (engine.gameBoard().getCell(x, y).getType() == CellType.WATER) {
-			secondAbilityUnlock = true;
-		}
-		setPosition(x, y);
-	}
-
-	@Override
-	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
-		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
-			capture(piece, affectedPiece);
-			if (engine.pieceOperator().getHealingAbilityCounter() == 2) {
-				engine.pieceOperator().resetHealingAbilityCounter();
-			}
-		} else {
-			throw new IllegalArgumentException("Invalid ability");
-		}
-	}
-
-	private void capture(Piece piece, Piece affectedPiece) {
-		try {
-			Cell currentPos = engine.gameBoard().getCell(piece.getPosition().get("x"), piece.getPosition().get("y"));
-			Cell opponentPos = engine.gameBoard().getCell(affectedPiece.getPosition().get("x"),
-					affectedPiece.getPosition().get("y"));
-			if (currentPos.getType() == CellType.WATER) {
-				if (!(opponentPos.getType() == CellType.WATER) && affectedPiece.isImmune()) {
-					throw new IllegalArgumentException("The piece is immune");
-				}
-			} else if (!(currentPos.getType() == CellType.WATER)) {
-				if (affectedPiece.isImmune()) {
-					throw new IllegalArgumentException("The piece is immune");
-				}
-			}
-
-			engine.gameBoard().removePiece(currentPos.getX(), currentPos.getY());
-			movePiece(opponentPos.getX(), opponentPos.getY());
-			affectedPiece.setActive(false);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 	@Override
 	public Set<Cell> abilityCells() {
 		int distance = 0;
@@ -121,9 +63,37 @@ public class AggressiveShark extends AbstractPiece {
 		return abilityCells;
 	}
 
+	private void capture(Piece piece, Piece affectedPiece) {
+		try {
+			Cell currentPos = engine.gameBoard().getCell(piece.getPosition().get("x"), piece.getPosition().get("y"));
+			Cell opponentPos = engine.gameBoard().getCell(affectedPiece.getPosition().get("x"),
+					affectedPiece.getPosition().get("y"));
+			if (currentPos.getType() == CellType.WATER) {
+				if (!(opponentPos.getType() == CellType.WATER) && affectedPiece.isImmune()) {
+					throw new IllegalArgumentException("The piece is immune");
+				}
+			} else if (!(currentPos.getType() == CellType.WATER)) {
+				if (affectedPiece.isImmune()) {
+					throw new IllegalArgumentException("The piece is immune");
+				}
+			}
+
+			engine.gameBoard().removePiece(currentPos.getX(), currentPos.getY());
+			movePiece(opponentPos.getX(), opponentPos.getY());
+			affectedPiece.setActive(false);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	@Override
-	public String toString() {
-		return String.format("%s", "AggressiveShark");
+	public Set<Cell> getValidMove() {
+		Cell currentPos = engine.gameBoard().getCell(this.getPosition().get("x"), this.getPosition().get("y"));
+		if (!(currentPos.getType() == CellType.WATER)) {
+			return new BasicMove().getValidMove(this, 1);
+		} else {
+			return new BasicMove().getValidMove(this, 2);
+		}
 	}
 
 	@Override
@@ -156,6 +126,36 @@ public class AggressiveShark extends AbstractPiece {
 					+ "You can activate it by stepping on a water cell once.");
 
 		return returnCells;
+	}
+
+	@Override
+	@Requires({ "x>=0", "y>=0" })
+	public void movePiece(int x, int y) {
+		if (engine.gameBoard().getCell(x, y).getType() == CellType.WATER) {
+			secondAbilityUnlock = true;
+		}
+		setPosition(x, y);
+	}
+
+	public void setSecondAbilityUnlock() {
+		this.secondAbilityUnlock = true;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s", "AggressiveShark");
+	}
+
+	@Override
+	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
+		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
+			capture(piece, affectedPiece);
+			if (engine.pieceOperator().getHealingAbilityCounter() == 2) {
+				engine.pieceOperator().resetHealingAbilityCounter();
+			}
+		} else {
+			throw new IllegalArgumentException("Invalid ability");
+		}
 	}
 
 }

@@ -73,6 +73,18 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 
 	}
 
+	public AbstractButton getResumeButton() {
+		return resumeBtn;
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equalsIgnoreCase("GetMode")) {
+			PlayerAction playerAction = (PlayerAction) evt.getOldValue();
+			playerAction.setPlayerAction(modeBox.getSelectedItem().toString());
+		}
+	}
+
 	public void updateAvailableMode(TeamType team) {
 		if (team == TeamType.EAGLE) {
 			modeBox.removeAllItems();
@@ -92,17 +104,5 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 			throw new IllegalArgumentException("Invalid Argument");
 		}
 
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equalsIgnoreCase("GetMode")) {
-			PlayerAction playerAction = (PlayerAction) evt.getOldValue();
-			playerAction.setPlayerAction(modeBox.getSelectedItem().toString());
-		}
-	}
-
-	public AbstractButton getResumeButton() {
-		return resumeBtn;
 	}
 }

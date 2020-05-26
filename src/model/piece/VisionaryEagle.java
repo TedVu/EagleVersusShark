@@ -33,49 +33,6 @@ public class VisionaryEagle extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({ "getPosition() != null" })
-	@Ensures("getValidMove() != null")
-	public Set<Cell> getValidMove() {
-		return new DiagonalDecorator(new BasicMove()).getValidMove(this, 2);
-
-	}
-
-	@Override
-	@Requires({ "getPosition() != null" })
-	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
-	public void movePiece(int x, int y) {
-		setPosition(x, y);
-		engine.pieceOperator().eagleCheckingHealingSharkAbility();
-	}
-
-	@Override
-	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
-		if (pieceAbility.equals(PieceAbility.SWAP)) {
-			swap(piece, affectedPiece);
-		}
-
-		else {
-			throw new IllegalArgumentException("Invalid ability");
-		}
-	}
-
-	private void swap(Piece piece, Piece affectedPiece) {
-		try {
-			Map<String, Integer> position1 = new HashMap<String, Integer>();
-			Map<String, Integer> position2 = new HashMap<String, Integer>();
-
-			position1.putAll(piece.getPosition());
-			position2.putAll(affectedPiece.getPosition());
-
-			piece.setPosition(position2.get("x"), position2.get("y"));
-			affectedPiece.setPosition(position1.get("x"), position1.get("y"));
-
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
 	public Set<Cell> abilityCells() {
 		Set<Cell> swapPositions = new HashSet<>();
 		List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
@@ -96,6 +53,14 @@ public class VisionaryEagle extends AbstractPiece {
 	}
 
 	@Override
+	@Requires({ "getPosition() != null" })
+	@Ensures("getValidMove() != null")
+	public Set<Cell> getValidMove() {
+		return new DiagonalDecorator(new BasicMove()).getValidMove(this, 2);
+
+	}
+
+	@Override
 	public Set<Cell> modeCells() {
 		Set<Cell> swapPositions = new HashSet<>();
 		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
@@ -110,8 +75,43 @@ public class VisionaryEagle extends AbstractPiece {
 	}
 
 	@Override
+	@Requires({ "getPosition() != null" })
+	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
+	public void movePiece(int x, int y) {
+		setPosition(x, y);
+		engine.pieceOperator().eagleCheckingHealingSharkAbility();
+	}
+
+	private void swap(Piece piece, Piece affectedPiece) {
+		try {
+			Map<String, Integer> position1 = new HashMap<String, Integer>();
+			Map<String, Integer> position2 = new HashMap<String, Integer>();
+
+			position1.putAll(piece.getPosition());
+			position2.putAll(affectedPiece.getPosition());
+
+			piece.setPosition(position2.get("x"), position2.get("y"));
+			affectedPiece.setPosition(position1.get("x"), position1.get("y"));
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
 	public String toString() {
 		return String.format("%s", "VisionaryEagle");
+	}
+
+	@Override
+	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
+		if (pieceAbility.equals(PieceAbility.SWAP)) {
+			swap(piece, affectedPiece);
+		}
+
+		else {
+			throw new IllegalArgumentException("Invalid ability");
+		}
 	}
 
 }

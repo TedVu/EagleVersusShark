@@ -29,4 +29,3 @@ public class AggressiveSharkModeController extends AbstractModeController {
 	}
 
 }
- 

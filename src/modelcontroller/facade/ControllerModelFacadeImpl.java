@@ -28,34 +28,69 @@ public class ControllerModelFacadeImpl implements ControllerModelInterface {
 	private CommandExecutor commandExecutor = new CommandExecutor();
 
 	@Override
+	public void cancelTimerPauseGame() {
+		engine.gameTurn().cancelTimerPauseGame();
+
+	}
+
+	@Override
+	public boolean checkCorrectTurnOfSelectedPiece(PieceType pieceType) {
+		return engine.pieceOperator().checkSelectPiece(pieceType);
+	}
+
+	@Override
+	public List<Piece> getActiveSharks() {
+		return engine.pieceOperator().getActiveSharks();
+	}
+
+	@Override
+	public Player getCurrentActivePlayer() {
+		return engine.gameTurn().getCurrentActivePlayer();
+	}
+
+	@Override
+	public boolean getGameCurrentlyRunning() {
+		return engine.gameTurn().getGameCurrentlyRunning();
+	}
+
+	@Override
+	public Player getInitialActivePlayer() {
+		return engine.gameTurn().getInitialPlayerActivePlayer();
+	}
+
+	@Override
+	public int getNumPiece() {
+		return engine.pieceOperator().getAllPieces().size();
+	}
+
+	@Override
+	public void setAlreadyUseUndo() {
+		engine.gameTurn().getCurrentActivePlayer().setAlreadyUndo();
+	}
+
+	@Override
+	public void setResumeGame() {
+		engine.gameTurn().setResumeGame();
+	}
+
+	@Override
+	public void setTurnStartingGame(TeamType teamType) {
+		engine.gameTurn().setActivePlayerTimer(teamType);
+	}
+
+	@Override
+	public void updateModelAfterHealingSharkUseMode(PieceType affectedPieceEnum) {
+		Piece eagle = engine.pieceOperator().getAllPieces().get(affectedPieceEnum);
+		Cell eagleRandomTopCell = engine.gameBoard().getAvailableTopEagleSideCell();
+		commandExecutor
+				.executeCommand(new MovePiece(eagleRandomTopCell.getX(), eagleRandomTopCell.getY(), eagle, true));
+	}
+
+	@Override
 	@Requires({ "pieceType!=null", "newPos!=null", "newPos.size()>0" })
 	public void updateModelAfterMovingPiece(Map<String, Integer> newPos, PieceType pieceType) {
 		Piece pieceMoved = engine.pieceOperator().getAllPieces().get(pieceType);
 		commandExecutor.executeCommand(new MovePiece(newPos.get("x"), newPos.get("y"), pieceMoved, false));
-	}
-
-	@Override
-	@Requires({ "teamName!=null" })
-	public void updateModelStateForNextTurn(TeamType teamName) {
-		if (!engine.endGame()) {
-			engine.gameTurn().cancelTimer();
-			engine.gameTurn().setActivePlayer(teamName, true);
-		}
-	}
-
-	@Override
-	public void updateModelStateSwapPiece(PieceType affectedPieceEnum) {
-		Piece affectedPiece = engine.pieceOperator().getAllPieces().get(affectedPieceEnum);
-		Piece visionaryPiece = engine.pieceOperator().getAllPieces().get(PieceType.VISIONARYEAGLE);
-		commandExecutor.executeCommand(new UseAbility(PieceAbility.SWAP, visionaryPiece, affectedPiece, false));
-
-	}
-
-	@Override
-	public void updateModelStateProtectPiece(PieceType affectedPieceEnum, PieceType pieceProtect) {
-		Piece affectedPiece = engine.pieceOperator().getAllPieces().get(affectedPieceEnum);
-		Piece leadershipPiece = engine.pieceOperator().getAllPieces().get(pieceProtect);
-		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, leadershipPiece, affectedPiece, false));
 	}
 
 	@Override
@@ -75,6 +110,15 @@ public class ControllerModelFacadeImpl implements ControllerModelInterface {
 	}
 
 	@Override
+	@Requires({ "teamName!=null" })
+	public void updateModelStateForNextTurn(TeamType teamName) {
+		if (!engine.endGame()) {
+			engine.gameTurn().cancelTimer();
+			engine.gameTurn().setActivePlayer(teamName, true);
+		}
+	}
+
+	@Override
 	public void updateModelStateHealingSharkRevive(PieceType affectedPieceEnum) {
 		Piece healingPiece = engine.pieceOperator().getAllPieces().get(PieceType.HEALINGSHARK);
 		Piece affectedPiece = engine.pieceOperator().getAllPieces().get(affectedPieceEnum);
@@ -85,61 +129,17 @@ public class ControllerModelFacadeImpl implements ControllerModelInterface {
 	}
 
 	@Override
-	public void updateModelAfterHealingSharkUseMode(PieceType affectedPieceEnum) {
-		Piece eagle = engine.pieceOperator().getAllPieces().get(affectedPieceEnum);
-		Cell eagleRandomTopCell = engine.gameBoard().getAvailableTopEagleSideCell();
-		commandExecutor
-				.executeCommand(new MovePiece(eagleRandomTopCell.getX(), eagleRandomTopCell.getY(), eagle, true));
+	public void updateModelStateProtectPiece(PieceType affectedPieceEnum, PieceType pieceProtect) {
+		Piece affectedPiece = engine.pieceOperator().getAllPieces().get(affectedPieceEnum);
+		Piece leadershipPiece = engine.pieceOperator().getAllPieces().get(pieceProtect);
+		commandExecutor.executeCommand(new UseAbility(PieceAbility.PROTECT, leadershipPiece, affectedPiece, false));
 	}
 
 	@Override
-	public boolean checkCorrectTurnOfSelectedPiece(PieceType pieceType) {
-		return engine.pieceOperator().checkSelectPiece(pieceType);
-	}
+	public void updateModelStateSwapPiece(PieceType affectedPieceEnum) {
+		Piece affectedPiece = engine.pieceOperator().getAllPieces().get(affectedPieceEnum);
+		Piece visionaryPiece = engine.pieceOperator().getAllPieces().get(PieceType.VISIONARYEAGLE);
+		commandExecutor.executeCommand(new UseAbility(PieceAbility.SWAP, visionaryPiece, affectedPiece, false));
 
-	@Override
-	public void setTurnStartingGame(TeamType teamType) {
-		engine.gameTurn().setActivePlayerTimer(teamType);
-	}
-
-	@Override
-	public Player getInitialActivePlayer() {
-		return engine.gameTurn().getInitialPlayerActivePlayer();
-	}
-
-	@Override
-	public Player getCurrentActivePlayer() {
-		return engine.gameTurn().getCurrentActivePlayer();
-	}
-
-	@Override
-	public void setAlreadyUseUndo() {
-		engine.gameTurn().getCurrentActivePlayer().setAlreadyUndo();
-	}
-
-	@Override
-	public boolean getGameCurrentlyRunning() {
-		return engine.gameTurn().getGameCurrentlyRunning();
-	}
-
-	@Override
-	public void cancelTimerPauseGame() {
-		engine.gameTurn().cancelTimerPauseGame();
-
-	}
-
-	@Override
-	public void setResumeGame() {
-		engine.gameTurn().setResumeGame();
-	}
-
-	@Override
-	public List<Piece> getActiveSharks() {
-		return engine.pieceOperator().getActiveSharks();
-	}
-
-	@Override
-	public int getNumPiece() {
-		return engine.pieceOperator().getAllPieces().size();
 	}
 }

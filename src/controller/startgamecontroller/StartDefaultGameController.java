@@ -24,6 +24,7 @@ public class StartDefaultGameController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					final AppMainFrame window = new AppMainFrame();

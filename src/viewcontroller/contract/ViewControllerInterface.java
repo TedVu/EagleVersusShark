@@ -24,16 +24,9 @@ public interface ViewControllerInterface {
 	public void addPropertyChangeListener(PropertyChangeListener listener);
 
 	/**
-	 * @param buttonClicked
-	 * @param newPos
+	 * 
 	 */
-	public void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos);
-
-	/**
-	 * @param buttonClicked
-	 * @param pieceType
-	 */
-	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType);
+	public void confirmUndoSuccessful();
 
 	/**
 	 * @param playerAction
@@ -42,14 +35,9 @@ public interface ViewControllerInterface {
 
 	/**
 	 * @param buttonClicked
+	 * @param newPos
 	 */
-	public void updateBoardAfterSwap(AbstractButton buttonClicked);
-
-	/**
-	 * @param btnClicked
-	 * @param pieceCapture
-	 */
-	public void updateBoardAfterCapture(AbstractButton btnClicked, PieceType pieceCapture);
+	public void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos);
 
 	/**
 	 * 
@@ -62,14 +50,10 @@ public interface ViewControllerInterface {
 	public void resumeGame(TeamType currentTeam);
 
 	/**
-	 * 
+	 * @param btnClicked
+	 * @param pieceCapture
 	 */
-	public void confirmUndoSuccessful();
-
-	/**
-	 * @param revivedPiece
-	 */
-	public void updateBoardReviveSharkSuccessful(PieceType revivedPiece);
+	public void updateBoardAfterCapture(AbstractButton btnClicked, PieceType pieceCapture);
 
 	/**
 	 * 
@@ -77,15 +61,26 @@ public interface ViewControllerInterface {
 	public void updateBoardAfterHealingSharkUseMode();
 
 	/**
-	 * @param abilityController
-	 * @param animalType
+	 * @param buttonClicked
+	 * @param pieceType
 	 */
-	public void updateBoardBeforeCommitAction(ActionListener abilityController, PieceType animalType);
+	public void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType);
 
 	/**
 	 * 
 	 */
 	public void updateBoardAfterProtect();
+
+	/**
+	 * @param buttonClicked
+	 */
+	public void updateBoardAfterSwap(AbstractButton buttonClicked);
+
+	/**
+	 * @param abilityController
+	 * @param animalType
+	 */
+	public void updateBoardBeforeCommitAction(ActionListener abilityController, PieceType animalType);
 
 	/**
 	 * @param msg
@@ -96,4 +91,9 @@ public interface ViewControllerInterface {
 	 * 
 	 */
 	public void updateBoardPauseGame();
+
+	/**
+	 * @param revivedPiece
+	 */
+	public void updateBoardReviveSharkSuccessful(PieceType revivedPiece);
 }

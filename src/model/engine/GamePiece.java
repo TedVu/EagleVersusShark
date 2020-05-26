@@ -61,6 +61,47 @@ public class GamePiece implements Serializable {
 	}
 
 	/**
+	 * Intention: to be used across all 3 eagles. To keep track when to give Healing
+	 * Shark the ability to heal on its turn.
+	 * 
+	 * @author Chanboth Som
+	 */
+	public void eagleCheckingHealingSharkAbility() {
+		if (this.getHealingAbilityCounter() == EAGLE_TURN)
+			incrementHealingAbilityCounter();
+		else if (this.getHealingAbilityCounter() == SHARK_TURN)
+			resetHealingAbilityCounter();
+	}
+
+	/*
+	 * @return List<Piece> all active eagles
+	 */
+	public List<Piece> getActiveEagles() {
+		activeEagles = new ArrayList<>();
+		for (Piece piece : pieces.values()) {
+			if (piece != null && piece.isActive() && (piece instanceof AttackingEagle
+					|| piece instanceof LeadershipEagle || piece instanceof VisionaryEagle)) {
+				activeEagles.add(piece);
+			}
+		}
+		return activeEagles;
+	}
+
+	/*
+	 * @return List<Piece> - all active sharks
+	 */
+	public List<Piece> getActiveSharks() {
+		activeSharks = new ArrayList<>();
+		for (Piece piece : pieces.values()) {
+			if (piece != null && piece.isActive() && (piece instanceof AggressiveShark || piece instanceof HealingShark
+					|| piece instanceof DefensiveShark)) {
+				activeSharks.add(piece);
+			}
+		}
+		return activeSharks;
+	}
+
+	/**
 	 * @return all pieces
 	 */
 	@Requires({ "pieces.size()>0" })
@@ -70,9 +111,31 @@ public class GamePiece implements Serializable {
 	}
 
 	/**
-	 * The configuration is done here 
-	 * 4 pieces - 2 side pieces of each team
-	 * 2 pieces - only middle piece of each team
+	 * Intention: to keep track of whether the HealingShark can use healing ability
+	 * or not 0 = HealingShark can perform healing ability 1 && 2 = HealingShark
+	 * unable to perform healing ability
+	 * 
+	 * @return 0 || 1 || 2
+	 * @author Chanboth Som
+	 */
+	public int getHealingAbilityCounter() {
+		return this.healingAbilityCounter;
+	}
+
+	/**
+	 * Intention: increment the counter when the HealingShark has performed a
+	 * healing ability
+	 * 
+	 * @author Chanboth Som
+	 */
+	public void incrementHealingAbilityCounter() {
+		this.healingAbilityCounter++;
+	}
+
+	/**
+	 * The configuration is done here 4 pieces - 2 side pieces of each team 2 pieces
+	 * - only middle piece of each team
+	 * 
 	 * @param numPiece
 	 */
 	public void initializePiece(int numPiece) {
@@ -112,6 +175,16 @@ public class GamePiece implements Serializable {
 
 	}
 
+	/**
+	 * Intention: reset the counter back to 0 to allow the HealingShark to perform
+	 * the ability in the future
+	 * 
+	 * @author Chanboth Som
+	 */
+	public void resetHealingAbilityCounter() {
+		this.healingAbilityCounter = DEFAULT_HEALING_SHARK;
+	}
+
 	/*
 	 * Set the selected piece status to active
 	 * 
@@ -125,79 +198,6 @@ public class GamePiece implements Serializable {
 			return false;
 		}
 		return true;
-	}
-
-	/*
-	 * @return List<Piece> - all active sharks
-	 */
-	public List<Piece> getActiveSharks() {
-		activeSharks = new ArrayList<>();
-		for (Piece piece : pieces.values()) {
-			if (piece != null && piece.isActive() && (piece instanceof AggressiveShark || piece instanceof HealingShark
-					|| piece instanceof DefensiveShark)) {
-				activeSharks.add(piece);
-			}
-		}
-		return activeSharks;
-	}
-
-	/*
-	 * @return List<Piece> all active eagles
-	 */
-	public List<Piece> getActiveEagles() {
-		activeEagles = new ArrayList<>();
-		for (Piece piece : pieces.values()) {
-			if (piece != null && piece.isActive() && (piece instanceof AttackingEagle
-					|| piece instanceof LeadershipEagle || piece instanceof VisionaryEagle)) {
-				activeEagles.add(piece);
-			}
-		}
-		return activeEagles;
-	}
-
-	/**
-	 * Intention: to keep track of whether the HealingShark can use healing ability
-	 * or not 0 = HealingShark can perform healing ability 1 && 2 = HealingShark
-	 * unable to perform healing ability
-	 * 
-	 * @return 0 || 1 || 2
-	 * @author Chanboth Som
-	 */
-	public int getHealingAbilityCounter() {
-		return this.healingAbilityCounter;
-	}
-
-	/**
-	 * Intention: increment the counter when the HealingShark has performed a
-	 * healing ability
-	 * 
-	 * @author Chanboth Som
-	 */
-	public void incrementHealingAbilityCounter() {
-		this.healingAbilityCounter++;
-	}
-
-	/**
-	 * Intention: reset the counter back to 0 to allow the HealingShark to perform
-	 * the ability in the future
-	 * 
-	 * @author Chanboth Som
-	 */
-	public void resetHealingAbilityCounter() {
-		this.healingAbilityCounter = DEFAULT_HEALING_SHARK;
-	}
-
-	/**
-	 * Intention: to be used across all 3 eagles. To keep track when to give Healing
-	 * Shark the ability to heal on its turn.
-	 * 
-	 * @author Chanboth Som
-	 */
-	public void eagleCheckingHealingSharkAbility() {
-		if (this.getHealingAbilityCounter() == EAGLE_TURN)
-			incrementHealingAbilityCounter();
-		else if (this.getHealingAbilityCounter() == SHARK_TURN)
-			resetHealingAbilityCounter();
 	}
 
 }
