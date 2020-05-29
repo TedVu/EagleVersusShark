@@ -13,7 +13,7 @@ import model.enumtype.TeamType;
 /**
  * @author ted &#38; kevin
  * 
- *         A facade or view APIs to expose methods on board view to controller
+ *         A facade or view APIs to expose methods on board view for controller
  *         to call
  */
 public interface ViewControllerInterface {

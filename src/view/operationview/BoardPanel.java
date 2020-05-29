@@ -63,8 +63,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	private Engine engine = EngineImpl.getSingletonInstance();
 
 	/**
-	 * Constructing the board panel,at the beginning, the board is a hard-coded
-	 * construction since we know exactly the beginning position of each piece
+	 * Constructing the board panel and all of the necessary components
 	 * <p>
 	 * Layout: BorderLayout.
 	 * 
@@ -150,7 +149,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			protected Void doInBackground() throws Exception {
 				JOptionPane.showMessageDialog(board, finalMsg);
 				mainFrame.dispose();
-				// is there any other way ?
+
+				// ending all threads
 				System.exit(0);
 				return null;
 

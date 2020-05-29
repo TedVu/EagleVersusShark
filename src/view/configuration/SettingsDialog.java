@@ -31,6 +31,11 @@ public class SettingsDialog extends JDialog {
 
 	private JButton applyButton;
 
+	/**
+	 * Construct settingsdialog and all of its necessary components
+	 * 
+	 * @param startGameMainFrame
+	 */
 	public SettingsDialog(StartGameMainFrame startGameMainFrame) {
 		String[] boardSize = { " 9 x 9 ", "11 x 11", "13 x 13", "15 x 15" };
 		String[] numPieces = { "   6   ", "   4   ", "   2   " };
@@ -75,15 +80,18 @@ public class SettingsDialog extends JDialog {
 
 		setModal(true);
 		setVisible(true);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 	/**
 	 * Converting human UI to machine value of board size
 	 * 
 	 * @return boardSize
+	 * @see String[] boardSize
 	 */
 	public int getBoardSizeSelection() {
 		int selectedIndex = boardSizeMenu.getSelectedIndex();
+		// board size can be 9, 11, 13, 15
 		if (selectedIndex == 0) {
 			return 9;
 		} else if (selectedIndex == 1) {
@@ -102,11 +110,12 @@ public class SettingsDialog extends JDialog {
 	/**
 	 * Converting human UI to machine value of number of piece
 	 * 
-	 * 
 	 * @return numberOfPiece
+	 * @see String[] numPieceMenu
 	 */
 	public int getPieceNumberSelection() {
 		int selectedIndex = numPieceMenu.getSelectedIndex();
+		// numPiece can be 6, 4, 2
 		if (selectedIndex == 0) {
 			return 6;
 		} else if (selectedIndex == 1) {

@@ -26,6 +26,11 @@ public class LoadGameDialog extends JDialog {
 
 	private JButton loadGameButton;
 
+	/**
+	 * Construct loadgamedialog and all of its necessary components
+	 * 
+	 * @param startFrame
+	 */
 	public LoadGameDialog(StartGameMainFrame startFrame) {
 		fileNameField = new JTextField(15);
 		loadGameButton = new JButton("Load");
@@ -50,6 +55,7 @@ public class LoadGameDialog extends JDialog {
 
 		this.setModal(true);
 		setVisible(true);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 	public String getFileNameInput() {

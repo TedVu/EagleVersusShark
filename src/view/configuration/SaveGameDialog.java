@@ -29,7 +29,7 @@ public class SaveGameDialog extends JDialog {
 	private JButton saveGameButton = new JButton("Save");
 
 	/**
-	 * Constructor initiating components in the dialog
+	 * Constructor savegamedialog all of its necessary components
 	 * 
 	 * @param viewControllerFacade
 	 */
@@ -56,6 +56,8 @@ public class SaveGameDialog extends JDialog {
 
 		setModal(true);
 		setVisible(true);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
 	}
 
 	/**
