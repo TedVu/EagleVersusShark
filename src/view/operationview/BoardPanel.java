@@ -132,6 +132,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * 
 	 * @param finalMsg
 	 */
+	@Requires({ "finalMsg!=null" })
 	public void endGame(String finalMsg) {
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
@@ -174,7 +175,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @param newPos
 	 */
 	@Requires({ "buttonClicked != null", "newPos != null" })
-	@Ensures("newPos.size()>0")
+	@Ensures({"newPos.size()>0", "buttonClicked!=null"})
 	private void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos) {
 
 		for (int row = 0; row < buttons.size(); ++row) {
@@ -213,12 +214,13 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		}
 	}
 
-	/*
+	/**
 	 * An Board API Gateway here, all events will be routed in this method
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
+	@Requires({ "evt!=null" })
 	public void propertyChange(PropertyChangeEvent evt) {
 		String event = evt.getPropertyName();
 		if (event.equalsIgnoreCase("UpdateBoardAfterMovingPiece")) {
@@ -271,6 +273,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		button.setActionCommand("NormalButton");
 	}
 
+	@Requires({ "btnClicked!=null","pieceName!=null" })
 	private void updateBoardAfterCapture(AbstractButton btnClicked, PieceType pieceName) {
 
 		for (int row = 0; row < buttons.size(); ++row) {
@@ -292,7 +295,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * 
 	 */
 	private void updateBoardAfterHealingSharkUseMode() {
-
 		for (int row = 0; row < buttons.size(); ++row) {
 			for (int col = 0; col < buttons.get(0).size(); ++col) {
 				AbstractButton btn = buttons.get(row).get(col);
@@ -313,7 +315,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			updateIcon(eagleBtn, PieceType.parsePieceType(eagle.toString()));
 		}
 		refreshBoardColorAndState();
-
 	}
 
 	/**
@@ -324,7 +325,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	private void updateBoardAfterMovingPiece(AbstractButton buttonClicked, PieceType pieceType) {
 		Map<String, Integer> oldPos = engine.pieceOperator().getAllPieces().get(pieceType).getPosition();
 		Set<Cell> validMoves = engine.pieceOperator().getAllPieces().get(pieceType).getValidMove();
-
 		buttonClicked.setActionCommand(pieceType.toString());
 		updateIconAndButtonStateAfterMovingPiece(buttonClicked, pieceType, validMoves);
 		restoreViewForOldPos(oldPos);
@@ -332,26 +332,20 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 
 	private void updateBoardAfterProtectSuccess() {
 		JOptionPane.showMessageDialog(this, "Give protection successful");
-
 		refreshBoardColorAndState();
 	}
-
+	
+	@Requires({ "buttonClicked!=null" })
 	private void updateBoardAfterSwap(AbstractButton buttonClicked) {
 		Piece visionaryEagle = engine.pieceOperator().getAllPieces().get(PieceType.VISIONARYEAGLE);
-
 		AbstractButton visionButton = buttons.get(visionaryEagle.getPosition().get("y"))
 				.get(visionaryEagle.getPosition().get("x"));
-
 		PieceType affectedPiece = PieceType.parsePieceType(buttonClicked.getActionCommand());
-
 		updateIcon(buttonClicked, PieceType.VISIONARYEAGLE);
 		updateIcon(visionButton, affectedPiece);
-
 		visionButton.setActionCommand(buttonClicked.getActionCommand());
 		buttonClicked.setActionCommand(PieceType.VISIONARYEAGLE.toString());
-
 		refreshBoardColorAndState();
-
 	}
 
 	/**
@@ -360,11 +354,10 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @param abilityController
 	 * @param pieceType
 	 */
+	@Requires({ "abilityController!=null","pieceType!=null" })
 	private void updateBoardBeforeCommitAction(ActionListener abilityController, PieceType pieceType) {
 		Piece animal = engine.pieceOperator().getAllPieces().get(pieceType);
-
 		Set<Cell> actionCells = null;
-
 		Color color = pieceType.team().color();
 		boolean isMoveAction = false;
 		boolean isAbility = false;
@@ -401,7 +394,6 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 			}
 			affectedBtn.addActionListener(abilityController);
 		}
-
 	}
 
 	/**
@@ -409,8 +401,8 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * 
 	 * @param errMsg
 	 */
+	@Requires({ "msg!=null" })
 	private void updateBoardNotiDialog(String msg) {
-
 		JOptionPane.showMessageDialog(this, msg);
 	}
 

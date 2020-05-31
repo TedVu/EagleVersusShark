@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import com.google.java.contract.Requires;
+
 import controller.playinggamecontroller.ItemChangeController;
 import controller.playinggamecontroller.MakingMovePropertyChangeListener;
 import controller.playinggamecontroller.PlayerAction;
@@ -78,13 +80,15 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 	}
 
 	@Override
+	@Requires({ "evt!=null" })
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equalsIgnoreCase("GetMode")) {
 			PlayerAction playerAction = (PlayerAction) evt.getOldValue();
 			playerAction.setPlayerAction(modeBox.getSelectedItem().toString());
 		}
 	}
-
+	
+	@Requires({ "team!=null" })
 	public void updateAvailableMode(TeamType team) {
 		if (team == TeamType.EAGLE) {
 			modeBox.removeAllItems();

@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
 
+import com.google.java.contract.Requires;
+
 import controller.playinggamecontroller.MakingMovePropertyChangeListener;
 import controller.playinggamecontroller.StartGameController;
 import model.engine.EngineImpl;
@@ -93,6 +95,7 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 	}
 
 	@Override
+	@Requires({ "evt!=null" })
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equalsIgnoreCase("UpdateBoardPauseGame")) {
 			cancelTimer();
@@ -119,7 +122,8 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 		workerThreads.add(worker);
 		worker.execute();
 	}
-
+	
+	@Requires({ "currentPlayer!=null" })
 	public void updateTurnLabel(TeamType currentPlayer) {
 		turnTextField.setText(currentPlayer.toString());
 	}
