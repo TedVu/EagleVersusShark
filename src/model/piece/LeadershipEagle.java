@@ -61,8 +61,8 @@ public class LeadershipEagle extends AbstractPiece {
 		return validCells;
 
 	}
-	
-	@Requires({ "finalMode!= null","YPos>= 0" })
+
+	@Requires({ "finalMode!= null", "YPos>= 0" })
 	private void checkAbleToLeap(Set<Cell> finalMode, int YPos) {
 		boolean leapCellOccupyStatusFront = engine.gameBoard().getCell(getPosition().get("x"), YPos).getOccupied();
 		if (leapCellOccupyStatusFront) {
@@ -148,7 +148,7 @@ public class LeadershipEagle extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({ "pieceAbility!= null","piece!= null","affectedPiece!= null" })
+	@Requires({ "pieceAbility!= null", "piece!= null", "affectedPiece!= null" })
 	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 
 		if (pieceAbility.equals(PieceAbility.PROTECT)) {

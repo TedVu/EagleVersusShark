@@ -10,7 +10,7 @@ import model.contract.Command;
  *
  */
 public class CommandExecutor {
-	
+
 	@Requires({ "command!=null" })
 	public void executeCommand(Command command) {
 		command.execute();

@@ -122,7 +122,7 @@ public class StatusPanel extends JPanel implements PropertyChangeListener {
 		workerThreads.add(worker);
 		worker.execute();
 	}
-	
+
 	@Requires({ "currentPlayer!=null" })
 	public void updateTurnLabel(TeamType currentPlayer) {
 		turnTextField.setText(currentPlayer.toString());

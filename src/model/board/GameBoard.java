@@ -102,8 +102,7 @@ public class GameBoard implements Serializable {
 			}
 		}
 	}
-	
-	
+
 	/**
 	 * Used for shark ability.
 	 * 

@@ -33,7 +33,7 @@ public class MovePiece implements Command, Serializable {
 	}
 
 	@Override
-	@Requires({ "piece!=null", "newX>=0","newY>=0" })
+	@Requires({ "piece!=null", "newX>=0", "newY>=0" })
 	public void execute() {
 		pieceCommands.movePiece(piece, newX, newY, isMode);
 		pieceCommands.addEvt(this);

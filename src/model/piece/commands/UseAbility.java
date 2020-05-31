@@ -26,7 +26,7 @@ public class UseAbility implements Command, Serializable {
 	private PieceCommands pieceCommands = engine.getPieceCommands();
 	private PieceMemento pieceMemento, affectedPieceMemento;
 	private boolean isMode;
-	
+
 	@Requires({ "pieceAbility!=null", "piece!=null", "affectedPiece!=null" })
 	public UseAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece, boolean isMode) {
 		this.affectedPiece = affectedPiece;

@@ -18,13 +18,13 @@ public class GameEngineCallbackImpl implements GameEngineCallbackInterface, Seri
 
 	private static final long serialVersionUID = 9007240281001385424L;
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-	
+
 	@Requires({ "listener!=null" })
 	@Override
 	public void addProperytChangeListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
 	}
-	
+
 	@Requires({ "teamWin!=null" })
 	@Override
 	public void endGame(TeamType teamWin) {
@@ -40,7 +40,7 @@ public class GameEngineCallbackImpl implements GameEngineCallbackInterface, Seri
 	public PropertyChangeListener[] getPropertyChangeListener() {
 		return pcs.getPropertyChangeListeners();
 	}
-	
+
 	@Requires({ "currentPlayerTurn!=null" })
 	@Override
 	public void nextMove(TeamType currentPlayerTurn) {

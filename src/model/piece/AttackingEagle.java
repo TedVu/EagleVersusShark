@@ -68,7 +68,7 @@ public class AttackingEagle extends AbstractPiece {
 		affectedPiece.setActive(false);
 
 	}
-	
+
 	@Requires({ "pieceX>=0", "pieceY>=0" })
 	private int captureDistance(int pieceX, int pieceY) {
 
@@ -89,7 +89,7 @@ public class AttackingEagle extends AbstractPiece {
 
 		return distance;
 	}
-	
+
 	@Requires({ "shark!=null" })
 	private boolean existNearbyShark(Piece shark) {
 		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
@@ -157,7 +157,7 @@ public class AttackingEagle extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({ "pieceAbility!= null","piece!= null","affectedPiece!= null" })
+	@Requires({ "pieceAbility!= null", "piece!= null", "affectedPiece!= null" })
 	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
 			capture(piece, affectedPiece);

@@ -175,7 +175,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @param newPos
 	 */
 	@Requires({ "buttonClicked != null", "newPos != null" })
-	@Ensures({"newPos.size()>0", "buttonClicked!=null"})
+	@Ensures({ "newPos.size()>0", "buttonClicked!=null" })
 	private void locateNewPos(AbstractButton buttonClicked, Map<String, Integer> newPos) {
 
 		for (int row = 0; row < buttons.size(); ++row) {
@@ -273,7 +273,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		button.setActionCommand("NormalButton");
 	}
 
-	@Requires({ "btnClicked!=null","pieceName!=null" })
+	@Requires({ "btnClicked!=null", "pieceName!=null" })
 	private void updateBoardAfterCapture(AbstractButton btnClicked, PieceType pieceName) {
 
 		for (int row = 0; row < buttons.size(); ++row) {
@@ -334,7 +334,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 		JOptionPane.showMessageDialog(this, "Give protection successful");
 		refreshBoardColorAndState();
 	}
-	
+
 	@Requires({ "buttonClicked!=null" })
 	private void updateBoardAfterSwap(AbstractButton buttonClicked) {
 		Piece visionaryEagle = engine.pieceOperator().getAllPieces().get(PieceType.VISIONARYEAGLE);
@@ -354,7 +354,7 @@ public class BoardPanel extends JPanel implements PropertyChangeListener {
 	 * @param abilityController
 	 * @param pieceType
 	 */
-	@Requires({ "abilityController!=null","pieceType!=null" })
+	@Requires({ "abilityController!=null", "pieceType!=null" })
 	private void updateBoardBeforeCommitAction(ActionListener abilityController, PieceType pieceType) {
 		Piece animal = engine.pieceOperator().getAllPieces().get(pieceType);
 		Set<Cell> actionCells = null;

@@ -18,7 +18,7 @@ public enum TeamType {
 	 * Include: AggressiveShark, DefensiveShark, HealingShark
 	 */
 	SHARK(Color.BLUE);
-	
+
 	@Requires({ "animal!=null" })
 	public static TeamType parseTeamType(String animal) {
 		TeamType team = null;

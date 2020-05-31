@@ -87,7 +87,7 @@ public class ModePanel extends JPanel implements PropertyChangeListener {
 			playerAction.setPlayerAction(modeBox.getSelectedItem().toString());
 		}
 	}
-	
+
 	@Requires({ "team!=null" })
 	public void updateAvailableMode(TeamType team) {
 		if (team == TeamType.EAGLE) {

@@ -105,7 +105,7 @@ public class DefensiveShark extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({ "pieceAbility!= null","piece!= null","affectedPiece!= null" })
+	@Requires({ "pieceAbility!= null", "piece!= null", "affectedPiece!= null" })
 	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.PROTECT)) {
 			defend(affectedPiece);

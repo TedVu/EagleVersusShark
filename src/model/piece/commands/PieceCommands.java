@@ -63,7 +63,7 @@ public class PieceCommands implements Serializable {
 		engine.gameBoard().removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 		engine.gameBoard().addPiece(prevState.getX(), prevState.getY());
 	}
-	
+
 	@Requires({ "undoNum >= 1", "teamType!=null" })
 	protected void undo(int undoNum, TeamType teamType) {
 
@@ -85,7 +85,7 @@ public class PieceCommands implements Serializable {
 			throw new RuntimeException("You already used undo");
 		}
 	}
-	
+
 	@Requires({ "pieceAbility != null", "piece!=null", "affectedPiece!=null" })
 	protected void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece, boolean isMode) {
 		if (isMode && piece instanceof AttackingEagle && piece.getModeCount() > 0) {
