@@ -63,6 +63,7 @@ public class AggressiveShark extends AbstractPiece {
 		return abilityCells;
 	}
 
+	@Requires({ "piece!=null", "affectedPiece!=null" })
 	private void capture(Piece piece, Piece affectedPiece) {
 		try {
 			Cell currentPos = engine.gameBoard().getCell(piece.getPosition().get("x"), piece.getPosition().get("y"));
@@ -147,6 +148,7 @@ public class AggressiveShark extends AbstractPiece {
 	}
 
 	@Override
+	@Requires({ "pieceAbility!=null", "piece!=null", "affectedPiece!=null" })
 	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
 			capture(piece, affectedPiece);

@@ -2,6 +2,8 @@ package model.enumtype;
 
 import java.io.File;
 
+import com.google.java.contract.Requires;
+
 /**
  * Type of all pieces according to game rules.
  * 
@@ -189,6 +191,7 @@ public enum PieceType {
 	 * @param string The input string
 	 * @return The Enum version of the String referred to.
 	 */
+	@Requires({ "string!=null" })
 	public static PieceType parsePieceType(final String string) {
 		PieceType pieceType = null;
 		if (string.equalsIgnoreCase(AGGRESSIVESHARK.toString())) {

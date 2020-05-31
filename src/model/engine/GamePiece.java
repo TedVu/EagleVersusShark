@@ -73,7 +73,7 @@ public class GamePiece implements Serializable {
 			resetHealingAbilityCounter();
 	}
 
-	/*
+	/**
 	 * @return List<Piece> all active eagles
 	 */
 	public List<Piece> getActiveEagles() {
@@ -87,7 +87,7 @@ public class GamePiece implements Serializable {
 		return activeEagles;
 	}
 
-	/*
+	/**
 	 * @return List<Piece> - all active sharks
 	 */
 	public List<Piece> getActiveSharks() {
@@ -185,7 +185,7 @@ public class GamePiece implements Serializable {
 		this.healingAbilityCounter = DEFAULT_HEALING_SHARK;
 	}
 
-	/*
+	/**
 	 * Set the selected piece status to active
 	 * 
 	 * @return boolean

@@ -2,6 +2,8 @@ package model.engine;
 
 import java.io.Serializable;
 
+import com.google.java.contract.Requires;
+
 import model.board.Cell;
 import model.board.GameBoard;
 import model.contract.Engine;
@@ -74,6 +76,7 @@ public class EngineImpl implements Engine, Serializable {
 	}
 
 	@Override
+	@Requires({ "boardSize>=0" })
 	public void configBoardSize(int boardSize, boolean hasObstacle) {
 		this.board = new GameBoard(boardSize, hasObstacle);
 	}
@@ -114,6 +117,7 @@ public class EngineImpl implements Engine, Serializable {
 	}
 
 	@Override
+	@Requires({ "e!=null" })
 	public void loadGame(EngineImpl e) {
 		board = e.gameBoard();
 		gamePiece = e.pieceOperator();

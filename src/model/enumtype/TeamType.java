@@ -2,6 +2,8 @@ package model.enumtype;
 
 import java.awt.Color;
 
+import com.google.java.contract.Requires;
+
 /**
  * @author ted &#38; kevin
  *
@@ -16,7 +18,8 @@ public enum TeamType {
 	 * Include: AggressiveShark, DefensiveShark, HealingShark
 	 */
 	SHARK(Color.BLUE);
-
+	
+	@Requires({ "animal!=null" })
 	public static TeamType parseTeamType(String animal) {
 		TeamType team = null;
 		if (animal.equalsIgnoreCase(PieceType.AGGRESSIVESHARK.toString())

@@ -52,6 +52,7 @@ public class AttackingEagle extends AbstractPiece {
 		return enemyPositions;
 	}
 
+	@Requires({ "piece!=null", "affectedPiece!=null" })
 	private void capture(Piece piece, Piece affectedPiece) {
 		if (affectedPiece.isImmune())
 			throw new IllegalArgumentException("The piece is immune");
@@ -67,7 +68,8 @@ public class AttackingEagle extends AbstractPiece {
 		affectedPiece.setActive(false);
 
 	}
-
+	
+	@Requires({ "pieceX>=0", "pieceY>=0" })
 	private int captureDistance(int pieceX, int pieceY) {
 
 		List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
@@ -87,7 +89,8 @@ public class AttackingEagle extends AbstractPiece {
 
 		return distance;
 	}
-
+	
+	@Requires({ "shark!=null" })
 	private boolean existNearbyShark(Piece shark) {
 		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
 		for (Piece otherShark : activeSharks) {
@@ -154,6 +157,7 @@ public class AttackingEagle extends AbstractPiece {
 	}
 
 	@Override
+	@Requires({ "pieceAbility!= null","piece!= null","affectedPiece!= null" })
 	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.CAPTURE)) {
 			capture(piece, affectedPiece);

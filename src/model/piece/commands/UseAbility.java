@@ -2,6 +2,8 @@ package model.piece.commands;
 
 import java.io.Serializable;
 
+import com.google.java.contract.Requires;
+
 import model.contract.Command;
 import model.contract.Engine;
 import model.contract.Piece;
@@ -24,7 +26,8 @@ public class UseAbility implements Command, Serializable {
 	private PieceCommands pieceCommands = engine.getPieceCommands();
 	private PieceMemento pieceMemento, affectedPieceMemento;
 	private boolean isMode;
-
+	
+	@Requires({ "pieceAbility!=null", "piece!=null", "affectedPiece!=null" })
 	public UseAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece, boolean isMode) {
 		this.affectedPiece = affectedPiece;
 		this.piece = piece;

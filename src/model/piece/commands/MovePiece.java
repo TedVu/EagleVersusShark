@@ -2,6 +2,8 @@ package model.piece.commands;
 
 import java.io.Serializable;
 
+import com.google.java.contract.Requires;
+
 import model.contract.Command;
 import model.contract.Engine;
 import model.contract.Piece;
@@ -31,6 +33,7 @@ public class MovePiece implements Command, Serializable {
 	}
 
 	@Override
+	@Requires({ "piece!=null", "newX>=0","newY>=0" })
 	public void execute() {
 		pieceCommands.movePiece(piece, newX, newY, isMode);
 		pieceCommands.addEvt(this);

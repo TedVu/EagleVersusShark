@@ -104,6 +104,7 @@ public class VisionaryEagle extends AbstractPiece {
 	}
 
 	@Override
+	@Requires({ "pieceAbility!= null","piece!= null","affectedPiece!= null" })
 	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.SWAP)) {
 			swap(piece, affectedPiece);
