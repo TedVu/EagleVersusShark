@@ -44,9 +44,9 @@ public class HealingShark extends AbstractPiece {
 
 	}
 
+	@Requires("affectedPiece != null")
 	private void heal(Piece affectedPiece) {
 		try {
-
 			// Move selected shark piece to its original cell (upon initialization) and set
 			// it to active
 			int initialX = 0;
@@ -90,6 +90,8 @@ public class HealingShark extends AbstractPiece {
 	}
 
 	@Override
+	@Requires("getPosition() != null")
+	@Ensures("modeCells() != null")
 	public Set<Cell> modeCells() {
 
 		Set<Cell> currentEaglePositions = new HashSet<>();
