@@ -33,6 +33,8 @@ public class VisionaryEagle extends AbstractPiece {
 	}
 
 	@Override
+	@Requires("getPosition() != null")
+	@Ensures("abilityCells() != null")
 	public Set<Cell> abilityCells() {
 		Set<Cell> swapPositions = new HashSet<>();
 		List<Piece> activeEagles = engine.pieceOperator().getActiveEagles();
@@ -53,14 +55,15 @@ public class VisionaryEagle extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({ "getPosition() != null" })
+	@Requires("getPosition() != null")
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
 		return new DiagonalDecorator(new BasicMove()).getValidMove(this, 2);
-
 	}
 
 	@Override
+	@Requires("getPosition() != null")
+	@Ensures("modeCells() != null")
 	public Set<Cell> modeCells() {
 		Set<Cell> swapPositions = new HashSet<>();
 		List<Piece> activeSharks = engine.pieceOperator().getActiveSharks();
@@ -75,13 +78,14 @@ public class VisionaryEagle extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({ "getPosition() != null" })
+	@Requires("getPosition() != null")
 	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
 	public void movePiece(int x, int y) {
 		setPosition(x, y);
 		engine.pieceOperator().eagleCheckingHealingSharkAbility();
 	}
 
+	@Requires({ "piece!=null", "affectedPiece!=null" })
 	private void swap(Piece piece, Piece affectedPiece) {
 		try {
 			Map<String, Integer> position1 = new HashMap<String, Integer>();

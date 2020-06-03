@@ -37,7 +37,7 @@ public class HealingShark extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({ "getPosition() != null" })
+	@Requires("getPosition() != null")
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
 		return new PieceMoveDecorator(new DiagonalDecorator(new BasicMove())).getValidMove(this, 1);
@@ -111,7 +111,7 @@ public class HealingShark extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({ "getPosition() != null" })
+	@Requires("getPosition() != null")
 	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
 	public void movePiece(int x, int y) {
 		setPosition(x, y);
