@@ -29,12 +29,12 @@ public interface Player {
 	public void setActive(boolean isActive);
 
 	/**
-	 * 
+	 * set whether the undo is used 
 	 */
 	public void setAlreadyUndo();
 
 	/**
-	 * @param round
+	 * increment the undo usage of the player
 	 */
 	public void undoCounter(int round);
 

@@ -53,7 +53,7 @@ public abstract class AbstractPiece implements Piece, Serializable {
 	}
 
 	@Override
-	@Requires("modeUsageCount > old modeUsageCount")
+	@Ensures({ "modeUsageCount == modeUsageCount + 1" })
 	public void modeUsed() {
 		modeUsageCount += 1;
 	}
