@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
 
-import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import controller.abstractfactory.SpecialBehaviourControllerFactory;
