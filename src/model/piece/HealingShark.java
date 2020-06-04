@@ -126,7 +126,6 @@ public class HealingShark extends AbstractPiece {
 		if (pieceAbility.equals(PieceAbility.HEAL)) {
 
 			int counter = engine.pieceOperator().getHealingAbilityCounter();
-			System.out.println(counter);
 			if (counter != 0) {
 				if (counter == 2) {
 					engine.pieceOperator().resetHealingAbilityCounter();

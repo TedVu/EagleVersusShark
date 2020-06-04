@@ -77,7 +77,7 @@ public class EngineImpl implements Engine, Serializable {
 
 	@Override
 	@Requires({ "boardSize>=0" })
-	public void configBoardSize(int boardSize, boolean hasObstacle) {
+	public void configBoard(int boardSize, boolean hasObstacle) {
 		this.board = new GameBoard(boardSize, hasObstacle);
 	}
 

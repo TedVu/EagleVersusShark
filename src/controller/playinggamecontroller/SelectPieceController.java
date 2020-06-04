@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
 
+import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import controller.abstractfactory.SpecialBehaviourControllerFactory;
@@ -84,6 +85,12 @@ public class SelectPieceController implements ActionListener {
 		}
 	}
 
+	/**
+	 * 
+	 * @param playerActionType
+	 * @param teamType
+	 */
+	@Requires({ "teamType != null", "playerActionType != null", "btnClicked != null", "viewControllerFacade != null" })
 	private void routePlayerAction(PlayerActionType playerActionType, TeamType teamType) {
 		if (playerActionType == PlayerActionType.MOVE) {
 			movePieceController = new MovePieceController(PieceType.parsePieceType(btnClicked.getActionCommand()),
@@ -100,6 +107,10 @@ public class SelectPieceController implements ActionListener {
 		}
 	}
 
+	/**
+	 * @param teamType
+	 */
+	@Requires("teamType != null")
 	private void useAbilityViewController(TeamType teamType) {
 		AbilityControllerFactory abilityFactory = SpecialBehaviourControllerFactory
 				.getSpecialBehaviourControllerFactory(teamType).createAbilityControllerFactory();
@@ -109,6 +120,7 @@ public class SelectPieceController implements ActionListener {
 		abilityController.setUpViewForAbility(PieceType.parsePieceType(btnClicked.getActionCommand()));
 	}
 
+	@Requires("teamType != null")
 	private void useModeViewController(TeamType teamType) {
 		ModeControllerFactory modeFactory = SpecialBehaviourControllerFactory
 				.getSpecialBehaviourControllerFactory(teamType).createModeControllerFactory();

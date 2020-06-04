@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.google.java.contract.Ensures;
 import com.google.java.contract.Requires;
 
 import model.board.Cell;
@@ -22,13 +21,14 @@ public class BasicMove implements PieceMovement {
 	private Set<Cell> validMoves = new HashSet<>();
 
 	/**
-	 * @param piece    - selected piece
-	 * @param distance - piece moving distance
+	 * @param piece
+	 *            - selected piece
+	 * @param distance
+	 *            - piece moving distance
 	 * 
 	 * @return the set of valid coordinate
 	 */
-	@Requires({ "piece != null", "distance == 1 || distance ==2" })
-	@Ensures("validMoves != null")
+	@Requires({ "piece!=null", "distance > 0" })
 	@Override
 	public Set<Cell> getValidMove(Piece piece, int distance) {
 		Map<String, Integer> currentPosition = piece.getPosition();
@@ -43,13 +43,14 @@ public class BasicMove implements PieceMovement {
 	}
 
 	/**
-	 * @param piece    - selected piece
-	 * @param distance - piece moving distance
+	 * @param piece
+	 *            - selected piece
+	 * @param distance
+	 *            - piece moving distance
 	 * 
 	 * @return the set of valid coordinate for east direction
 	 */
-	@Requires({ "x>=0", "y>=0", "step== 1 || step==2" })
-	@Ensures("validMoves != null")
+	@Requires({ "x>=0", "y>=0", "step > 0" })
 	private Set<Cell> validMovesEast(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
@@ -65,13 +66,14 @@ public class BasicMove implements PieceMovement {
 	}
 
 	/**
-	 * @param piece    - selected piece
-	 * @param distance - piece moving distance
+	 * @param piece
+	 *            - selected piece
+	 * @param distance
+	 *            - piece moving distance
 	 * 
 	 * @return the set of valid coordinate for north direction
 	 */
-	@Requires({ "x>=0", "y>=0", "step== 1 || step==2" })
-	@Ensures("validMoves != null")
+	@Requires({ "x>=0", "y>=0", "step > 0" })
 	private Set<Cell> validMovesNorth(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {
@@ -86,13 +88,14 @@ public class BasicMove implements PieceMovement {
 	}
 
 	/**
-	 * @param piece    - selected piece
-	 * @param distance - piece moving distance
+	 * @param piece
+	 *            - selected piece
+	 * @param distance
+	 *            - piece moving distance
 	 * 
 	 * @return the set of valid coordinate for south direction
 	 */
-	@Requires({ "x>=0", "y>=0", "step== 1 || step==2" })
-	@Ensures("validMoves != null")
+	@Requires({ "x>=0", "y>=0", "step > 0" })
 	private Set<Cell> validMovesSouth(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<Cell>();
 		for (int i = 1; i <= step; i++) {
@@ -108,13 +111,14 @@ public class BasicMove implements PieceMovement {
 	}
 
 	/**
-	 * @param piece    - selected piece
-	 * @param distance - piece moving distance
+	 * @param piece
+	 *            - selected piece
+	 * @param distance
+	 *            - piece moving distance
 	 * 
 	 * @return the set of valid coordinate for west direction
 	 */
-	@Requires({ "x>=0", "y>=0", "step== 1 || step==2" })
-	@Ensures("validMoves != null")
+	@Requires({ "x>=0", "y>=0", "step > 0" })
 	private Set<Cell> validMovesWest(int x, int y, int step) {
 		Set<Cell> validMoves = new HashSet<>();
 		for (int i = 1; i <= step; i++) {

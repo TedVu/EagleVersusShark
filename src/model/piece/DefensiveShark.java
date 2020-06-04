@@ -10,7 +10,6 @@ import com.google.java.contract.Requires;
 import model.board.Cell;
 import model.contract.Engine;
 import model.contract.Piece;
-import model.engine.EngineImpl;
 import model.enumtype.CellType;
 import model.enumtype.PieceAbility;
 import model.piece.movement.BasicMove;
@@ -49,13 +48,16 @@ public class DefensiveShark extends AbstractPiece {
 			}
 		}
 
-		surroundingEightCells.remove(EngineImpl.getSingletonInstance().gameBoard().getSharkMasterCell());
+		surroundingEightCells.remove(engine.gameBoard().getSharkMasterCell());
 		for (Cell possibleCell : surroundingEightCells) {
 			if (!possibleCell.getOccupied() && possibleCell.getY() < engine.gameBoard().getSize()
 					&& possibleCell.getY() >= 0 && possibleCell.getX() < engine.gameBoard().getSize()
 					&& possibleCell.getX() >= 0) {
 				neighbourCells.add(possibleCell);
 			}
+		}
+		if (neighbourCells.size() == 0) {
+			throw new RuntimeException("No shark alive left to use this ability");
 		}
 		return neighbourCells;
 	}
@@ -76,8 +78,7 @@ public class DefensiveShark extends AbstractPiece {
 	public Set<Cell> modeCells() {
 		Set<Cell> returnCells = new HashSet<>();
 
-		Cell currentPos = EngineImpl.getSingletonInstance().gameBoard().getCell(this.getPosition().get("x"),
-				this.getPosition().get("y"));
+		Cell currentPos = engine.gameBoard().getCell(this.getPosition().get("x"), this.getPosition().get("y"));
 
 		if (currentPos.getType() == CellType.WATER) {
 			Set<Cell> temp = new BasicMove().getValidMove(this, engine.gameBoard().getSize());
@@ -109,8 +110,8 @@ public class DefensiveShark extends AbstractPiece {
 	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece) {
 		if (pieceAbility.equals(PieceAbility.PROTECT)) {
 			defend(affectedPiece);
-			if (EngineImpl.getSingletonInstance().pieceOperator().getHealingAbilityCounter() == 2) {
-				EngineImpl.getSingletonInstance().pieceOperator().resetHealingAbilityCounter();
+			if (engine.pieceOperator().getHealingAbilityCounter() == 2) {
+				engine.pieceOperator().resetHealingAbilityCounter();
 			}
 		} else {
 			throw new IllegalArgumentException("Invalid ability");

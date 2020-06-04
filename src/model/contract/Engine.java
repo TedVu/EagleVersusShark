@@ -16,7 +16,7 @@ public interface Engine {
 	 * @param boardSize
 	 * @param hasObstacle
 	 */
-	public void configBoardSize(int boardSize, boolean hasObstacle);
+	public void configBoard(int boardSize, boolean hasObstacle);
 
 	/**
 	 * @param pieceNumberSelection

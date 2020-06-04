@@ -28,17 +28,20 @@ public class ControllerModelFacadeImpl implements ControllerModelInterface {
 	private CommandExecutor commandExecutor = new CommandExecutor();
 
 	@Override
+	@Requires({ "engine != null", "engine.gameTurn() != null" })
 	public void cancelTimerPauseGame() {
 		engine.gameTurn().cancelTimerPauseGame();
 
 	}
 
 	@Override
+	@Requires({ "engine != null", "engine.pieceOperator() != null" })
 	public boolean checkCorrectTurnOfSelectedPiece(PieceType pieceType) {
 		return engine.pieceOperator().checkSelectPiece(pieceType);
 	}
 
 	@Override
+	@Requires({ "engine != null", "engine.pieceOperator() != null" })
 	public List<Piece> getActiveSharks() {
 		return engine.pieceOperator().getActiveSharks();
 	}
@@ -59,6 +62,7 @@ public class ControllerModelFacadeImpl implements ControllerModelInterface {
 	}
 
 	@Override
+	@Requires({ "engine != null", "engine.pieceOperator() != null" })
 	public int getNumPiece() {
 		return engine.pieceOperator().getAllPieces().size();
 	}
@@ -79,6 +83,7 @@ public class ControllerModelFacadeImpl implements ControllerModelInterface {
 	}
 
 	@Override
+	@Requires({ "engine != null", "engine.pieceOperator() != null", "engine.gameBoard()!=null" })
 	public void updateModelAfterHealingSharkUseMode(PieceType affectedPieceEnum) {
 		Piece eagle = engine.pieceOperator().getAllPieces().get(affectedPieceEnum);
 		Cell eagleRandomTopCell = engine.gameBoard().getAvailableTopEagleSideCell();
@@ -94,6 +99,7 @@ public class ControllerModelFacadeImpl implements ControllerModelInterface {
 	}
 
 	@Override
+	@Requires({ "engine != null", "engine.pieceOperator() != null" })
 	public void updateModelAttackingEagleCapture(PieceType affectedPieceEnum, boolean isMode) {
 		Piece affectedPiece = engine.pieceOperator().getAllPieces().get(affectedPieceEnum);
 		Piece attackingPiece = engine.pieceOperator().getAllPieces().get(PieceType.ATTACKINGEAGLE);
@@ -102,6 +108,7 @@ public class ControllerModelFacadeImpl implements ControllerModelInterface {
 	}
 
 	@Override
+	@Requires({ "engine != null", "engine.pieceOperator() != null" })
 	public void updateModelStateAggressiveSharkCapture(PieceType affectedPieceEnum) {
 		Piece affectedPiece = engine.pieceOperator().getAllPieces().get(affectedPieceEnum);
 		Piece aggressivePiece = engine.pieceOperator().getAllPieces().get(PieceType.AGGRESSIVESHARK);
@@ -119,6 +126,7 @@ public class ControllerModelFacadeImpl implements ControllerModelInterface {
 	}
 
 	@Override
+	@Requires({ "engine != null", "engine.pieceOperator() != null" })
 	public void updateModelStateHealingSharkRevive(PieceType affectedPieceEnum) {
 		Piece healingPiece = engine.pieceOperator().getAllPieces().get(PieceType.HEALINGSHARK);
 		Piece affectedPiece = engine.pieceOperator().getAllPieces().get(affectedPieceEnum);
@@ -129,6 +137,7 @@ public class ControllerModelFacadeImpl implements ControllerModelInterface {
 	}
 
 	@Override
+	@Requires({ "engine != null", "engine.pieceOperator() != null" })
 	public void updateModelStateProtectPiece(PieceType affectedPieceEnum, PieceType pieceProtect) {
 		Piece affectedPiece = engine.pieceOperator().getAllPieces().get(affectedPieceEnum);
 		Piece leadershipPiece = engine.pieceOperator().getAllPieces().get(pieceProtect);
@@ -136,6 +145,7 @@ public class ControllerModelFacadeImpl implements ControllerModelInterface {
 	}
 
 	@Override
+	@Requires({ "engine != null", "engine.pieceOperator() != null" })
 	public void updateModelStateSwapPiece(PieceType affectedPieceEnum) {
 		Piece affectedPiece = engine.pieceOperator().getAllPieces().get(affectedPieceEnum);
 		Piece visionaryPiece = engine.pieceOperator().getAllPieces().get(PieceType.VISIONARYEAGLE);
