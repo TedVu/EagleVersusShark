@@ -28,7 +28,6 @@ public class BasicMove implements PieceMovement {
 	 * 
 	 * @return the set of valid coordinate
 	 */
-	@Requires({ "piece!=null", "distance > 0" })
 	@Override
 	public Set<Cell> getValidMove(Piece piece, int distance) {
 		Map<String, Integer> currentPosition = piece.getPosition();

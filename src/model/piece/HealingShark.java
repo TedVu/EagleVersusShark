@@ -106,7 +106,7 @@ public class HealingShark extends AbstractPiece {
 		if (currentEaglePositions.size() > 0) {
 			return currentEaglePositions;
 		} else
-			throw new IllegalArgumentException("All eagle is at the top eagle side now cannot use this mode");
+			throw new RuntimeException("All eagle is at the top eagle side now cannot use this mode");
 
 	}
 
@@ -137,7 +137,7 @@ public class HealingShark extends AbstractPiece {
 				heal(affectedPiece);
 			}
 		} else {
-			throw new IllegalArgumentException("Invalid ability");
+			throw new RuntimeException("Invalid ability");
 		}
 	}
 

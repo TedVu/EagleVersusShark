@@ -31,7 +31,6 @@ public class DiagonalDecorator extends PieceMoveDecorator {
 	 * 
 	 * @return the set of valid coordinate
 	 */
-	@Requires({ "piece != null", "distance == 1 || distance ==2" })
 	@Ensures("validMoves != null")
 	@Override
 	public Set<Cell> getValidMove(Piece piece, int distance) {

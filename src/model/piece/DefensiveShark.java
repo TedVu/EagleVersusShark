@@ -115,7 +115,7 @@ public class DefensiveShark extends AbstractPiece {
 				engine.pieceOperator().resetHealingAbilityCounter();
 			}
 		} else {
-			throw new IllegalArgumentException("Invalid ability");
+			throw new RuntimeException("Invalid ability");
 		}
 	}
 

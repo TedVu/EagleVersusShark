@@ -115,7 +115,7 @@ public class VisionaryEagle extends AbstractPiece {
 		}
 
 		else {
-			throw new IllegalArgumentException("Invalid ability");
+			throw new RuntimeException("Invalid ability");
 		}
 	}
 

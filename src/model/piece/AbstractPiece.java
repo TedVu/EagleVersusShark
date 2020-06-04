@@ -41,19 +41,16 @@ public abstract class AbstractPiece implements Piece, Serializable {
 	}
 
 	@Override
-	@Requires({ "this.isActive == true || this.isActive == false" })
 	public boolean isActive() {
 		return this.isActive;
 	}
 
 	@Override
-	@Requires({ "this.isImmune == true || this.isImmune == false" })
 	public boolean isImmune() {
 		return this.isImmune;
 	}
 
 	@Override
-	@Ensures({ "modeUsageCount == modeUsageCount + 1" })
 	public void modeUsed() {
 		modeUsageCount += 1;
 	}
