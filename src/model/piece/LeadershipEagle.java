@@ -86,6 +86,8 @@ public class LeadershipEagle extends AbstractPiece {
 	}
 
 	@Override
+	@Requires("getPosition() != null")
+	@Ensures("modeCells() != null")
 	public Set<Cell> modeCells() {
 		engine = EngineImpl.getSingletonInstance();
 		Set<Cell> finalMode = new HashSet<>();
@@ -123,6 +125,7 @@ public class LeadershipEagle extends AbstractPiece {
 		EngineImpl.getSingletonInstance().pieceOperator().eagleCheckingHealingSharkAbility();
 	}
 
+	@Requires({ "piece!=null", "affectedPiece!=null" })
 	private void protect(Piece piece, Piece affectedPiece) {
 
 		if (affectedPiece.isImmune())

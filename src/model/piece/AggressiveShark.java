@@ -138,10 +138,6 @@ public class AggressiveShark extends AbstractPiece {
 		setPosition(x, y);
 	}
 
-	public void setSecondAbilityUnlock() {
-		this.secondAbilityUnlock = true;
-	}
-
 	@Override
 	public String toString() {
 		return String.format("%s", "AggressiveShark");

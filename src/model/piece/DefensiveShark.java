@@ -64,17 +64,18 @@ public class DefensiveShark extends AbstractPiece {
 
 	private void defend(Piece targetPiece) {
 		targetPiece.setImmune(true);
-
 	}
 
 	@Override
-	@Requires({ "getPosition() != null" })
+	@Requires("getPosition() != null")
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
 		return new PieceMoveDecorator(new DiagonalDecorator(new BasicMove())).getValidMove(this, 2);
 	}
 
 	@Override
+	@Requires("getPosition() != null")
+	@Ensures("modeCells() != null")
 	public Set<Cell> modeCells() {
 		Set<Cell> returnCells = new HashSet<>();
 

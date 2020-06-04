@@ -122,6 +122,8 @@ public class AttackingEagle extends AbstractPiece {
 	}
 
 	@Override
+	@Requires("getPosition() != null")
+	@Ensures("modeCells() != null")
 	public Set<Cell> modeCells() {
 		boolean ableToUseMode = false;
 		Set<Cell> modePos = new HashSet<>();

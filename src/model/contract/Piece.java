@@ -20,7 +20,7 @@ public interface Piece {
 	public Set<Cell> abilityCells();
 
 	/**
-	 * @return
+	 * @return the mode usage number of the piece
 	 */
 	public int getModeCount();
 
@@ -42,28 +42,30 @@ public interface Piece {
 	public boolean isActive();
 
 	/**
-	 * @return
+	 * @return whether the piece is immune or not
 	 */
 	public boolean isImmune();
 
 	/**
-	 * @return
+	 * @return the cells that could be affected by the mode use
 	 */
 	public Set<Cell> modeCells();
 
 	/**
-	 * 
+	 * increment the mode usage of the piece
 	 */
 	public void modeUsed();
 
 	/**
+	 * move the position of the piece
+	 * 
 	 * @param x the new x position
 	 * @param y the new y position
 	 */
 	public void movePiece(int x, int y);
 
 	/**
-	 * @return
+	 * @return a memento obj of the piece
 	 */
 	public PieceMemento pieceMemento();
 
@@ -73,12 +75,12 @@ public interface Piece {
 	public void setActive(boolean isActive);
 
 	/**
-	 * @param isImmune
+	 * set immunity of the piece
 	 */
 	public void setImmune(boolean isImmune);
 
 	/**
-	 * @param modeCount
+	 * increment the mode count of the piece
 	 */
 	public void setModeCount(int modeCount);
 
@@ -91,9 +93,7 @@ public interface Piece {
 	public void setPosition(int x, int y);
 
 	/**
-	 * @param pieceAbility
-	 * @param piece
-	 * @param affectedPiece
+	 * executes individual abilities of the pieces
 	 */
 	public void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece);
 

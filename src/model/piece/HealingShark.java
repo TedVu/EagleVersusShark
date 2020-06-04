@@ -37,16 +37,16 @@ public class HealingShark extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({ "getPosition() != null" })
+	@Requires("getPosition() != null")
 	@Ensures("getValidMove() != null")
 	public Set<Cell> getValidMove() {
 		return new PieceMoveDecorator(new DiagonalDecorator(new BasicMove())).getValidMove(this, 1);
 
 	}
 
+	@Requires("affectedPiece != null")
 	private void heal(Piece affectedPiece) {
 		try {
-
 			// Move selected shark piece to its original cell (upon initialization) and set
 			// it to active
 			int initialX = 0;
@@ -90,6 +90,8 @@ public class HealingShark extends AbstractPiece {
 	}
 
 	@Override
+	@Requires("getPosition() != null")
+	@Ensures("modeCells() != null")
 	public Set<Cell> modeCells() {
 
 		Set<Cell> currentEaglePositions = new HashSet<>();
@@ -109,7 +111,7 @@ public class HealingShark extends AbstractPiece {
 	}
 
 	@Override
-	@Requires({ "getPosition() != null" })
+	@Requires("getPosition() != null")
 	@Ensures("getPosition().get(\"x\") == x && getPosition().get(\"y\") == y")
 	public void movePiece(int x, int y) {
 		setPosition(x, y);

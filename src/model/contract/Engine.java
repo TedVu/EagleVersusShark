@@ -13,43 +13,42 @@ import model.player.GameTurn;
 public interface Engine {
 
 	/**
-	 * @param boardSize
-	 * @param hasObstacle
+	 * board size configuration based on user's preference
 	 */
 	public void configBoard(int boardSize, boolean hasObstacle);
 
 	/**
-	 * @param pieceNumberSelection
+	 * number of piece configuration based on user's preference
 	 */
 	public void configNumPiece(int pieceNumberSelection);
 
 	/**
-	 * @return
+	 * end the current gameplay
 	 */
 	public boolean endGame();
 
 	/**
-	 * @return
+	 * @return the object that do board related operations
 	 */
 	public GameBoard gameBoard();
 
 	/**
-	 * @return
+	 * @return the object that controls game turn and player
 	 */
 	public GameTurn gameTurn();
 
 	/**
-	 * @return
+	 * @return the object that contains the command operations of the piece
 	 */
 	public PieceCommands getPieceCommands();
 
 	/**
-	 * @param e
+	 * load the chosen saved gameplay
 	 */
 	public void loadGame(EngineImpl e);
 
 	/**
-	 * @return
+	 * @return the object that controls piece related operations
 	 */
 	public GamePiece pieceOperator();
 
