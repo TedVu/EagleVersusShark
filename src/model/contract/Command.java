@@ -6,12 +6,12 @@ package model.contract;
 public interface Command {
 
 	/**
-	 *  call methods from PieceCommands to be executed
+	 * call methods from PieceCommands to be executed
 	 */
 	public void execute();
 
 	/**
-	 *  do operation to undo the impact of execute()
+	 * do operation to undo the impact of execute()
 	 */
 	public void undo();
 

@@ -14,10 +14,8 @@ import model.board.Cell;
 public interface PieceMovement {
 
 	/**
-	 * @param piece
-	 *            selected piece
-	 * @param distance
-	 *            piece moving distance
+	 * @param piece    selected piece
+	 * @param distance piece moving distance
 	 * 
 	 * @return the set of valid coordinate
 	 */

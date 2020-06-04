@@ -51,7 +51,7 @@ public class DiagonalDecorator extends PieceMoveDecorator {
 
 	/**
 	 * @param pieceselected piece
-	 * @param distance piece moving distance
+	 * @param distance      piece moving distance
 	 * 
 	 * @return the set of valid coordinate for north east direction
 	 */

@@ -52,12 +52,12 @@ public class PieceCommands implements Serializable {
 		if (isMode)
 			piece.modeUsed();
 	}
-	
+
 	/**
 	 * Recover the previous state of a piece
 	 * 
-	 * @param piece - the piece to be reset
-	 * @param  prevState - previous state of the piece
+	 * @param piece     - the piece to be reset
+	 * @param prevState - previous state of the piece
 	 */
 	@Requires({ "piece != null", "prevState!=null" })
 	protected void replacePieceVersion(Piece piece, PieceMemento prevState) {
@@ -69,12 +69,12 @@ public class PieceCommands implements Serializable {
 		engine.gameBoard().removePiece(piece.getPosition().get("x"), piece.getPosition().get("y"));
 		engine.gameBoard().addPiece(prevState.getX(), prevState.getY());
 	}
-	
+
 	/**
 	 * Undo prev move/ability use
 	 * 
-	 * @param undoNum - the number of times to undo
-	 * @param  teamType - the team that uses undo
+	 * @param undoNum  - the number of times to undo
+	 * @param teamType - the team that uses undo
 	 */
 	@Requires({ "undoNum >= 1", "teamType!=null" })
 	protected void undo(int undoNum, TeamType teamType) {
@@ -97,14 +97,14 @@ public class PieceCommands implements Serializable {
 			throw new RuntimeException("You already used undo");
 		}
 	}
-	
+
 	/**
 	 * use the individual ability of the piece
 	 * 
-	 * @param pieceAbility - ability name
-	 * @param  piece - the chosen piece
+	 * @param pieceAbility  - ability name
+	 * @param piece         - the chosen piece
 	 * @param affectedPiece - the piece that will be affected by this ability
-	 * @param isMode - is this mode or ability usage
+	 * @param isMode        - is this mode or ability usage
 	 */
 	@Requires({ "pieceAbility != null", "piece!=null", "affectedPiece!=null" })
 	protected void useAbility(PieceAbility pieceAbility, Piece piece, Piece affectedPiece, boolean isMode) {

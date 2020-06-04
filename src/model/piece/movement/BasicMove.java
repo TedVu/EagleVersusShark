@@ -21,10 +21,8 @@ public class BasicMove implements PieceMovement {
 	private Set<Cell> validMoves = new HashSet<>();
 
 	/**
-	 * @param piece
-	 *            - selected piece
-	 * @param distance
-	 *            - piece moving distance
+	 * @param piece    - selected piece
+	 * @param distance - piece moving distance
 	 * 
 	 * @return the set of valid coordinate
 	 */
@@ -42,10 +40,8 @@ public class BasicMove implements PieceMovement {
 	}
 
 	/**
-	 * @param piece
-	 *            - selected piece
-	 * @param distance
-	 *            - piece moving distance
+	 * @param piece    - selected piece
+	 * @param distance - piece moving distance
 	 * 
 	 * @return the set of valid coordinate for east direction
 	 */
@@ -65,10 +61,8 @@ public class BasicMove implements PieceMovement {
 	}
 
 	/**
-	 * @param piece
-	 *            - selected piece
-	 * @param distance
-	 *            - piece moving distance
+	 * @param piece    - selected piece
+	 * @param distance - piece moving distance
 	 * 
 	 * @return the set of valid coordinate for north direction
 	 */
@@ -87,10 +81,8 @@ public class BasicMove implements PieceMovement {
 	}
 
 	/**
-	 * @param piece
-	 *            - selected piece
-	 * @param distance
-	 *            - piece moving distance
+	 * @param piece    - selected piece
+	 * @param distance - piece moving distance
 	 * 
 	 * @return the set of valid coordinate for south direction
 	 */
@@ -110,10 +102,8 @@ public class BasicMove implements PieceMovement {
 	}
 
 	/**
-	 * @param piece
-	 *            - selected piece
-	 * @param distance
-	 *            - piece moving distance
+	 * @param piece    - selected piece
+	 * @param distance - piece moving distance
 	 * 
 	 * @return the set of valid coordinate for west direction
 	 */

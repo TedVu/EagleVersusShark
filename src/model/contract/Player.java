@@ -29,7 +29,7 @@ public interface Player {
 	public void setActive(boolean isActive);
 
 	/**
-	 * set whether the undo is used 
+	 * set whether the undo is used
 	 */
 	public void setAlreadyUndo();
 
