@@ -11,18 +11,37 @@ RMIT - OOSD Semester 1 2020
 - [Chanboth Som](https://github.com/ferics)
 
 ## Project Brief
-Eagles Versus Shark is a two dimensional, turn based board game that is subject to the functional and non-functional requirements, and design constraints listed below.
-### 1. Game rules
+Eagle versus Shark is a turn-basedboardgamewhichinvolvestwoteams:Eagle(in yellow)and Shark(in blue). Each team will have 3types of pieces withdifferent capabilities and movingstyle.The boardgame result is determined when either team achieves the game objective. 
 
-# Draft Board Design 
+### 1. Game Objectives
 
-<img width="408" alt="boardimg" src="https://user-images.githubusercontent.com/36873497/77842369-ff687100-71dc-11ea-9e3c-9c96752f5c3b.png">
+Both teams have the same objectives which are occupying the master cell of the opponent team or capturing ALL the opponent pieces. In order to win, at least one of the condition must be satisfied:  
+  1. At least one of your pieces enters the opponent master cell   
+  2. Capturing ALL pieces of the opponent team.  
 
-# Design for View-Controller
-1. Apply Bridge + DAO for Persistence
-2. Apply Observer Pattern
-3. Factory for Board
-4. Apply some patterns for cell (focus on structural including composite or decorator) / put color as an attribute in cell
+### 2. Board Description
 
+A standard board is a square board consisting of 81 cells with 9 rows and 9 columns. There are some special cells (not implemented in Assignment 1 yet) on the board such as the master cells (in red) and water cells (in blue).
 
+### 3. Game Rules
 
+Game rules can be found in these following documents: 
+
+https://www.dropbox.com/s/5r3jq9bcxivpqsy/OOSD-GameRulesWrittenDescription.pdf?dl=0
+
+https://www.dropbox.com/s/jtihqh6it3v6zwx/Brief%20Documentation.pdf?dl=0
+
+# UI Board
+
+![EagleVersusShark](https://user-images.githubusercontent.com/36873497/87367401-344ad900-c5be-11ea-9184-9e917396617e.png)
+
+# Design Patterns
+
+The project has been implemented with the use of 7 design patterns:
+1. Singleton
+2. Factory
+3. Abstract Factory
+4. Memento
+5. Decorator
+6. Facade
+7. Command
