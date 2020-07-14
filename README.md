@@ -11,7 +11,7 @@ RMIT - OOSD Semester 1 2020
 - [Chanboth Som](https://github.com/ferics)
 
 ## Project Brief
-Eagle versus Shark is a turn-basedboardgamewhichinvolvestwoteams:Eagle(in yellow)and Shark(in blue). Each team will have 3 types of pieces with different capabilities and moving style.The boardgame result is determined when either team achieves the game objective. 
+Eagle versus Shark is a turn-based board game which involves two teams:Eagle(in yellow)and Shark(in blue). Each team will have 3 types of pieces with different capabilities and moving style.The boardgame result is determined when either team achieves the game objective. 
 
 ### 1. Game Objectives
 
